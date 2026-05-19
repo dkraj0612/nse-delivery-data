@@ -1,0 +1,27 @@
+name: Train Stock Breakout Model
+
+on:
+  workflow_dispatch: # Allows you to press a button and train whenever you want
+  schedule:
+    - cron: '0 0 * * 6' # Automatically trains every Saturday at midnight UTC
+
+jobs:
+  build-and-train:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository Code
+      uses: actions/checkout@v4
+
+    - name: Initialize Python Environment
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Install Data Science Libraries
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Train LightGBM Breakout Model
+      run: python train_breakout_model.py
