@@ -1,0 +1,101 @@
+# .github/workflows/daily_delivery.yml
+# ================================================================
+#  NSE Security Deliverable Data — Daily Auto-Downloader
+#
+#  Schedule : Every weekday (Mon–Fri) at 6:30 PM IST (13:00 UTC)
+#  Action   : Runs delivery_downloader.py and commits the new CSV
+#             back into the repository automatically.
+# ================================================================
+
+name: Daily NSE Delivery Data Download
+
+on:
+  # ── Scheduled trigger ─────────────────────────────────────
+  # GitHub cron uses UTC.
+  # 6:30 PM IST  =  13:00 UTC   (IST is UTC + 5:30)
+  # Mon-Fri only  →  day-of-week field  "1-5"
+  schedule:
+    - cron: "0 13 * * 1-5"
+
+  # ── Manual trigger (for testing any time) ─────────────────
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: "Optional reason for manual run"
+        required: false
+        default: "Manual test run"
+
+# ── Permissions: need 'write' to commit files back ────────────
+permissions:
+  contents: write
+
+jobs:
+  download-delivery-data:
+    name: Download & Commit NSE Delivery Data
+    runs-on: ubuntu-latest
+
+    steps:
+      # ── 1. Check out the full repository ──────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0          # full history keeps git push clean
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # ── 2. Set up Python 3.11 ─────────────────────────────
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"            # cache pip between runs → faster startup
+
+      # ── 3. Install dependencies ───────────────────────────
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests pandas
+
+      # ── 4. Run the downloader ─────────────────────────────
+      - name: Download NSE Delivery Data
+        id: download
+        run: python delivery_downloader.py
+
+      # ── 5. Commit & push the new CSV ──────────────────────
+      #
+      #  Logic:
+      #   • git add  NSE_Delivery_Data/  (stage new/changed files)
+      #   • If nothing changed → print message, skip commit
+      #   • If new file exists → commit with today's date in message
+      #
+      #  The commit message contains [skip ci] so this push does
+      #  NOT trigger another workflow run (prevents infinite loops).
+      - name: Commit downloaded data to repository
+        run: |
+          git config --global user.name  "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Stage everything inside NSE_Delivery_Data/
+          git add NSE_Delivery_Data/
+
+          # Also stage the log file so you can review it in the repo
+          git add delivery_download.log || true
+
+          if git diff --cached --quiet; then
+            echo "ℹ️  Nothing new to commit — market may be closed or file already exists."
+          else
+            TODAY=$(date -u +"%Y-%m-%d")
+            git commit -m "data: NSE delivery data for ${TODAY} [skip ci]"
+            git push
+            echo "✅  Committed and pushed successfully."
+          fi
+
+      # ── 6. Upload as a workflow artifact (optional) ────────
+      #  Lets you download the CSV directly from the Actions tab
+      #  without browsing to the repository files.
+      - name: Upload CSV as workflow artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nse-delivery-data-${{ github.run_id }}
+          path: NSE_Delivery_Data/
+          retention-days: 14        # available for 14 days in Actions UI
