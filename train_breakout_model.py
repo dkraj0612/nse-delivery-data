@@ -27,7 +27,6 @@ def extract_date_from_filename(filename):
 def load_and_clean_data(folder_path):
     """Gathers all nested daily full bhav files across Year/Month sub-folders."""
     print("Scanning nested folder structures for 2023 CSV files...")
-    # This matching pattern recursive-scans all folders underneath the root path
     all_files = glob.glob(os.path.join(folder_path, "**/*.csv"), recursive=True)
     
     if not all_files:
@@ -45,7 +44,6 @@ def load_and_clean_data(folder_path):
             if 'DATE' in df.columns:
                 df['DATE'] = pd.to_datetime(df['DATE'], errors='coerce')
             else:
-                # If the column is missing or broken, extract it straight from the filename
                 file_date = extract_date_from_filename(os.path.basename(file))
                 if file_date:
                     df['DATE'] = file_date
@@ -54,16 +52,25 @@ def load_and_clean_data(folder_path):
                     
             data_frames.append(df)
         except Exception as e:
-            # Skip corrupted or completely unreadable log anomalies safely
             continue
             
     if not data_frames:
         raise ValueError("Could not parse any valid text or date structures from files.")
         
     df_merged = pd.concat(data_frames, ignore_index=True)
-    
-    # Drop any records that failed timeline identification parsing
     df_merged = df_merged.dropna(subset=['DATE'])
+    
+    # ── THE CORE FIX: Force string objects into actual numeric types ──
+    print("Converting text columns to numeric datatypes...")
+    numeric_cols = ['DELIV_QTY', 'DELIV_PER', 'CLOSE_PRICE', 'TURNOVER_LACS', 'TTL_TRD_QTY']
+    for col in numeric_cols:
+        if col in df_merged.columns:
+            # errors='coerce' turns text artifacts like '-' or ' ' into NaN automatically
+            df_merged[col] = pd.to_numeric(df_merged[col], errors='coerce')
+            
+    # Fill any broken rows or missing records cleanly
+    df_merged['DELIV_QTY'] = df_merged['DELIV_QTY'].fillna(0)
+    df_merged['DELIV_PER'] = df_merged['DELIV_PER'].fillna(0)
     
     # CRITICAL: Sort chronologically by Symbol and Date so rolling math applies correctly
     df_merged = df_merged.sort_values(by=['SYMBOL', 'DATE']).reset_index(drop=True)
@@ -88,7 +95,6 @@ def engineer_features_and_targets(df):
     df['TURNOVER_SPIKE'] = df['TURNOVER_LACS'] / (df['TOTAL_TURNOVER_5MA'] + 1e-5)
 
     # CREATE TARGET (Look-forward 5 days)
-    # Find the maximum closing price achieved over the next 5 trading sessions
     df['FUTURE_MAX_CLOSE_5D'] = df.groupby('SYMBOL')['CLOSE_PRICE'].transform(lambda x: x.shift(-5).rolling(5).max())
     
     # Target = 1 if stock achieves a >= 5% breakout over today's close price within next week
@@ -116,7 +122,6 @@ def train_breakout_model(df):
     print(f"Testing set size: {X_test.shape[0]} rows")
     print(f"Base Breakout Rate in Test Set: {y_test.mean()*100:.2f}%")
     
-    # Hyperparameters tuned for unbalanced time-series market datasets
     params = {
         'objective': 'binary',
         'metric': 'auc',
@@ -141,7 +146,6 @@ def train_breakout_model(df):
         callbacks=[lgb.early_stopping(stopping_rounds=30, verbose=False)]
     )
     
-    # Performance Evaluation
     preds_proba = model.predict(X_test)
     preds_binary = (preds_proba >= 0.5).astype(int)
     
@@ -161,8 +165,6 @@ def train_breakout_model(df):
     return model
 
 if __name__ == "__main__":
-    # Point this path straight to the top level root folder. 
-    # The script automatically tunnels past '2023', '01_Jan', etc. 
     DATA_PATH = "./HistoricalBhavCopy/NSE"
     
     try:
