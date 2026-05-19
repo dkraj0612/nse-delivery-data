@@ -14,3 +14,16 @@
 2026-05-19 12:40:01  INFO      ==============================================================
 2026-05-19 12:40:01  INFO      ✅  Download complete for 2026-05-19
 2026-05-19 12:40:01  INFO      ==============================================================
+2026-05-19 16:13:38  INFO      ==============================================================
+2026-05-19 16:13:38  INFO      NSE Security Deliverable Data Downloader
+2026-05-19 16:13:38  INFO        Target date  : 2026-05-19 (Tuesday)
+2026-05-19 16:13:38  INFO        Output folder: /home/runner/work/nse-delivery-data/nse-delivery-data/NSE_Delivery_Data
+2026-05-19 16:13:38  INFO      ==============================================================
+2026-05-19 16:13:38  INFO      Handshake → NSE homepage (https://www.nseindia.com)
+2026-05-19 16:13:38  WARNING     Handshake step failed (NSE homepage): 403 Client Error: Forbidden for url: https://www.nseindia.com/ — continuing anyway.
+2026-05-19 16:13:38  INFO      Handshake → Market data page (https://www.nseindia.com/market-data/all-reports)
+2026-05-19 16:13:38  WARNING     Handshake step failed (Market data page): 404 Client Error: Not Found for url: https://www.nseindia.com/market-data/all-reports — continuing anyway.
+2026-05-19 16:13:42  INFO        [SKIP]  sec_bhavdata_full_19052026.csv already exists on disk.
+2026-05-19 16:13:42  INFO      ==============================================================
+2026-05-19 16:13:42  INFO      ✅  Download complete for 2026-05-19
+2026-05-19 16:13:42  INFO      ==============================================================
