@@ -2,7 +2,7 @@
 nse_historical_bhav.py
 ======================
 Downloads historical NSE Equity Full Bhav Copy (containing end-of-day Delivery Data)
-CSV files for any user-specified date range.
+CSV files for any user-specified date range with an organized Year/Month folder structure.
 
 Usage
 -----
@@ -127,10 +127,18 @@ def nse_url(d: date) -> str:
 
 
 def output_csv_path(d: date, root: str) -> Path:
-    """Target path: <root>/<YYYY>/sec_bhavdata_full_DDMMYYYY.csv"""
-    year_dir = Path(root) / str(d.year)
-    year_dir.mkdir(parents=True, exist_ok=True)
-    return year_dir / nse_csv_filename(d)
+    """
+    Target path: <root>/<YYYY>/<MM_Month>/sec_bhavdata_full_DDMMYYYY.csv
+    Example: ./HistoricalBhavCopy/NSE/2023/05_May/sec_bhavdata_full_15052023.csv
+    """
+    # Create month string like '01_Jan', '02_Feb', etc. to keep folders ordered chronologically
+    month_str = f"{d.strftime('%m')}_{d.strftime('%b')}"
+    
+    # Chain directories together: Root -> Year -> Month
+    target_dir = Path(root) / str(d.year) / month_str
+    target_dir.mkdir(parents=True, exist_ok=True)
+    
+    return target_dir / nse_csv_filename(d)
 
 
 # ─────────────────────────────────────────────────────────────
@@ -177,7 +185,7 @@ def download_day(session: requests.Session, d: date, output_root: str) -> str:
 
     csv_content = resp.content
 
-    # Sanity check: if NSE blocks or breaks, it returns a tiny HTML error page instead of raw CSV bytes
+    # Sanity check: ensure payload isn't a blocked HTML landing page
     if b"html" in csv_content[:200].lower() or len(csv_content) < 1000:
         log.error("  [ERROR]     Received invalid non-CSV or empty payload for %s", d)
         return DownloadResult.ERROR
