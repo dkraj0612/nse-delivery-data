@@ -31,7 +31,7 @@ jobs:
 
     # 4. Execute your actual script
     - name: Run Bhav Copy Downloader
-      run: python bhavcopy_downloader.py
+      run: python nse_historical_bhav.py
 
     # 5. Commit and save downloaded zip/csv files back into your GitHub Repo
     - name: Commit and Push Downloaded Files
