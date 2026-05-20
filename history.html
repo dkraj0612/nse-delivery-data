@@ -1,0 +1,6455 @@
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Quant Fund - Backtest Ledger</title>
+            <style>
+                body { background-color: #121212; color: #e0e0e0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 20px; }
+                h2 { color: #ffffff; }
+                .btn { display: inline-block; padding: 10px 15px; background-color: #333; color: #fff; text-decoration: none; border-radius: 5px; margin-bottom: 20px; }
+                table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 10px; }
+                th, td { padding: 12px; border-bottom: 1px solid #333; text-align: left; }
+                th { background-color: #1e1e1e; color: #bb86fc; position: sticky; top: 0; }
+                tr:hover { background-color: #1a1a1a; }
+            </style>
+        </head>
+        <body>
+            <a href="index.html" class="btn">⬅ Back to Live Dashboard</a>
+            <a href="backtest_portfolio_history.csv" class="btn" style="background-color: #1e88e5;">⬇️ Download Raw CSV</a>
+            <h2>Master Backtest Ledger</h2>
+            <div style="overflow-x:auto;">
+                <table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>DATE</th>
+      <th>SYMBOL</th>
+      <th>ACTION</th>
+      <th>ENGINE</th>
+      <th>PRICE</th>
+      <th>JUSTIFICATION</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2023-05-31</td>
+      <td>CHOLAFIN</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1050.9</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-05-31</td>
+      <td>CHOLAFIN</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1001.0</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-05-31</td>
+      <td>CHOLAFIN</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1004.0</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-06-30</td>
+      <td>CHOLAFIN</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2023-06-30</td>
+      <td>ABB</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>4423.0</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-06-30</td>
+      <td>ABB</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>4423.0</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-06-30</td>
+      <td>GODREJPROP</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1568.45</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-06-30</td>
+      <td>ACE</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>490.1</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-06-30</td>
+      <td>NAZARA</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>724.6</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-06-30</td>
+      <td>NAZARA</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>724.6</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-06-30</td>
+      <td>DLF</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>490.55</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-06-30</td>
+      <td>DLF</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>490.55</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-06-30</td>
+      <td>JINDALSAW</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>255.9</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-06-30</td>
+      <td>JINDALSAW</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>255.9</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-06-30</td>
+      <td>KAYNES</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1505.4</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-06-30</td>
+      <td>KAYNES</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1505.4</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-06-30</td>
+      <td>FORCEMOT</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2733.85</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-06-30</td>
+      <td>FORCEMOT</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2733.85</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-06-30</td>
+      <td>JWL</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>173.8</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-06-30</td>
+      <td>JWL</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>173.8</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-06-30</td>
+      <td>APARINDS</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>3470.05</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-06-30</td>
+      <td>APARINDS</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>3470.05</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-07-31</td>
+      <td>FORCEMOT</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2023-07-31</td>
+      <td>DLF</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2023-07-31</td>
+      <td>KAYNES</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2023-07-31</td>
+      <td>APARINDS</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2023-07-31</td>
+      <td>NAZARA</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2023-07-31</td>
+      <td>GODREJPROP</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2023-07-31</td>
+      <td>JWL</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2023-07-31</td>
+      <td>ACE</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>721.55</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-07-31</td>
+      <td>ABB</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>4552.8</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-07-31</td>
+      <td>ABB</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>4552.8</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-07-31</td>
+      <td>KEC</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>633.85</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-07-31</td>
+      <td>KEC</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>633.85</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-07-31</td>
+      <td>BAJAJ-AUTO</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>4931.4</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-07-31</td>
+      <td>BAJAJ-AUTO</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>4931.4</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-07-31</td>
+      <td>LT</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>2681.35</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-07-31</td>
+      <td>BALKRISIND</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>2542.35</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-07-31</td>
+      <td>ZENTEC</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>617.65</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-07-31</td>
+      <td>ZENTEC</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>617.65</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-07-31</td>
+      <td>INOXWIND</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>211.55</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-07-31</td>
+      <td>INOXWIND</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>211.55</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-07-31</td>
+      <td>JINDALSAW</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>324.35</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-07-31</td>
+      <td>JINDALSAW</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>324.35</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-07-31</td>
+      <td>OLECTRA</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1150.15</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-07-31</td>
+      <td>OLECTRA</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1150.15</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-07-31</td>
+      <td>RKFORGE</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>562.85</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-07-31</td>
+      <td>RKFORGE</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>562.85</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-08-31</td>
+      <td>ACE</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2023-08-31</td>
+      <td>LT</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2023-08-31</td>
+      <td>OLECTRA</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2023-08-31</td>
+      <td>INOXWIND</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2023-08-31</td>
+      <td>JINDALSAW</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2023-08-31</td>
+      <td>BAJAJ-AUTO</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2023-08-31</td>
+      <td>BALKRISIND</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2023-08-31</td>
+      <td>ZENTEC</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2023-08-31</td>
+      <td>DBREALTY</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>151.2</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-08-31</td>
+      <td>ANANTRAJ</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>219.5</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-08-31</td>
+      <td>ANANTRAJ</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>219.5</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-08-31</td>
+      <td>ENGINERSIN</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>154.3</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-08-31</td>
+      <td>AIAENG</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>3695.15</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-08-31</td>
+      <td>KEC</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>671.45</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-08-31</td>
+      <td>KEC</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>671.45</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-08-31</td>
+      <td>ABB</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>4381.55</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-08-31</td>
+      <td>ABB</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>4381.55</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-08-31</td>
+      <td>JWL</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>343.35</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-08-31</td>
+      <td>JWL</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>343.35</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-08-31</td>
+      <td>TEXRAIL</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>145.8</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-08-31</td>
+      <td>TEXRAIL</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>145.8</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-08-31</td>
+      <td>RKFORGE</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>713.3</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-08-31</td>
+      <td>RKFORGE</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>713.3</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-08-31</td>
+      <td>KALYANKJIL</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>251.8</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-08-31</td>
+      <td>ELECON</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>883.0</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-08-31</td>
+      <td>ELECON</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>883.0</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-08-31</td>
+      <td>KALYANKJIL</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>251.8</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-09-29</td>
+      <td>ABB</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2023-09-29</td>
+      <td>ELECON</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2023-09-29</td>
+      <td>KALYANKJIL</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2023-09-29</td>
+      <td>AIAENG</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2023-09-29</td>
+      <td>KEC</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2023-09-29</td>
+      <td>TEXRAIL</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2023-09-29</td>
+      <td>ENGINERSIN</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2023-09-29</td>
+      <td>RKFORGE</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2023-09-29</td>
+      <td>DBREALTY</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>162.3</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-09-29</td>
+      <td>GOKEX</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>759.55</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-09-29</td>
+      <td>GOKEX</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>759.55</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-09-29</td>
+      <td>GOKEX</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>759.55</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-09-29</td>
+      <td>ANANTRAJ</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>219.6</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-09-29</td>
+      <td>ANANTRAJ</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>219.6</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-09-29</td>
+      <td>ADANIGREEN</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>987.15</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-09-29</td>
+      <td>ADANIGREEN</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>987.15</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-09-29</td>
+      <td>ADANIGREEN</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>987.15</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-09-29</td>
+      <td>JWL</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>327.25</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-09-29</td>
+      <td>JWL</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>327.25</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-09-29</td>
+      <td>JWL</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>327.25</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-09-29</td>
+      <td>JWL</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>327.25</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-09-29</td>
+      <td>HSCL</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>243.4</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-09-29</td>
+      <td>HSCL</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>243.4</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-09-29</td>
+      <td>HSCL</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>243.4</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-09-29</td>
+      <td>HSCL</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>243.4</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-09-29</td>
+      <td>BSE</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1297.95</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-09-29</td>
+      <td>BSE</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1297.95</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-10-31</td>
+      <td>BSE</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2023-10-31</td>
+      <td>ADANIGREEN</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2023-10-31</td>
+      <td>JWL</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2023-10-31</td>
+      <td>DBREALTY</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>171.0</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-10-31</td>
+      <td>GOKEX</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>834.95</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-10-31</td>
+      <td>GOKEX</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>834.95</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-10-31</td>
+      <td>ICIL</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>284.6</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-10-31</td>
+      <td>ANANTRAJ</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>242.9</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-10-31</td>
+      <td>ANANTRAJ</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>242.9</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-10-31</td>
+      <td>AMBER</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>2934.2</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-10-31</td>
+      <td>AMBER</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>2934.2</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-10-31</td>
+      <td>ASIANPAINT</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>2995.7</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-10-31</td>
+      <td>SKYGOLD</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>754.3</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-10-31</td>
+      <td>SKYGOLD</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>754.3</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-10-31</td>
+      <td>JINDALSAW</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>442.9</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-10-31</td>
+      <td>JINDALSAW</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>442.9</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-10-31</td>
+      <td>KAYNES</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2383.4</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-10-31</td>
+      <td>KAYNES</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2383.4</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-10-31</td>
+      <td>KALYANKJIL</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>288.7</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-10-31</td>
+      <td>KALYANKJIL</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>288.7</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-10-31</td>
+      <td>HSCL</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>238.75</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-10-31</td>
+      <td>HSCL</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>238.75</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-11-30</td>
+      <td>AMBER</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2023-11-30</td>
+      <td>ICIL</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2023-11-30</td>
+      <td>JINDALSAW</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2023-11-30</td>
+      <td>HSCL</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2023-11-30</td>
+      <td>KAYNES</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2023-11-30</td>
+      <td>SKYGOLD</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2023-11-30</td>
+      <td>ASIANPAINT</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2023-11-30</td>
+      <td>GOKEX</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>980.4</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-11-30</td>
+      <td>GOKEX</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>980.4</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-11-30</td>
+      <td>ANANTRAJ</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>268.35</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-11-30</td>
+      <td>ARVIND</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>226.05</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-11-30</td>
+      <td>ADANIPOWER</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>431.5</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-11-30</td>
+      <td>BRIGADE</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>816.25</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-11-30</td>
+      <td>BRIGADE</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>816.25</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-11-30</td>
+      <td>ADANIGREEN</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1028.8</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-11-30</td>
+      <td>ADANIGREEN</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1028.8</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-11-30</td>
+      <td>DBREALTY</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>208.95</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-11-30</td>
+      <td>DBREALTY</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>208.95</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-11-30</td>
+      <td>ELECTCAST</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>117.7</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-11-30</td>
+      <td>ELECTCAST</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>117.7</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-11-30</td>
+      <td>KALYANKJIL</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>325.1</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-11-30</td>
+      <td>KALYANKJIL</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>325.1</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-11-30</td>
+      <td>RKFORGE</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>800.45</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-11-30</td>
+      <td>JWL</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>347.85</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-11-30</td>
+      <td>JWL</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>347.85</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-11-30</td>
+      <td>RKFORGE</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>800.45</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-12-29</td>
+      <td>ADANIPOWER</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2023-12-29</td>
+      <td>KALYANKJIL</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2023-12-29</td>
+      <td>ARVIND</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2023-12-29</td>
+      <td>GOKEX</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2023-12-29</td>
+      <td>RKFORGE</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2023-12-29</td>
+      <td>DBREALTY</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2023-12-29</td>
+      <td>JWL</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2023-12-29</td>
+      <td>ELECTCAST</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2023-12-29</td>
+      <td>ADANIGREEN</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>1597.0</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-12-29</td>
+      <td>ADANIGREEN</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>1597.0</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-12-29</td>
+      <td>BRIGADE</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>896.75</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-12-29</td>
+      <td>ANANTRAJ</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>295.1</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-12-29</td>
+      <td>ANANTRAJ</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>295.1</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2023-12-29</td>
+      <td>CESC</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>132.5</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-12-29</td>
+      <td>IRCON</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>171.4</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-12-29</td>
+      <td>IRCON</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>171.4</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-12-29</td>
+      <td>KPIL</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>709.2</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2023-12-29</td>
+      <td>INOXWIND</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>499.75</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-12-29</td>
+      <td>INOXWIND</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>499.75</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-12-29</td>
+      <td>GMRP&amp;UI</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>56.15</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-12-29</td>
+      <td>GMRP&amp;UI</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>56.15</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-12-29</td>
+      <td>BSE</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2221.2</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-12-29</td>
+      <td>BSE</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2221.2</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-12-29</td>
+      <td>GALLANTT</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>179.8</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-12-29</td>
+      <td>GALLANTT</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>179.8</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-12-29</td>
+      <td>PRESTIGE</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1178.9</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2023-12-29</td>
+      <td>PRESTIGE</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1178.9</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-01-31</td>
+      <td>KPIL</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-01-31</td>
+      <td>GALLANTT</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-01-31</td>
+      <td>IRCON</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-01-31</td>
+      <td>GMRP&amp;UI</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-01-31</td>
+      <td>DBREALTY</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>252.55</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-01-31</td>
+      <td>BRIGADE</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>1025.25</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-01-31</td>
+      <td>ADANIGREEN</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>1669.45</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-01-31</td>
+      <td>CESC</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>143.1</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-01-31</td>
+      <td>ANANTRAJ</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>318.1</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-01-31</td>
+      <td>GODREJIND</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>899.9</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-01-31</td>
+      <td>JSWENERGY</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>504.75</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-01-31</td>
+      <td>ELECTCAST</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>175.1</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-01-31</td>
+      <td>BSE</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2323.6</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-01-31</td>
+      <td>ANANDRATHI</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>3058.25</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-01-31</td>
+      <td>INOXWIND</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>478.0</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-01-31</td>
+      <td>KPIGREEN</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1821.1</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-01-31</td>
+      <td>PRESTIGE</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1265.4</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-01-31</td>
+      <td>ARVIND</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>315.0</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-01-31</td>
+      <td>INOXGREEN</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>133.0</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-01-31</td>
+      <td>SWSOLAR</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>566.7</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-01-31</td>
+      <td>MOTILALOFS</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1788.4</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-02-29</td>
+      <td>INOXGREEN</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-02-29</td>
+      <td>PRESTIGE</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-02-29</td>
+      <td>KPIGREEN</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-02-29</td>
+      <td>JSWENERGY</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-02-29</td>
+      <td>ARVIND</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-02-29</td>
+      <td>ANANDRATHI</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-02-29</td>
+      <td>MOTILALOFS</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-02-29</td>
+      <td>GODREJIND</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-02-29</td>
+      <td>GMRP&amp;UI</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>52.25</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-02-29</td>
+      <td>DBREALTY</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>268.15</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-02-29</td>
+      <td>IRB</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>62.85</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-02-29</td>
+      <td>ADANIGREEN</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>1895.05</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-02-29</td>
+      <td>ANANTRAJ</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>350.0</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-02-29</td>
+      <td>BRIGADE</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>1000.95</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-02-29</td>
+      <td>CESC</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>126.85</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-02-29</td>
+      <td>ASHOKA</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>186.3</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-02-29</td>
+      <td>KEC</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>726.65</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-02-29</td>
+      <td>FORCEMOT</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>6748.65</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-02-29</td>
+      <td>WEBELSOLAR</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>391.6</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-02-29</td>
+      <td>INOXWIND</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>602.8</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-02-29</td>
+      <td>ELECTCAST</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>159.9</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-02-29</td>
+      <td>NBCC</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>135.25</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-02-29</td>
+      <td>SOBHA</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1565.15</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-02-29</td>
+      <td>SWSOLAR</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>604.25</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-02-29</td>
+      <td>WOCKPHARMA</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>604.15</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-02-29</td>
+      <td>NEULANDLAB</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>7161.95</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-02-29</td>
+      <td>BSE</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2366.85</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-03-28</td>
+      <td>NEULANDLAB</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-03-28</td>
+      <td>GMRP&amp;UI</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-03-28</td>
+      <td>WOCKPHARMA</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-03-28</td>
+      <td>WEBELSOLAR</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-03-28</td>
+      <td>SWSOLAR</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-03-28</td>
+      <td>SOBHA</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-03-28</td>
+      <td>KEC</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-03-28</td>
+      <td>NBCC</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-03-28</td>
+      <td>DBREALTY</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-03-28</td>
+      <td>ADANIGREEN</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>1835.15</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-03-28</td>
+      <td>ADANIGREEN</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>1835.15</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-03-28</td>
+      <td>IRB</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>58.55</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-03-28</td>
+      <td>BRIGADE</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>935.3</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-03-28</td>
+      <td>ANANTRAJ</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>311.35</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-03-28</td>
+      <td>ANANTRAJ</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>311.35</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-03-28</td>
+      <td>CESC</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>121.65</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-03-28</td>
+      <td>ASHOKA</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>156.6</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-03-28</td>
+      <td>ASHOKA</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>156.6</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-03-28</td>
+      <td>FORCEMOT</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>7244.0</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-03-28</td>
+      <td>FORCEMOT</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>7244.0</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-03-28</td>
+      <td>INOXWIND</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>521.6</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-03-28</td>
+      <td>INOXWIND</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>521.6</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-03-28</td>
+      <td>ELECTCAST</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>178.2</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-03-28</td>
+      <td>ELECTCAST</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>178.2</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-03-28</td>
+      <td>ANANDRATHI</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>3694.35</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-03-28</td>
+      <td>ANANDRATHI</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>3694.35</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-03-28</td>
+      <td>BSE</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2515.9</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-03-28</td>
+      <td>EIHOTEL</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>449.5</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-04-30</td>
+      <td>BSE</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-04-30</td>
+      <td>EIHOTEL</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-04-30</td>
+      <td>ANANTRAJ</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-04-30</td>
+      <td>ADANIGREEN</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-04-30</td>
+      <td>BRIGADE</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-04-30</td>
+      <td>ASHOKA</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-04-30</td>
+      <td>CESC</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-04-30</td>
+      <td>IRB</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-04-30</td>
+      <td>WABAG</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>966.05</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-04-30</td>
+      <td>WABAG</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>966.05</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-04-30</td>
+      <td>GODREJIND</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>960.6</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-04-30</td>
+      <td>GODREJIND</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>960.6</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-04-30</td>
+      <td>ENGINERSIN</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>244.6</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-04-30</td>
+      <td>ENGINERSIN</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>244.6</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-04-30</td>
+      <td>DBL</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>470.3</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-04-30</td>
+      <td>FORCEMOT</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>9522.05</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-04-30</td>
+      <td>FORCEMOT</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>9522.05</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-04-30</td>
+      <td>ELECTCAST</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>192.0</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-04-30</td>
+      <td>INOXWIND</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>627.6</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-04-30</td>
+      <td>ELECTCAST</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>192.0</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-04-30</td>
+      <td>MOTILALOFS</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2376.9</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-04-30</td>
+      <td>MOTILALOFS</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2376.9</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-04-30</td>
+      <td>INOXWIND</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>627.6</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-04-30</td>
+      <td>SOBHA</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1776.75</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-04-30</td>
+      <td>ANANDRATHI</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>3998.25</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-05-31</td>
+      <td>INOXWIND</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-05-31</td>
+      <td>DBL</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-05-31</td>
+      <td>ANANDRATHI</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-05-31</td>
+      <td>GODREJIND</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-05-31</td>
+      <td>ENGINERSIN</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-05-31</td>
+      <td>ELECTCAST</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-05-31</td>
+      <td>IRB</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>66.1</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-05-31</td>
+      <td>WABAG</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>980.05</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-05-31</td>
+      <td>BRIGADE</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1283.6</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-05-31</td>
+      <td>ANANTRAJ</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>385.5</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-05-31</td>
+      <td>ASHOKA</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>183.35</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-05-31</td>
+      <td>DLF</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>815.65</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-05-31</td>
+      <td>KEC</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>738.5</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-05-31</td>
+      <td>FORCEMOT</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>8734.7</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-05-31</td>
+      <td>NETWEB</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2343.1</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-05-31</td>
+      <td>SHAKTIPUMP</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2482.95</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-05-31</td>
+      <td>MOTILALOFS</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2219.7</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-05-31</td>
+      <td>TECHNOE</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1418.35</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-05-31</td>
+      <td>KIRLOSENG</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1246.1</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-05-31</td>
+      <td>SOBHA</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1899.8</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-05-31</td>
+      <td>TORNTPOWER</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1501.8</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-05-31</td>
+      <td>ARVIND</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>377.35</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-05-31</td>
+      <td>PRESTIGE</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1597.55</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-06-28</td>
+      <td>FORCEMOT</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-06-28</td>
+      <td>PRESTIGE</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-06-28</td>
+      <td>SHAKTIPUMP</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-06-28</td>
+      <td>ASHOKA</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-06-28</td>
+      <td>ARVIND</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-06-28</td>
+      <td>IRB</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-06-28</td>
+      <td>KEC</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-06-28</td>
+      <td>TORNTPOWER</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-06-28</td>
+      <td>MOTILALOFS</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-06-28</td>
+      <td>TECHNOE</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-06-28</td>
+      <td>WABAG</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>1280.9</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-06-28</td>
+      <td>BRIGADE</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>1348.4</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-06-28</td>
+      <td>ACE</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1486.9</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-06-28</td>
+      <td>ABB</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>8490.9</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-06-28</td>
+      <td>ANANTRAJ</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>429.7</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-06-28</td>
+      <td>DLF</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>824.75</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-06-28</td>
+      <td>AIAENG</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>4178.55</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-06-28</td>
+      <td>IONEXCHANG</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>574.5</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-06-28</td>
+      <td>POWERINDIA</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>12911.6</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-06-28</td>
+      <td>NETWEB</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2594.45</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-06-28</td>
+      <td>KIRLOSENG</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1393.25</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-06-28</td>
+      <td>WOCKPHARMA</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>686.6</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-06-28</td>
+      <td>SCHNEIDER</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>865.3</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-06-28</td>
+      <td>KIRLPNU</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1348.0</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-06-28</td>
+      <td>SOBHA</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1956.65</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-06-28</td>
+      <td>KIRLOSBROS</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2121.85</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-06-28</td>
+      <td>HINDZINC</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>669.65</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-06-28</td>
+      <td>CUMMINSIND</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>3966.85</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-07-31</td>
+      <td>SCHNEIDER</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-07-31</td>
+      <td>WOCKPHARMA</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-07-31</td>
+      <td>ACE</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-07-31</td>
+      <td>ABB</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-07-31</td>
+      <td>HINDZINC</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-07-31</td>
+      <td>CUMMINSIND</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-07-31</td>
+      <td>AIAENG</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-07-31</td>
+      <td>NETWEB</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-07-31</td>
+      <td>KIRLOSENG</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-07-31</td>
+      <td>SOBHA</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-07-31</td>
+      <td>KIRLPNU</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-07-31</td>
+      <td>WABAG</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>1342.65</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-07-31</td>
+      <td>ANANTRAJ</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>555.1</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-07-31</td>
+      <td>ADANIPOWER</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>734.45</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-07-31</td>
+      <td>BRIGADE</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>1257.7</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-07-31</td>
+      <td>ADANIGREEN</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1847.2</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-07-31</td>
+      <td>DLF</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>889.15</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-07-31</td>
+      <td>ADANIENSOL</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1138.05</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-07-31</td>
+      <td>IONEXCHANG</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>695.5</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-07-31</td>
+      <td>FORCEMOT</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>9244.75</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-07-31</td>
+      <td>KIRLOSBROS</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2437.0</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-07-31</td>
+      <td>GMRP&amp;UI</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>97.94</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-07-31</td>
+      <td>PCJEWELLER</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>93.87</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-07-31</td>
+      <td>ZENTEC</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1705.15</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-07-31</td>
+      <td>HERITGFOOD</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>578.0</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-07-31</td>
+      <td>POWERINDIA</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>11607.1</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-07-31</td>
+      <td>VOLTAMP</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>13506.7</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-07-31</td>
+      <td>NUVAMA</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>6342.0</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-07-31</td>
+      <td>TRENT</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>5839.0</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-08-30</td>
+      <td>ADANIPOWER</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-08-30</td>
+      <td>FORCEMOT</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-08-30</td>
+      <td>ADANIENSOL</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-08-30</td>
+      <td>DLF</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-08-30</td>
+      <td>ANANTRAJ</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-08-30</td>
+      <td>BRIGADE</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-08-30</td>
+      <td>KIRLOSBROS</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-08-30</td>
+      <td>NUVAMA</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-08-30</td>
+      <td>ZENTEC</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-08-30</td>
+      <td>VOLTAMP</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-08-30</td>
+      <td>HERITGFOOD</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-08-30</td>
+      <td>GMRP&amp;UI</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>137.91</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-08-30</td>
+      <td>WABAG</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>1272.55</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-08-30</td>
+      <td>CESC</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>194.04</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-08-30</td>
+      <td>ABB</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>7936.05</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-08-30</td>
+      <td>ADANIGREEN</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>1838.15</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-08-30</td>
+      <td>ACE</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1290.95</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-08-30</td>
+      <td>IONEXCHANG</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>648.95</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-08-30</td>
+      <td>AIAENG</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>4295.25</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-08-30</td>
+      <td>NETWEB</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2721.45</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-08-30</td>
+      <td>PCJEWELLER</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>110.87</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-08-30</td>
+      <td>KIRLOSENG</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1334.35</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-08-30</td>
+      <td>NEULANDLAB</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>12502.2</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-08-30</td>
+      <td>TRENT</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>7158.75</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-08-30</td>
+      <td>POWERINDIA</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>12095.05</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-08-30</td>
+      <td>INDUSTOWER</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>458.5</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-08-30</td>
+      <td>PRUDENT</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2435.65</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-08-30</td>
+      <td>STAR</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1340.05</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-08-30</td>
+      <td>GRWRHITECH</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>3297.4</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-09-30</td>
+      <td>ACE</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-09-30</td>
+      <td>ABB</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-09-30</td>
+      <td>INDUSTOWER</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-09-30</td>
+      <td>NETWEB</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-09-30</td>
+      <td>AIAENG</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-09-30</td>
+      <td>KIRLOSENG</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-09-30</td>
+      <td>CESC</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-09-30</td>
+      <td>PRUDENT</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-09-30</td>
+      <td>GMRP&amp;UI</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>159.7</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-09-30</td>
+      <td>WABAG</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>1510.5</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-09-30</td>
+      <td>GODREJIND</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1235.5</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-09-30</td>
+      <td>JSWENERGY</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>733.05</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-09-30</td>
+      <td>ADANIGREEN</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>1902.7</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-09-30</td>
+      <td>IONEXCHANG</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>638.45</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-09-30</td>
+      <td>PCJEWELLER</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>178.17</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-09-30</td>
+      <td>TRENT</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>7574.65</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-09-30</td>
+      <td>POWERINDIA</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>14545.3</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-09-30</td>
+      <td>HERITGFOOD</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>631.25</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-09-30</td>
+      <td>STAR</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1399.0</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-09-30</td>
+      <td>KITEX</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>516.15</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-09-30</td>
+      <td>GRWRHITECH</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>3861.75</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-09-30</td>
+      <td>TECHNOE</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1600.45</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-09-30</td>
+      <td>NEULANDLAB</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>12386.4</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-09-30</td>
+      <td>NAVA</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1149.4</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-10-31</td>
+      <td>PCJEWELLER</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-10-31</td>
+      <td>GMRP&amp;UI</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-10-31</td>
+      <td>IONEXCHANG</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-10-31</td>
+      <td>POWERINDIA</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-10-31</td>
+      <td>ADANIGREEN</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-10-31</td>
+      <td>JSWENERGY</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-10-31</td>
+      <td>NAVA</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-10-31</td>
+      <td>GODREJIND</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-10-31</td>
+      <td>HERITGFOOD</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-10-31</td>
+      <td>KITEX</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>584.1</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-10-31</td>
+      <td>WABAG</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>1777.95</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-10-31</td>
+      <td>APARINDS</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>10062.35</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-10-31</td>
+      <td>ABB</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>7429.45</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-10-31</td>
+      <td>ACE</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1347.2</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-10-31</td>
+      <td>PAGEIND</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>43163.8</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2024-10-31</td>
+      <td>WEBELSOLAR</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1421.75</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-10-31</td>
+      <td>WOCKPHARMA</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1208.35</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-10-31</td>
+      <td>STAR</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1555.5</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-10-31</td>
+      <td>GRWRHITECH</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>4086.2</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-10-31</td>
+      <td>NEULANDLAB</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>14606.6</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-10-31</td>
+      <td>KIRLPNU</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1662.05</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-10-31</td>
+      <td>ZENTEC</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1884.35</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-10-31</td>
+      <td>TRENT</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>7128.35</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-10-31</td>
+      <td>ANANTRAJ</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>740.8</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-10-31</td>
+      <td>TECHNOE</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1564.45</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-11-29</td>
+      <td>ANANTRAJ</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-11-29</td>
+      <td>TECHNOE</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2024-11-29</td>
+      <td>TRENT</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2024-11-29</td>
+      <td>KITEX</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>742.45</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-11-29</td>
+      <td>WABAG</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>1794.9</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-11-29</td>
+      <td>APARINDS</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>10101.35</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-11-29</td>
+      <td>ABB</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>7421.25</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-11-29</td>
+      <td>PAGEIND</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>44644.9</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-11-29</td>
+      <td>ACE</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>1308.1</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-11-29</td>
+      <td>WEBELSOLAR</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1268.75</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-11-29</td>
+      <td>WOCKPHARMA</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1404.25</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-11-29</td>
+      <td>BBOX</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>628.95</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-11-29</td>
+      <td>GRWRHITECH</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>4937.05</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-11-29</td>
+      <td>NEULANDLAB</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>16709.3</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-11-29</td>
+      <td>STAR</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1635.35</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-11-29</td>
+      <td>KIRLPNU</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1768.95</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-11-29</td>
+      <td>ZENTEC</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1897.4</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2024-11-29</td>
+      <td>PRUDENT</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>3044.35</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-11-29</td>
+      <td>OFSS</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>11696.45</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2024-12-31</td>
+      <td>KITEX</td>
+      <td>EXIT</td>
+      <td>Engine A (Sector)</td>
+      <td>742.45</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2024-12-31</td>
+      <td>WABAG</td>
+      <td>EXIT</td>
+      <td>Engine A (Sector)</td>
+      <td>1794.9</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2024-12-31</td>
+      <td>APARINDS</td>
+      <td>EXIT</td>
+      <td>Engine A (Sector)</td>
+      <td>10101.35</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2024-12-31</td>
+      <td>ABB</td>
+      <td>EXIT</td>
+      <td>Engine A (Sector)</td>
+      <td>7421.25</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2024-12-31</td>
+      <td>PAGEIND</td>
+      <td>EXIT</td>
+      <td>Engine A (Sector)</td>
+      <td>44644.9</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2024-12-31</td>
+      <td>ACE</td>
+      <td>EXIT</td>
+      <td>Engine A (Sector)</td>
+      <td>1308.1</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2024-12-31</td>
+      <td>WEBELSOLAR</td>
+      <td>EXIT</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1268.75</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2024-12-31</td>
+      <td>WOCKPHARMA</td>
+      <td>EXIT</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1404.25</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2024-12-31</td>
+      <td>BBOX</td>
+      <td>EXIT</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>628.95</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2024-12-31</td>
+      <td>GRWRHITECH</td>
+      <td>EXIT</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>4937.05</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2024-12-31</td>
+      <td>NEULANDLAB</td>
+      <td>EXIT</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>16709.3</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2024-12-31</td>
+      <td>STAR</td>
+      <td>EXIT</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1635.35</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2024-12-31</td>
+      <td>KIRLPNU</td>
+      <td>EXIT</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1768.95</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2024-12-31</td>
+      <td>ZENTEC</td>
+      <td>EXIT</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1897.4</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2024-12-31</td>
+      <td>PRUDENT</td>
+      <td>EXIT</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>3044.35</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2024-12-31</td>
+      <td>OFSS</td>
+      <td>EXIT</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>11696.45</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2025-03-28</td>
+      <td>CARTRADE</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1644.95</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-03-28</td>
+      <td>GODFRYPHLP</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>6769.2</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-03-28</td>
+      <td>DOMS</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>2877.25</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-03-28</td>
+      <td>INDHOTEL</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>787.55</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-03-28</td>
+      <td>COFORGE</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>8109.2</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-03-28</td>
+      <td>AFFLE</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1608.55</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-03-28</td>
+      <td>GODREJAGRO</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>753.7</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-03-28</td>
+      <td>PERSISTENT</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>5513.75</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-03-28</td>
+      <td>CHALET</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>819.45</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-03-28</td>
+      <td>BLUEJET</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>884.85</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-03-28</td>
+      <td>WOCKPHARMA</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1424.4</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-03-28</td>
+      <td>SARDAEN</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>513.9</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-03-28</td>
+      <td>LLOYDSME</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1287.25</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-03-28</td>
+      <td>ORIENTCEM</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>339.95</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-03-28</td>
+      <td>COROMANDEL</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1982.1</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-03-28</td>
+      <td>KSCL</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1263.15</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-03-28</td>
+      <td>FORTIS</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>698.35</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-03-28</td>
+      <td>MUTHOOTFIN</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2382.9</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-03-28</td>
+      <td>DIVISLAB</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>5775.45</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>PERSISTENT</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>INDHOTEL</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>BLUEJET</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>WOCKPHARMA</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>KSCL</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>DIVISLAB</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>MUTHOOTFIN</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>CHALET</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>GODREJAGRO</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>AFFLE</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>DOMS</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>SARDAEN</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>COFORGE</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>COROMANDEL</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>2214.2</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>NAZARA</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1011.5</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>CHAMBLFERT</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>692.65</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>BHARTIHEXA</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1689.1</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>BHARTIARTL</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1864.5</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>INDUSTOWER</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>408.2</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>ANURAS</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>868.55</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>CARTRADE</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1704.3</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>GODFRYPHLP</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>8116.0</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>MANORAMA</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1274.7</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>DEEPAKFERT</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1279.9</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>KOTAKBANK</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2208.1</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>ORIENTCEM</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>349.7</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>CHOLAHLDNG</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1864.1</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>LLOYDSME</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1203.2</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>FORTIS</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>685.55</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-04-30</td>
+      <td>JUBLFOOD</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>715.4</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>COROMANDEL</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>FORTIS</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>INDUSTOWER</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>ORIENTCEM</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>BHARTIHEXA</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>MANORAMA</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>BHARTIARTL</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>KOTAKBANK</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>CHAMBLFERT</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>CARTRADE</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>JUBLFOOD</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>CHOLAHLDNG</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>SHAILY</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>2016.8</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>NAZARA</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>1295.1</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>ANURAS</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>1004.75</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>AMBER</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>6491.5</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>BERGEPAINT</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>568.3</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>ATUL</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>7136.5</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>BAYERCROP</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>5678.3</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>AIIL</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2379.2</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>BLUEJET</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>904.8</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>INDIAGLYCO</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1892.5</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>PARADEEP</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>172.28</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>GODFRYPHLP</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>8702.5</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>WOCKPHARMA</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1465.3</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>GRWRHITECH</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>4696.5</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>ZENTEC</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2139.8</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>LLOYDSME</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1393.1</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-05-30</td>
+      <td>DEEPAKFERT</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1483.7</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-06-30</td>
+      <td>AMBER</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-06-30</td>
+      <td>SHAILY</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-06-30</td>
+      <td>BAYERCROP</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-06-30</td>
+      <td>WOCKPHARMA</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-06-30</td>
+      <td>BERGEPAINT</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-06-30</td>
+      <td>GRWRHITECH</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-06-30</td>
+      <td>NAZARA</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-06-30</td>
+      <td>ZENTEC</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-06-30</td>
+      <td>PARADEEP</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-06-30</td>
+      <td>ANURAS</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>1141.7</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-06-30</td>
+      <td>BHARTIHEXA</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1952.7</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-06-30</td>
+      <td>BHARTIARTL</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>2009.6</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-06-30</td>
+      <td>AARTIPHARM</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>890.35</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-06-30</td>
+      <td>ABBOTINDIA</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>35670.0</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-06-30</td>
+      <td>INDUSTOWER</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>421.1</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-06-30</td>
+      <td>ALKYLAMINE</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>2368.0</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-06-30</td>
+      <td>ATUL</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>7474.5</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-06-30</td>
+      <td>APLLTD</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1039.1</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-06-30</td>
+      <td>BLUEJET</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>877.75</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-06-30</td>
+      <td>INDIAGLYCO</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2063.1</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-06-30</td>
+      <td>GODFRYPHLP</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>8976.5</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-06-30</td>
+      <td>AIIL</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2630.7</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-06-30</td>
+      <td>LUMAXTECH</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1176.1</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-06-30</td>
+      <td>MFSL</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1647.1</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-06-30</td>
+      <td>CARTRADE</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1700.7</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-06-30</td>
+      <td>LLOYDSME</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1588.9</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-06-30</td>
+      <td>SOLARINDS</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>17598.0</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-06-30</td>
+      <td>DEEPAKFERT</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1707.4</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>SOLARINDS</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>APLLTD</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>GODFRYPHLP</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>LUMAXTECH</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>INDUSTOWER</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>ALKYLAMINE</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>ABBOTINDIA</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>MFSL</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>AIIL</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>BLUEJET</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>AARTIPHARM</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>ANURAS</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>INDIAGLYCO</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>COROMANDEL</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>2691.4</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>BHARTIHEXA</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>1847.7</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>DEEPAKFERT</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>1598.8</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>BHARTIARTL</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>1914.3</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>NAZARA</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1351.4</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>PFOCUS</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>145.07</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>ATUL</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>6629.0</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>GABRIEL</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1037.25</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>CARTRADE</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2186.5</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>CUPID</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>150.89</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>MANORAMA</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1521.7</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>FORTIS</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>857.45</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>POWERINDIA</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>20095.0</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>THYROCARE</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1325.9</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>LAURUSLABS</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>874.35</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>LLOYDSME</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1504.7</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-07-31</td>
+      <td>HDFCAMC</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>5650.0</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-08-29</td>
+      <td>COROMANDEL</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-08-29</td>
+      <td>DEEPAKFERT</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-08-29</td>
+      <td>POWERINDIA</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-08-29</td>
+      <td>PFOCUS</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-08-29</td>
+      <td>MANORAMA</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-08-29</td>
+      <td>ATUL</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-08-29</td>
+      <td>HDFCAMC</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-08-29</td>
+      <td>NAZARA</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-08-29</td>
+      <td>LLOYDSME</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-08-29</td>
+      <td>THYROCARE</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-08-29</td>
+      <td>CUPID</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>172.29</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-08-29</td>
+      <td>BHARTIHEXA</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>1774.0</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-08-29</td>
+      <td>CRAFTSMAN</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>6912.5</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-08-29</td>
+      <td>CCL</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>871.5</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-08-29</td>
+      <td>BOSCHLTD</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>39960.0</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-08-29</td>
+      <td>BHARTIARTL</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>1888.8</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-08-29</td>
+      <td>BRITANNIA</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>5824.0</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-08-29</td>
+      <td>APOLLOTYRE</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>462.2</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-08-29</td>
+      <td>GABRIEL</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1152.4</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-08-29</td>
+      <td>LUMAXTECH</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1174.7</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-08-29</td>
+      <td>CARTRADE</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2398.0</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-08-29</td>
+      <td>SHAILY</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2232.0</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-08-29</td>
+      <td>AIIL</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>3232.9</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-08-29</td>
+      <td>PAYTM</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1207.0</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-08-29</td>
+      <td>FORTIS</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>911.5</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-08-29</td>
+      <td>TI</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>473.8</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-08-29</td>
+      <td>LAURUSLABS</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>856.9</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-08-29</td>
+      <td>JKCEMENT</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>6946.5</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-09-30</td>
+      <td>CCL</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-09-30</td>
+      <td>CRAFTSMAN</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-09-30</td>
+      <td>BHARTIHEXA</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-09-30</td>
+      <td>PAYTM</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-09-30</td>
+      <td>BHARTIARTL</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-09-30</td>
+      <td>JKCEMENT</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-09-30</td>
+      <td>LAURUSLABS</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-09-30</td>
+      <td>CUPID</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>214.96</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-09-30</td>
+      <td>PFOCUS</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>175.94</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-09-30</td>
+      <td>ASAHIINDIA</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>855.7</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-09-30</td>
+      <td>BOSCHLTD</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>38145.0</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-09-30</td>
+      <td>BRITANNIA</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>5991.0</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-09-30</td>
+      <td>APOLLOTYRE</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>472.95</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-09-30</td>
+      <td>DOMS</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>2486.3</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-09-30</td>
+      <td>LUMAXTECH</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1249.8</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-09-30</td>
+      <td>AXISCADES</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1594.0</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-09-30</td>
+      <td>GABRIEL</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1181.4</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-09-30</td>
+      <td>AIIL</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>3082.2</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-09-30</td>
+      <td>ASHAPURMIN</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>651.0</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-09-30</td>
+      <td>CARTRADE</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2450.1</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-09-30</td>
+      <td>IXIGO</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>265.2</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-09-30</td>
+      <td>FORTIS</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>969.8</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-09-30</td>
+      <td>TI</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>448.55</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-09-30</td>
+      <td>SHAILY</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2176.9</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>BRITANNIA</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>FORTIS</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>LUMAXTECH</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>BOSCHLTD</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>PFOCUS</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>ASAHIINDIA</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>AXISCADES</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>AIIL</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>IXIGO</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>DOMS</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>CARTRADE</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>3019.5</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>APOLLO</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>276.8</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>ASTRAMICRO</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1042.25</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>APLAPOLLO</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1791.5</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>BHARATFORG</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1324.7</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>DMART</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>4153.5</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>APOLLOTYRE</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>501.5</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>BAJAJ-AUTO</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>8892.5</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>DEVYANI</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>161.8</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>CUPID</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>233.59</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>GABRIEL</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1273.9</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>ASHAPURMIN</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>664.5</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>V2RETAIL</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2442.0</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>ABDL</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>662.05</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>SHAILY</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2274.6</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>TDPOWERSYS</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>774.9</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>INOXGREEN</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>266.53</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>JAYNECOIND</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>77.69</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-10-31</td>
+      <td>TI</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>528.1</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>TI</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>GABRIEL</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>TDPOWERSYS</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>INOXGREEN</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>SHAILY</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>APOLLOTYRE</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>DEVYANI</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>APLAPOLLO</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>CUPID</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>ASTRAMICRO</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>BAJAJ-AUTO</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>BHARATFORG</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>APOLLO</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>CARTRADE</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>3087.7</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>BLACKBUCK</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>667.75</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>ANURAS</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1221.7</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>COROMANDEL</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>2382.1</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>DELHIVERY</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>426.2</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>ADANIPORTS</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1516.9</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>AETHER</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>877.2</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>DMART</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>3996.5</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>INDHOTEL</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>744.3</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>LUMAXTECH</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1536.3</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>LTF</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>312.35</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>ASHAPURMIN</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>685.8</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>LAURUSLABS</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1031.35</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>ABDL</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>653.8</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>MUTHOOTFIN</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>3744.2</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>V2RETAIL</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>2449.8</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>RBLBANK</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>312.4</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>JAYNECOIND</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>71.6</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-11-28</td>
+      <td>ABCAPITAL</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>358.05</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>RBLBANK</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>COROMANDEL</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>BLACKBUCK</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>ABDL</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>DELHIVERY</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>AETHER</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>ADANIPORTS</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>V2RETAIL</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>DMART</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>ANURAS</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>ASHAPURMIN</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>878.65</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>CARTRADE</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>2826.2</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>SHAILY</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>2261.6</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>ASIANPAINT</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>2769.5</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>GRAVITA</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1857.8</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>ADANIENT</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>2239.7</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>IRCTC</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>684.6</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>INDHOTEL</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>738.85</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>HAVELLS</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1424.9</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>JAYNECOIND</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>87.82</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>LTF</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>315.95</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>LAURUSLABS</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1108.0</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>LUMAXTECH</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1544.5</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>ABCAPITAL</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>357.7</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>MUTHOOTFIN</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>3811.7</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>THANGAMAYL</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>3222.1</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>CUB</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>290.8</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>MARUTI</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>16697.0</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2025-12-31</td>
+      <td>AUBANK</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>994.5</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>INDHOTEL</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>THANGAMAYL</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>SHAILY</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>MARUTI</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>IRCTC</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>LUMAXTECH</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>ADANIENT</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>GRAVITA</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>LTF</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>ASHAPURMIN</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>JAYNECOIND</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>HAVELLS</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Filter Failure: Lost momentum, liquidity, or split detected.</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>ASIANPAINT</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>CARTRADE</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>LAURUSLABS</td>
+      <td>EXIT</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Rank Decay: Momentum dropped below top 10 threshold.</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>HINDALCO</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>962.6</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>ABCAPITAL</td>
+      <td>HOLD</td>
+      <td>Engine A (Sector)</td>
+      <td>339.8</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>AIAENG</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>3989.0</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>JSL</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>822.55</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>JINDALSTEL</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1132.0</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>360ONE</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>1134.3</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>ABSLAMC</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>759.45</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>ABB</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>5578.5</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>APARINDS</td>
+      <td>ENTRY</td>
+      <td>Engine A (Sector)</td>
+      <td>7994.0</td>
+      <td>Top Breakout Picked by Engine A (Sector)</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>SHRIRAMFIN</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1020.0</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>GVT&amp;D</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>3230.3</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>UJJIVANSFB</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>65.37</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>TDPOWERSYS</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>729.5</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>CUB</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>301.75</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>MUTHOOTFIN</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>3829.6</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>AUBANK</td>
+      <td>HOLD</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>982.35</td>
+      <td>Maintained Top 10 Momentum Rank</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>FEDERALBNK</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>287.75</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>SBIN</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1077.15</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2026-01-30</td>
+      <td>DCBBANK</td>
+      <td>ENTRY</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>199.67</td>
+      <td>Top Breakout Picked by Engine B (Lone Wolf)</td>
+    </tr>
+    <tr>
+      <td>2026-02-27</td>
+      <td>HINDALCO</td>
+      <td>EXIT</td>
+      <td>Engine A (Sector)</td>
+      <td>962.6</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2026-02-27</td>
+      <td>ABCAPITAL</td>
+      <td>EXIT</td>
+      <td>Engine A (Sector)</td>
+      <td>339.8</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2026-02-27</td>
+      <td>AIAENG</td>
+      <td>EXIT</td>
+      <td>Engine A (Sector)</td>
+      <td>3989.0</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2026-02-27</td>
+      <td>JSL</td>
+      <td>EXIT</td>
+      <td>Engine A (Sector)</td>
+      <td>822.55</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2026-02-27</td>
+      <td>JINDALSTEL</td>
+      <td>EXIT</td>
+      <td>Engine A (Sector)</td>
+      <td>1132.0</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2026-02-27</td>
+      <td>360ONE</td>
+      <td>EXIT</td>
+      <td>Engine A (Sector)</td>
+      <td>1134.3</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2026-02-27</td>
+      <td>ABSLAMC</td>
+      <td>EXIT</td>
+      <td>Engine A (Sector)</td>
+      <td>759.45</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2026-02-27</td>
+      <td>ABB</td>
+      <td>EXIT</td>
+      <td>Engine A (Sector)</td>
+      <td>5578.5</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2026-02-27</td>
+      <td>APARINDS</td>
+      <td>EXIT</td>
+      <td>Engine A (Sector)</td>
+      <td>7994.0</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2026-02-27</td>
+      <td>SHRIRAMFIN</td>
+      <td>EXIT</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1020.0</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2026-02-27</td>
+      <td>GVT&amp;D</td>
+      <td>EXIT</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>3230.3</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2026-02-27</td>
+      <td>UJJIVANSFB</td>
+      <td>EXIT</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>65.37</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2026-02-27</td>
+      <td>TDPOWERSYS</td>
+      <td>EXIT</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>729.5</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2026-02-27</td>
+      <td>CUB</td>
+      <td>EXIT</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>301.75</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2026-02-27</td>
+      <td>MUTHOOTFIN</td>
+      <td>EXIT</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>3829.6</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2026-02-27</td>
+      <td>AUBANK</td>
+      <td>EXIT</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>982.35</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2026-02-27</td>
+      <td>FEDERALBNK</td>
+      <td>EXIT</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>287.75</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2026-02-27</td>
+      <td>SBIN</td>
+      <td>EXIT</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>1077.15</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+    <tr>
+      <td>2026-02-27</td>
+      <td>DCBBANK</td>
+      <td>EXIT</td>
+      <td>Engine B (Lone Wolf)</td>
+      <td>199.67</td>
+      <td>Systemic Crash: Nifty 50 dropped below 200-day EMA.</td>
+    </tr>
+  </tbody>
+</table>
+            </div>
+        </body>
+        </html>
+        
