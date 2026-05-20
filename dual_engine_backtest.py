@@ -7,10 +7,12 @@ dual_engine_backtest.py
 4. Allocates 50% capital to Top Sectors, 50% to Lone Wolves.
 5. Logs all trades to a CSV and a structured, searchable HTML Data Table.
 6. Uses Gemini AI to audit the final portfolio and generate an HTML dashboard.
+7. Includes Bulletproof Retry Loop for Gemini API 503 server errors.
 """
 import os
 import glob
 import re
+import time
 import pandas as pd
 import numpy as np
 import yfinance as yf
@@ -194,6 +196,7 @@ def run_dual_engine_backtest(df, regime_df):
         <head>
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Quant Fund - Backtest Ledger</title>
+            <!-- DataTables CSS for structured UI -->
             <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
             <style>
                 body {{ background-color: #121212; color: #e0e0e0; font-family: -apple-system, sans-serif; padding: 20px; }}
@@ -221,6 +224,7 @@ def run_dual_engine_backtest(df, regime_df):
             
             {html_table}
 
+            <!-- Inject jQuery and DataTables JavaScript -->
             <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
             <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
             <script>
@@ -318,27 +322,39 @@ def audit_portfolio_with_gemini(valid_pool):
     """
     
     client = genai.Client()
-    try:
-        response = client.models.generate_content(
-            model='gemini-2.5-flash',
-            contents=prompt,
-        )
-        
-        text_output = response.text
-        
-        html_match = re.search(r"""```html\s*(.*?)\s*```""", text_output, re.DOTALL)
-        if html_match:
-            html_content = html_match.group(1)
-            with open("portfolio_dashboard.html", "w", encoding="utf-8") as f:
-                f.write(html_content)
-            print("✅ HTML Dashboard successfully generated and saved as 'portfolio_dashboard.html'")
+    
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            response = client.models.generate_content(
+                model='gemini-2.5-flash',
+                contents=prompt,
+            )
             
-            text_output = re.sub(r"""```html\s*(.*?)\s*```""", '\n[HTML Saved to File]', text_output, flags=re.DOTALL)
+            text_output = response.text
             
-        print("\n" + text_output)
-        
-    except Exception as e:
-        print(f"Gemini API Error: {e}")
+            html_match = re.search(r"""
+```html\s*(.*?)\s*```""", text_output, re.DOTALL)
+            if html_match:
+                html_content = html_match.group(1)
+                with open("portfolio_dashboard.html", "w", encoding="utf-8") as f:
+                    f.write(html_content)
+                print("✅ HTML Dashboard successfully generated and saved as 'portfolio_dashboard.html'")
+                
+                text_output = re.sub(r"""```html\s*(.*?)\s*
+```""", '\n[HTML Saved to File]', text_output, flags=re.DOTALL)
+                
+            print("\n" + text_output)
+            break # Success, exit the retry loop
+            
+        except Exception as e:
+            if '503' in str(e) and attempt < max_retries - 1:
+                wait_time = 10 * (attempt + 1)
+                print(f"⚠️ Gemini servers busy (503). Retrying in {wait_time} seconds (Attempt {attempt + 2}/{max_retries})...")
+                time.sleep(wait_time)
+            else:
+                print(f"❌ Gemini API Error: {e}")
+                break
 
 if __name__ == "__main__":
     DATA_PATH = "./HistoricalBhavCopy/NSE"
