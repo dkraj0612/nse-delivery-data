@@ -1,8 +1,8 @@
 """
 dual_engine_backtest.py
 =======================
-1. Fetches Nifty 50 from Yahoo Finance for the 200-EMA Circuit Breaker.
-2. Merges Bhav Copy with sector mapping (LEFT join for 2000+ stocks).
+1. Fetches Nifty 50 from Yahoo Finance (handles multi-index).
+2. Cleans dirty NSE CSV headers and merges with sector map.
 3. Allocates 50% capital to Top 3 Sectors (Engine A).
 4. Allocates 50% capital to lone wolf breakouts (Engine B).
 5. Uses Gemini AI to audit the final portfolio and generate an HTML dashboard.
@@ -19,7 +19,7 @@ def fetch_nifty_regime():
     print("Fetching Nifty 50 index data for Circuit Breaker...")
     nifty = yf.download('^NSEI', period='5y', progress=False)
     
-    # ── FIX: Flatten yfinance's new multi-level columns ──
+    # Flatten yfinance's multi-level columns if present
     if isinstance(nifty.columns, pd.MultiIndex):
         nifty.columns = nifty.columns.get_level_values(0)
         
@@ -41,20 +41,19 @@ def load_data(folder_path, sector_map_path):
     df_list = []
     for file in all_files:
         try:
-            # 1. Read all columns first to bypass the hidden space issue
+            # Read all columns first to bypass hidden space issue
             df = pd.read_csv(file)
             
-            # 2. Strip invisible leading/trailing spaces from NSE headers
+            # Strip invisible leading/trailing spaces from NSE headers
             df.columns = df.columns.str.strip()
             
-            # 3. The NSE names their date column 'DATE1' — rename it so our engine recognizes it
+            # The NSE names their date column 'DATE1' — rename it
             if 'DATE1' in df.columns:
                 df = df.rename(columns={'DATE1': 'DATE'})
                 
-            # 4. Safely filter for only the columns we actually need
+            # Safely filter for only the columns we actually need
             req_cols = ['SYMBOL', 'DATE', 'CLOSE_PRICE', 'TURNOVER_LACS', 'DELIV_PER']
             
-            # Only append if the file is a valid equity file with our columns
             if all(c in df.columns for c in req_cols):
                 df_list.append(df[req_cols])
         except Exception:
@@ -72,6 +71,7 @@ def load_data(folder_path, sector_map_path):
     master_df['DELIV_PER'] = master_df['DELIV_PER'].fillna(0)
     master_df = master_df.dropna(subset=['DATE', 'CLOSE_PRICE'])
     
+    # Left join to keep all 2000+ stocks
     master_df = pd.merge(master_df, sector_map, on='SYMBOL', how='left')
     return master_df.sort_values(by=['SYMBOL', 'DATE']).reset_index(drop=True)
 
@@ -101,7 +101,7 @@ def run_dual_engine_backtest(df, regime_df):
     
     valid_pool = rebalance_df[
         (rebalance_df['CLOSE_PRICE'] >= 50.0) & 
-        (rebalance_df['AVG_TURNOVER'] >= 500.0) & 
+        (rebalance_df['AVG_TURNOVER'] >= 2500.0) &  # Increased liquidity to 25 Crores to stop operator traps
         (rebalance_df['DELIV_PER_20MA'] >= 35.0) & 
         (rebalance_df['CLOSE_PRICE'] >= (rebalance_df['52W_HIGH'] * 0.80)) & 
         (rebalance_df['MASTER_SCORE'].notna())
@@ -130,10 +130,12 @@ def run_dual_engine_backtest(df, regime_df):
         engine_b = engine_b_candidates.sort_values(by='MASTER_SCORE', ascending=False).head(10)
         
         final_portfolio = pd.concat([engine_a, engine_b])
-        avg_raw_return = final_portfolio['FORWARD_1M_RET'].mean()
-        net_monthly_return = avg_raw_return - 0.002
         
-        monthly_records.append({'DATE': current_date, 'NET_RETURN': net_monthly_return, 'REGIME': 'BULL (EQUITY)'})
+        # Guard against empty portfolios
+        if not final_portfolio.empty:
+            avg_raw_return = final_portfolio['FORWARD_1M_RET'].mean()
+            net_monthly_return = avg_raw_return - 0.002
+            monthly_records.append({'DATE': current_date, 'NET_RETURN': net_monthly_return, 'REGIME': 'BULL (EQUITY)'})
 
     perf_df = pd.DataFrame(monthly_records).dropna()
     if not perf_df.empty:
@@ -151,12 +153,17 @@ def run_dual_engine_backtest(df, regime_df):
         print(f"Realized CAGR       : {cagr:.2f}%")
         print(f"Maximum Drawdown    : {max_dd:.2f}%")
         print("="*50)
+        
+    return valid_pool # Returns the valid data directly into the Gemini function
 
-def audit_portfolio_with_gemini(raw_df):
-    latest_date = raw_df['DATE'].max()
-    month_data = raw_df[raw_df['DATE'] == latest_date].copy()
+def audit_portfolio_with_gemini(valid_pool):
+    if valid_pool.empty:
+        print("No valid portfolio data generated to audit.")
+        return
+
+    latest_date = valid_pool['DATE'].max()
+    month_data = valid_pool[valid_pool['DATE'] == latest_date].copy()
     
-    # Re-run selection for the final month
     sector_mom = month_data.groupby('SECTOR')['PRICE_MOMENTUM'].mean().reset_index()
     top_3_sectors = sector_mom.sort_values(by='PRICE_MOMENTUM', ascending=False).head(3)['SECTOR'].tolist()
     
@@ -175,13 +182,13 @@ def audit_portfolio_with_gemini(raw_df):
     
     api_key = os.environ.get("GEMINI_API_KEY")
     if not api_key:
-        print("⚠️ GEMINI_API_KEY secret not found. Skipping AI audit.")
+        print("⚠️ GEMINI_API_KEY secret not found in GitHub Actions. Skipping AI audit.")
         return
         
     table_str = final_live_portfolio[['SYMBOL', 'SECTOR', 'SOURCE_ENGINE', 'CLOSE_PRICE', 'AVG_TURNOVER', 'DELIV_PER_20MA', 'MASTER_SCORE']].to_markdown(index=False)
     
     prompt = f"""
-    You are the Chief Risk Officer and Lead UI Developer for a quant fund. 
+    You are the Chief Risk Officer and Lead UI Developer for an Indian quant fund. 
     Our Dual-Engine algorithm selected these 20 stocks on {latest_date.strftime('%Y-%m-%d')}.
     
     Data:
@@ -208,17 +215,18 @@ def audit_portfolio_with_gemini(raw_df):
         
         text_output = response.text
         
-        # Extract HTML using regex
-        html_match = re.search(r"""```html\s*(.*?)\s*
-```""", text_output, re.DOTALL)
+        # Bulletproof triple-quote regex to bypass mobile formatting breaks
+        html_match = re.search(r"""
+```html\s*(.*?)\s*```""", text_output, re.DOTALL)
         if html_match:
             html_content = html_match.group(1)
             with open("portfolio_dashboard.html", "w", encoding="utf-8") as f:
                 f.write(html_content)
             print("✅ HTML Dashboard successfully generated and saved as 'portfolio_dashboard.html'")
             
-            # Remove the raw HTML from the console output so it's clean to read
-            text_output = re.sub(r"""```html\s*(.*?)\s*```""", '[HTML Saved to File]', text_output, flags=re.DOTALL)
+            # Clean HTML out of the text log
+            text_output = re.sub(r"""```html\s*(.*?)\s*
+```""", '\n[HTML Saved to File]', text_output, flags=re.DOTALL)
             
         print("\n" + text_output)
         
@@ -233,8 +241,8 @@ if __name__ == "__main__":
         nifty_regime = fetch_nifty_regime()
         raw_df = load_data(DATA_PATH, SECTOR_MAP)
         
-        run_dual_engine_backtest(raw_df, nifty_regime)
-        audit_portfolio_with_gemini(raw_df)
+        valid_pool = run_dual_engine_backtest(raw_df, nifty_regime)
+        audit_portfolio_with_gemini(valid_pool)
         
     except Exception as e:
         print(f"Execution failed: {e}")
