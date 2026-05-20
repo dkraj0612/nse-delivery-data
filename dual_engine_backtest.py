@@ -189,8 +189,8 @@ def audit_portfolio_with_gemini(raw_df):
         text_output = response.text
         
         # Extract HTML using regex
-        html_match = re.search(r'
-```html\n(.*?)\n```', text_output, re.DOTALL)
+        html_match = re.search(r"""```html\s*(.*?)\s*
+```""", text_output, re.DOTALL)
         if html_match:
             html_content = html_match.group(1)
             with open("portfolio_dashboard.html", "w", encoding="utf-8") as f:
@@ -198,8 +198,7 @@ def audit_portfolio_with_gemini(raw_df):
             print("✅ HTML Dashboard successfully generated and saved as 'portfolio_dashboard.html'")
             
             # Remove the raw HTML from the console output so it's clean to read
-            text_output = re.sub(r'```html\n.*?\n
-```', '[HTML Saved to File]', text_output, flags=re.DOTALL)
+            text_output = re.sub(r"""```html\s*(.*?)\s*```""", '[HTML Saved to File]', text_output, flags=re.DOTALL)
             
         print("\n" + text_output)
         
