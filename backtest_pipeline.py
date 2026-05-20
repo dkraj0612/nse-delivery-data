@@ -2,24 +2,21 @@
 backtest_pipeline.py
 ====================
 1. Loads 3 years of nested NSE delivery data.
-2. Generates historical predictions across the entire timeline.
+2. Trains the LightGBM model dynamically in memory.
 3. Simulates a trading strategy: Buy when Breakout Probability >= 75%, Hold for 5 days.
 4. Computes performance KPIs and passes them to Gemini API for a strategic review.
 """
 import os
-import glob
+import sys
 import numpy as np
 import pandas as pd
-import lightgbm as lgb
 from google import genai
-from train_breakout_model import load_and_clean_data, engineer_features_and_targets
+# Import the training function as well!
+from train_breakout_model import load_and_clean_data, engineer_features_and_targets, train_breakout_model
 
-def run_historical_backtest(df, model_path):
-    print("Loading LightGBM model for historical simulation...")
-    if not os.path.exists(model_path):
-        raise FileNotFoundError(f"Trained model file '{model_path}' not found.")
+def run_historical_backtest(df, model):
+    print("\nRunning historical simulation using dynamically trained model...")
     
-    model = lgb.Booster(model_file=model_path)
     feature_cols = [
         'DELIV_PER', 'DELIV_SPIKE_RATIO', 'DELIV_PER_5MA', 
         'PRICE_RETURN_1D', 'PRICE_RETURN_5D', 'PRICE_VOLATILITY_20D', 
@@ -30,7 +27,6 @@ def run_historical_backtest(df, model_path):
     df['BREAKOUT_PROBABILITY'] = model.predict(df[feature_cols])
     
     # Simulate a realistic exit: 5-day forward return
-    # (Close price 5 days in the future vs today's close price)
     df['FORWARD_5D_RETURN'] = df.groupby('SYMBOL')['CLOSE_PRICE'].pct_change(5).shift(-5) * 100
     
     # Strategy Rule: Trigger a signal when model confidence is high (e.g., >= 75%)
@@ -45,6 +41,9 @@ def run_historical_backtest(df, model_path):
     
     # Calculate Backtest KPIs
     total_signals = len(trades)
+    if total_signals == 0:
+        return None, "No valid trades remained after timeline filtering."
+        
     winning_trades = trades[trades['FORWARD_5D_RETURN'] > 0]
     win_rate = (len(winning_trades) / total_signals) * 100
     avg_return_per_trade = trades['FORWARD_5D_RETURN'].mean()
@@ -110,24 +109,22 @@ def ask_gemini_to_optimize(kpis):
 
 if __name__ == "__main__":
     DATA_PATH = "./HistoricalBhavCopy/NSE"
-    MODEL_PATH = "nse_breakout_model.txt"
     
     try:
-        # Load and process the complete 3-year historical records
         raw_data = load_and_clean_data(DATA_PATH)
         processed_data = engineer_features_and_targets(raw_data)
         
-        # Run backtest
-        kpis, trade_log = run_historical_backtest(processed_data, MODEL_PATH)
+        # Train the model dynamically right now instead of looking for a saved file!
+        trained_model = train_breakout_model(processed_data)
+        
+        kpis, trade_log = run_historical_backtest(processed_data, trained_model)
         
         if kpis is None:
             print(trade_log)
             sys.exit(0)
             
-        # Get AI analysis
         ai_critique = ask_gemini_to_optimize(kpis)
         
-        # Format the final GitHub dashboard output
         report_md = f"""
 ## 📊 3-Year Historical Backtest & AI Audit Report
 
@@ -149,7 +146,6 @@ if __name__ == "__main__":
 {ai_critique}
 """
         
-        # Write directly to GitHub Summaries
         summary_env = os.environ.get("GITHUB_STEP_SUMMARY")
         if summary_env:
             with open(summary_env, "a") as f:
