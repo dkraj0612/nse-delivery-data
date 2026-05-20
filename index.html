@@ -3,151 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dual-Engine Stock Dashboard - Quant Fund</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <title>Quant Fund Stock Picks - 2026-05-18</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #1a1a2e;
-            --card-bg-color: #27283c;
+            --card-bg: #21213e;
             --text-color: #e0e0e0;
-            --header-bg-color: #0f0f1d;
-            --accent-color: #e94560;
-            --positive-score: #4CAF50; /* Green */
-            --negative-score: #FF5252; /* Red */
-            --border-color: #3b3b54;
-            --shadow-color: rgba(0, 0, 0, 0.4);
+            --heading-color: #e94560;
+            --accent-color: #0f3460;
+            --border-color: #3e206b;
+            --button-bg: #e94560;
+            --button-text: #ffffff;
+            --positive-score: #34d399; /* Tailwind green-400 */
+            --negative-score: #ef4444; /* Tailwind red-500 */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Roboto', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            margin: 0;
-            padding: 0;
             line-height: 1.6;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
         }
 
         header {
-            background-color: var(--header-bg-color);
-            padding: 1.5rem 1rem;
-            box-shadow: 0 4px 8px var(--shadow-color);
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+            gap: 20px;
         }
 
-        header h1 {
-            margin: 0;
-            font-size: 1.8rem;
-            color: var(--accent-color);
-            font-weight: 700;
+        h1 {
+            color: var(--heading-color);
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
         }
 
-        .ledger-button {
-            background-color: var(--accent-color);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 5px;
+        .button {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: var(--button-bg);
+            color: var(--button-text);
             text-decoration: none;
-            font-weight: 600;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.1em;
             transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 2px 4px var(--shadow-color);
-            white-space: nowrap;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border: none;
+            cursor: pointer;
         }
 
-        .ledger-button:hover {
-            background-color: #d1304b;
+        .button:hover {
+            background-color: #d33853; /* Slightly darker red */
             transform: translateY(-2px);
         }
 
         main {
-            flex-grow: 1;
-            padding: 2rem 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
         }
 
-        .engine-section {
-            margin-bottom: 3rem;
+        .engine-group {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
         }
 
-        .engine-section h2 {
-            font-size: 2rem;
+        .engine-group h2 {
             color: var(--accent-color);
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 0.75rem;
-            margin-bottom: 2rem;
-            font-weight: 700;
+            font-size: 2em;
+            margin-bottom: 25px;
+            text-align: center;
+            border-bottom: 2px solid var(--heading-color);
+            padding-bottom: 15px;
+            letter-spacing: 0.8px;
         }
 
         .stock-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
         }
 
         .stock-card {
-            background-color: var(--card-bg-color);
-            border-radius: 10px;
-            padding: 1.5rem;
-            box-shadow: 0 6px 12px var(--shadow-color);
+            background-color: var(--bg-color);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid var(--border-color);
         }
 
         .stock-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 16px var(--shadow-color);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
         }
 
-        .stock-ticker {
-            font-size: 1.75rem;
-            font-weight: 700;
+        .stock-card h3 {
+            color: var(--heading-color);
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+        }
+
+        .stock-card p {
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+
+        .stock-card p strong {
             color: var(--accent-color);
-            margin-bottom: 0.5rem;
         }
 
-        .stock-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .stock-info p {
-            margin: 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            font-size: 1rem;
-            font-weight: 400;
-        }
-
-        .stock-info strong {
-            color: var(--text-color);
-            font-weight: 600;
-            white-space: nowrap;
-            margin-right: 0.5rem;
-        }
-
-        .stock-info span {
-            font-family: 'Roboto Mono', monospace;
-            color: var(--text-color);
-            flex-grow: 1;
-            text-align: right;
-        }
-
-        .stock-score span {
+        .master-score {
             font-weight: 700;
+            font-size: 1.15em;
+            padding: 5px 0;
+            border-top: 1px solid var(--border-color);
+            margin-top: 10px;
         }
 
         .score-positive {
@@ -158,242 +160,185 @@
             color: var(--negative-score);
         }
 
-        footer {
-            background-color: var(--header-bg-color);
-            color: var(--text-color);
-            text-align: center;
-            padding: 1.5rem 1rem;
-            margin-top: 2rem;
-            border-top: 1px solid var(--border-color);
-        }
-
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                align-items: flex-start;
+            h1 {
+                font-size: 2.2em;
             }
-            header h1 {
-                font-size: 1.5rem;
-            }
-            .ledger-button {
-                width: 100%;
-                text-align: center;
-            }
-            main {
-                padding: 1.5rem 0.5rem;
-            }
-            .engine-section h2 {
-                font-size: 1.75rem;
-                text-align: center;
+            .engine-group h2 {
+                font-size: 1.6em;
             }
             .stock-grid {
-                grid-template-columns: 1fr; /* Stack cards on mobile */
+                grid-template-columns: 1fr; /* Stack cards on small screens */
             }
-            .stock-card {
-                padding: 1.25rem;
-            }
-            .stock-ticker {
-                font-size: 1.5rem;
-            }
-            .stock-info p {
-                font-size: 0.95rem;
+            .button {
+                padding: 10px 20px;
+                font-size: 1em;
             }
         }
 
         @media (max-width: 480px) {
-            header h1 {
-                font-size: 1.3rem;
+            body {
+                padding: 10px;
             }
-            .ledger-button {
-                font-size: 0.9rem;
-                padding: 0.6rem 1.2rem;
+            h1 {
+                font-size: 1.8em;
             }
-            .engine-section h2 {
-                font-size: 1.5rem;
+            .engine-group {
+                padding: 20px;
             }
-            .stock-ticker {
-                font-size: 1.35rem;
+            .engine-group h2 {
+                font-size: 1.4em;
+            }
+            .stock-card h3 {
+                font-size: 1.5em;
+            }
+            .stock-card p {
+                font-size: 0.95em;
+            }
+            .master-score {
+                font-size: 1.05em;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Dual-Engine Stock Selections</h1>
-        <a href="history.html" class="ledger-button">View Full Backtest Ledger</a>
-    </header>
+    <div class="container">
+        <header>
+            <h1>Quant Fund Stock Picks</h1>
+            <p>Selection Date: 2026-05-18</p>
+            <a href="history.html" class="button">View Full Backtest Ledger</a>
+        </header>
 
-    <main>
-        <div class="engine-section">
-            <h2>Engine A Selections (Sector Focus)</h2>
-            <div class="stock-grid">
-                <!-- Engine A Stocks -->
-                <div class="stock-card">
-                    <div class="stock-ticker">HINDALCO</div>
-                    <div class="stock-info">
-                        <p><strong>Sector:</strong> <span>Metals & Mining</span></p>
-                        <p><strong>Close Price:</strong> <span>₹1053.1</span></p>
-                        <p class="stock-score"><strong>Master Score:</strong> <span class="score-positive">0.536862</span></p>
+        <main>
+            <section class="engine-group">
+                <h2>Engine A (Sector) Picks</h2>
+                <div class="stock-grid">
+                    <!-- Engine A Stocks -->
+                    <div class="stock-card">
+                        <h3>HINDALCO</h3>
+                        <p><strong>Sector:</strong> Metals & Mining</p>
+                        <p><strong>Price:</strong> ₹1053.1</p>
+                        <p class="master-score score-positive"><strong>Score:</strong> 0.536862</p>
+                    </div>
+                    <div class="stock-card">
+                        <h3>APARINDS</h3>
+                        <p><strong>Sector:</strong> Capital Goods</p>
+                        <p><strong>Price:</strong> ₹12154</p>
+                        <p class="master-score score-positive"><strong>Score:</strong> 0.36189</p>
+                    </div>
+                    <div class="stock-card">
+                        <h3>HINDZINC</h3>
+                        <p><strong>Sector:</strong> Metals & Mining</p>
+                        <p><strong>Price:</strong> ₹636.5</p>
+                        <p class="master-score score-positive"><strong>Score:</strong> 0.325599</p>
+                    </div>
+                    <div class="stock-card">
+                        <h3>ABB</h3>
+                        <p><strong>Sector:</strong> Capital Goods</p>
+                        <p><strong>Price:</strong> ₹6413.5</p>
+                        <p class="master-score score-positive"><strong>Score:</strong> 0.130873</p>
+                    </div>
+                    <div class="stock-card">
+                        <h3>INDUSTOWER</h3>
+                        <p><strong>Sector:</strong> Telecommunication</p>
+                        <p><strong>Price:</strong> ₹430.9</p>
+                        <p class="master-score score-positive"><strong>Score:</strong> 0.112573</p>
+                    </div>
+                    <div class="stock-card">
+                        <h3>APLAPOLLO</h3>
+                        <p><strong>Sector:</strong> Capital Goods</p>
+                        <p><strong>Price:</strong> ₹1876</p>
+                        <p class="master-score score-positive"><strong>Score:</strong> 0.0572371</p>
+                    </div>
+                    <div class="stock-card">
+                        <h3>BHARTIARTL</h3>
+                        <p><strong>Sector:</strong> Telecommunication</p>
+                        <p><strong>Price:</strong> ₹1938.1</p>
+                        <p class="master-score score-negative"><strong>Score:</strong> -0.0342902</p>
+                    </div>
+                    <div class="stock-card">
+                        <h3>BHARTIHEXA</h3>
+                        <p><strong>Sector:</strong> Telecommunication</p>
+                        <p><strong>Price:</strong> ₹1597.6</p>
+                        <p class="master-score score-negative"><strong>Score:</strong> -0.0856772</p>
+                    </div>
+                    <div class="stock-card">
+                        <h3>GRAVITA</h3>
+                        <p><strong>Sector:</strong> Metals & Mining</p>
+                        <p><strong>Price:</strong> ₹1625.3</p>
+                        <p class="master-score score-negative"><strong>Score:</strong> -0.0950734</p>
                     </div>
                 </div>
-                <div class="stock-card">
-                    <div class="stock-ticker">APARINDS</div>
-                    <div class="stock-info">
-                        <p><strong>Sector:</strong> <span>Capital Goods</span></p>
-                        <p><strong>Close Price:</strong> <span>₹12154</span></p>
-                        <p class="stock-score"><strong>Master Score:</strong> <span class="score-positive">0.36189</span></p>
-                    </div>
-                </div>
-                <div class="stock-card">
-                    <div class="stock-ticker">HINDZINC</div>
-                    <div class="stock-info">
-                        <p><strong>Sector:</strong> <span>Metals & Mining</span></p>
-                        <p><strong>Close Price:</strong> <span>₹636.5</span></p>
-                        <p class="stock-score"><strong>Master Score:</strong> <span class="score-positive">0.325599</span></p>
-                    </div>
-                </div>
-                <div class="stock-card">
-                    <div class="stock-ticker">ABB</div>
-                    <div class="stock-info">
-                        <p><strong>Sector:</strong> <span>Capital Goods</span></p>
-                        <p><strong>Close Price:</strong> <span>₹6413.5</span></p>
-                        <p class="stock-score"><strong>Master Score:</strong> <span class="score-positive">0.130873</span></p>
-                    </div>
-                </div>
-                <div class="stock-card">
-                    <div class="stock-ticker">INDUSTOWER</div>
-                    <div class="stock-info">
-                        <p><strong>Sector:</strong> <span>Telecommunication</span></p>
-                        <p><strong>Close Price:</strong> <span>₹430.9</span></p>
-                        <p class="stock-score"><strong>Master Score:</strong> <span class="score-positive">0.112573</span></p>
-                    </div>
-                </div>
-                <div class="stock-card">
-                    <div class="stock-ticker">APLAPOLLO</div>
-                    <div class="stock-info">
-                        <p><strong>Sector:</strong> <span>Capital Goods</span></p>
-                        <p><strong>Close Price:</strong> <span>₹1876</span></p>
-                        <p class="stock-score"><strong>Master Score:</strong> <span class="score-positive">0.0572371</span></p>
-                    </div>
-                </div>
-                <div class="stock-card">
-                    <div class="stock-ticker">BHARTIARTL</div>
-                    <div class="stock-info">
-                        <p><strong>Sector:</strong> <span>Telecommunication</span></p>
-                        <p><strong>Close Price:</strong> <span>₹1938.1</span></p>
-                        <p class="stock-score"><strong>Master Score:</strong> <span class="score-negative">-0.0342902</span></p>
-                    </div>
-                </div>
-                <div class="stock-card">
-                    <div class="stock-ticker">BHARTIHEXA</div>
-                    <div class="stock-info">
-                        <p><strong>Sector:</strong> <span>Telecommunication</span></p>
-                        <p><strong>Close Price:</strong> <span>₹1597.6</span></p>
-                        <p class="stock-score"><strong>Master Score:</strong> <span class="score-negative">-0.0856772</span></p>
-                    </div>
-                </div>
-                <div class="stock-card">
-                    <div class="stock-ticker">GRAVITA</div>
-                    <div class="stock-info">
-                        <p><strong>Sector:</strong> <span>Metals & Mining</span></p>
-                        <p><strong>Close Price:</strong> <span>₹1625.3</span></p>
-                        <p class="stock-score"><strong>Master Score:</strong> <span class="score-negative">-0.0950734</span></p>
-                    </div>
-                </div>
-            </div>
-        </div>
+            </section>
 
-        <div class="engine-section">
-            <h2>Engine B Selections (Lone Wolf)</h2>
-            <div class="stock-grid">
-                <!-- Engine B Stocks -->
-                <div class="stock-card">
-                    <div class="stock-ticker">STLTECH</div>
-                    <div class="stock-info">
-                        <p><strong>Sector:</strong> <span>Telecommunication</span></p>
-                        <p><strong>Close Price:</strong> <span>₹421.9</span></p>
-                        <p class="stock-score"><strong>Master Score:</strong> <span class="score-positive">3.57128</span></p>
+            <section class="engine-group">
+                <h2>Engine B (Lone Wolf) Picks</h2>
+                <div class="stock-grid">
+                    <!-- Engine B Stocks -->
+                    <div class="stock-card">
+                        <h3>STLTECH</h3>
+                        <p><strong>Sector:</strong> Telecommunication</p>
+                        <p><strong>Price:</strong> ₹421.9</p>
+                        <p class="master-score score-positive"><strong>Score:</strong> 3.57128</p>
+                    </div>
+                    <div class="stock-card">
+                        <h3>TDPOWERSYS</h3>
+                        <p><strong>Sector:</strong> Capital Goods</p>
+                        <p><strong>Price:</strong> ₹1328</p>
+                        <p class="master-score score-positive"><strong>Score:</strong> 1.06904</p>
+                    </div>
+                    <div class="stock-card">
+                        <h3>GVT&D</h3>
+                        <p><strong>Sector:</strong> Capital Goods</p>
+                        <p><strong>Price:</strong> ₹4426.8</p>
+                        <p class="master-score score-positive"><strong>Score:</strong> 0.945855</p>
+                    </div>
+                    <div class="stock-card">
+                        <h3>JAYNECOIND</h3>
+                        <p><strong>Sector:</strong> Capital Goods</p>
+                        <p><strong>Price:</strong> ₹104.79</p>
+                        <p class="master-score score-positive"><strong>Score:</strong> 0.817707</p>
+                    </div>
+                    <div class="stock-card">
+                        <h3>LAURUSLABS</h3>
+                        <p><strong>Sector:</strong> Healthcare</p>
+                        <p><strong>Price:</strong> ₹1327.3</p>
+                        <p class="master-score score-positive"><strong>Score:</strong> 0.786541</p>
+                    </div>
+                    <div class="stock-card">
+                        <h3>NATIONALUM</h3>
+                        <p><strong>Sector:</strong> Metals & Mining</p>
+                        <p><strong>Price:</strong> ₹400.45</p>
+                        <p class="master-score score-positive"><strong>Score:</strong> 0.762746</p>
+                    </div>
+                    <div class="stock-card">
+                        <h3>LUMAXTECH</h3>
+                        <p><strong>Sector:</strong> Automobile and Auto Components</p>
+                        <p><strong>Price:</strong> ₹1629.2</p>
+                        <p class="master-score score-positive"><strong>Score:</strong> 0.736322</p>
+                    </div>
+                    <div class="stock-card">
+                        <h3>AXISCADES</h3>
+                        <p><strong>Sector:</strong> Capital Goods</p>
+                        <p><strong>Price:</strong> ₹2009.1</p>
+                        <p class="master-score score-positive"><strong>Score:</strong> 0.717359</p>
+                    </div>
+                    <div class="stock-card">
+                        <h3>SANSERA</h3>
+                        <p><strong>Sector:</strong> Automobile and Auto Components</p>
+                        <p><strong>Price:</strong> ₹2392.5</p>
+                        <p class="master-score score-positive"><strong>Score:</strong> 0.690959</p>
+                    </div>
+                    <div class="stock-card">
+                        <h3>KIRLOSENG</h3>
+                        <p><strong>Sector:</strong> Capital Goods</p>
+                        <p><strong>Price:</strong> ₹1700</p>
+                        <p class="master-score score-positive"><strong>Score:</strong> 0.680867</p>
                     </div>
                 </div>
-                <div class="stock-card">
-                    <div class="stock-ticker">TDPOWERSYS</div>
-                    <div class="stock-info">
-                        <p><strong>Sector:</strong> <span>Capital Goods</span></p>
-                        <p><strong>Close Price:</strong> <span>₹1328</span></p>
-                        <p class="stock-score"><strong>Master Score:</strong> <span class="score-positive">1.06904</span></p>
-                    </div>
-                </div>
-                <div class="stock-card">
-                    <div class="stock-ticker">GVT&D</div>
-                    <div class="stock-info">
-                        <p><strong>Sector:</strong> <span>Capital Goods</span></p>
-                        <p><strong>Close Price:</strong> <span>₹4426.8</span></p>
-                        <p class="stock-score"><strong>Master Score:</strong> <span class="score-positive">0.945855</span></p>
-                    </div>
-                </div>
-                <div class="stock-card">
-                    <div class="stock-ticker">JAYNECOIND</div>
-                    <div class="stock-info">
-                        <p><strong>Sector:</strong> <span>Capital Goods</span></p>
-                        <p><strong>Close Price:</strong> <span>₹104.79</span></p>
-                        <p class="stock-score"><strong>Master Score:</strong> <span class="score-positive">0.817707</span></p>
-                    </div>
-                </div>
-                <div class="stock-card">
-                    <div class="stock-ticker">LAURUSLABS</div>
-                    <div class="stock-info">
-                        <p><strong>Sector:</strong> <span>Healthcare</span></p>
-                        <p><strong>Close Price:</strong> <span>₹1327.3</span></p>
-                        <p class="stock-score"><strong>Master Score:</strong> <span class="score-positive">0.786541</span></p>
-                    </div>
-                </div>
-                <div class="stock-card">
-                    <div class="stock-ticker">NATIONALUM</div>
-                    <div class="stock-info">
-                        <p><strong>Sector:</strong> <span>Metals & Mining</span></p>
-                        <p><strong>Close Price:</strong> <span>₹400.45</span></p>
-                        <p class="stock-score"><strong>Master Score:</strong> <span class="score-positive">0.762746</span></p>
-                    </div>
-                </div>
-                <div class="stock-card">
-                    <div class="stock-ticker">LUMAXTECH</div>
-                    <div class="stock-info">
-                        <p><strong>Sector:</strong> <span>Automobile and Auto Components</span></p>
-                        <p><strong>Close Price:</strong> <span>₹1629.2</span></p>
-                        <p class="stock-score"><strong>Master Score:</strong> <span class="score-positive">0.736322</span></p>
-                    </div>
-                </div>
-                <div class="stock-card">
-                    <div class="stock-ticker">AXISCADES</div>
-                    <div class="stock-info">
-                        <p><strong>Sector:</strong> <span>Capital Goods</span></p>
-                        <p><strong>Close Price:</strong> <span>₹2009.1</span></p>
-                        <p class="stock-score"><strong>Master Score:</strong> <span class="score-positive">0.717359</span></p>
-                    </div>
-                </div>
-                <div class="stock-card">
-                    <div class="stock-ticker">SANSERA</div>
-                    <div class="stock-info">
-                        <p><strong>Sector:</strong> <span>Automobile and Auto Components</span></p>
-                        <p><strong>Close Price:</strong> <span>₹2392.5</span></p>
-                        <p class="stock-score"><strong>Master Score:</strong> <span class="score-positive">0.690959</span></p>
-                    </div>
-                </div>
-                <div class="stock-card">
-                    <div class="stock-ticker">KIRLOSENG</div>
-                    <div class="stock-info">
-                        <p><strong>Sector:</strong> <span>Capital Goods</span></p>
-                        <p><strong>Close Price:</strong> <span>₹1700</span></p>
-                        <p class="stock-score"><strong>Master Score:</strong> <span class="score-positive">0.680867</span></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <footer>
-        <p>&copy; 2026 Indian Quant Fund. All rights reserved. Data as of 2026-05-18.</p>
-    </footer>
+            </section>
+        </main>
+    </div>
 </body>
 </html>

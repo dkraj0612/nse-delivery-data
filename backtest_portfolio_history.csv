@@ -1,803 +1,803 @@
 DATE,SYMBOL,ACTION,ENGINE,PRICE,JUSTIFICATION
-2023-05-31,CHOLAFIN,ENTRY,Engine A (Sector),1050.9,Top Breakout Picked by Engine A (Sector)
-2023-05-31,CHOLAFIN,ENTRY,Engine A (Sector),1001.0,Top Breakout Picked by Engine A (Sector)
-2023-05-31,CHOLAFIN,ENTRY,Engine A (Sector),1004.0,Top Breakout Picked by Engine A (Sector)
-2023-06-30,CHOLAFIN,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2023-06-30,ABB,ENTRY,Engine A (Sector),4423.0,Top Breakout Picked by Engine A (Sector)
-2023-06-30,ABB,ENTRY,Engine A (Sector),4423.0,Top Breakout Picked by Engine A (Sector)
-2023-06-30,GODREJPROP,ENTRY,Engine A (Sector),1568.45,Top Breakout Picked by Engine A (Sector)
-2023-06-30,ACE,ENTRY,Engine A (Sector),490.1,Top Breakout Picked by Engine A (Sector)
-2023-06-30,NAZARA,ENTRY,Engine A (Sector),724.6,Top Breakout Picked by Engine A (Sector)
-2023-06-30,NAZARA,ENTRY,Engine A (Sector),724.6,Top Breakout Picked by Engine A (Sector)
-2023-06-30,DLF,ENTRY,Engine A (Sector),490.55,Top Breakout Picked by Engine A (Sector)
-2023-06-30,DLF,ENTRY,Engine A (Sector),490.55,Top Breakout Picked by Engine A (Sector)
-2023-06-30,JINDALSAW,ENTRY,Engine B (Lone Wolf),255.9,Top Breakout Picked by Engine B (Lone Wolf)
-2023-06-30,JINDALSAW,ENTRY,Engine B (Lone Wolf),255.9,Top Breakout Picked by Engine B (Lone Wolf)
-2023-06-30,KAYNES,ENTRY,Engine B (Lone Wolf),1505.4,Top Breakout Picked by Engine B (Lone Wolf)
-2023-06-30,KAYNES,ENTRY,Engine B (Lone Wolf),1505.4,Top Breakout Picked by Engine B (Lone Wolf)
-2023-06-30,FORCEMOT,ENTRY,Engine B (Lone Wolf),2733.85,Top Breakout Picked by Engine B (Lone Wolf)
-2023-06-30,FORCEMOT,ENTRY,Engine B (Lone Wolf),2733.85,Top Breakout Picked by Engine B (Lone Wolf)
-2023-06-30,JWL,ENTRY,Engine B (Lone Wolf),173.8,Top Breakout Picked by Engine B (Lone Wolf)
-2023-06-30,JWL,ENTRY,Engine B (Lone Wolf),173.8,Top Breakout Picked by Engine B (Lone Wolf)
-2023-06-30,APARINDS,ENTRY,Engine B (Lone Wolf),3470.05,Top Breakout Picked by Engine B (Lone Wolf)
-2023-06-30,APARINDS,ENTRY,Engine B (Lone Wolf),3470.05,Top Breakout Picked by Engine B (Lone Wolf)
+2023-05-31,CHOLAFIN,ENTRY,Engine A (Sector),₹1050.90,Top Breakout Picked by Engine A (Sector)
+2023-05-31,CHOLAFIN,ENTRY,Engine A (Sector),₹1001.00,Top Breakout Picked by Engine A (Sector)
+2023-05-31,CHOLAFIN,ENTRY,Engine A (Sector),₹1004.00,Top Breakout Picked by Engine A (Sector)
+2023-06-30,CHOLAFIN,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2023-06-30,ABB,ENTRY,Engine A (Sector),₹4423.00,Top Breakout Picked by Engine A (Sector)
+2023-06-30,ABB,ENTRY,Engine A (Sector),₹4423.00,Top Breakout Picked by Engine A (Sector)
+2023-06-30,GODREJPROP,ENTRY,Engine A (Sector),₹1568.45,Top Breakout Picked by Engine A (Sector)
+2023-06-30,ACE,ENTRY,Engine A (Sector),₹490.10,Top Breakout Picked by Engine A (Sector)
+2023-06-30,NAZARA,ENTRY,Engine A (Sector),₹724.60,Top Breakout Picked by Engine A (Sector)
+2023-06-30,NAZARA,ENTRY,Engine A (Sector),₹724.60,Top Breakout Picked by Engine A (Sector)
+2023-06-30,DLF,ENTRY,Engine A (Sector),₹490.55,Top Breakout Picked by Engine A (Sector)
+2023-06-30,DLF,ENTRY,Engine A (Sector),₹490.55,Top Breakout Picked by Engine A (Sector)
+2023-06-30,JINDALSAW,ENTRY,Engine B (Lone Wolf),₹255.90,Top Breakout Picked by Engine B (Lone Wolf)
+2023-06-30,JINDALSAW,ENTRY,Engine B (Lone Wolf),₹255.90,Top Breakout Picked by Engine B (Lone Wolf)
+2023-06-30,KAYNES,ENTRY,Engine B (Lone Wolf),₹1505.40,Top Breakout Picked by Engine B (Lone Wolf)
+2023-06-30,KAYNES,ENTRY,Engine B (Lone Wolf),₹1505.40,Top Breakout Picked by Engine B (Lone Wolf)
+2023-06-30,FORCEMOT,ENTRY,Engine B (Lone Wolf),₹2733.85,Top Breakout Picked by Engine B (Lone Wolf)
+2023-06-30,FORCEMOT,ENTRY,Engine B (Lone Wolf),₹2733.85,Top Breakout Picked by Engine B (Lone Wolf)
+2023-06-30,JWL,ENTRY,Engine B (Lone Wolf),₹173.80,Top Breakout Picked by Engine B (Lone Wolf)
+2023-06-30,JWL,ENTRY,Engine B (Lone Wolf),₹173.80,Top Breakout Picked by Engine B (Lone Wolf)
+2023-06-30,APARINDS,ENTRY,Engine B (Lone Wolf),₹3470.05,Top Breakout Picked by Engine B (Lone Wolf)
+2023-06-30,APARINDS,ENTRY,Engine B (Lone Wolf),₹3470.05,Top Breakout Picked by Engine B (Lone Wolf)
+2023-07-31,APARINDS,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2023-07-31,DLF,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2023-07-31,GODREJPROP,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2023-07-31,JWL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2023-07-31,KAYNES,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
 2023-07-31,FORCEMOT,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2023-07-31,DLF,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2023-07-31,KAYNES,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2023-07-31,APARINDS,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
 2023-07-31,NAZARA,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2023-07-31,GODREJPROP,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2023-07-31,JWL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2023-07-31,ACE,HOLD,Engine A (Sector),721.55,Maintained Top 10 Momentum Rank
-2023-07-31,ABB,HOLD,Engine A (Sector),4552.8,Maintained Top 10 Momentum Rank
-2023-07-31,ABB,HOLD,Engine A (Sector),4552.8,Maintained Top 10 Momentum Rank
-2023-07-31,KEC,ENTRY,Engine A (Sector),633.85,Top Breakout Picked by Engine A (Sector)
-2023-07-31,KEC,ENTRY,Engine A (Sector),633.85,Top Breakout Picked by Engine A (Sector)
-2023-07-31,BAJAJ-AUTO,ENTRY,Engine A (Sector),4931.4,Top Breakout Picked by Engine A (Sector)
-2023-07-31,BAJAJ-AUTO,ENTRY,Engine A (Sector),4931.4,Top Breakout Picked by Engine A (Sector)
-2023-07-31,LT,ENTRY,Engine A (Sector),2681.35,Top Breakout Picked by Engine A (Sector)
-2023-07-31,BALKRISIND,ENTRY,Engine A (Sector),2542.35,Top Breakout Picked by Engine A (Sector)
-2023-07-31,ZENTEC,ENTRY,Engine B (Lone Wolf),617.65,Top Breakout Picked by Engine B (Lone Wolf)
-2023-07-31,ZENTEC,ENTRY,Engine B (Lone Wolf),617.65,Top Breakout Picked by Engine B (Lone Wolf)
-2023-07-31,INOXWIND,ENTRY,Engine B (Lone Wolf),211.55,Top Breakout Picked by Engine B (Lone Wolf)
-2023-07-31,INOXWIND,ENTRY,Engine B (Lone Wolf),211.55,Top Breakout Picked by Engine B (Lone Wolf)
-2023-07-31,JINDALSAW,HOLD,Engine B (Lone Wolf),324.35,Maintained Top 10 Momentum Rank
-2023-07-31,JINDALSAW,HOLD,Engine B (Lone Wolf),324.35,Maintained Top 10 Momentum Rank
-2023-07-31,OLECTRA,ENTRY,Engine B (Lone Wolf),1150.15,Top Breakout Picked by Engine B (Lone Wolf)
-2023-07-31,OLECTRA,ENTRY,Engine B (Lone Wolf),1150.15,Top Breakout Picked by Engine B (Lone Wolf)
-2023-07-31,RKFORGE,ENTRY,Engine B (Lone Wolf),562.85,Top Breakout Picked by Engine B (Lone Wolf)
-2023-07-31,RKFORGE,ENTRY,Engine B (Lone Wolf),562.85,Top Breakout Picked by Engine B (Lone Wolf)
+2023-07-31,ACE,HOLD,Engine A (Sector),₹721.55,Maintained Top 10 Rank
+2023-07-31,ABB,HOLD,Engine A (Sector),₹4552.80,Maintained Top 10 Rank
+2023-07-31,ABB,HOLD,Engine A (Sector),₹4552.80,Maintained Top 10 Rank
+2023-07-31,KEC,ENTRY,Engine A (Sector),₹633.85,Top Breakout Picked by Engine A (Sector)
+2023-07-31,KEC,ENTRY,Engine A (Sector),₹633.85,Top Breakout Picked by Engine A (Sector)
+2023-07-31,BAJAJ-AUTO,ENTRY,Engine A (Sector),₹4931.40,Top Breakout Picked by Engine A (Sector)
+2023-07-31,BAJAJ-AUTO,ENTRY,Engine A (Sector),₹4931.40,Top Breakout Picked by Engine A (Sector)
+2023-07-31,LT,ENTRY,Engine A (Sector),₹2681.35,Top Breakout Picked by Engine A (Sector)
+2023-07-31,BALKRISIND,ENTRY,Engine A (Sector),₹2542.35,Top Breakout Picked by Engine A (Sector)
+2023-07-31,ZENTEC,ENTRY,Engine B (Lone Wolf),₹617.65,Top Breakout Picked by Engine B (Lone Wolf)
+2023-07-31,ZENTEC,ENTRY,Engine B (Lone Wolf),₹617.65,Top Breakout Picked by Engine B (Lone Wolf)
+2023-07-31,INOXWIND,ENTRY,Engine B (Lone Wolf),₹211.55,Top Breakout Picked by Engine B (Lone Wolf)
+2023-07-31,INOXWIND,ENTRY,Engine B (Lone Wolf),₹211.55,Top Breakout Picked by Engine B (Lone Wolf)
+2023-07-31,JINDALSAW,HOLD,Engine B (Lone Wolf),₹324.35,Maintained Top 10 Rank
+2023-07-31,JINDALSAW,HOLD,Engine B (Lone Wolf),₹324.35,Maintained Top 10 Rank
+2023-07-31,OLECTRA,ENTRY,Engine B (Lone Wolf),₹1150.15,Top Breakout Picked by Engine B (Lone Wolf)
+2023-07-31,OLECTRA,ENTRY,Engine B (Lone Wolf),₹1150.15,Top Breakout Picked by Engine B (Lone Wolf)
+2023-07-31,RKFORGE,ENTRY,Engine B (Lone Wolf),₹562.85,Top Breakout Picked by Engine B (Lone Wolf)
+2023-07-31,RKFORGE,ENTRY,Engine B (Lone Wolf),₹562.85,Top Breakout Picked by Engine B (Lone Wolf)
 2023-08-31,ACE,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2023-08-31,LT,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2023-08-31,OLECTRA,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
+2023-08-31,BAJAJ-AUTO,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2023-08-31,OLECTRA,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2023-08-31,BALKRISIND,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2023-08-31,LT,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
 2023-08-31,INOXWIND,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2023-08-31,JINDALSAW,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2023-08-31,BAJAJ-AUTO,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2023-08-31,BALKRISIND,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
+2023-08-31,JINDALSAW,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
 2023-08-31,ZENTEC,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2023-08-31,DBREALTY,ENTRY,Engine A (Sector),151.2,Top Breakout Picked by Engine A (Sector)
-2023-08-31,ANANTRAJ,ENTRY,Engine A (Sector),219.5,Top Breakout Picked by Engine A (Sector)
-2023-08-31,ANANTRAJ,ENTRY,Engine A (Sector),219.5,Top Breakout Picked by Engine A (Sector)
-2023-08-31,ENGINERSIN,ENTRY,Engine A (Sector),154.3,Top Breakout Picked by Engine A (Sector)
-2023-08-31,AIAENG,ENTRY,Engine A (Sector),3695.15,Top Breakout Picked by Engine A (Sector)
-2023-08-31,KEC,HOLD,Engine A (Sector),671.45,Maintained Top 10 Momentum Rank
-2023-08-31,KEC,HOLD,Engine A (Sector),671.45,Maintained Top 10 Momentum Rank
-2023-08-31,ABB,HOLD,Engine A (Sector),4381.55,Maintained Top 10 Momentum Rank
-2023-08-31,ABB,HOLD,Engine A (Sector),4381.55,Maintained Top 10 Momentum Rank
-2023-08-31,JWL,ENTRY,Engine B (Lone Wolf),343.35,Top Breakout Picked by Engine B (Lone Wolf)
-2023-08-31,JWL,ENTRY,Engine B (Lone Wolf),343.35,Top Breakout Picked by Engine B (Lone Wolf)
-2023-08-31,TEXRAIL,ENTRY,Engine B (Lone Wolf),145.8,Top Breakout Picked by Engine B (Lone Wolf)
-2023-08-31,TEXRAIL,ENTRY,Engine B (Lone Wolf),145.8,Top Breakout Picked by Engine B (Lone Wolf)
-2023-08-31,RKFORGE,HOLD,Engine B (Lone Wolf),713.3,Maintained Top 10 Momentum Rank
-2023-08-31,RKFORGE,HOLD,Engine B (Lone Wolf),713.3,Maintained Top 10 Momentum Rank
-2023-08-31,KALYANKJIL,ENTRY,Engine B (Lone Wolf),251.8,Top Breakout Picked by Engine B (Lone Wolf)
-2023-08-31,ELECON,ENTRY,Engine B (Lone Wolf),883.0,Top Breakout Picked by Engine B (Lone Wolf)
-2023-08-31,ELECON,ENTRY,Engine B (Lone Wolf),883.0,Top Breakout Picked by Engine B (Lone Wolf)
-2023-08-31,KALYANKJIL,ENTRY,Engine B (Lone Wolf),251.8,Top Breakout Picked by Engine B (Lone Wolf)
-2023-09-29,ABB,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2023-09-29,ELECON,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2023-09-29,KALYANKJIL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2023-09-29,AIAENG,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
+2023-08-31,DBREALTY,ENTRY,Engine A (Sector),₹151.20,Top Breakout Picked by Engine A (Sector)
+2023-08-31,ANANTRAJ,ENTRY,Engine A (Sector),₹219.50,Top Breakout Picked by Engine A (Sector)
+2023-08-31,ANANTRAJ,ENTRY,Engine A (Sector),₹219.50,Top Breakout Picked by Engine A (Sector)
+2023-08-31,ENGINERSIN,ENTRY,Engine A (Sector),₹154.30,Top Breakout Picked by Engine A (Sector)
+2023-08-31,AIAENG,ENTRY,Engine A (Sector),₹3695.15,Top Breakout Picked by Engine A (Sector)
+2023-08-31,KEC,HOLD,Engine A (Sector),₹671.45,Maintained Top 10 Rank
+2023-08-31,KEC,HOLD,Engine A (Sector),₹671.45,Maintained Top 10 Rank
+2023-08-31,ABB,HOLD,Engine A (Sector),₹4381.55,Maintained Top 10 Rank
+2023-08-31,ABB,HOLD,Engine A (Sector),₹4381.55,Maintained Top 10 Rank
+2023-08-31,JWL,ENTRY,Engine B (Lone Wolf),₹343.35,Top Breakout Picked by Engine B (Lone Wolf)
+2023-08-31,JWL,ENTRY,Engine B (Lone Wolf),₹343.35,Top Breakout Picked by Engine B (Lone Wolf)
+2023-08-31,TEXRAIL,ENTRY,Engine B (Lone Wolf),₹145.80,Top Breakout Picked by Engine B (Lone Wolf)
+2023-08-31,TEXRAIL,ENTRY,Engine B (Lone Wolf),₹145.80,Top Breakout Picked by Engine B (Lone Wolf)
+2023-08-31,RKFORGE,HOLD,Engine B (Lone Wolf),₹713.30,Maintained Top 10 Rank
+2023-08-31,RKFORGE,HOLD,Engine B (Lone Wolf),₹713.30,Maintained Top 10 Rank
+2023-08-31,KALYANKJIL,ENTRY,Engine B (Lone Wolf),₹251.80,Top Breakout Picked by Engine B (Lone Wolf)
+2023-08-31,ELECON,ENTRY,Engine B (Lone Wolf),₹883.00,Top Breakout Picked by Engine B (Lone Wolf)
+2023-08-31,ELECON,ENTRY,Engine B (Lone Wolf),₹883.00,Top Breakout Picked by Engine B (Lone Wolf)
+2023-08-31,KALYANKJIL,ENTRY,Engine B (Lone Wolf),₹251.80,Top Breakout Picked by Engine B (Lone Wolf)
+2023-09-29,TEXRAIL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2023-09-29,RKFORGE,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2023-09-29,ELECON,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2023-09-29,ENGINERSIN,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
 2023-09-29,KEC,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2023-09-29,TEXRAIL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2023-09-29,ENGINERSIN,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2023-09-29,RKFORGE,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2023-09-29,DBREALTY,HOLD,Engine A (Sector),162.3,Maintained Top 10 Momentum Rank
-2023-09-29,GOKEX,ENTRY,Engine A (Sector),759.55,Top Breakout Picked by Engine A (Sector)
-2023-09-29,GOKEX,ENTRY,Engine A (Sector),759.55,Top Breakout Picked by Engine A (Sector)
-2023-09-29,GOKEX,ENTRY,Engine A (Sector),759.55,Top Breakout Picked by Engine A (Sector)
-2023-09-29,ANANTRAJ,HOLD,Engine A (Sector),219.6,Maintained Top 10 Momentum Rank
-2023-09-29,ANANTRAJ,HOLD,Engine A (Sector),219.6,Maintained Top 10 Momentum Rank
-2023-09-29,ADANIGREEN,ENTRY,Engine A (Sector),987.15,Top Breakout Picked by Engine A (Sector)
-2023-09-29,ADANIGREEN,ENTRY,Engine A (Sector),987.15,Top Breakout Picked by Engine A (Sector)
-2023-09-29,ADANIGREEN,ENTRY,Engine A (Sector),987.15,Top Breakout Picked by Engine A (Sector)
-2023-09-29,JWL,HOLD,Engine B (Lone Wolf),327.25,Maintained Top 10 Momentum Rank
-2023-09-29,JWL,HOLD,Engine B (Lone Wolf),327.25,Maintained Top 10 Momentum Rank
-2023-09-29,JWL,HOLD,Engine B (Lone Wolf),327.25,Maintained Top 10 Momentum Rank
-2023-09-29,JWL,HOLD,Engine B (Lone Wolf),327.25,Maintained Top 10 Momentum Rank
-2023-09-29,HSCL,ENTRY,Engine B (Lone Wolf),243.4,Top Breakout Picked by Engine B (Lone Wolf)
-2023-09-29,HSCL,ENTRY,Engine B (Lone Wolf),243.4,Top Breakout Picked by Engine B (Lone Wolf)
-2023-09-29,HSCL,ENTRY,Engine B (Lone Wolf),243.4,Top Breakout Picked by Engine B (Lone Wolf)
-2023-09-29,HSCL,ENTRY,Engine B (Lone Wolf),243.4,Top Breakout Picked by Engine B (Lone Wolf)
-2023-09-29,BSE,ENTRY,Engine B (Lone Wolf),1297.95,Top Breakout Picked by Engine B (Lone Wolf)
-2023-09-29,BSE,ENTRY,Engine B (Lone Wolf),1297.95,Top Breakout Picked by Engine B (Lone Wolf)
-2023-10-31,BSE,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2023-10-31,ADANIGREEN,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2023-09-29,AIAENG,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2023-09-29,KALYANKJIL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2023-09-29,ABB,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2023-09-29,DBREALTY,HOLD,Engine A (Sector),₹162.30,Maintained Top 10 Rank
+2023-09-29,GOKEX,ENTRY,Engine A (Sector),₹759.55,Top Breakout Picked by Engine A (Sector)
+2023-09-29,GOKEX,ENTRY,Engine A (Sector),₹759.55,Top Breakout Picked by Engine A (Sector)
+2023-09-29,GOKEX,ENTRY,Engine A (Sector),₹759.55,Top Breakout Picked by Engine A (Sector)
+2023-09-29,ANANTRAJ,HOLD,Engine A (Sector),₹219.60,Maintained Top 10 Rank
+2023-09-29,ANANTRAJ,HOLD,Engine A (Sector),₹219.60,Maintained Top 10 Rank
+2023-09-29,ADANIGREEN,ENTRY,Engine A (Sector),₹987.15,Top Breakout Picked by Engine A (Sector)
+2023-09-29,ADANIGREEN,ENTRY,Engine A (Sector),₹987.15,Top Breakout Picked by Engine A (Sector)
+2023-09-29,ADANIGREEN,ENTRY,Engine A (Sector),₹987.15,Top Breakout Picked by Engine A (Sector)
+2023-09-29,JWL,HOLD,Engine B (Lone Wolf),₹327.25,Maintained Top 10 Rank
+2023-09-29,JWL,HOLD,Engine B (Lone Wolf),₹327.25,Maintained Top 10 Rank
+2023-09-29,JWL,HOLD,Engine B (Lone Wolf),₹327.25,Maintained Top 10 Rank
+2023-09-29,JWL,HOLD,Engine B (Lone Wolf),₹327.25,Maintained Top 10 Rank
+2023-09-29,HSCL,ENTRY,Engine B (Lone Wolf),₹243.40,Top Breakout Picked by Engine B (Lone Wolf)
+2023-09-29,HSCL,ENTRY,Engine B (Lone Wolf),₹243.40,Top Breakout Picked by Engine B (Lone Wolf)
+2023-09-29,HSCL,ENTRY,Engine B (Lone Wolf),₹243.40,Top Breakout Picked by Engine B (Lone Wolf)
+2023-09-29,HSCL,ENTRY,Engine B (Lone Wolf),₹243.40,Top Breakout Picked by Engine B (Lone Wolf)
+2023-09-29,BSE,ENTRY,Engine B (Lone Wolf),₹1297.95,Top Breakout Picked by Engine B (Lone Wolf)
+2023-09-29,BSE,ENTRY,Engine B (Lone Wolf),₹1297.95,Top Breakout Picked by Engine B (Lone Wolf)
 2023-10-31,JWL,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2023-10-31,DBREALTY,HOLD,Engine A (Sector),171.0,Maintained Top 10 Momentum Rank
-2023-10-31,GOKEX,HOLD,Engine A (Sector),834.95,Maintained Top 10 Momentum Rank
-2023-10-31,GOKEX,HOLD,Engine A (Sector),834.95,Maintained Top 10 Momentum Rank
-2023-10-31,ICIL,ENTRY,Engine A (Sector),284.6,Top Breakout Picked by Engine A (Sector)
-2023-10-31,ANANTRAJ,HOLD,Engine A (Sector),242.9,Maintained Top 10 Momentum Rank
-2023-10-31,ANANTRAJ,HOLD,Engine A (Sector),242.9,Maintained Top 10 Momentum Rank
-2023-10-31,AMBER,ENTRY,Engine A (Sector),2934.2,Top Breakout Picked by Engine A (Sector)
-2023-10-31,AMBER,ENTRY,Engine A (Sector),2934.2,Top Breakout Picked by Engine A (Sector)
-2023-10-31,ASIANPAINT,ENTRY,Engine A (Sector),2995.7,Top Breakout Picked by Engine A (Sector)
-2023-10-31,SKYGOLD,ENTRY,Engine B (Lone Wolf),754.3,Top Breakout Picked by Engine B (Lone Wolf)
-2023-10-31,SKYGOLD,ENTRY,Engine B (Lone Wolf),754.3,Top Breakout Picked by Engine B (Lone Wolf)
-2023-10-31,JINDALSAW,ENTRY,Engine B (Lone Wolf),442.9,Top Breakout Picked by Engine B (Lone Wolf)
-2023-10-31,JINDALSAW,ENTRY,Engine B (Lone Wolf),442.9,Top Breakout Picked by Engine B (Lone Wolf)
-2023-10-31,KAYNES,ENTRY,Engine B (Lone Wolf),2383.4,Top Breakout Picked by Engine B (Lone Wolf)
-2023-10-31,KAYNES,ENTRY,Engine B (Lone Wolf),2383.4,Top Breakout Picked by Engine B (Lone Wolf)
-2023-10-31,KALYANKJIL,ENTRY,Engine B (Lone Wolf),288.7,Top Breakout Picked by Engine B (Lone Wolf)
-2023-10-31,KALYANKJIL,ENTRY,Engine B (Lone Wolf),288.7,Top Breakout Picked by Engine B (Lone Wolf)
-2023-10-31,HSCL,HOLD,Engine B (Lone Wolf),238.75,Maintained Top 10 Momentum Rank
-2023-10-31,HSCL,HOLD,Engine B (Lone Wolf),238.75,Maintained Top 10 Momentum Rank
-2023-11-30,AMBER,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2023-11-30,ICIL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2023-11-30,JINDALSAW,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2023-11-30,HSCL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2023-11-30,KAYNES,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2023-10-31,ADANIGREEN,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2023-10-31,BSE,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2023-10-31,DBREALTY,HOLD,Engine A (Sector),₹171.00,Maintained Top 10 Rank
+2023-10-31,GOKEX,HOLD,Engine A (Sector),₹834.95,Maintained Top 10 Rank
+2023-10-31,GOKEX,HOLD,Engine A (Sector),₹834.95,Maintained Top 10 Rank
+2023-10-31,ICIL,ENTRY,Engine A (Sector),₹284.60,Top Breakout Picked by Engine A (Sector)
+2023-10-31,ANANTRAJ,HOLD,Engine A (Sector),₹242.90,Maintained Top 10 Rank
+2023-10-31,ANANTRAJ,HOLD,Engine A (Sector),₹242.90,Maintained Top 10 Rank
+2023-10-31,AMBER,ENTRY,Engine A (Sector),₹2934.20,Top Breakout Picked by Engine A (Sector)
+2023-10-31,AMBER,ENTRY,Engine A (Sector),₹2934.20,Top Breakout Picked by Engine A (Sector)
+2023-10-31,ASIANPAINT,ENTRY,Engine A (Sector),₹2995.70,Top Breakout Picked by Engine A (Sector)
+2023-10-31,SKYGOLD,ENTRY,Engine B (Lone Wolf),₹754.30,Top Breakout Picked by Engine B (Lone Wolf)
+2023-10-31,SKYGOLD,ENTRY,Engine B (Lone Wolf),₹754.30,Top Breakout Picked by Engine B (Lone Wolf)
+2023-10-31,JINDALSAW,ENTRY,Engine B (Lone Wolf),₹442.90,Top Breakout Picked by Engine B (Lone Wolf)
+2023-10-31,JINDALSAW,ENTRY,Engine B (Lone Wolf),₹442.90,Top Breakout Picked by Engine B (Lone Wolf)
+2023-10-31,KAYNES,ENTRY,Engine B (Lone Wolf),₹2383.40,Top Breakout Picked by Engine B (Lone Wolf)
+2023-10-31,KAYNES,ENTRY,Engine B (Lone Wolf),₹2383.40,Top Breakout Picked by Engine B (Lone Wolf)
+2023-10-31,KALYANKJIL,ENTRY,Engine B (Lone Wolf),₹288.70,Top Breakout Picked by Engine B (Lone Wolf)
+2023-10-31,KALYANKJIL,ENTRY,Engine B (Lone Wolf),₹288.70,Top Breakout Picked by Engine B (Lone Wolf)
+2023-10-31,HSCL,HOLD,Engine B (Lone Wolf),₹238.75,Maintained Top 10 Rank
+2023-10-31,HSCL,HOLD,Engine B (Lone Wolf),₹238.75,Maintained Top 10 Rank
+2023-11-30,HSCL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2023-11-30,ICIL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
 2023-11-30,SKYGOLD,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2023-11-30,ASIANPAINT,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2023-11-30,GOKEX,HOLD,Engine A (Sector),980.4,Maintained Top 10 Momentum Rank
-2023-11-30,GOKEX,HOLD,Engine A (Sector),980.4,Maintained Top 10 Momentum Rank
-2023-11-30,ANANTRAJ,HOLD,Engine A (Sector),268.35,Maintained Top 10 Momentum Rank
-2023-11-30,ARVIND,ENTRY,Engine A (Sector),226.05,Top Breakout Picked by Engine A (Sector)
-2023-11-30,ADANIPOWER,ENTRY,Engine A (Sector),431.5,Top Breakout Picked by Engine A (Sector)
-2023-11-30,BRIGADE,ENTRY,Engine A (Sector),816.25,Top Breakout Picked by Engine A (Sector)
-2023-11-30,BRIGADE,ENTRY,Engine A (Sector),816.25,Top Breakout Picked by Engine A (Sector)
-2023-11-30,ADANIGREEN,ENTRY,Engine A (Sector),1028.8,Top Breakout Picked by Engine A (Sector)
-2023-11-30,ADANIGREEN,ENTRY,Engine A (Sector),1028.8,Top Breakout Picked by Engine A (Sector)
-2023-11-30,DBREALTY,HOLD,Engine B (Lone Wolf),208.95,Maintained Top 10 Momentum Rank
-2023-11-30,DBREALTY,HOLD,Engine B (Lone Wolf),208.95,Maintained Top 10 Momentum Rank
-2023-11-30,ELECTCAST,ENTRY,Engine B (Lone Wolf),117.7,Top Breakout Picked by Engine B (Lone Wolf)
-2023-11-30,ELECTCAST,ENTRY,Engine B (Lone Wolf),117.7,Top Breakout Picked by Engine B (Lone Wolf)
-2023-11-30,KALYANKJIL,HOLD,Engine B (Lone Wolf),325.1,Maintained Top 10 Momentum Rank
-2023-11-30,KALYANKJIL,HOLD,Engine B (Lone Wolf),325.1,Maintained Top 10 Momentum Rank
-2023-11-30,RKFORGE,ENTRY,Engine B (Lone Wolf),800.45,Top Breakout Picked by Engine B (Lone Wolf)
-2023-11-30,JWL,ENTRY,Engine B (Lone Wolf),347.85,Top Breakout Picked by Engine B (Lone Wolf)
-2023-11-30,JWL,ENTRY,Engine B (Lone Wolf),347.85,Top Breakout Picked by Engine B (Lone Wolf)
-2023-11-30,RKFORGE,ENTRY,Engine B (Lone Wolf),800.45,Top Breakout Picked by Engine B (Lone Wolf)
+2023-11-30,KAYNES,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2023-11-30,JINDALSAW,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2023-11-30,AMBER,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2023-11-30,ASIANPAINT,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2023-11-30,GOKEX,HOLD,Engine A (Sector),₹980.40,Maintained Top 10 Rank
+2023-11-30,GOKEX,HOLD,Engine A (Sector),₹980.40,Maintained Top 10 Rank
+2023-11-30,ANANTRAJ,HOLD,Engine A (Sector),₹268.35,Maintained Top 10 Rank
+2023-11-30,ARVIND,ENTRY,Engine A (Sector),₹226.05,Top Breakout Picked by Engine A (Sector)
+2023-11-30,ADANIPOWER,ENTRY,Engine A (Sector),₹431.50,Top Breakout Picked by Engine A (Sector)
+2023-11-30,BRIGADE,ENTRY,Engine A (Sector),₹816.25,Top Breakout Picked by Engine A (Sector)
+2023-11-30,BRIGADE,ENTRY,Engine A (Sector),₹816.25,Top Breakout Picked by Engine A (Sector)
+2023-11-30,ADANIGREEN,ENTRY,Engine A (Sector),₹1028.80,Top Breakout Picked by Engine A (Sector)
+2023-11-30,ADANIGREEN,ENTRY,Engine A (Sector),₹1028.80,Top Breakout Picked by Engine A (Sector)
+2023-11-30,DBREALTY,HOLD,Engine B (Lone Wolf),₹208.95,Maintained Top 10 Rank
+2023-11-30,DBREALTY,HOLD,Engine B (Lone Wolf),₹208.95,Maintained Top 10 Rank
+2023-11-30,ELECTCAST,ENTRY,Engine B (Lone Wolf),₹117.70,Top Breakout Picked by Engine B (Lone Wolf)
+2023-11-30,ELECTCAST,ENTRY,Engine B (Lone Wolf),₹117.70,Top Breakout Picked by Engine B (Lone Wolf)
+2023-11-30,KALYANKJIL,HOLD,Engine B (Lone Wolf),₹325.10,Maintained Top 10 Rank
+2023-11-30,KALYANKJIL,HOLD,Engine B (Lone Wolf),₹325.10,Maintained Top 10 Rank
+2023-11-30,RKFORGE,ENTRY,Engine B (Lone Wolf),₹800.45,Top Breakout Picked by Engine B (Lone Wolf)
+2023-11-30,JWL,ENTRY,Engine B (Lone Wolf),₹347.85,Top Breakout Picked by Engine B (Lone Wolf)
+2023-11-30,JWL,ENTRY,Engine B (Lone Wolf),₹347.85,Top Breakout Picked by Engine B (Lone Wolf)
+2023-11-30,RKFORGE,ENTRY,Engine B (Lone Wolf),₹800.45,Top Breakout Picked by Engine B (Lone Wolf)
+2023-12-29,ELECTCAST,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
 2023-12-29,ADANIPOWER,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2023-12-29,KALYANKJIL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2023-12-29,ARVIND,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2023-12-29,GOKEX,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
 2023-12-29,RKFORGE,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2023-12-29,DBREALTY,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
+2023-12-29,DBREALTY,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2023-12-29,ARVIND,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
 2023-12-29,JWL,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2023-12-29,ELECTCAST,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2023-12-29,ADANIGREEN,HOLD,Engine A (Sector),1597.0,Maintained Top 10 Momentum Rank
-2023-12-29,ADANIGREEN,HOLD,Engine A (Sector),1597.0,Maintained Top 10 Momentum Rank
-2023-12-29,BRIGADE,HOLD,Engine A (Sector),896.75,Maintained Top 10 Momentum Rank
-2023-12-29,ANANTRAJ,HOLD,Engine A (Sector),295.1,Maintained Top 10 Momentum Rank
-2023-12-29,ANANTRAJ,HOLD,Engine A (Sector),295.1,Maintained Top 10 Momentum Rank
-2023-12-29,CESC,ENTRY,Engine A (Sector),132.5,Top Breakout Picked by Engine A (Sector)
-2023-12-29,IRCON,ENTRY,Engine A (Sector),171.4,Top Breakout Picked by Engine A (Sector)
-2023-12-29,IRCON,ENTRY,Engine A (Sector),171.4,Top Breakout Picked by Engine A (Sector)
-2023-12-29,KPIL,ENTRY,Engine A (Sector),709.2,Top Breakout Picked by Engine A (Sector)
-2023-12-29,INOXWIND,ENTRY,Engine B (Lone Wolf),499.75,Top Breakout Picked by Engine B (Lone Wolf)
-2023-12-29,INOXWIND,ENTRY,Engine B (Lone Wolf),499.75,Top Breakout Picked by Engine B (Lone Wolf)
-2023-12-29,GMRP&UI,ENTRY,Engine B (Lone Wolf),56.15,Top Breakout Picked by Engine B (Lone Wolf)
-2023-12-29,GMRP&UI,ENTRY,Engine B (Lone Wolf),56.15,Top Breakout Picked by Engine B (Lone Wolf)
-2023-12-29,BSE,ENTRY,Engine B (Lone Wolf),2221.2,Top Breakout Picked by Engine B (Lone Wolf)
-2023-12-29,BSE,ENTRY,Engine B (Lone Wolf),2221.2,Top Breakout Picked by Engine B (Lone Wolf)
-2023-12-29,GALLANTT,ENTRY,Engine B (Lone Wolf),179.8,Top Breakout Picked by Engine B (Lone Wolf)
-2023-12-29,GALLANTT,ENTRY,Engine B (Lone Wolf),179.8,Top Breakout Picked by Engine B (Lone Wolf)
-2023-12-29,PRESTIGE,ENTRY,Engine B (Lone Wolf),1178.9,Top Breakout Picked by Engine B (Lone Wolf)
-2023-12-29,PRESTIGE,ENTRY,Engine B (Lone Wolf),1178.9,Top Breakout Picked by Engine B (Lone Wolf)
-2024-01-31,KPIL,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2023-12-29,GOKEX,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2023-12-29,KALYANKJIL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2023-12-29,ADANIGREEN,HOLD,Engine A (Sector),₹1597.00,Maintained Top 10 Rank
+2023-12-29,ADANIGREEN,HOLD,Engine A (Sector),₹1597.00,Maintained Top 10 Rank
+2023-12-29,BRIGADE,HOLD,Engine A (Sector),₹896.75,Maintained Top 10 Rank
+2023-12-29,ANANTRAJ,HOLD,Engine A (Sector),₹295.10,Maintained Top 10 Rank
+2023-12-29,ANANTRAJ,HOLD,Engine A (Sector),₹295.10,Maintained Top 10 Rank
+2023-12-29,CESC,ENTRY,Engine A (Sector),₹132.50,Top Breakout Picked by Engine A (Sector)
+2023-12-29,IRCON,ENTRY,Engine A (Sector),₹171.40,Top Breakout Picked by Engine A (Sector)
+2023-12-29,IRCON,ENTRY,Engine A (Sector),₹171.40,Top Breakout Picked by Engine A (Sector)
+2023-12-29,KPIL,ENTRY,Engine A (Sector),₹709.20,Top Breakout Picked by Engine A (Sector)
+2023-12-29,INOXWIND,ENTRY,Engine B (Lone Wolf),₹499.75,Top Breakout Picked by Engine B (Lone Wolf)
+2023-12-29,INOXWIND,ENTRY,Engine B (Lone Wolf),₹499.75,Top Breakout Picked by Engine B (Lone Wolf)
+2023-12-29,GMRP&UI,ENTRY,Engine B (Lone Wolf),₹56.15,Top Breakout Picked by Engine B (Lone Wolf)
+2023-12-29,GMRP&UI,ENTRY,Engine B (Lone Wolf),₹56.15,Top Breakout Picked by Engine B (Lone Wolf)
+2023-12-29,BSE,ENTRY,Engine B (Lone Wolf),₹2221.20,Top Breakout Picked by Engine B (Lone Wolf)
+2023-12-29,BSE,ENTRY,Engine B (Lone Wolf),₹2221.20,Top Breakout Picked by Engine B (Lone Wolf)
+2023-12-29,GALLANTT,ENTRY,Engine B (Lone Wolf),₹179.80,Top Breakout Picked by Engine B (Lone Wolf)
+2023-12-29,GALLANTT,ENTRY,Engine B (Lone Wolf),₹179.80,Top Breakout Picked by Engine B (Lone Wolf)
+2023-12-29,PRESTIGE,ENTRY,Engine B (Lone Wolf),₹1178.90,Top Breakout Picked by Engine B (Lone Wolf)
+2023-12-29,PRESTIGE,ENTRY,Engine B (Lone Wolf),₹1178.90,Top Breakout Picked by Engine B (Lone Wolf)
 2024-01-31,GALLANTT,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-01-31,IRCON,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2024-01-31,KPIL,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
 2024-01-31,GMRP&UI,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-01-31,DBREALTY,ENTRY,Engine A (Sector),252.55,Top Breakout Picked by Engine A (Sector)
-2024-01-31,BRIGADE,HOLD,Engine A (Sector),1025.25,Maintained Top 10 Momentum Rank
-2024-01-31,ADANIGREEN,HOLD,Engine A (Sector),1669.45,Maintained Top 10 Momentum Rank
-2024-01-31,CESC,HOLD,Engine A (Sector),143.1,Maintained Top 10 Momentum Rank
-2024-01-31,ANANTRAJ,HOLD,Engine A (Sector),318.1,Maintained Top 10 Momentum Rank
-2024-01-31,GODREJIND,ENTRY,Engine A (Sector),899.9,Top Breakout Picked by Engine A (Sector)
-2024-01-31,JSWENERGY,ENTRY,Engine A (Sector),504.75,Top Breakout Picked by Engine A (Sector)
-2024-01-31,ELECTCAST,ENTRY,Engine B (Lone Wolf),175.1,Top Breakout Picked by Engine B (Lone Wolf)
-2024-01-31,BSE,HOLD,Engine B (Lone Wolf),2323.6,Maintained Top 10 Momentum Rank
-2024-01-31,ANANDRATHI,ENTRY,Engine B (Lone Wolf),3058.25,Top Breakout Picked by Engine B (Lone Wolf)
-2024-01-31,INOXWIND,HOLD,Engine B (Lone Wolf),478.0,Maintained Top 10 Momentum Rank
-2024-01-31,KPIGREEN,ENTRY,Engine B (Lone Wolf),1821.1,Top Breakout Picked by Engine B (Lone Wolf)
-2024-01-31,PRESTIGE,HOLD,Engine B (Lone Wolf),1265.4,Maintained Top 10 Momentum Rank
-2024-01-31,ARVIND,ENTRY,Engine B (Lone Wolf),315.0,Top Breakout Picked by Engine B (Lone Wolf)
-2024-01-31,INOXGREEN,ENTRY,Engine B (Lone Wolf),133.0,Top Breakout Picked by Engine B (Lone Wolf)
-2024-01-31,SWSOLAR,ENTRY,Engine B (Lone Wolf),566.7,Top Breakout Picked by Engine B (Lone Wolf)
-2024-01-31,MOTILALOFS,ENTRY,Engine B (Lone Wolf),1788.4,Top Breakout Picked by Engine B (Lone Wolf)
+2024-01-31,IRCON,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2024-01-31,DBREALTY,ENTRY,Engine A (Sector),₹252.55,Top Breakout Picked by Engine A (Sector)
+2024-01-31,BRIGADE,HOLD,Engine A (Sector),₹1025.25,Maintained Top 10 Rank
+2024-01-31,ADANIGREEN,HOLD,Engine A (Sector),₹1669.45,Maintained Top 10 Rank
+2024-01-31,CESC,HOLD,Engine A (Sector),₹143.10,Maintained Top 10 Rank
+2024-01-31,ANANTRAJ,HOLD,Engine A (Sector),₹318.10,Maintained Top 10 Rank
+2024-01-31,GODREJIND,ENTRY,Engine A (Sector),₹899.90,Top Breakout Picked by Engine A (Sector)
+2024-01-31,JSWENERGY,ENTRY,Engine A (Sector),₹504.75,Top Breakout Picked by Engine A (Sector)
+2024-01-31,ELECTCAST,ENTRY,Engine B (Lone Wolf),₹175.10,Top Breakout Picked by Engine B (Lone Wolf)
+2024-01-31,BSE,HOLD,Engine B (Lone Wolf),₹2323.60,Maintained Top 10 Rank
+2024-01-31,ANANDRATHI,ENTRY,Engine B (Lone Wolf),₹3058.25,Top Breakout Picked by Engine B (Lone Wolf)
+2024-01-31,INOXWIND,HOLD,Engine B (Lone Wolf),₹478.00,Maintained Top 10 Rank
+2024-01-31,KPIGREEN,ENTRY,Engine B (Lone Wolf),₹1821.10,Top Breakout Picked by Engine B (Lone Wolf)
+2024-01-31,PRESTIGE,HOLD,Engine B (Lone Wolf),₹1265.40,Maintained Top 10 Rank
+2024-01-31,ARVIND,ENTRY,Engine B (Lone Wolf),₹315.00,Top Breakout Picked by Engine B (Lone Wolf)
+2024-01-31,INOXGREEN,ENTRY,Engine B (Lone Wolf),₹133.00,Top Breakout Picked by Engine B (Lone Wolf)
+2024-01-31,SWSOLAR,ENTRY,Engine B (Lone Wolf),₹566.70,Top Breakout Picked by Engine B (Lone Wolf)
+2024-01-31,MOTILALOFS,ENTRY,Engine B (Lone Wolf),₹1788.40,Top Breakout Picked by Engine B (Lone Wolf)
+2024-02-29,PRESTIGE,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-02-29,MOTILALOFS,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
 2024-02-29,INOXGREEN,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-02-29,PRESTIGE,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-02-29,KPIGREEN,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-02-29,JSWENERGY,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
 2024-02-29,ARVIND,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
 2024-02-29,ANANDRATHI,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-02-29,MOTILALOFS,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-02-29,GODREJIND,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-02-29,GMRP&UI,ENTRY,Engine A (Sector),52.25,Top Breakout Picked by Engine A (Sector)
-2024-02-29,DBREALTY,HOLD,Engine A (Sector),268.15,Maintained Top 10 Momentum Rank
-2024-02-29,IRB,ENTRY,Engine A (Sector),62.85,Top Breakout Picked by Engine A (Sector)
-2024-02-29,ADANIGREEN,HOLD,Engine A (Sector),1895.05,Maintained Top 10 Momentum Rank
-2024-02-29,ANANTRAJ,HOLD,Engine A (Sector),350.0,Maintained Top 10 Momentum Rank
-2024-02-29,BRIGADE,HOLD,Engine A (Sector),1000.95,Maintained Top 10 Momentum Rank
-2024-02-29,CESC,HOLD,Engine A (Sector),126.85,Maintained Top 10 Momentum Rank
-2024-02-29,ASHOKA,ENTRY,Engine A (Sector),186.3,Top Breakout Picked by Engine A (Sector)
-2024-02-29,KEC,ENTRY,Engine A (Sector),726.65,Top Breakout Picked by Engine A (Sector)
-2024-02-29,FORCEMOT,ENTRY,Engine B (Lone Wolf),6748.65,Top Breakout Picked by Engine B (Lone Wolf)
-2024-02-29,WEBELSOLAR,ENTRY,Engine B (Lone Wolf),391.6,Top Breakout Picked by Engine B (Lone Wolf)
-2024-02-29,INOXWIND,HOLD,Engine B (Lone Wolf),602.8,Maintained Top 10 Momentum Rank
-2024-02-29,ELECTCAST,HOLD,Engine B (Lone Wolf),159.9,Maintained Top 10 Momentum Rank
-2024-02-29,NBCC,ENTRY,Engine B (Lone Wolf),135.25,Top Breakout Picked by Engine B (Lone Wolf)
-2024-02-29,SOBHA,ENTRY,Engine B (Lone Wolf),1565.15,Top Breakout Picked by Engine B (Lone Wolf)
-2024-02-29,SWSOLAR,HOLD,Engine B (Lone Wolf),604.25,Maintained Top 10 Momentum Rank
-2024-02-29,WOCKPHARMA,ENTRY,Engine B (Lone Wolf),604.15,Top Breakout Picked by Engine B (Lone Wolf)
-2024-02-29,NEULANDLAB,ENTRY,Engine B (Lone Wolf),7161.95,Top Breakout Picked by Engine B (Lone Wolf)
-2024-02-29,BSE,HOLD,Engine B (Lone Wolf),2366.85,Maintained Top 10 Momentum Rank
-2024-03-28,NEULANDLAB,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
+2024-02-29,KPIGREEN,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2024-02-29,JSWENERGY,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-02-29,GODREJIND,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-02-29,GMRP&UI,ENTRY,Engine A (Sector),₹52.25,Top Breakout Picked by Engine A (Sector)
+2024-02-29,DBREALTY,HOLD,Engine A (Sector),₹268.15,Maintained Top 10 Rank
+2024-02-29,IRB,ENTRY,Engine A (Sector),₹62.85,Top Breakout Picked by Engine A (Sector)
+2024-02-29,ADANIGREEN,HOLD,Engine A (Sector),₹1895.05,Maintained Top 10 Rank
+2024-02-29,ANANTRAJ,HOLD,Engine A (Sector),₹350.00,Maintained Top 10 Rank
+2024-02-29,BRIGADE,HOLD,Engine A (Sector),₹1000.95,Maintained Top 10 Rank
+2024-02-29,CESC,HOLD,Engine A (Sector),₹126.85,Maintained Top 10 Rank
+2024-02-29,ASHOKA,ENTRY,Engine A (Sector),₹186.30,Top Breakout Picked by Engine A (Sector)
+2024-02-29,KEC,ENTRY,Engine A (Sector),₹726.65,Top Breakout Picked by Engine A (Sector)
+2024-02-29,FORCEMOT,ENTRY,Engine B (Lone Wolf),₹6748.65,Top Breakout Picked by Engine B (Lone Wolf)
+2024-02-29,WEBELSOLAR,ENTRY,Engine B (Lone Wolf),₹391.60,Top Breakout Picked by Engine B (Lone Wolf)
+2024-02-29,INOXWIND,HOLD,Engine B (Lone Wolf),₹602.80,Maintained Top 10 Rank
+2024-02-29,ELECTCAST,HOLD,Engine B (Lone Wolf),₹159.90,Maintained Top 10 Rank
+2024-02-29,NBCC,ENTRY,Engine B (Lone Wolf),₹135.25,Top Breakout Picked by Engine B (Lone Wolf)
+2024-02-29,SOBHA,ENTRY,Engine B (Lone Wolf),₹1565.15,Top Breakout Picked by Engine B (Lone Wolf)
+2024-02-29,SWSOLAR,HOLD,Engine B (Lone Wolf),₹604.25,Maintained Top 10 Rank
+2024-02-29,WOCKPHARMA,ENTRY,Engine B (Lone Wolf),₹604.15,Top Breakout Picked by Engine B (Lone Wolf)
+2024-02-29,NEULANDLAB,ENTRY,Engine B (Lone Wolf),₹7161.95,Top Breakout Picked by Engine B (Lone Wolf)
+2024-02-29,BSE,HOLD,Engine B (Lone Wolf),₹2366.85,Maintained Top 10 Rank
+2024-03-28,SWSOLAR,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-03-28,WEBELSOLAR,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2024-03-28,DBREALTY,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2024-03-28,SOBHA,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-03-28,NBCC,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2024-03-28,KEC,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
 2024-03-28,GMRP&UI,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
 2024-03-28,WOCKPHARMA,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-03-28,WEBELSOLAR,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-03-28,SWSOLAR,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-03-28,SOBHA,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-03-28,KEC,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-03-28,NBCC,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-03-28,DBREALTY,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-03-28,ADANIGREEN,HOLD,Engine A (Sector),1835.15,Maintained Top 10 Momentum Rank
-2024-03-28,ADANIGREEN,HOLD,Engine A (Sector),1835.15,Maintained Top 10 Momentum Rank
-2024-03-28,IRB,HOLD,Engine A (Sector),58.55,Maintained Top 10 Momentum Rank
-2024-03-28,BRIGADE,HOLD,Engine A (Sector),935.3,Maintained Top 10 Momentum Rank
-2024-03-28,ANANTRAJ,HOLD,Engine A (Sector),311.35,Maintained Top 10 Momentum Rank
-2024-03-28,ANANTRAJ,HOLD,Engine A (Sector),311.35,Maintained Top 10 Momentum Rank
-2024-03-28,CESC,HOLD,Engine A (Sector),121.65,Maintained Top 10 Momentum Rank
-2024-03-28,ASHOKA,HOLD,Engine A (Sector),156.6,Maintained Top 10 Momentum Rank
-2024-03-28,ASHOKA,HOLD,Engine A (Sector),156.6,Maintained Top 10 Momentum Rank
-2024-03-28,FORCEMOT,HOLD,Engine B (Lone Wolf),7244.0,Maintained Top 10 Momentum Rank
-2024-03-28,FORCEMOT,HOLD,Engine B (Lone Wolf),7244.0,Maintained Top 10 Momentum Rank
-2024-03-28,INOXWIND,HOLD,Engine B (Lone Wolf),521.6,Maintained Top 10 Momentum Rank
-2024-03-28,INOXWIND,HOLD,Engine B (Lone Wolf),521.6,Maintained Top 10 Momentum Rank
-2024-03-28,ELECTCAST,HOLD,Engine B (Lone Wolf),178.2,Maintained Top 10 Momentum Rank
-2024-03-28,ELECTCAST,HOLD,Engine B (Lone Wolf),178.2,Maintained Top 10 Momentum Rank
-2024-03-28,ANANDRATHI,ENTRY,Engine B (Lone Wolf),3694.35,Top Breakout Picked by Engine B (Lone Wolf)
-2024-03-28,ANANDRATHI,ENTRY,Engine B (Lone Wolf),3694.35,Top Breakout Picked by Engine B (Lone Wolf)
-2024-03-28,BSE,HOLD,Engine B (Lone Wolf),2515.9,Maintained Top 10 Momentum Rank
-2024-03-28,EIHOTEL,ENTRY,Engine B (Lone Wolf),449.5,Top Breakout Picked by Engine B (Lone Wolf)
-2024-04-30,BSE,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-04-30,EIHOTEL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-04-30,ANANTRAJ,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-04-30,ADANIGREEN,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-04-30,BRIGADE,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
+2024-03-28,NEULANDLAB,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-03-28,ADANIGREEN,HOLD,Engine A (Sector),₹1835.15,Maintained Top 10 Rank
+2024-03-28,ADANIGREEN,HOLD,Engine A (Sector),₹1835.15,Maintained Top 10 Rank
+2024-03-28,IRB,HOLD,Engine A (Sector),₹58.55,Maintained Top 10 Rank
+2024-03-28,BRIGADE,HOLD,Engine A (Sector),₹935.30,Maintained Top 10 Rank
+2024-03-28,ANANTRAJ,HOLD,Engine A (Sector),₹311.35,Maintained Top 10 Rank
+2024-03-28,ANANTRAJ,HOLD,Engine A (Sector),₹311.35,Maintained Top 10 Rank
+2024-03-28,CESC,HOLD,Engine A (Sector),₹121.65,Maintained Top 10 Rank
+2024-03-28,ASHOKA,HOLD,Engine A (Sector),₹156.60,Maintained Top 10 Rank
+2024-03-28,ASHOKA,HOLD,Engine A (Sector),₹156.60,Maintained Top 10 Rank
+2024-03-28,FORCEMOT,HOLD,Engine B (Lone Wolf),₹7244.00,Maintained Top 10 Rank
+2024-03-28,FORCEMOT,HOLD,Engine B (Lone Wolf),₹7244.00,Maintained Top 10 Rank
+2024-03-28,INOXWIND,HOLD,Engine B (Lone Wolf),₹521.60,Maintained Top 10 Rank
+2024-03-28,INOXWIND,HOLD,Engine B (Lone Wolf),₹521.60,Maintained Top 10 Rank
+2024-03-28,ELECTCAST,HOLD,Engine B (Lone Wolf),₹178.20,Maintained Top 10 Rank
+2024-03-28,ELECTCAST,HOLD,Engine B (Lone Wolf),₹178.20,Maintained Top 10 Rank
+2024-03-28,ANANDRATHI,ENTRY,Engine B (Lone Wolf),₹3694.35,Top Breakout Picked by Engine B (Lone Wolf)
+2024-03-28,ANANDRATHI,ENTRY,Engine B (Lone Wolf),₹3694.35,Top Breakout Picked by Engine B (Lone Wolf)
+2024-03-28,BSE,HOLD,Engine B (Lone Wolf),₹2515.90,Maintained Top 10 Rank
+2024-03-28,EIHOTEL,ENTRY,Engine B (Lone Wolf),₹449.50,Top Breakout Picked by Engine B (Lone Wolf)
+2024-04-30,EIHOTEL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-04-30,CESC,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
 2024-04-30,ASHOKA,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-04-30,CESC,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-04-30,IRB,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-04-30,WABAG,ENTRY,Engine A (Sector),966.05,Top Breakout Picked by Engine A (Sector)
-2024-04-30,WABAG,ENTRY,Engine A (Sector),966.05,Top Breakout Picked by Engine A (Sector)
-2024-04-30,GODREJIND,ENTRY,Engine A (Sector),960.6,Top Breakout Picked by Engine A (Sector)
-2024-04-30,GODREJIND,ENTRY,Engine A (Sector),960.6,Top Breakout Picked by Engine A (Sector)
-2024-04-30,ENGINERSIN,ENTRY,Engine A (Sector),244.6,Top Breakout Picked by Engine A (Sector)
-2024-04-30,ENGINERSIN,ENTRY,Engine A (Sector),244.6,Top Breakout Picked by Engine A (Sector)
-2024-04-30,DBL,ENTRY,Engine A (Sector),470.3,Top Breakout Picked by Engine A (Sector)
-2024-04-30,FORCEMOT,HOLD,Engine B (Lone Wolf),9522.05,Maintained Top 10 Momentum Rank
-2024-04-30,FORCEMOT,HOLD,Engine B (Lone Wolf),9522.05,Maintained Top 10 Momentum Rank
-2024-04-30,ELECTCAST,HOLD,Engine B (Lone Wolf),192.0,Maintained Top 10 Momentum Rank
-2024-04-30,INOXWIND,HOLD,Engine B (Lone Wolf),627.6,Maintained Top 10 Momentum Rank
-2024-04-30,ELECTCAST,HOLD,Engine B (Lone Wolf),192.0,Maintained Top 10 Momentum Rank
-2024-04-30,MOTILALOFS,ENTRY,Engine B (Lone Wolf),2376.9,Top Breakout Picked by Engine B (Lone Wolf)
-2024-04-30,MOTILALOFS,ENTRY,Engine B (Lone Wolf),2376.9,Top Breakout Picked by Engine B (Lone Wolf)
-2024-04-30,INOXWIND,HOLD,Engine B (Lone Wolf),627.6,Maintained Top 10 Momentum Rank
-2024-04-30,SOBHA,ENTRY,Engine B (Lone Wolf),1776.75,Top Breakout Picked by Engine B (Lone Wolf)
-2024-04-30,ANANDRATHI,HOLD,Engine B (Lone Wolf),3998.25,Maintained Top 10 Momentum Rank
+2024-04-30,BSE,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-04-30,ANANTRAJ,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-04-30,BRIGADE,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-04-30,IRB,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-04-30,ADANIGREEN,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-04-30,WABAG,ENTRY,Engine A (Sector),₹966.05,Top Breakout Picked by Engine A (Sector)
+2024-04-30,WABAG,ENTRY,Engine A (Sector),₹966.05,Top Breakout Picked by Engine A (Sector)
+2024-04-30,GODREJIND,ENTRY,Engine A (Sector),₹960.60,Top Breakout Picked by Engine A (Sector)
+2024-04-30,GODREJIND,ENTRY,Engine A (Sector),₹960.60,Top Breakout Picked by Engine A (Sector)
+2024-04-30,ENGINERSIN,ENTRY,Engine A (Sector),₹244.60,Top Breakout Picked by Engine A (Sector)
+2024-04-30,ENGINERSIN,ENTRY,Engine A (Sector),₹244.60,Top Breakout Picked by Engine A (Sector)
+2024-04-30,DBL,ENTRY,Engine A (Sector),₹470.30,Top Breakout Picked by Engine A (Sector)
+2024-04-30,FORCEMOT,HOLD,Engine B (Lone Wolf),₹9522.05,Maintained Top 10 Rank
+2024-04-30,FORCEMOT,HOLD,Engine B (Lone Wolf),₹9522.05,Maintained Top 10 Rank
+2024-04-30,ELECTCAST,HOLD,Engine B (Lone Wolf),₹192.00,Maintained Top 10 Rank
+2024-04-30,INOXWIND,HOLD,Engine B (Lone Wolf),₹627.60,Maintained Top 10 Rank
+2024-04-30,ELECTCAST,HOLD,Engine B (Lone Wolf),₹192.00,Maintained Top 10 Rank
+2024-04-30,MOTILALOFS,ENTRY,Engine B (Lone Wolf),₹2376.90,Top Breakout Picked by Engine B (Lone Wolf)
+2024-04-30,MOTILALOFS,ENTRY,Engine B (Lone Wolf),₹2376.90,Top Breakout Picked by Engine B (Lone Wolf)
+2024-04-30,INOXWIND,HOLD,Engine B (Lone Wolf),₹627.60,Maintained Top 10 Rank
+2024-04-30,SOBHA,ENTRY,Engine B (Lone Wolf),₹1776.75,Top Breakout Picked by Engine B (Lone Wolf)
+2024-04-30,ANANDRATHI,HOLD,Engine B (Lone Wolf),₹3998.25,Maintained Top 10 Rank
+2024-05-31,ELECTCAST,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2024-05-31,ANANDRATHI,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2024-05-31,ENGINERSIN,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
 2024-05-31,INOXWIND,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
 2024-05-31,DBL,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-05-31,ANANDRATHI,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
 2024-05-31,GODREJIND,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-05-31,ENGINERSIN,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-05-31,ELECTCAST,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-05-31,IRB,ENTRY,Engine A (Sector),66.1,Top Breakout Picked by Engine A (Sector)
-2024-05-31,WABAG,HOLD,Engine A (Sector),980.05,Maintained Top 10 Momentum Rank
-2024-05-31,BRIGADE,ENTRY,Engine A (Sector),1283.6,Top Breakout Picked by Engine A (Sector)
-2024-05-31,ANANTRAJ,ENTRY,Engine A (Sector),385.5,Top Breakout Picked by Engine A (Sector)
-2024-05-31,ASHOKA,ENTRY,Engine A (Sector),183.35,Top Breakout Picked by Engine A (Sector)
-2024-05-31,DLF,ENTRY,Engine A (Sector),815.65,Top Breakout Picked by Engine A (Sector)
-2024-05-31,KEC,ENTRY,Engine A (Sector),738.5,Top Breakout Picked by Engine A (Sector)
-2024-05-31,FORCEMOT,HOLD,Engine B (Lone Wolf),8734.7,Maintained Top 10 Momentum Rank
-2024-05-31,NETWEB,ENTRY,Engine B (Lone Wolf),2343.1,Top Breakout Picked by Engine B (Lone Wolf)
-2024-05-31,SHAKTIPUMP,ENTRY,Engine B (Lone Wolf),2482.95,Top Breakout Picked by Engine B (Lone Wolf)
-2024-05-31,MOTILALOFS,HOLD,Engine B (Lone Wolf),2219.7,Maintained Top 10 Momentum Rank
-2024-05-31,TECHNOE,ENTRY,Engine B (Lone Wolf),1418.35,Top Breakout Picked by Engine B (Lone Wolf)
-2024-05-31,KIRLOSENG,ENTRY,Engine B (Lone Wolf),1246.1,Top Breakout Picked by Engine B (Lone Wolf)
-2024-05-31,SOBHA,HOLD,Engine B (Lone Wolf),1899.8,Maintained Top 10 Momentum Rank
-2024-05-31,TORNTPOWER,ENTRY,Engine B (Lone Wolf),1501.8,Top Breakout Picked by Engine B (Lone Wolf)
-2024-05-31,ARVIND,ENTRY,Engine B (Lone Wolf),377.35,Top Breakout Picked by Engine B (Lone Wolf)
-2024-05-31,PRESTIGE,ENTRY,Engine B (Lone Wolf),1597.55,Top Breakout Picked by Engine B (Lone Wolf)
-2024-06-28,FORCEMOT,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-06-28,PRESTIGE,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-06-28,SHAKTIPUMP,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-06-28,ASHOKA,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-06-28,ARVIND,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-06-28,IRB,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-06-28,KEC,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-06-28,TORNTPOWER,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-06-28,MOTILALOFS,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2024-05-31,IRB,ENTRY,Engine A (Sector),₹66.10,Top Breakout Picked by Engine A (Sector)
+2024-05-31,WABAG,HOLD,Engine A (Sector),₹980.05,Maintained Top 10 Rank
+2024-05-31,BRIGADE,ENTRY,Engine A (Sector),₹1283.60,Top Breakout Picked by Engine A (Sector)
+2024-05-31,ANANTRAJ,ENTRY,Engine A (Sector),₹385.50,Top Breakout Picked by Engine A (Sector)
+2024-05-31,ASHOKA,ENTRY,Engine A (Sector),₹183.35,Top Breakout Picked by Engine A (Sector)
+2024-05-31,DLF,ENTRY,Engine A (Sector),₹815.65,Top Breakout Picked by Engine A (Sector)
+2024-05-31,KEC,ENTRY,Engine A (Sector),₹738.50,Top Breakout Picked by Engine A (Sector)
+2024-05-31,FORCEMOT,HOLD,Engine B (Lone Wolf),₹8734.70,Maintained Top 10 Rank
+2024-05-31,NETWEB,ENTRY,Engine B (Lone Wolf),₹2343.10,Top Breakout Picked by Engine B (Lone Wolf)
+2024-05-31,SHAKTIPUMP,ENTRY,Engine B (Lone Wolf),₹2482.95,Top Breakout Picked by Engine B (Lone Wolf)
+2024-05-31,MOTILALOFS,HOLD,Engine B (Lone Wolf),₹2219.70,Maintained Top 10 Rank
+2024-05-31,TECHNOE,ENTRY,Engine B (Lone Wolf),₹1418.35,Top Breakout Picked by Engine B (Lone Wolf)
+2024-05-31,KIRLOSENG,ENTRY,Engine B (Lone Wolf),₹1246.10,Top Breakout Picked by Engine B (Lone Wolf)
+2024-05-31,SOBHA,HOLD,Engine B (Lone Wolf),₹1899.80,Maintained Top 10 Rank
+2024-05-31,TORNTPOWER,ENTRY,Engine B (Lone Wolf),₹1501.80,Top Breakout Picked by Engine B (Lone Wolf)
+2024-05-31,ARVIND,ENTRY,Engine B (Lone Wolf),₹377.35,Top Breakout Picked by Engine B (Lone Wolf)
+2024-05-31,PRESTIGE,ENTRY,Engine B (Lone Wolf),₹1597.55,Top Breakout Picked by Engine B (Lone Wolf)
 2024-06-28,TECHNOE,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-06-28,WABAG,HOLD,Engine A (Sector),1280.9,Maintained Top 10 Momentum Rank
-2024-06-28,BRIGADE,HOLD,Engine A (Sector),1348.4,Maintained Top 10 Momentum Rank
-2024-06-28,ACE,ENTRY,Engine A (Sector),1486.9,Top Breakout Picked by Engine A (Sector)
-2024-06-28,ABB,ENTRY,Engine A (Sector),8490.9,Top Breakout Picked by Engine A (Sector)
-2024-06-28,ANANTRAJ,HOLD,Engine A (Sector),429.7,Maintained Top 10 Momentum Rank
-2024-06-28,DLF,HOLD,Engine A (Sector),824.75,Maintained Top 10 Momentum Rank
-2024-06-28,AIAENG,ENTRY,Engine A (Sector),4178.55,Top Breakout Picked by Engine A (Sector)
-2024-06-28,IONEXCHANG,ENTRY,Engine A (Sector),574.5,Top Breakout Picked by Engine A (Sector)
-2024-06-28,POWERINDIA,ENTRY,Engine B (Lone Wolf),12911.6,Top Breakout Picked by Engine B (Lone Wolf)
-2024-06-28,NETWEB,HOLD,Engine B (Lone Wolf),2594.45,Maintained Top 10 Momentum Rank
-2024-06-28,KIRLOSENG,HOLD,Engine B (Lone Wolf),1393.25,Maintained Top 10 Momentum Rank
-2024-06-28,WOCKPHARMA,ENTRY,Engine B (Lone Wolf),686.6,Top Breakout Picked by Engine B (Lone Wolf)
-2024-06-28,SCHNEIDER,ENTRY,Engine B (Lone Wolf),865.3,Top Breakout Picked by Engine B (Lone Wolf)
-2024-06-28,KIRLPNU,ENTRY,Engine B (Lone Wolf),1348.0,Top Breakout Picked by Engine B (Lone Wolf)
-2024-06-28,SOBHA,HOLD,Engine B (Lone Wolf),1956.65,Maintained Top 10 Momentum Rank
-2024-06-28,KIRLOSBROS,ENTRY,Engine B (Lone Wolf),2121.85,Top Breakout Picked by Engine B (Lone Wolf)
-2024-06-28,HINDZINC,ENTRY,Engine B (Lone Wolf),669.65,Top Breakout Picked by Engine B (Lone Wolf)
-2024-06-28,CUMMINSIND,ENTRY,Engine B (Lone Wolf),3966.85,Top Breakout Picked by Engine B (Lone Wolf)
+2024-06-28,PRESTIGE,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-06-28,MOTILALOFS,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2024-06-28,TORNTPOWER,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-06-28,ARVIND,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-06-28,ASHOKA,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2024-06-28,KEC,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-06-28,SHAKTIPUMP,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2024-06-28,FORCEMOT,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2024-06-28,IRB,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-06-28,WABAG,HOLD,Engine A (Sector),₹1280.90,Maintained Top 10 Rank
+2024-06-28,BRIGADE,HOLD,Engine A (Sector),₹1348.40,Maintained Top 10 Rank
+2024-06-28,ACE,ENTRY,Engine A (Sector),₹1486.90,Top Breakout Picked by Engine A (Sector)
+2024-06-28,ABB,ENTRY,Engine A (Sector),₹8490.90,Top Breakout Picked by Engine A (Sector)
+2024-06-28,ANANTRAJ,HOLD,Engine A (Sector),₹429.70,Maintained Top 10 Rank
+2024-06-28,DLF,HOLD,Engine A (Sector),₹824.75,Maintained Top 10 Rank
+2024-06-28,AIAENG,ENTRY,Engine A (Sector),₹4178.55,Top Breakout Picked by Engine A (Sector)
+2024-06-28,IONEXCHANG,ENTRY,Engine A (Sector),₹574.50,Top Breakout Picked by Engine A (Sector)
+2024-06-28,POWERINDIA,ENTRY,Engine B (Lone Wolf),₹12911.60,Top Breakout Picked by Engine B (Lone Wolf)
+2024-06-28,NETWEB,HOLD,Engine B (Lone Wolf),₹2594.45,Maintained Top 10 Rank
+2024-06-28,KIRLOSENG,HOLD,Engine B (Lone Wolf),₹1393.25,Maintained Top 10 Rank
+2024-06-28,WOCKPHARMA,ENTRY,Engine B (Lone Wolf),₹686.60,Top Breakout Picked by Engine B (Lone Wolf)
+2024-06-28,SCHNEIDER,ENTRY,Engine B (Lone Wolf),₹865.30,Top Breakout Picked by Engine B (Lone Wolf)
+2024-06-28,KIRLPNU,ENTRY,Engine B (Lone Wolf),₹1348.00,Top Breakout Picked by Engine B (Lone Wolf)
+2024-06-28,SOBHA,HOLD,Engine B (Lone Wolf),₹1956.65,Maintained Top 10 Rank
+2024-06-28,KIRLOSBROS,ENTRY,Engine B (Lone Wolf),₹2121.85,Top Breakout Picked by Engine B (Lone Wolf)
+2024-06-28,HINDZINC,ENTRY,Engine B (Lone Wolf),₹669.65,Top Breakout Picked by Engine B (Lone Wolf)
+2024-06-28,CUMMINSIND,ENTRY,Engine B (Lone Wolf),₹3966.85,Top Breakout Picked by Engine B (Lone Wolf)
+2024-07-31,NETWEB,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
 2024-07-31,SCHNEIDER,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-07-31,WOCKPHARMA,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-07-31,ACE,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-07-31,ABB,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-07-31,HINDZINC,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-07-31,CUMMINSIND,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-07-31,AIAENG,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-07-31,NETWEB,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
+2024-07-31,ACE,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
 2024-07-31,KIRLOSENG,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-07-31,SOBHA,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
+2024-07-31,SOBHA,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-07-31,AIAENG,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-07-31,WOCKPHARMA,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2024-07-31,CUMMINSIND,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-07-31,ABB,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-07-31,HINDZINC,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
 2024-07-31,KIRLPNU,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-07-31,WABAG,HOLD,Engine A (Sector),1342.65,Maintained Top 10 Momentum Rank
-2024-07-31,ANANTRAJ,HOLD,Engine A (Sector),555.1,Maintained Top 10 Momentum Rank
-2024-07-31,ADANIPOWER,ENTRY,Engine A (Sector),734.45,Top Breakout Picked by Engine A (Sector)
-2024-07-31,BRIGADE,HOLD,Engine A (Sector),1257.7,Maintained Top 10 Momentum Rank
-2024-07-31,ADANIGREEN,ENTRY,Engine A (Sector),1847.2,Top Breakout Picked by Engine A (Sector)
-2024-07-31,DLF,HOLD,Engine A (Sector),889.15,Maintained Top 10 Momentum Rank
-2024-07-31,ADANIENSOL,ENTRY,Engine A (Sector),1138.05,Top Breakout Picked by Engine A (Sector)
-2024-07-31,IONEXCHANG,HOLD,Engine A (Sector),695.5,Maintained Top 10 Momentum Rank
-2024-07-31,FORCEMOT,ENTRY,Engine B (Lone Wolf),9244.75,Top Breakout Picked by Engine B (Lone Wolf)
-2024-07-31,KIRLOSBROS,HOLD,Engine B (Lone Wolf),2437.0,Maintained Top 10 Momentum Rank
-2024-07-31,GMRP&UI,ENTRY,Engine B (Lone Wolf),97.94,Top Breakout Picked by Engine B (Lone Wolf)
-2024-07-31,PCJEWELLER,ENTRY,Engine B (Lone Wolf),93.87,Top Breakout Picked by Engine B (Lone Wolf)
-2024-07-31,ZENTEC,ENTRY,Engine B (Lone Wolf),1705.15,Top Breakout Picked by Engine B (Lone Wolf)
-2024-07-31,HERITGFOOD,ENTRY,Engine B (Lone Wolf),578.0,Top Breakout Picked by Engine B (Lone Wolf)
-2024-07-31,POWERINDIA,HOLD,Engine B (Lone Wolf),11607.1,Maintained Top 10 Momentum Rank
-2024-07-31,VOLTAMP,ENTRY,Engine B (Lone Wolf),13506.7,Top Breakout Picked by Engine B (Lone Wolf)
-2024-07-31,NUVAMA,ENTRY,Engine B (Lone Wolf),6342.0,Top Breakout Picked by Engine B (Lone Wolf)
-2024-07-31,TRENT,ENTRY,Engine B (Lone Wolf),5839.0,Top Breakout Picked by Engine B (Lone Wolf)
+2024-07-31,WABAG,HOLD,Engine A (Sector),₹1342.65,Maintained Top 10 Rank
+2024-07-31,ANANTRAJ,HOLD,Engine A (Sector),₹555.10,Maintained Top 10 Rank
+2024-07-31,ADANIPOWER,ENTRY,Engine A (Sector),₹734.45,Top Breakout Picked by Engine A (Sector)
+2024-07-31,BRIGADE,HOLD,Engine A (Sector),₹1257.70,Maintained Top 10 Rank
+2024-07-31,ADANIGREEN,ENTRY,Engine A (Sector),₹1847.20,Top Breakout Picked by Engine A (Sector)
+2024-07-31,DLF,HOLD,Engine A (Sector),₹889.15,Maintained Top 10 Rank
+2024-07-31,ADANIENSOL,ENTRY,Engine A (Sector),₹1138.05,Top Breakout Picked by Engine A (Sector)
+2024-07-31,IONEXCHANG,HOLD,Engine A (Sector),₹695.50,Maintained Top 10 Rank
+2024-07-31,FORCEMOT,ENTRY,Engine B (Lone Wolf),₹9244.75,Top Breakout Picked by Engine B (Lone Wolf)
+2024-07-31,KIRLOSBROS,HOLD,Engine B (Lone Wolf),₹2437.00,Maintained Top 10 Rank
+2024-07-31,GMRP&UI,ENTRY,Engine B (Lone Wolf),₹97.94,Top Breakout Picked by Engine B (Lone Wolf)
+2024-07-31,PCJEWELLER,ENTRY,Engine B (Lone Wolf),₹93.87,Top Breakout Picked by Engine B (Lone Wolf)
+2024-07-31,ZENTEC,ENTRY,Engine B (Lone Wolf),₹1705.15,Top Breakout Picked by Engine B (Lone Wolf)
+2024-07-31,HERITGFOOD,ENTRY,Engine B (Lone Wolf),₹578.00,Top Breakout Picked by Engine B (Lone Wolf)
+2024-07-31,POWERINDIA,HOLD,Engine B (Lone Wolf),₹11607.10,Maintained Top 10 Rank
+2024-07-31,VOLTAMP,ENTRY,Engine B (Lone Wolf),₹13506.70,Top Breakout Picked by Engine B (Lone Wolf)
+2024-07-31,NUVAMA,ENTRY,Engine B (Lone Wolf),₹6342.00,Top Breakout Picked by Engine B (Lone Wolf)
+2024-07-31,TRENT,ENTRY,Engine B (Lone Wolf),₹5839.00,Top Breakout Picked by Engine B (Lone Wolf)
+2024-08-30,DLF,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
 2024-08-30,ADANIPOWER,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-08-30,FORCEMOT,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-08-30,ADANIENSOL,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-08-30,DLF,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-08-30,ANANTRAJ,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-08-30,BRIGADE,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-08-30,KIRLOSBROS,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-08-30,NUVAMA,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-08-30,ZENTEC,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-08-30,VOLTAMP,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
 2024-08-30,HERITGFOOD,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-08-30,GMRP&UI,HOLD,Engine A (Sector),137.91,Maintained Top 10 Momentum Rank
-2024-08-30,WABAG,HOLD,Engine A (Sector),1272.55,Maintained Top 10 Momentum Rank
-2024-08-30,CESC,ENTRY,Engine A (Sector),194.04,Top Breakout Picked by Engine A (Sector)
-2024-08-30,ABB,ENTRY,Engine A (Sector),7936.05,Top Breakout Picked by Engine A (Sector)
-2024-08-30,ADANIGREEN,HOLD,Engine A (Sector),1838.15,Maintained Top 10 Momentum Rank
-2024-08-30,ACE,ENTRY,Engine A (Sector),1290.95,Top Breakout Picked by Engine A (Sector)
-2024-08-30,IONEXCHANG,HOLD,Engine A (Sector),648.95,Maintained Top 10 Momentum Rank
-2024-08-30,AIAENG,ENTRY,Engine A (Sector),4295.25,Top Breakout Picked by Engine A (Sector)
-2024-08-30,NETWEB,ENTRY,Engine B (Lone Wolf),2721.45,Top Breakout Picked by Engine B (Lone Wolf)
-2024-08-30,PCJEWELLER,HOLD,Engine B (Lone Wolf),110.87,Maintained Top 10 Momentum Rank
-2024-08-30,KIRLOSENG,ENTRY,Engine B (Lone Wolf),1334.35,Top Breakout Picked by Engine B (Lone Wolf)
-2024-08-30,NEULANDLAB,ENTRY,Engine B (Lone Wolf),12502.2,Top Breakout Picked by Engine B (Lone Wolf)
-2024-08-30,TRENT,HOLD,Engine B (Lone Wolf),7158.75,Maintained Top 10 Momentum Rank
-2024-08-30,POWERINDIA,HOLD,Engine B (Lone Wolf),12095.05,Maintained Top 10 Momentum Rank
-2024-08-30,INDUSTOWER,ENTRY,Engine B (Lone Wolf),458.5,Top Breakout Picked by Engine B (Lone Wolf)
-2024-08-30,PRUDENT,ENTRY,Engine B (Lone Wolf),2435.65,Top Breakout Picked by Engine B (Lone Wolf)
-2024-08-30,STAR,ENTRY,Engine B (Lone Wolf),1340.05,Top Breakout Picked by Engine B (Lone Wolf)
-2024-08-30,GRWRHITECH,ENTRY,Engine B (Lone Wolf),3297.4,Top Breakout Picked by Engine B (Lone Wolf)
-2024-09-30,ACE,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-09-30,ABB,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-09-30,INDUSTOWER,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-09-30,NETWEB,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-09-30,AIAENG,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-09-30,KIRLOSENG,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-09-30,CESC,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2024-08-30,ADANIENSOL,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2024-08-30,VOLTAMP,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-08-30,ANANTRAJ,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-08-30,KIRLOSBROS,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2024-08-30,BRIGADE,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-08-30,FORCEMOT,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2024-08-30,NUVAMA,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-08-30,ZENTEC,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-08-30,GMRP&UI,HOLD,Engine A (Sector),₹137.91,Maintained Top 10 Rank
+2024-08-30,WABAG,HOLD,Engine A (Sector),₹1272.55,Maintained Top 10 Rank
+2024-08-30,CESC,ENTRY,Engine A (Sector),₹194.04,Top Breakout Picked by Engine A (Sector)
+2024-08-30,ABB,ENTRY,Engine A (Sector),₹7936.05,Top Breakout Picked by Engine A (Sector)
+2024-08-30,ADANIGREEN,HOLD,Engine A (Sector),₹1838.15,Maintained Top 10 Rank
+2024-08-30,ACE,ENTRY,Engine A (Sector),₹1290.95,Top Breakout Picked by Engine A (Sector)
+2024-08-30,IONEXCHANG,HOLD,Engine A (Sector),₹648.95,Maintained Top 10 Rank
+2024-08-30,AIAENG,ENTRY,Engine A (Sector),₹4295.25,Top Breakout Picked by Engine A (Sector)
+2024-08-30,NETWEB,ENTRY,Engine B (Lone Wolf),₹2721.45,Top Breakout Picked by Engine B (Lone Wolf)
+2024-08-30,PCJEWELLER,HOLD,Engine B (Lone Wolf),₹110.87,Maintained Top 10 Rank
+2024-08-30,KIRLOSENG,ENTRY,Engine B (Lone Wolf),₹1334.35,Top Breakout Picked by Engine B (Lone Wolf)
+2024-08-30,NEULANDLAB,ENTRY,Engine B (Lone Wolf),₹12502.20,Top Breakout Picked by Engine B (Lone Wolf)
+2024-08-30,TRENT,HOLD,Engine B (Lone Wolf),₹7158.75,Maintained Top 10 Rank
+2024-08-30,POWERINDIA,HOLD,Engine B (Lone Wolf),₹12095.05,Maintained Top 10 Rank
+2024-08-30,INDUSTOWER,ENTRY,Engine B (Lone Wolf),₹458.50,Top Breakout Picked by Engine B (Lone Wolf)
+2024-08-30,PRUDENT,ENTRY,Engine B (Lone Wolf),₹2435.65,Top Breakout Picked by Engine B (Lone Wolf)
+2024-08-30,STAR,ENTRY,Engine B (Lone Wolf),₹1340.05,Top Breakout Picked by Engine B (Lone Wolf)
+2024-08-30,GRWRHITECH,ENTRY,Engine B (Lone Wolf),₹3297.40,Top Breakout Picked by Engine B (Lone Wolf)
+2024-09-30,NETWEB,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
 2024-09-30,PRUDENT,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-09-30,GMRP&UI,HOLD,Engine A (Sector),159.7,Maintained Top 10 Momentum Rank
-2024-09-30,WABAG,HOLD,Engine A (Sector),1510.5,Maintained Top 10 Momentum Rank
-2024-09-30,GODREJIND,ENTRY,Engine A (Sector),1235.5,Top Breakout Picked by Engine A (Sector)
-2024-09-30,JSWENERGY,ENTRY,Engine A (Sector),733.05,Top Breakout Picked by Engine A (Sector)
-2024-09-30,ADANIGREEN,HOLD,Engine A (Sector),1902.7,Maintained Top 10 Momentum Rank
-2024-09-30,IONEXCHANG,HOLD,Engine A (Sector),638.45,Maintained Top 10 Momentum Rank
-2024-09-30,PCJEWELLER,HOLD,Engine B (Lone Wolf),178.17,Maintained Top 10 Momentum Rank
-2024-09-30,TRENT,HOLD,Engine B (Lone Wolf),7574.65,Maintained Top 10 Momentum Rank
-2024-09-30,POWERINDIA,HOLD,Engine B (Lone Wolf),14545.3,Maintained Top 10 Momentum Rank
-2024-09-30,HERITGFOOD,ENTRY,Engine B (Lone Wolf),631.25,Top Breakout Picked by Engine B (Lone Wolf)
-2024-09-30,STAR,HOLD,Engine B (Lone Wolf),1399.0,Maintained Top 10 Momentum Rank
-2024-09-30,KITEX,ENTRY,Engine B (Lone Wolf),516.15,Top Breakout Picked by Engine B (Lone Wolf)
-2024-09-30,GRWRHITECH,HOLD,Engine B (Lone Wolf),3861.75,Maintained Top 10 Momentum Rank
-2024-09-30,TECHNOE,ENTRY,Engine B (Lone Wolf),1600.45,Top Breakout Picked by Engine B (Lone Wolf)
-2024-09-30,NEULANDLAB,HOLD,Engine B (Lone Wolf),12386.4,Maintained Top 10 Momentum Rank
-2024-09-30,NAVA,ENTRY,Engine B (Lone Wolf),1149.4,Top Breakout Picked by Engine B (Lone Wolf)
-2024-10-31,PCJEWELLER,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-10-31,GMRP&UI,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-10-31,IONEXCHANG,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-10-31,POWERINDIA,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-10-31,ADANIGREEN,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-10-31,JSWENERGY,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
+2024-09-30,INDUSTOWER,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-09-30,ACE,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-09-30,CESC,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2024-09-30,KIRLOSENG,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-09-30,AIAENG,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2024-09-30,ABB,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-09-30,GMRP&UI,HOLD,Engine A (Sector),₹159.70,Maintained Top 10 Rank
+2024-09-30,WABAG,HOLD,Engine A (Sector),₹1510.50,Maintained Top 10 Rank
+2024-09-30,GODREJIND,ENTRY,Engine A (Sector),₹1235.50,Top Breakout Picked by Engine A (Sector)
+2024-09-30,JSWENERGY,ENTRY,Engine A (Sector),₹733.05,Top Breakout Picked by Engine A (Sector)
+2024-09-30,ADANIGREEN,HOLD,Engine A (Sector),₹1902.70,Maintained Top 10 Rank
+2024-09-30,IONEXCHANG,HOLD,Engine A (Sector),₹638.45,Maintained Top 10 Rank
+2024-09-30,PCJEWELLER,HOLD,Engine B (Lone Wolf),₹178.17,Maintained Top 10 Rank
+2024-09-30,TRENT,HOLD,Engine B (Lone Wolf),₹7574.65,Maintained Top 10 Rank
+2024-09-30,POWERINDIA,HOLD,Engine B (Lone Wolf),₹14545.30,Maintained Top 10 Rank
+2024-09-30,HERITGFOOD,ENTRY,Engine B (Lone Wolf),₹631.25,Top Breakout Picked by Engine B (Lone Wolf)
+2024-09-30,STAR,HOLD,Engine B (Lone Wolf),₹1399.00,Maintained Top 10 Rank
+2024-09-30,KITEX,ENTRY,Engine B (Lone Wolf),₹516.15,Top Breakout Picked by Engine B (Lone Wolf)
+2024-09-30,GRWRHITECH,HOLD,Engine B (Lone Wolf),₹3861.75,Maintained Top 10 Rank
+2024-09-30,TECHNOE,ENTRY,Engine B (Lone Wolf),₹1600.45,Top Breakout Picked by Engine B (Lone Wolf)
+2024-09-30,NEULANDLAB,HOLD,Engine B (Lone Wolf),₹12386.40,Maintained Top 10 Rank
+2024-09-30,NAVA,ENTRY,Engine B (Lone Wolf),₹1149.40,Top Breakout Picked by Engine B (Lone Wolf)
+2024-10-31,JSWENERGY,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
 2024-10-31,NAVA,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-10-31,GODREJIND,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
 2024-10-31,HERITGFOOD,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-10-31,KITEX,HOLD,Engine A (Sector),584.1,Maintained Top 10 Momentum Rank
-2024-10-31,WABAG,HOLD,Engine A (Sector),1777.95,Maintained Top 10 Momentum Rank
-2024-10-31,APARINDS,ENTRY,Engine A (Sector),10062.35,Top Breakout Picked by Engine A (Sector)
-2024-10-31,ABB,ENTRY,Engine A (Sector),7429.45,Top Breakout Picked by Engine A (Sector)
-2024-10-31,ACE,ENTRY,Engine A (Sector),1347.2,Top Breakout Picked by Engine A (Sector)
-2024-10-31,PAGEIND,ENTRY,Engine A (Sector),43163.8,Top Breakout Picked by Engine A (Sector)
-2024-10-31,WEBELSOLAR,ENTRY,Engine B (Lone Wolf),1421.75,Top Breakout Picked by Engine B (Lone Wolf)
-2024-10-31,WOCKPHARMA,ENTRY,Engine B (Lone Wolf),1208.35,Top Breakout Picked by Engine B (Lone Wolf)
-2024-10-31,STAR,HOLD,Engine B (Lone Wolf),1555.5,Maintained Top 10 Momentum Rank
-2024-10-31,GRWRHITECH,HOLD,Engine B (Lone Wolf),4086.2,Maintained Top 10 Momentum Rank
-2024-10-31,NEULANDLAB,HOLD,Engine B (Lone Wolf),14606.6,Maintained Top 10 Momentum Rank
-2024-10-31,KIRLPNU,ENTRY,Engine B (Lone Wolf),1662.05,Top Breakout Picked by Engine B (Lone Wolf)
-2024-10-31,ZENTEC,ENTRY,Engine B (Lone Wolf),1884.35,Top Breakout Picked by Engine B (Lone Wolf)
-2024-10-31,TRENT,HOLD,Engine B (Lone Wolf),7128.35,Maintained Top 10 Momentum Rank
-2024-10-31,ANANTRAJ,ENTRY,Engine B (Lone Wolf),740.8,Top Breakout Picked by Engine B (Lone Wolf)
-2024-10-31,TECHNOE,HOLD,Engine B (Lone Wolf),1564.45,Maintained Top 10 Momentum Rank
-2024-11-29,ANANTRAJ,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
+2024-10-31,POWERINDIA,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-10-31,IONEXCHANG,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2024-10-31,GMRP&UI,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2024-10-31,ADANIGREEN,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2024-10-31,PCJEWELLER,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2024-10-31,GODREJIND,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2024-10-31,KITEX,HOLD,Engine A (Sector),₹584.10,Maintained Top 10 Rank
+2024-10-31,WABAG,HOLD,Engine A (Sector),₹1777.95,Maintained Top 10 Rank
+2024-10-31,APARINDS,ENTRY,Engine A (Sector),₹10062.35,Top Breakout Picked by Engine A (Sector)
+2024-10-31,ABB,ENTRY,Engine A (Sector),₹7429.45,Top Breakout Picked by Engine A (Sector)
+2024-10-31,ACE,ENTRY,Engine A (Sector),₹1347.20,Top Breakout Picked by Engine A (Sector)
+2024-10-31,PAGEIND,ENTRY,Engine A (Sector),₹43163.80,Top Breakout Picked by Engine A (Sector)
+2024-10-31,WEBELSOLAR,ENTRY,Engine B (Lone Wolf),₹1421.75,Top Breakout Picked by Engine B (Lone Wolf)
+2024-10-31,WOCKPHARMA,ENTRY,Engine B (Lone Wolf),₹1208.35,Top Breakout Picked by Engine B (Lone Wolf)
+2024-10-31,STAR,HOLD,Engine B (Lone Wolf),₹1555.50,Maintained Top 10 Rank
+2024-10-31,GRWRHITECH,HOLD,Engine B (Lone Wolf),₹4086.20,Maintained Top 10 Rank
+2024-10-31,NEULANDLAB,HOLD,Engine B (Lone Wolf),₹14606.60,Maintained Top 10 Rank
+2024-10-31,KIRLPNU,ENTRY,Engine B (Lone Wolf),₹1662.05,Top Breakout Picked by Engine B (Lone Wolf)
+2024-10-31,ZENTEC,ENTRY,Engine B (Lone Wolf),₹1884.35,Top Breakout Picked by Engine B (Lone Wolf)
+2024-10-31,TRENT,HOLD,Engine B (Lone Wolf),₹7128.35,Maintained Top 10 Rank
+2024-10-31,ANANTRAJ,ENTRY,Engine B (Lone Wolf),₹740.80,Top Breakout Picked by Engine B (Lone Wolf)
+2024-10-31,TECHNOE,HOLD,Engine B (Lone Wolf),₹1564.45,Maintained Top 10 Rank
 2024-11-29,TECHNOE,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2024-11-29,TRENT,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2024-11-29,KITEX,HOLD,Engine A (Sector),742.45,Maintained Top 10 Momentum Rank
-2024-11-29,WABAG,HOLD,Engine A (Sector),1794.9,Maintained Top 10 Momentum Rank
-2024-11-29,APARINDS,HOLD,Engine A (Sector),10101.35,Maintained Top 10 Momentum Rank
-2024-11-29,ABB,HOLD,Engine A (Sector),7421.25,Maintained Top 10 Momentum Rank
-2024-11-29,PAGEIND,HOLD,Engine A (Sector),44644.9,Maintained Top 10 Momentum Rank
-2024-11-29,ACE,HOLD,Engine A (Sector),1308.1,Maintained Top 10 Momentum Rank
-2024-11-29,WEBELSOLAR,HOLD,Engine B (Lone Wolf),1268.75,Maintained Top 10 Momentum Rank
-2024-11-29,WOCKPHARMA,HOLD,Engine B (Lone Wolf),1404.25,Maintained Top 10 Momentum Rank
-2024-11-29,BBOX,ENTRY,Engine B (Lone Wolf),628.95,Top Breakout Picked by Engine B (Lone Wolf)
-2024-11-29,GRWRHITECH,HOLD,Engine B (Lone Wolf),4937.05,Maintained Top 10 Momentum Rank
-2024-11-29,NEULANDLAB,HOLD,Engine B (Lone Wolf),16709.3,Maintained Top 10 Momentum Rank
-2024-11-29,STAR,HOLD,Engine B (Lone Wolf),1635.35,Maintained Top 10 Momentum Rank
-2024-11-29,KIRLPNU,HOLD,Engine B (Lone Wolf),1768.95,Maintained Top 10 Momentum Rank
-2024-11-29,ZENTEC,HOLD,Engine B (Lone Wolf),1897.4,Maintained Top 10 Momentum Rank
-2024-11-29,PRUDENT,ENTRY,Engine B (Lone Wolf),3044.35,Top Breakout Picked by Engine B (Lone Wolf)
-2024-11-29,OFSS,ENTRY,Engine B (Lone Wolf),11696.45,Top Breakout Picked by Engine B (Lone Wolf)
-2024-12-31,KITEX,EXIT,Engine A (Sector),742.45,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2024-12-31,WABAG,EXIT,Engine A (Sector),1794.9,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2024-12-31,APARINDS,EXIT,Engine A (Sector),10101.35,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2024-12-31,ABB,EXIT,Engine A (Sector),7421.25,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2024-12-31,PAGEIND,EXIT,Engine A (Sector),44644.9,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2024-12-31,ACE,EXIT,Engine A (Sector),1308.1,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2024-12-31,WEBELSOLAR,EXIT,Engine B (Lone Wolf),1268.75,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2024-12-31,WOCKPHARMA,EXIT,Engine B (Lone Wolf),1404.25,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2024-12-31,BBOX,EXIT,Engine B (Lone Wolf),628.95,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2024-12-31,GRWRHITECH,EXIT,Engine B (Lone Wolf),4937.05,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2024-12-31,NEULANDLAB,EXIT,Engine B (Lone Wolf),16709.3,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2024-12-31,STAR,EXIT,Engine B (Lone Wolf),1635.35,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2024-12-31,KIRLPNU,EXIT,Engine B (Lone Wolf),1768.95,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2024-12-31,ZENTEC,EXIT,Engine B (Lone Wolf),1897.4,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2024-12-31,PRUDENT,EXIT,Engine B (Lone Wolf),3044.35,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2024-12-31,OFSS,EXIT,Engine B (Lone Wolf),11696.45,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2025-03-28,CARTRADE,ENTRY,Engine A (Sector),1644.95,Top Breakout Picked by Engine A (Sector)
-2025-03-28,GODFRYPHLP,ENTRY,Engine A (Sector),6769.2,Top Breakout Picked by Engine A (Sector)
-2025-03-28,DOMS,ENTRY,Engine A (Sector),2877.25,Top Breakout Picked by Engine A (Sector)
-2025-03-28,INDHOTEL,ENTRY,Engine A (Sector),787.55,Top Breakout Picked by Engine A (Sector)
-2025-03-28,COFORGE,ENTRY,Engine A (Sector),8109.2,Top Breakout Picked by Engine A (Sector)
-2025-03-28,AFFLE,ENTRY,Engine A (Sector),1608.55,Top Breakout Picked by Engine A (Sector)
-2025-03-28,GODREJAGRO,ENTRY,Engine A (Sector),753.7,Top Breakout Picked by Engine A (Sector)
-2025-03-28,PERSISTENT,ENTRY,Engine A (Sector),5513.75,Top Breakout Picked by Engine A (Sector)
-2025-03-28,CHALET,ENTRY,Engine A (Sector),819.45,Top Breakout Picked by Engine A (Sector)
-2025-03-28,BLUEJET,ENTRY,Engine B (Lone Wolf),884.85,Top Breakout Picked by Engine B (Lone Wolf)
-2025-03-28,WOCKPHARMA,ENTRY,Engine B (Lone Wolf),1424.4,Top Breakout Picked by Engine B (Lone Wolf)
-2025-03-28,SARDAEN,ENTRY,Engine B (Lone Wolf),513.9,Top Breakout Picked by Engine B (Lone Wolf)
-2025-03-28,LLOYDSME,ENTRY,Engine B (Lone Wolf),1287.25,Top Breakout Picked by Engine B (Lone Wolf)
-2025-03-28,ORIENTCEM,ENTRY,Engine B (Lone Wolf),339.95,Top Breakout Picked by Engine B (Lone Wolf)
-2025-03-28,COROMANDEL,ENTRY,Engine B (Lone Wolf),1982.1,Top Breakout Picked by Engine B (Lone Wolf)
-2025-03-28,KSCL,ENTRY,Engine B (Lone Wolf),1263.15,Top Breakout Picked by Engine B (Lone Wolf)
-2025-03-28,FORTIS,ENTRY,Engine B (Lone Wolf),698.35,Top Breakout Picked by Engine B (Lone Wolf)
-2025-03-28,MUTHOOTFIN,ENTRY,Engine B (Lone Wolf),2382.9,Top Breakout Picked by Engine B (Lone Wolf)
-2025-03-28,DIVISLAB,ENTRY,Engine B (Lone Wolf),5775.45,Top Breakout Picked by Engine B (Lone Wolf)
-2025-04-30,PERSISTENT,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-04-30,INDHOTEL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-04-30,BLUEJET,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-04-30,WOCKPHARMA,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-04-30,KSCL,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-04-30,DIVISLAB,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-04-30,MUTHOOTFIN,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-04-30,CHALET,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-04-30,GODREJAGRO,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-04-30,AFFLE,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-04-30,DOMS,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-04-30,SARDAEN,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2024-11-29,TRENT,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-11-29,ANANTRAJ,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2024-11-29,KITEX,HOLD,Engine A (Sector),₹742.45,Maintained Top 10 Rank
+2024-11-29,WABAG,HOLD,Engine A (Sector),₹1794.90,Maintained Top 10 Rank
+2024-11-29,APARINDS,HOLD,Engine A (Sector),₹10101.35,Maintained Top 10 Rank
+2024-11-29,ABB,HOLD,Engine A (Sector),₹7421.25,Maintained Top 10 Rank
+2024-11-29,PAGEIND,HOLD,Engine A (Sector),₹44644.90,Maintained Top 10 Rank
+2024-11-29,ACE,HOLD,Engine A (Sector),₹1308.10,Maintained Top 10 Rank
+2024-11-29,WEBELSOLAR,HOLD,Engine B (Lone Wolf),₹1268.75,Maintained Top 10 Rank
+2024-11-29,WOCKPHARMA,HOLD,Engine B (Lone Wolf),₹1404.25,Maintained Top 10 Rank
+2024-11-29,BBOX,ENTRY,Engine B (Lone Wolf),₹628.95,Top Breakout Picked by Engine B (Lone Wolf)
+2024-11-29,GRWRHITECH,HOLD,Engine B (Lone Wolf),₹4937.05,Maintained Top 10 Rank
+2024-11-29,NEULANDLAB,HOLD,Engine B (Lone Wolf),₹16709.30,Maintained Top 10 Rank
+2024-11-29,STAR,HOLD,Engine B (Lone Wolf),₹1635.35,Maintained Top 10 Rank
+2024-11-29,KIRLPNU,HOLD,Engine B (Lone Wolf),₹1768.95,Maintained Top 10 Rank
+2024-11-29,ZENTEC,HOLD,Engine B (Lone Wolf),₹1897.40,Maintained Top 10 Rank
+2024-11-29,PRUDENT,ENTRY,Engine B (Lone Wolf),₹3044.35,Top Breakout Picked by Engine B (Lone Wolf)
+2024-11-29,OFSS,ENTRY,Engine B (Lone Wolf),₹11696.45,Top Breakout Picked by Engine B (Lone Wolf)
+2024-12-31,KITEX,EXIT,Engine A (Sector),₹742.45,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2024-12-31,WABAG,EXIT,Engine A (Sector),₹1794.90,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2024-12-31,APARINDS,EXIT,Engine A (Sector),₹10101.35,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2024-12-31,ABB,EXIT,Engine A (Sector),₹7421.25,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2024-12-31,PAGEIND,EXIT,Engine A (Sector),₹44644.90,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2024-12-31,ACE,EXIT,Engine A (Sector),₹1308.10,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2024-12-31,WEBELSOLAR,EXIT,Engine B (Lone Wolf),₹1268.75,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2024-12-31,WOCKPHARMA,EXIT,Engine B (Lone Wolf),₹1404.25,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2024-12-31,BBOX,EXIT,Engine B (Lone Wolf),₹628.95,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2024-12-31,GRWRHITECH,EXIT,Engine B (Lone Wolf),₹4937.05,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2024-12-31,NEULANDLAB,EXIT,Engine B (Lone Wolf),₹16709.30,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2024-12-31,STAR,EXIT,Engine B (Lone Wolf),₹1635.35,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2024-12-31,KIRLPNU,EXIT,Engine B (Lone Wolf),₹1768.95,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2024-12-31,ZENTEC,EXIT,Engine B (Lone Wolf),₹1897.40,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2024-12-31,PRUDENT,EXIT,Engine B (Lone Wolf),₹3044.35,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2024-12-31,OFSS,EXIT,Engine B (Lone Wolf),₹11696.45,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2025-03-28,CARTRADE,ENTRY,Engine A (Sector),₹1644.95,Top Breakout Picked by Engine A (Sector)
+2025-03-28,GODFRYPHLP,ENTRY,Engine A (Sector),₹6769.20,Top Breakout Picked by Engine A (Sector)
+2025-03-28,DOMS,ENTRY,Engine A (Sector),₹2877.25,Top Breakout Picked by Engine A (Sector)
+2025-03-28,INDHOTEL,ENTRY,Engine A (Sector),₹787.55,Top Breakout Picked by Engine A (Sector)
+2025-03-28,COFORGE,ENTRY,Engine A (Sector),₹8109.20,Top Breakout Picked by Engine A (Sector)
+2025-03-28,AFFLE,ENTRY,Engine A (Sector),₹1608.55,Top Breakout Picked by Engine A (Sector)
+2025-03-28,GODREJAGRO,ENTRY,Engine A (Sector),₹753.70,Top Breakout Picked by Engine A (Sector)
+2025-03-28,PERSISTENT,ENTRY,Engine A (Sector),₹5513.75,Top Breakout Picked by Engine A (Sector)
+2025-03-28,CHALET,ENTRY,Engine A (Sector),₹819.45,Top Breakout Picked by Engine A (Sector)
+2025-03-28,BLUEJET,ENTRY,Engine B (Lone Wolf),₹884.85,Top Breakout Picked by Engine B (Lone Wolf)
+2025-03-28,WOCKPHARMA,ENTRY,Engine B (Lone Wolf),₹1424.40,Top Breakout Picked by Engine B (Lone Wolf)
+2025-03-28,SARDAEN,ENTRY,Engine B (Lone Wolf),₹513.90,Top Breakout Picked by Engine B (Lone Wolf)
+2025-03-28,LLOYDSME,ENTRY,Engine B (Lone Wolf),₹1287.25,Top Breakout Picked by Engine B (Lone Wolf)
+2025-03-28,ORIENTCEM,ENTRY,Engine B (Lone Wolf),₹339.95,Top Breakout Picked by Engine B (Lone Wolf)
+2025-03-28,COROMANDEL,ENTRY,Engine B (Lone Wolf),₹1982.10,Top Breakout Picked by Engine B (Lone Wolf)
+2025-03-28,KSCL,ENTRY,Engine B (Lone Wolf),₹1263.15,Top Breakout Picked by Engine B (Lone Wolf)
+2025-03-28,FORTIS,ENTRY,Engine B (Lone Wolf),₹698.35,Top Breakout Picked by Engine B (Lone Wolf)
+2025-03-28,MUTHOOTFIN,ENTRY,Engine B (Lone Wolf),₹2382.90,Top Breakout Picked by Engine B (Lone Wolf)
+2025-03-28,DIVISLAB,ENTRY,Engine B (Lone Wolf),₹5775.45,Top Breakout Picked by Engine B (Lone Wolf)
+2025-04-30,INDHOTEL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
 2025-04-30,COFORGE,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-04-30,COROMANDEL,HOLD,Engine A (Sector),2214.2,Maintained Top 10 Momentum Rank
-2025-04-30,NAZARA,ENTRY,Engine A (Sector),1011.5,Top Breakout Picked by Engine A (Sector)
-2025-04-30,CHAMBLFERT,ENTRY,Engine A (Sector),692.65,Top Breakout Picked by Engine A (Sector)
-2025-04-30,BHARTIHEXA,ENTRY,Engine A (Sector),1689.1,Top Breakout Picked by Engine A (Sector)
-2025-04-30,BHARTIARTL,ENTRY,Engine A (Sector),1864.5,Top Breakout Picked by Engine A (Sector)
-2025-04-30,INDUSTOWER,ENTRY,Engine A (Sector),408.2,Top Breakout Picked by Engine A (Sector)
-2025-04-30,ANURAS,ENTRY,Engine A (Sector),868.55,Top Breakout Picked by Engine A (Sector)
-2025-04-30,CARTRADE,HOLD,Engine B (Lone Wolf),1704.3,Maintained Top 10 Momentum Rank
-2025-04-30,GODFRYPHLP,HOLD,Engine B (Lone Wolf),8116.0,Maintained Top 10 Momentum Rank
-2025-04-30,MANORAMA,ENTRY,Engine B (Lone Wolf),1274.7,Top Breakout Picked by Engine B (Lone Wolf)
-2025-04-30,DEEPAKFERT,ENTRY,Engine B (Lone Wolf),1279.9,Top Breakout Picked by Engine B (Lone Wolf)
-2025-04-30,KOTAKBANK,ENTRY,Engine B (Lone Wolf),2208.1,Top Breakout Picked by Engine B (Lone Wolf)
-2025-04-30,ORIENTCEM,HOLD,Engine B (Lone Wolf),349.7,Maintained Top 10 Momentum Rank
-2025-04-30,CHOLAHLDNG,ENTRY,Engine B (Lone Wolf),1864.1,Top Breakout Picked by Engine B (Lone Wolf)
-2025-04-30,LLOYDSME,HOLD,Engine B (Lone Wolf),1203.2,Maintained Top 10 Momentum Rank
-2025-04-30,FORTIS,HOLD,Engine B (Lone Wolf),685.55,Maintained Top 10 Momentum Rank
-2025-04-30,JUBLFOOD,ENTRY,Engine B (Lone Wolf),715.4,Top Breakout Picked by Engine B (Lone Wolf)
-2025-05-30,COROMANDEL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-05-30,FORTIS,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-05-30,INDUSTOWER,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-05-30,ORIENTCEM,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-05-30,BHARTIHEXA,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-05-30,MANORAMA,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-05-30,BHARTIARTL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-05-30,KOTAKBANK,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
+2025-04-30,PERSISTENT,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-04-30,KSCL,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-04-30,AFFLE,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-04-30,CHALET,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-04-30,DOMS,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-04-30,DIVISLAB,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-04-30,SARDAEN,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-04-30,MUTHOOTFIN,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-04-30,WOCKPHARMA,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-04-30,GODREJAGRO,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-04-30,BLUEJET,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-04-30,COROMANDEL,HOLD,Engine A (Sector),₹2214.20,Maintained Top 10 Rank
+2025-04-30,NAZARA,ENTRY,Engine A (Sector),₹1011.50,Top Breakout Picked by Engine A (Sector)
+2025-04-30,CHAMBLFERT,ENTRY,Engine A (Sector),₹692.65,Top Breakout Picked by Engine A (Sector)
+2025-04-30,BHARTIHEXA,ENTRY,Engine A (Sector),₹1689.10,Top Breakout Picked by Engine A (Sector)
+2025-04-30,BHARTIARTL,ENTRY,Engine A (Sector),₹1864.50,Top Breakout Picked by Engine A (Sector)
+2025-04-30,INDUSTOWER,ENTRY,Engine A (Sector),₹408.20,Top Breakout Picked by Engine A (Sector)
+2025-04-30,ANURAS,ENTRY,Engine A (Sector),₹868.55,Top Breakout Picked by Engine A (Sector)
+2025-04-30,CARTRADE,HOLD,Engine B (Lone Wolf),₹1704.30,Maintained Top 10 Rank
+2025-04-30,GODFRYPHLP,HOLD,Engine B (Lone Wolf),₹8116.00,Maintained Top 10 Rank
+2025-04-30,MANORAMA,ENTRY,Engine B (Lone Wolf),₹1274.70,Top Breakout Picked by Engine B (Lone Wolf)
+2025-04-30,DEEPAKFERT,ENTRY,Engine B (Lone Wolf),₹1279.90,Top Breakout Picked by Engine B (Lone Wolf)
+2025-04-30,KOTAKBANK,ENTRY,Engine B (Lone Wolf),₹2208.10,Top Breakout Picked by Engine B (Lone Wolf)
+2025-04-30,ORIENTCEM,HOLD,Engine B (Lone Wolf),₹349.70,Maintained Top 10 Rank
+2025-04-30,CHOLAHLDNG,ENTRY,Engine B (Lone Wolf),₹1864.10,Top Breakout Picked by Engine B (Lone Wolf)
+2025-04-30,LLOYDSME,HOLD,Engine B (Lone Wolf),₹1203.20,Maintained Top 10 Rank
+2025-04-30,FORTIS,HOLD,Engine B (Lone Wolf),₹685.55,Maintained Top 10 Rank
+2025-04-30,JUBLFOOD,ENTRY,Engine B (Lone Wolf),₹715.40,Top Breakout Picked by Engine B (Lone Wolf)
+2025-05-30,JUBLFOOD,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-05-30,KOTAKBANK,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-05-30,COROMANDEL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-05-30,INDUSTOWER,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-05-30,BHARTIHEXA,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-05-30,CHOLAHLDNG,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-05-30,CARTRADE,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-05-30,FORTIS,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-05-30,ORIENTCEM,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
 2025-05-30,CHAMBLFERT,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-05-30,CARTRADE,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-05-30,JUBLFOOD,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-05-30,CHOLAHLDNG,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-05-30,SHAILY,ENTRY,Engine A (Sector),2016.8,Top Breakout Picked by Engine A (Sector)
-2025-05-30,NAZARA,HOLD,Engine A (Sector),1295.1,Maintained Top 10 Momentum Rank
-2025-05-30,ANURAS,HOLD,Engine A (Sector),1004.75,Maintained Top 10 Momentum Rank
-2025-05-30,AMBER,ENTRY,Engine A (Sector),6491.5,Top Breakout Picked by Engine A (Sector)
-2025-05-30,BERGEPAINT,ENTRY,Engine A (Sector),568.3,Top Breakout Picked by Engine A (Sector)
-2025-05-30,ATUL,ENTRY,Engine A (Sector),7136.5,Top Breakout Picked by Engine A (Sector)
-2025-05-30,BAYERCROP,ENTRY,Engine A (Sector),5678.3,Top Breakout Picked by Engine A (Sector)
-2025-05-30,AIIL,ENTRY,Engine B (Lone Wolf),2379.2,Top Breakout Picked by Engine B (Lone Wolf)
-2025-05-30,BLUEJET,ENTRY,Engine B (Lone Wolf),904.8,Top Breakout Picked by Engine B (Lone Wolf)
-2025-05-30,INDIAGLYCO,ENTRY,Engine B (Lone Wolf),1892.5,Top Breakout Picked by Engine B (Lone Wolf)
-2025-05-30,PARADEEP,ENTRY,Engine B (Lone Wolf),172.28,Top Breakout Picked by Engine B (Lone Wolf)
-2025-05-30,GODFRYPHLP,HOLD,Engine B (Lone Wolf),8702.5,Maintained Top 10 Momentum Rank
-2025-05-30,WOCKPHARMA,ENTRY,Engine B (Lone Wolf),1465.3,Top Breakout Picked by Engine B (Lone Wolf)
-2025-05-30,GRWRHITECH,ENTRY,Engine B (Lone Wolf),4696.5,Top Breakout Picked by Engine B (Lone Wolf)
-2025-05-30,ZENTEC,ENTRY,Engine B (Lone Wolf),2139.8,Top Breakout Picked by Engine B (Lone Wolf)
-2025-05-30,LLOYDSME,HOLD,Engine B (Lone Wolf),1393.1,Maintained Top 10 Momentum Rank
-2025-05-30,DEEPAKFERT,HOLD,Engine B (Lone Wolf),1483.7,Maintained Top 10 Momentum Rank
-2025-06-30,AMBER,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
+2025-05-30,BHARTIARTL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-05-30,MANORAMA,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-05-30,SHAILY,ENTRY,Engine A (Sector),₹2016.80,Top Breakout Picked by Engine A (Sector)
+2025-05-30,NAZARA,HOLD,Engine A (Sector),₹1295.10,Maintained Top 10 Rank
+2025-05-30,ANURAS,HOLD,Engine A (Sector),₹1004.75,Maintained Top 10 Rank
+2025-05-30,AMBER,ENTRY,Engine A (Sector),₹6491.50,Top Breakout Picked by Engine A (Sector)
+2025-05-30,BERGEPAINT,ENTRY,Engine A (Sector),₹568.30,Top Breakout Picked by Engine A (Sector)
+2025-05-30,ATUL,ENTRY,Engine A (Sector),₹7136.50,Top Breakout Picked by Engine A (Sector)
+2025-05-30,BAYERCROP,ENTRY,Engine A (Sector),₹5678.30,Top Breakout Picked by Engine A (Sector)
+2025-05-30,AIIL,ENTRY,Engine B (Lone Wolf),₹2379.20,Top Breakout Picked by Engine B (Lone Wolf)
+2025-05-30,BLUEJET,ENTRY,Engine B (Lone Wolf),₹904.80,Top Breakout Picked by Engine B (Lone Wolf)
+2025-05-30,INDIAGLYCO,ENTRY,Engine B (Lone Wolf),₹1892.50,Top Breakout Picked by Engine B (Lone Wolf)
+2025-05-30,PARADEEP,ENTRY,Engine B (Lone Wolf),₹172.28,Top Breakout Picked by Engine B (Lone Wolf)
+2025-05-30,GODFRYPHLP,HOLD,Engine B (Lone Wolf),₹8702.50,Maintained Top 10 Rank
+2025-05-30,WOCKPHARMA,ENTRY,Engine B (Lone Wolf),₹1465.30,Top Breakout Picked by Engine B (Lone Wolf)
+2025-05-30,GRWRHITECH,ENTRY,Engine B (Lone Wolf),₹4696.50,Top Breakout Picked by Engine B (Lone Wolf)
+2025-05-30,ZENTEC,ENTRY,Engine B (Lone Wolf),₹2139.80,Top Breakout Picked by Engine B (Lone Wolf)
+2025-05-30,LLOYDSME,HOLD,Engine B (Lone Wolf),₹1393.10,Maintained Top 10 Rank
+2025-05-30,DEEPAKFERT,HOLD,Engine B (Lone Wolf),₹1483.70,Maintained Top 10 Rank
+2025-06-30,BAYERCROP,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
 2025-06-30,SHAILY,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-06-30,BAYERCROP,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-06-30,WOCKPHARMA,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-06-30,BERGEPAINT,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
+2025-06-30,NAZARA,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
 2025-06-30,GRWRHITECH,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-06-30,NAZARA,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
+2025-06-30,WOCKPHARMA,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-06-30,BERGEPAINT,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-06-30,PARADEEP,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
 2025-06-30,ZENTEC,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-06-30,PARADEEP,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-06-30,ANURAS,HOLD,Engine A (Sector),1141.7,Maintained Top 10 Momentum Rank
-2025-06-30,BHARTIHEXA,ENTRY,Engine A (Sector),1952.7,Top Breakout Picked by Engine A (Sector)
-2025-06-30,BHARTIARTL,ENTRY,Engine A (Sector),2009.6,Top Breakout Picked by Engine A (Sector)
-2025-06-30,AARTIPHARM,ENTRY,Engine A (Sector),890.35,Top Breakout Picked by Engine A (Sector)
-2025-06-30,ABBOTINDIA,ENTRY,Engine A (Sector),35670.0,Top Breakout Picked by Engine A (Sector)
-2025-06-30,INDUSTOWER,ENTRY,Engine A (Sector),421.1,Top Breakout Picked by Engine A (Sector)
-2025-06-30,ALKYLAMINE,ENTRY,Engine A (Sector),2368.0,Top Breakout Picked by Engine A (Sector)
-2025-06-30,ATUL,HOLD,Engine A (Sector),7474.5,Maintained Top 10 Momentum Rank
-2025-06-30,APLLTD,ENTRY,Engine A (Sector),1039.1,Top Breakout Picked by Engine A (Sector)
-2025-06-30,BLUEJET,HOLD,Engine B (Lone Wolf),877.75,Maintained Top 10 Momentum Rank
-2025-06-30,INDIAGLYCO,HOLD,Engine B (Lone Wolf),2063.1,Maintained Top 10 Momentum Rank
-2025-06-30,GODFRYPHLP,HOLD,Engine B (Lone Wolf),8976.5,Maintained Top 10 Momentum Rank
-2025-06-30,AIIL,HOLD,Engine B (Lone Wolf),2630.7,Maintained Top 10 Momentum Rank
-2025-06-30,LUMAXTECH,ENTRY,Engine B (Lone Wolf),1176.1,Top Breakout Picked by Engine B (Lone Wolf)
-2025-06-30,MFSL,ENTRY,Engine B (Lone Wolf),1647.1,Top Breakout Picked by Engine B (Lone Wolf)
-2025-06-30,CARTRADE,ENTRY,Engine B (Lone Wolf),1700.7,Top Breakout Picked by Engine B (Lone Wolf)
-2025-06-30,LLOYDSME,HOLD,Engine B (Lone Wolf),1588.9,Maintained Top 10 Momentum Rank
-2025-06-30,SOLARINDS,ENTRY,Engine B (Lone Wolf),17598.0,Top Breakout Picked by Engine B (Lone Wolf)
-2025-06-30,DEEPAKFERT,HOLD,Engine B (Lone Wolf),1707.4,Maintained Top 10 Momentum Rank
-2025-07-31,SOLARINDS,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
+2025-06-30,AMBER,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-06-30,ANURAS,HOLD,Engine A (Sector),₹1141.70,Maintained Top 10 Rank
+2025-06-30,BHARTIHEXA,ENTRY,Engine A (Sector),₹1952.70,Top Breakout Picked by Engine A (Sector)
+2025-06-30,BHARTIARTL,ENTRY,Engine A (Sector),₹2009.60,Top Breakout Picked by Engine A (Sector)
+2025-06-30,AARTIPHARM,ENTRY,Engine A (Sector),₹890.35,Top Breakout Picked by Engine A (Sector)
+2025-06-30,ABBOTINDIA,ENTRY,Engine A (Sector),₹35670.00,Top Breakout Picked by Engine A (Sector)
+2025-06-30,INDUSTOWER,ENTRY,Engine A (Sector),₹421.10,Top Breakout Picked by Engine A (Sector)
+2025-06-30,ALKYLAMINE,ENTRY,Engine A (Sector),₹2368.00,Top Breakout Picked by Engine A (Sector)
+2025-06-30,ATUL,HOLD,Engine A (Sector),₹7474.50,Maintained Top 10 Rank
+2025-06-30,APLLTD,ENTRY,Engine A (Sector),₹1039.10,Top Breakout Picked by Engine A (Sector)
+2025-06-30,BLUEJET,HOLD,Engine B (Lone Wolf),₹877.75,Maintained Top 10 Rank
+2025-06-30,INDIAGLYCO,HOLD,Engine B (Lone Wolf),₹2063.10,Maintained Top 10 Rank
+2025-06-30,GODFRYPHLP,HOLD,Engine B (Lone Wolf),₹8976.50,Maintained Top 10 Rank
+2025-06-30,AIIL,HOLD,Engine B (Lone Wolf),₹2630.70,Maintained Top 10 Rank
+2025-06-30,LUMAXTECH,ENTRY,Engine B (Lone Wolf),₹1176.10,Top Breakout Picked by Engine B (Lone Wolf)
+2025-06-30,MFSL,ENTRY,Engine B (Lone Wolf),₹1647.10,Top Breakout Picked by Engine B (Lone Wolf)
+2025-06-30,CARTRADE,ENTRY,Engine B (Lone Wolf),₹1700.70,Top Breakout Picked by Engine B (Lone Wolf)
+2025-06-30,LLOYDSME,HOLD,Engine B (Lone Wolf),₹1588.90,Maintained Top 10 Rank
+2025-06-30,SOLARINDS,ENTRY,Engine B (Lone Wolf),₹17598.00,Top Breakout Picked by Engine B (Lone Wolf)
+2025-06-30,DEEPAKFERT,HOLD,Engine B (Lone Wolf),₹1707.40,Maintained Top 10 Rank
 2025-07-31,APLLTD,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-07-31,GODFRYPHLP,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-07-31,LUMAXTECH,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-07-31,MFSL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-07-31,INDIAGLYCO,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
 2025-07-31,INDUSTOWER,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-07-31,GODFRYPHLP,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
 2025-07-31,ALKYLAMINE,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-07-31,AARTIPHARM,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-07-31,SOLARINDS,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-07-31,ANURAS,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-07-31,LUMAXTECH,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
 2025-07-31,ABBOTINDIA,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-07-31,MFSL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
 2025-07-31,AIIL,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
 2025-07-31,BLUEJET,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-07-31,AARTIPHARM,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-07-31,ANURAS,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-07-31,INDIAGLYCO,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-07-31,COROMANDEL,ENTRY,Engine A (Sector),2691.4,Top Breakout Picked by Engine A (Sector)
-2025-07-31,BHARTIHEXA,HOLD,Engine A (Sector),1847.7,Maintained Top 10 Momentum Rank
-2025-07-31,DEEPAKFERT,HOLD,Engine A (Sector),1598.8,Maintained Top 10 Momentum Rank
-2025-07-31,BHARTIARTL,HOLD,Engine A (Sector),1914.3,Maintained Top 10 Momentum Rank
-2025-07-31,NAZARA,ENTRY,Engine A (Sector),1351.4,Top Breakout Picked by Engine A (Sector)
-2025-07-31,PFOCUS,ENTRY,Engine A (Sector),145.07,Top Breakout Picked by Engine A (Sector)
-2025-07-31,ATUL,HOLD,Engine A (Sector),6629.0,Maintained Top 10 Momentum Rank
-2025-07-31,GABRIEL,ENTRY,Engine B (Lone Wolf),1037.25,Top Breakout Picked by Engine B (Lone Wolf)
-2025-07-31,CARTRADE,HOLD,Engine B (Lone Wolf),2186.5,Maintained Top 10 Momentum Rank
-2025-07-31,CUPID,ENTRY,Engine B (Lone Wolf),150.89,Top Breakout Picked by Engine B (Lone Wolf)
-2025-07-31,MANORAMA,ENTRY,Engine B (Lone Wolf),1521.7,Top Breakout Picked by Engine B (Lone Wolf)
-2025-07-31,FORTIS,ENTRY,Engine B (Lone Wolf),857.45,Top Breakout Picked by Engine B (Lone Wolf)
-2025-07-31,POWERINDIA,ENTRY,Engine B (Lone Wolf),20095.0,Top Breakout Picked by Engine B (Lone Wolf)
-2025-07-31,THYROCARE,ENTRY,Engine B (Lone Wolf),1325.9,Top Breakout Picked by Engine B (Lone Wolf)
-2025-07-31,LAURUSLABS,ENTRY,Engine B (Lone Wolf),874.35,Top Breakout Picked by Engine B (Lone Wolf)
-2025-07-31,LLOYDSME,HOLD,Engine B (Lone Wolf),1504.7,Maintained Top 10 Momentum Rank
-2025-07-31,HDFCAMC,ENTRY,Engine B (Lone Wolf),5650.0,Top Breakout Picked by Engine B (Lone Wolf)
-2025-08-29,COROMANDEL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-08-29,DEEPAKFERT,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-08-29,POWERINDIA,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-08-29,PFOCUS,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-08-29,MANORAMA,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-08-29,ATUL,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-08-29,HDFCAMC,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-08-29,NAZARA,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-08-29,LLOYDSME,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
+2025-07-31,COROMANDEL,ENTRY,Engine A (Sector),₹2691.40,Top Breakout Picked by Engine A (Sector)
+2025-07-31,BHARTIHEXA,HOLD,Engine A (Sector),₹1847.70,Maintained Top 10 Rank
+2025-07-31,DEEPAKFERT,HOLD,Engine A (Sector),₹1598.80,Maintained Top 10 Rank
+2025-07-31,BHARTIARTL,HOLD,Engine A (Sector),₹1914.30,Maintained Top 10 Rank
+2025-07-31,NAZARA,ENTRY,Engine A (Sector),₹1351.40,Top Breakout Picked by Engine A (Sector)
+2025-07-31,PFOCUS,ENTRY,Engine A (Sector),₹145.07,Top Breakout Picked by Engine A (Sector)
+2025-07-31,ATUL,HOLD,Engine A (Sector),₹6629.00,Maintained Top 10 Rank
+2025-07-31,GABRIEL,ENTRY,Engine B (Lone Wolf),₹1037.25,Top Breakout Picked by Engine B (Lone Wolf)
+2025-07-31,CARTRADE,HOLD,Engine B (Lone Wolf),₹2186.50,Maintained Top 10 Rank
+2025-07-31,CUPID,ENTRY,Engine B (Lone Wolf),₹150.89,Top Breakout Picked by Engine B (Lone Wolf)
+2025-07-31,MANORAMA,ENTRY,Engine B (Lone Wolf),₹1521.70,Top Breakout Picked by Engine B (Lone Wolf)
+2025-07-31,FORTIS,ENTRY,Engine B (Lone Wolf),₹857.45,Top Breakout Picked by Engine B (Lone Wolf)
+2025-07-31,POWERINDIA,ENTRY,Engine B (Lone Wolf),₹20095.00,Top Breakout Picked by Engine B (Lone Wolf)
+2025-07-31,THYROCARE,ENTRY,Engine B (Lone Wolf),₹1325.90,Top Breakout Picked by Engine B (Lone Wolf)
+2025-07-31,LAURUSLABS,ENTRY,Engine B (Lone Wolf),₹874.35,Top Breakout Picked by Engine B (Lone Wolf)
+2025-07-31,LLOYDSME,HOLD,Engine B (Lone Wolf),₹1504.70,Maintained Top 10 Rank
+2025-07-31,HDFCAMC,ENTRY,Engine B (Lone Wolf),₹5650.00,Top Breakout Picked by Engine B (Lone Wolf)
+2025-08-29,COROMANDEL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
 2025-08-29,THYROCARE,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-08-29,CUPID,HOLD,Engine A (Sector),172.29,Maintained Top 10 Momentum Rank
-2025-08-29,BHARTIHEXA,HOLD,Engine A (Sector),1774.0,Maintained Top 10 Momentum Rank
-2025-08-29,CRAFTSMAN,ENTRY,Engine A (Sector),6912.5,Top Breakout Picked by Engine A (Sector)
-2025-08-29,CCL,ENTRY,Engine A (Sector),871.5,Top Breakout Picked by Engine A (Sector)
-2025-08-29,BOSCHLTD,ENTRY,Engine A (Sector),39960.0,Top Breakout Picked by Engine A (Sector)
-2025-08-29,BHARTIARTL,HOLD,Engine A (Sector),1888.8,Maintained Top 10 Momentum Rank
-2025-08-29,BRITANNIA,ENTRY,Engine A (Sector),5824.0,Top Breakout Picked by Engine A (Sector)
-2025-08-29,APOLLOTYRE,ENTRY,Engine A (Sector),462.2,Top Breakout Picked by Engine A (Sector)
-2025-08-29,GABRIEL,HOLD,Engine B (Lone Wolf),1152.4,Maintained Top 10 Momentum Rank
-2025-08-29,LUMAXTECH,ENTRY,Engine B (Lone Wolf),1174.7,Top Breakout Picked by Engine B (Lone Wolf)
-2025-08-29,CARTRADE,HOLD,Engine B (Lone Wolf),2398.0,Maintained Top 10 Momentum Rank
-2025-08-29,SHAILY,ENTRY,Engine B (Lone Wolf),2232.0,Top Breakout Picked by Engine B (Lone Wolf)
-2025-08-29,AIIL,ENTRY,Engine B (Lone Wolf),3232.9,Top Breakout Picked by Engine B (Lone Wolf)
-2025-08-29,PAYTM,ENTRY,Engine B (Lone Wolf),1207.0,Top Breakout Picked by Engine B (Lone Wolf)
-2025-08-29,FORTIS,HOLD,Engine B (Lone Wolf),911.5,Maintained Top 10 Momentum Rank
-2025-08-29,TI,ENTRY,Engine B (Lone Wolf),473.8,Top Breakout Picked by Engine B (Lone Wolf)
-2025-08-29,LAURUSLABS,HOLD,Engine B (Lone Wolf),856.9,Maintained Top 10 Momentum Rank
-2025-08-29,JKCEMENT,ENTRY,Engine B (Lone Wolf),6946.5,Top Breakout Picked by Engine B (Lone Wolf)
+2025-08-29,DEEPAKFERT,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-08-29,HDFCAMC,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-08-29,POWERINDIA,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-08-29,MANORAMA,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-08-29,PFOCUS,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-08-29,ATUL,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-08-29,NAZARA,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-08-29,LLOYDSME,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-08-29,CUPID,HOLD,Engine A (Sector),₹172.29,Maintained Top 10 Rank
+2025-08-29,BHARTIHEXA,HOLD,Engine A (Sector),₹1774.00,Maintained Top 10 Rank
+2025-08-29,CRAFTSMAN,ENTRY,Engine A (Sector),₹6912.50,Top Breakout Picked by Engine A (Sector)
+2025-08-29,CCL,ENTRY,Engine A (Sector),₹871.50,Top Breakout Picked by Engine A (Sector)
+2025-08-29,BOSCHLTD,ENTRY,Engine A (Sector),₹39960.00,Top Breakout Picked by Engine A (Sector)
+2025-08-29,BHARTIARTL,HOLD,Engine A (Sector),₹1888.80,Maintained Top 10 Rank
+2025-08-29,BRITANNIA,ENTRY,Engine A (Sector),₹5824.00,Top Breakout Picked by Engine A (Sector)
+2025-08-29,APOLLOTYRE,ENTRY,Engine A (Sector),₹462.20,Top Breakout Picked by Engine A (Sector)
+2025-08-29,GABRIEL,HOLD,Engine B (Lone Wolf),₹1152.40,Maintained Top 10 Rank
+2025-08-29,LUMAXTECH,ENTRY,Engine B (Lone Wolf),₹1174.70,Top Breakout Picked by Engine B (Lone Wolf)
+2025-08-29,CARTRADE,HOLD,Engine B (Lone Wolf),₹2398.00,Maintained Top 10 Rank
+2025-08-29,SHAILY,ENTRY,Engine B (Lone Wolf),₹2232.00,Top Breakout Picked by Engine B (Lone Wolf)
+2025-08-29,AIIL,ENTRY,Engine B (Lone Wolf),₹3232.90,Top Breakout Picked by Engine B (Lone Wolf)
+2025-08-29,PAYTM,ENTRY,Engine B (Lone Wolf),₹1207.00,Top Breakout Picked by Engine B (Lone Wolf)
+2025-08-29,FORTIS,HOLD,Engine B (Lone Wolf),₹911.50,Maintained Top 10 Rank
+2025-08-29,TI,ENTRY,Engine B (Lone Wolf),₹473.80,Top Breakout Picked by Engine B (Lone Wolf)
+2025-08-29,LAURUSLABS,HOLD,Engine B (Lone Wolf),₹856.90,Maintained Top 10 Rank
+2025-08-29,JKCEMENT,ENTRY,Engine B (Lone Wolf),₹6946.50,Top Breakout Picked by Engine B (Lone Wolf)
+2025-09-30,JKCEMENT,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-09-30,BHARTIHEXA,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
 2025-09-30,CCL,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-09-30,LAURUSLABS,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-09-30,PAYTM,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
 2025-09-30,CRAFTSMAN,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-09-30,BHARTIHEXA,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-09-30,PAYTM,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-09-30,BHARTIARTL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-09-30,JKCEMENT,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-09-30,LAURUSLABS,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-09-30,CUPID,HOLD,Engine A (Sector),214.96,Maintained Top 10 Momentum Rank
-2025-09-30,PFOCUS,ENTRY,Engine A (Sector),175.94,Top Breakout Picked by Engine A (Sector)
-2025-09-30,ASAHIINDIA,ENTRY,Engine A (Sector),855.7,Top Breakout Picked by Engine A (Sector)
-2025-09-30,BOSCHLTD,HOLD,Engine A (Sector),38145.0,Maintained Top 10 Momentum Rank
-2025-09-30,BRITANNIA,HOLD,Engine A (Sector),5991.0,Maintained Top 10 Momentum Rank
-2025-09-30,APOLLOTYRE,HOLD,Engine A (Sector),472.95,Maintained Top 10 Momentum Rank
-2025-09-30,DOMS,ENTRY,Engine A (Sector),2486.3,Top Breakout Picked by Engine A (Sector)
-2025-09-30,LUMAXTECH,HOLD,Engine B (Lone Wolf),1249.8,Maintained Top 10 Momentum Rank
-2025-09-30,AXISCADES,ENTRY,Engine B (Lone Wolf),1594.0,Top Breakout Picked by Engine B (Lone Wolf)
-2025-09-30,GABRIEL,HOLD,Engine B (Lone Wolf),1181.4,Maintained Top 10 Momentum Rank
-2025-09-30,AIIL,HOLD,Engine B (Lone Wolf),3082.2,Maintained Top 10 Momentum Rank
-2025-09-30,ASHAPURMIN,ENTRY,Engine B (Lone Wolf),651.0,Top Breakout Picked by Engine B (Lone Wolf)
-2025-09-30,CARTRADE,HOLD,Engine B (Lone Wolf),2450.1,Maintained Top 10 Momentum Rank
-2025-09-30,IXIGO,ENTRY,Engine B (Lone Wolf),265.2,Top Breakout Picked by Engine B (Lone Wolf)
-2025-09-30,FORTIS,HOLD,Engine B (Lone Wolf),969.8,Maintained Top 10 Momentum Rank
-2025-09-30,TI,HOLD,Engine B (Lone Wolf),448.55,Maintained Top 10 Momentum Rank
-2025-09-30,SHAILY,HOLD,Engine B (Lone Wolf),2176.9,Maintained Top 10 Momentum Rank
-2025-10-31,BRITANNIA,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-10-31,FORTIS,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-10-31,LUMAXTECH,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-10-31,BOSCHLTD,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-10-31,PFOCUS,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-10-31,ASAHIINDIA,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-09-30,BHARTIARTL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-09-30,CUPID,HOLD,Engine A (Sector),₹214.96,Maintained Top 10 Rank
+2025-09-30,PFOCUS,ENTRY,Engine A (Sector),₹175.94,Top Breakout Picked by Engine A (Sector)
+2025-09-30,ASAHIINDIA,ENTRY,Engine A (Sector),₹855.70,Top Breakout Picked by Engine A (Sector)
+2025-09-30,BOSCHLTD,HOLD,Engine A (Sector),₹38145.00,Maintained Top 10 Rank
+2025-09-30,BRITANNIA,HOLD,Engine A (Sector),₹5991.00,Maintained Top 10 Rank
+2025-09-30,APOLLOTYRE,HOLD,Engine A (Sector),₹472.95,Maintained Top 10 Rank
+2025-09-30,DOMS,ENTRY,Engine A (Sector),₹2486.30,Top Breakout Picked by Engine A (Sector)
+2025-09-30,LUMAXTECH,HOLD,Engine B (Lone Wolf),₹1249.80,Maintained Top 10 Rank
+2025-09-30,AXISCADES,ENTRY,Engine B (Lone Wolf),₹1594.00,Top Breakout Picked by Engine B (Lone Wolf)
+2025-09-30,GABRIEL,HOLD,Engine B (Lone Wolf),₹1181.40,Maintained Top 10 Rank
+2025-09-30,AIIL,HOLD,Engine B (Lone Wolf),₹3082.20,Maintained Top 10 Rank
+2025-09-30,ASHAPURMIN,ENTRY,Engine B (Lone Wolf),₹651.00,Top Breakout Picked by Engine B (Lone Wolf)
+2025-09-30,CARTRADE,HOLD,Engine B (Lone Wolf),₹2450.10,Maintained Top 10 Rank
+2025-09-30,IXIGO,ENTRY,Engine B (Lone Wolf),₹265.20,Top Breakout Picked by Engine B (Lone Wolf)
+2025-09-30,FORTIS,HOLD,Engine B (Lone Wolf),₹969.80,Maintained Top 10 Rank
+2025-09-30,TI,HOLD,Engine B (Lone Wolf),₹448.55,Maintained Top 10 Rank
+2025-09-30,SHAILY,HOLD,Engine B (Lone Wolf),₹2176.90,Maintained Top 10 Rank
 2025-10-31,AXISCADES,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-10-31,AIIL,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-10-31,IXIGO,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
+2025-10-31,BOSCHLTD,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-10-31,IXIGO,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-10-31,BRITANNIA,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
 2025-10-31,DOMS,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-10-31,CARTRADE,HOLD,Engine A (Sector),3019.5,Maintained Top 10 Momentum Rank
-2025-10-31,APOLLO,ENTRY,Engine A (Sector),276.8,Top Breakout Picked by Engine A (Sector)
-2025-10-31,ASTRAMICRO,ENTRY,Engine A (Sector),1042.25,Top Breakout Picked by Engine A (Sector)
-2025-10-31,APLAPOLLO,ENTRY,Engine A (Sector),1791.5,Top Breakout Picked by Engine A (Sector)
-2025-10-31,BHARATFORG,ENTRY,Engine A (Sector),1324.7,Top Breakout Picked by Engine A (Sector)
-2025-10-31,DMART,ENTRY,Engine A (Sector),4153.5,Top Breakout Picked by Engine A (Sector)
-2025-10-31,APOLLOTYRE,HOLD,Engine A (Sector),501.5,Maintained Top 10 Momentum Rank
-2025-10-31,BAJAJ-AUTO,ENTRY,Engine A (Sector),8892.5,Top Breakout Picked by Engine A (Sector)
-2025-10-31,DEVYANI,ENTRY,Engine A (Sector),161.8,Top Breakout Picked by Engine A (Sector)
-2025-10-31,CUPID,HOLD,Engine B (Lone Wolf),233.59,Maintained Top 10 Momentum Rank
-2025-10-31,GABRIEL,HOLD,Engine B (Lone Wolf),1273.9,Maintained Top 10 Momentum Rank
-2025-10-31,ASHAPURMIN,HOLD,Engine B (Lone Wolf),664.5,Maintained Top 10 Momentum Rank
-2025-10-31,V2RETAIL,ENTRY,Engine B (Lone Wolf),2442.0,Top Breakout Picked by Engine B (Lone Wolf)
-2025-10-31,ABDL,ENTRY,Engine B (Lone Wolf),662.05,Top Breakout Picked by Engine B (Lone Wolf)
-2025-10-31,SHAILY,HOLD,Engine B (Lone Wolf),2274.6,Maintained Top 10 Momentum Rank
-2025-10-31,TDPOWERSYS,ENTRY,Engine B (Lone Wolf),774.9,Top Breakout Picked by Engine B (Lone Wolf)
-2025-10-31,INOXGREEN,ENTRY,Engine B (Lone Wolf),266.53,Top Breakout Picked by Engine B (Lone Wolf)
-2025-10-31,JAYNECOIND,ENTRY,Engine B (Lone Wolf),77.69,Top Breakout Picked by Engine B (Lone Wolf)
-2025-10-31,TI,HOLD,Engine B (Lone Wolf),528.1,Maintained Top 10 Momentum Rank
-2025-11-28,TI,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-11-28,GABRIEL,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-11-28,TDPOWERSYS,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-11-28,INOXGREEN,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-11-28,SHAILY,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-11-28,APOLLOTYRE,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-11-28,DEVYANI,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-11-28,APLAPOLLO,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
+2025-10-31,LUMAXTECH,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-10-31,ASAHIINDIA,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-10-31,PFOCUS,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-10-31,FORTIS,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-10-31,AIIL,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-10-31,CARTRADE,HOLD,Engine A (Sector),₹3019.50,Maintained Top 10 Rank
+2025-10-31,APOLLO,ENTRY,Engine A (Sector),₹276.80,Top Breakout Picked by Engine A (Sector)
+2025-10-31,ASTRAMICRO,ENTRY,Engine A (Sector),₹1042.25,Top Breakout Picked by Engine A (Sector)
+2025-10-31,APLAPOLLO,ENTRY,Engine A (Sector),₹1791.50,Top Breakout Picked by Engine A (Sector)
+2025-10-31,BHARATFORG,ENTRY,Engine A (Sector),₹1324.70,Top Breakout Picked by Engine A (Sector)
+2025-10-31,DMART,ENTRY,Engine A (Sector),₹4153.50,Top Breakout Picked by Engine A (Sector)
+2025-10-31,APOLLOTYRE,HOLD,Engine A (Sector),₹501.50,Maintained Top 10 Rank
+2025-10-31,BAJAJ-AUTO,ENTRY,Engine A (Sector),₹8892.50,Top Breakout Picked by Engine A (Sector)
+2025-10-31,DEVYANI,ENTRY,Engine A (Sector),₹161.80,Top Breakout Picked by Engine A (Sector)
+2025-10-31,CUPID,HOLD,Engine B (Lone Wolf),₹233.59,Maintained Top 10 Rank
+2025-10-31,GABRIEL,HOLD,Engine B (Lone Wolf),₹1273.90,Maintained Top 10 Rank
+2025-10-31,ASHAPURMIN,HOLD,Engine B (Lone Wolf),₹664.50,Maintained Top 10 Rank
+2025-10-31,V2RETAIL,ENTRY,Engine B (Lone Wolf),₹2442.00,Top Breakout Picked by Engine B (Lone Wolf)
+2025-10-31,ABDL,ENTRY,Engine B (Lone Wolf),₹662.05,Top Breakout Picked by Engine B (Lone Wolf)
+2025-10-31,SHAILY,HOLD,Engine B (Lone Wolf),₹2274.60,Maintained Top 10 Rank
+2025-10-31,TDPOWERSYS,ENTRY,Engine B (Lone Wolf),₹774.90,Top Breakout Picked by Engine B (Lone Wolf)
+2025-10-31,INOXGREEN,ENTRY,Engine B (Lone Wolf),₹266.53,Top Breakout Picked by Engine B (Lone Wolf)
+2025-10-31,JAYNECOIND,ENTRY,Engine B (Lone Wolf),₹77.69,Top Breakout Picked by Engine B (Lone Wolf)
+2025-10-31,TI,HOLD,Engine B (Lone Wolf),₹528.10,Maintained Top 10 Rank
+2025-11-28,TDPOWERSYS,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
 2025-11-28,CUPID,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-11-28,ASTRAMICRO,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-11-28,BAJAJ-AUTO,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-11-28,BHARATFORG,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
 2025-11-28,APOLLO,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-11-28,CARTRADE,HOLD,Engine A (Sector),3087.7,Maintained Top 10 Momentum Rank
-2025-11-28,BLACKBUCK,ENTRY,Engine A (Sector),667.75,Top Breakout Picked by Engine A (Sector)
-2025-11-28,ANURAS,ENTRY,Engine A (Sector),1221.7,Top Breakout Picked by Engine A (Sector)
-2025-11-28,COROMANDEL,ENTRY,Engine A (Sector),2382.1,Top Breakout Picked by Engine A (Sector)
-2025-11-28,DELHIVERY,ENTRY,Engine A (Sector),426.2,Top Breakout Picked by Engine A (Sector)
-2025-11-28,ADANIPORTS,ENTRY,Engine A (Sector),1516.9,Top Breakout Picked by Engine A (Sector)
-2025-11-28,AETHER,ENTRY,Engine A (Sector),877.2,Top Breakout Picked by Engine A (Sector)
-2025-11-28,DMART,HOLD,Engine A (Sector),3996.5,Maintained Top 10 Momentum Rank
-2025-11-28,INDHOTEL,ENTRY,Engine A (Sector),744.3,Top Breakout Picked by Engine A (Sector)
-2025-11-28,LUMAXTECH,ENTRY,Engine B (Lone Wolf),1536.3,Top Breakout Picked by Engine B (Lone Wolf)
-2025-11-28,LTF,ENTRY,Engine B (Lone Wolf),312.35,Top Breakout Picked by Engine B (Lone Wolf)
-2025-11-28,ASHAPURMIN,HOLD,Engine B (Lone Wolf),685.8,Maintained Top 10 Momentum Rank
-2025-11-28,LAURUSLABS,ENTRY,Engine B (Lone Wolf),1031.35,Top Breakout Picked by Engine B (Lone Wolf)
-2025-11-28,ABDL,HOLD,Engine B (Lone Wolf),653.8,Maintained Top 10 Momentum Rank
-2025-11-28,MUTHOOTFIN,ENTRY,Engine B (Lone Wolf),3744.2,Top Breakout Picked by Engine B (Lone Wolf)
-2025-11-28,V2RETAIL,HOLD,Engine B (Lone Wolf),2449.8,Maintained Top 10 Momentum Rank
-2025-11-28,RBLBANK,ENTRY,Engine B (Lone Wolf),312.4,Top Breakout Picked by Engine B (Lone Wolf)
-2025-11-28,JAYNECOIND,HOLD,Engine B (Lone Wolf),71.6,Maintained Top 10 Momentum Rank
-2025-11-28,ABCAPITAL,ENTRY,Engine B (Lone Wolf),358.05,Top Breakout Picked by Engine B (Lone Wolf)
-2025-12-31,RBLBANK,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-12-31,COROMANDEL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-12-31,BLACKBUCK,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
+2025-11-28,INOXGREEN,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-11-28,BAJAJ-AUTO,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-11-28,SHAILY,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-11-28,APLAPOLLO,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-11-28,DEVYANI,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-11-28,GABRIEL,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-11-28,BHARATFORG,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-11-28,ASTRAMICRO,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-11-28,APOLLOTYRE,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-11-28,TI,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-11-28,CARTRADE,HOLD,Engine A (Sector),₹3087.70,Maintained Top 10 Rank
+2025-11-28,BLACKBUCK,ENTRY,Engine A (Sector),₹667.75,Top Breakout Picked by Engine A (Sector)
+2025-11-28,ANURAS,ENTRY,Engine A (Sector),₹1221.70,Top Breakout Picked by Engine A (Sector)
+2025-11-28,COROMANDEL,ENTRY,Engine A (Sector),₹2382.10,Top Breakout Picked by Engine A (Sector)
+2025-11-28,DELHIVERY,ENTRY,Engine A (Sector),₹426.20,Top Breakout Picked by Engine A (Sector)
+2025-11-28,ADANIPORTS,ENTRY,Engine A (Sector),₹1516.90,Top Breakout Picked by Engine A (Sector)
+2025-11-28,AETHER,ENTRY,Engine A (Sector),₹877.20,Top Breakout Picked by Engine A (Sector)
+2025-11-28,DMART,HOLD,Engine A (Sector),₹3996.50,Maintained Top 10 Rank
+2025-11-28,INDHOTEL,ENTRY,Engine A (Sector),₹744.30,Top Breakout Picked by Engine A (Sector)
+2025-11-28,LUMAXTECH,ENTRY,Engine B (Lone Wolf),₹1536.30,Top Breakout Picked by Engine B (Lone Wolf)
+2025-11-28,LTF,ENTRY,Engine B (Lone Wolf),₹312.35,Top Breakout Picked by Engine B (Lone Wolf)
+2025-11-28,ASHAPURMIN,HOLD,Engine B (Lone Wolf),₹685.80,Maintained Top 10 Rank
+2025-11-28,LAURUSLABS,ENTRY,Engine B (Lone Wolf),₹1031.35,Top Breakout Picked by Engine B (Lone Wolf)
+2025-11-28,ABDL,HOLD,Engine B (Lone Wolf),₹653.80,Maintained Top 10 Rank
+2025-11-28,MUTHOOTFIN,ENTRY,Engine B (Lone Wolf),₹3744.20,Top Breakout Picked by Engine B (Lone Wolf)
+2025-11-28,V2RETAIL,HOLD,Engine B (Lone Wolf),₹2449.80,Maintained Top 10 Rank
+2025-11-28,RBLBANK,ENTRY,Engine B (Lone Wolf),₹312.40,Top Breakout Picked by Engine B (Lone Wolf)
+2025-11-28,JAYNECOIND,HOLD,Engine B (Lone Wolf),₹71.60,Maintained Top 10 Rank
+2025-11-28,ABCAPITAL,ENTRY,Engine B (Lone Wolf),₹358.05,Top Breakout Picked by Engine B (Lone Wolf)
 2025-12-31,ABDL,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-12-31,DELHIVERY,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2025-12-31,AETHER,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-12-31,ADANIPORTS,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
 2025-12-31,V2RETAIL,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-12-31,COROMANDEL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-12-31,BLACKBUCK,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-12-31,ADANIPORTS,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
 2025-12-31,DMART,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
 2025-12-31,ANURAS,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2025-12-31,ASHAPURMIN,HOLD,Engine A (Sector),878.65,Maintained Top 10 Momentum Rank
-2025-12-31,CARTRADE,HOLD,Engine A (Sector),2826.2,Maintained Top 10 Momentum Rank
-2025-12-31,SHAILY,ENTRY,Engine A (Sector),2261.6,Top Breakout Picked by Engine A (Sector)
-2025-12-31,ASIANPAINT,ENTRY,Engine A (Sector),2769.5,Top Breakout Picked by Engine A (Sector)
-2025-12-31,GRAVITA,ENTRY,Engine A (Sector),1857.8,Top Breakout Picked by Engine A (Sector)
-2025-12-31,ADANIENT,ENTRY,Engine A (Sector),2239.7,Top Breakout Picked by Engine A (Sector)
-2025-12-31,IRCTC,ENTRY,Engine A (Sector),684.6,Top Breakout Picked by Engine A (Sector)
-2025-12-31,INDHOTEL,HOLD,Engine A (Sector),738.85,Maintained Top 10 Momentum Rank
-2025-12-31,HAVELLS,ENTRY,Engine A (Sector),1424.9,Top Breakout Picked by Engine A (Sector)
-2025-12-31,JAYNECOIND,HOLD,Engine B (Lone Wolf),87.82,Maintained Top 10 Momentum Rank
-2025-12-31,LTF,HOLD,Engine B (Lone Wolf),315.95,Maintained Top 10 Momentum Rank
-2025-12-31,LAURUSLABS,HOLD,Engine B (Lone Wolf),1108.0,Maintained Top 10 Momentum Rank
-2025-12-31,LUMAXTECH,HOLD,Engine B (Lone Wolf),1544.5,Maintained Top 10 Momentum Rank
-2025-12-31,ABCAPITAL,HOLD,Engine B (Lone Wolf),357.7,Maintained Top 10 Momentum Rank
-2025-12-31,MUTHOOTFIN,HOLD,Engine B (Lone Wolf),3811.7,Maintained Top 10 Momentum Rank
-2025-12-31,THANGAMAYL,ENTRY,Engine B (Lone Wolf),3222.1,Top Breakout Picked by Engine B (Lone Wolf)
-2025-12-31,CUB,ENTRY,Engine B (Lone Wolf),290.8,Top Breakout Picked by Engine B (Lone Wolf)
-2025-12-31,MARUTI,ENTRY,Engine B (Lone Wolf),16697.0,Top Breakout Picked by Engine B (Lone Wolf)
-2025-12-31,AUBANK,ENTRY,Engine B (Lone Wolf),994.5,Top Breakout Picked by Engine B (Lone Wolf)
-2026-01-30,INDHOTEL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2026-01-30,THANGAMAYL,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2026-01-30,SHAILY,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2026-01-30,MARUTI,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2026-01-30,IRCTC,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2026-01-30,LUMAXTECH,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2026-01-30,ADANIENT,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2026-01-30,GRAVITA,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2026-01-30,LTF,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2026-01-30,ASHAPURMIN,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2026-01-30,JAYNECOIND,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-12-31,DELHIVERY,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-12-31,AETHER,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2025-12-31,RBLBANK,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2025-12-31,ASHAPURMIN,HOLD,Engine A (Sector),₹878.65,Maintained Top 10 Rank
+2025-12-31,CARTRADE,HOLD,Engine A (Sector),₹2826.20,Maintained Top 10 Rank
+2025-12-31,SHAILY,ENTRY,Engine A (Sector),₹2261.60,Top Breakout Picked by Engine A (Sector)
+2025-12-31,ASIANPAINT,ENTRY,Engine A (Sector),₹2769.50,Top Breakout Picked by Engine A (Sector)
+2025-12-31,GRAVITA,ENTRY,Engine A (Sector),₹1857.80,Top Breakout Picked by Engine A (Sector)
+2025-12-31,ADANIENT,ENTRY,Engine A (Sector),₹2239.70,Top Breakout Picked by Engine A (Sector)
+2025-12-31,IRCTC,ENTRY,Engine A (Sector),₹684.60,Top Breakout Picked by Engine A (Sector)
+2025-12-31,INDHOTEL,HOLD,Engine A (Sector),₹738.85,Maintained Top 10 Rank
+2025-12-31,HAVELLS,ENTRY,Engine A (Sector),₹1424.90,Top Breakout Picked by Engine A (Sector)
+2025-12-31,JAYNECOIND,HOLD,Engine B (Lone Wolf),₹87.82,Maintained Top 10 Rank
+2025-12-31,LTF,HOLD,Engine B (Lone Wolf),₹315.95,Maintained Top 10 Rank
+2025-12-31,LAURUSLABS,HOLD,Engine B (Lone Wolf),₹1108.00,Maintained Top 10 Rank
+2025-12-31,LUMAXTECH,HOLD,Engine B (Lone Wolf),₹1544.50,Maintained Top 10 Rank
+2025-12-31,ABCAPITAL,HOLD,Engine B (Lone Wolf),₹357.70,Maintained Top 10 Rank
+2025-12-31,MUTHOOTFIN,HOLD,Engine B (Lone Wolf),₹3811.70,Maintained Top 10 Rank
+2025-12-31,THANGAMAYL,ENTRY,Engine B (Lone Wolf),₹3222.10,Top Breakout Picked by Engine B (Lone Wolf)
+2025-12-31,CUB,ENTRY,Engine B (Lone Wolf),₹290.80,Top Breakout Picked by Engine B (Lone Wolf)
+2025-12-31,MARUTI,ENTRY,Engine B (Lone Wolf),₹16697.00,Top Breakout Picked by Engine B (Lone Wolf)
+2025-12-31,AUBANK,ENTRY,Engine B (Lone Wolf),₹994.50,Top Breakout Picked by Engine B (Lone Wolf)
 2026-01-30,HAVELLS,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
-2026-01-30,ASIANPAINT,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2026-01-30,CARTRADE,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2026-01-30,LAURUSLABS,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10 threshold.
-2026-01-30,HINDALCO,ENTRY,Engine A (Sector),962.6,Top Breakout Picked by Engine A (Sector)
-2026-01-30,ABCAPITAL,HOLD,Engine A (Sector),339.8,Maintained Top 10 Momentum Rank
-2026-01-30,AIAENG,ENTRY,Engine A (Sector),3989.0,Top Breakout Picked by Engine A (Sector)
-2026-01-30,JSL,ENTRY,Engine A (Sector),822.55,Top Breakout Picked by Engine A (Sector)
-2026-01-30,JINDALSTEL,ENTRY,Engine A (Sector),1132.0,Top Breakout Picked by Engine A (Sector)
-2026-01-30,360ONE,ENTRY,Engine A (Sector),1134.3,Top Breakout Picked by Engine A (Sector)
-2026-01-30,ABSLAMC,ENTRY,Engine A (Sector),759.45,Top Breakout Picked by Engine A (Sector)
-2026-01-30,ABB,ENTRY,Engine A (Sector),5578.5,Top Breakout Picked by Engine A (Sector)
-2026-01-30,APARINDS,ENTRY,Engine A (Sector),7994.0,Top Breakout Picked by Engine A (Sector)
-2026-01-30,SHRIRAMFIN,ENTRY,Engine B (Lone Wolf),1020.0,Top Breakout Picked by Engine B (Lone Wolf)
-2026-01-30,GVT&D,ENTRY,Engine B (Lone Wolf),3230.3,Top Breakout Picked by Engine B (Lone Wolf)
-2026-01-30,UJJIVANSFB,ENTRY,Engine B (Lone Wolf),65.37,Top Breakout Picked by Engine B (Lone Wolf)
-2026-01-30,TDPOWERSYS,ENTRY,Engine B (Lone Wolf),729.5,Top Breakout Picked by Engine B (Lone Wolf)
-2026-01-30,CUB,HOLD,Engine B (Lone Wolf),301.75,Maintained Top 10 Momentum Rank
-2026-01-30,MUTHOOTFIN,HOLD,Engine B (Lone Wolf),3829.6,Maintained Top 10 Momentum Rank
-2026-01-30,AUBANK,HOLD,Engine B (Lone Wolf),982.35,Maintained Top 10 Momentum Rank
-2026-01-30,FEDERALBNK,ENTRY,Engine B (Lone Wolf),287.75,Top Breakout Picked by Engine B (Lone Wolf)
-2026-01-30,SBIN,ENTRY,Engine B (Lone Wolf),1077.15,Top Breakout Picked by Engine B (Lone Wolf)
-2026-01-30,DCBBANK,ENTRY,Engine B (Lone Wolf),199.67,Top Breakout Picked by Engine B (Lone Wolf)
-2026-02-27,HINDALCO,EXIT,Engine A (Sector),962.6,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2026-02-27,ABCAPITAL,EXIT,Engine A (Sector),339.8,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2026-02-27,AIAENG,EXIT,Engine A (Sector),3989.0,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2026-02-27,JSL,EXIT,Engine A (Sector),822.55,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2026-02-27,JINDALSTEL,EXIT,Engine A (Sector),1132.0,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2026-02-27,360ONE,EXIT,Engine A (Sector),1134.3,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2026-02-27,ABSLAMC,EXIT,Engine A (Sector),759.45,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2026-02-27,ABB,EXIT,Engine A (Sector),5578.5,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2026-02-27,APARINDS,EXIT,Engine A (Sector),7994.0,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2026-02-27,SHRIRAMFIN,EXIT,Engine B (Lone Wolf),1020.0,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2026-02-27,GVT&D,EXIT,Engine B (Lone Wolf),3230.3,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2026-02-27,UJJIVANSFB,EXIT,Engine B (Lone Wolf),65.37,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2026-02-27,TDPOWERSYS,EXIT,Engine B (Lone Wolf),729.5,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2026-02-27,CUB,EXIT,Engine B (Lone Wolf),301.75,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2026-02-27,MUTHOOTFIN,EXIT,Engine B (Lone Wolf),3829.6,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2026-02-27,AUBANK,EXIT,Engine B (Lone Wolf),982.35,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2026-02-27,FEDERALBNK,EXIT,Engine B (Lone Wolf),287.75,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2026-02-27,SBIN,EXIT,Engine B (Lone Wolf),1077.15,Systemic Crash: Nifty 50 dropped below 200-day EMA.
-2026-02-27,DCBBANK,EXIT,Engine B (Lone Wolf),199.67,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2026-01-30,INDHOTEL,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2026-01-30,ADANIENT,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2026-01-30,JAYNECOIND,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2026-01-30,LAURUSLABS,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2026-01-30,SHAILY,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2026-01-30,THANGAMAYL,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2026-01-30,LUMAXTECH,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2026-01-30,CARTRADE,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2026-01-30,LTF,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2026-01-30,MARUTI,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2026-01-30,ASHAPURMIN,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2026-01-30,IRCTC,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2026-01-30,GRAVITA,EXIT,N/A,N/A,"Filter Failure: Lost momentum, liquidity, or split detected."
+2026-01-30,ASIANPAINT,EXIT,N/A,N/A,Rank Decay: Momentum dropped below top 10.
+2026-01-30,HINDALCO,ENTRY,Engine A (Sector),₹962.60,Top Breakout Picked by Engine A (Sector)
+2026-01-30,ABCAPITAL,HOLD,Engine A (Sector),₹339.80,Maintained Top 10 Rank
+2026-01-30,AIAENG,ENTRY,Engine A (Sector),₹3989.00,Top Breakout Picked by Engine A (Sector)
+2026-01-30,JSL,ENTRY,Engine A (Sector),₹822.55,Top Breakout Picked by Engine A (Sector)
+2026-01-30,JINDALSTEL,ENTRY,Engine A (Sector),₹1132.00,Top Breakout Picked by Engine A (Sector)
+2026-01-30,360ONE,ENTRY,Engine A (Sector),₹1134.30,Top Breakout Picked by Engine A (Sector)
+2026-01-30,ABSLAMC,ENTRY,Engine A (Sector),₹759.45,Top Breakout Picked by Engine A (Sector)
+2026-01-30,ABB,ENTRY,Engine A (Sector),₹5578.50,Top Breakout Picked by Engine A (Sector)
+2026-01-30,APARINDS,ENTRY,Engine A (Sector),₹7994.00,Top Breakout Picked by Engine A (Sector)
+2026-01-30,SHRIRAMFIN,ENTRY,Engine B (Lone Wolf),₹1020.00,Top Breakout Picked by Engine B (Lone Wolf)
+2026-01-30,GVT&D,ENTRY,Engine B (Lone Wolf),₹3230.30,Top Breakout Picked by Engine B (Lone Wolf)
+2026-01-30,UJJIVANSFB,ENTRY,Engine B (Lone Wolf),₹65.37,Top Breakout Picked by Engine B (Lone Wolf)
+2026-01-30,TDPOWERSYS,ENTRY,Engine B (Lone Wolf),₹729.50,Top Breakout Picked by Engine B (Lone Wolf)
+2026-01-30,CUB,HOLD,Engine B (Lone Wolf),₹301.75,Maintained Top 10 Rank
+2026-01-30,MUTHOOTFIN,HOLD,Engine B (Lone Wolf),₹3829.60,Maintained Top 10 Rank
+2026-01-30,AUBANK,HOLD,Engine B (Lone Wolf),₹982.35,Maintained Top 10 Rank
+2026-01-30,FEDERALBNK,ENTRY,Engine B (Lone Wolf),₹287.75,Top Breakout Picked by Engine B (Lone Wolf)
+2026-01-30,SBIN,ENTRY,Engine B (Lone Wolf),₹1077.15,Top Breakout Picked by Engine B (Lone Wolf)
+2026-01-30,DCBBANK,ENTRY,Engine B (Lone Wolf),₹199.67,Top Breakout Picked by Engine B (Lone Wolf)
+2026-02-27,HINDALCO,EXIT,Engine A (Sector),₹962.60,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2026-02-27,ABCAPITAL,EXIT,Engine A (Sector),₹339.80,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2026-02-27,AIAENG,EXIT,Engine A (Sector),₹3989.00,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2026-02-27,JSL,EXIT,Engine A (Sector),₹822.55,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2026-02-27,JINDALSTEL,EXIT,Engine A (Sector),₹1132.00,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2026-02-27,360ONE,EXIT,Engine A (Sector),₹1134.30,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2026-02-27,ABSLAMC,EXIT,Engine A (Sector),₹759.45,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2026-02-27,ABB,EXIT,Engine A (Sector),₹5578.50,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2026-02-27,APARINDS,EXIT,Engine A (Sector),₹7994.00,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2026-02-27,SHRIRAMFIN,EXIT,Engine B (Lone Wolf),₹1020.00,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2026-02-27,GVT&D,EXIT,Engine B (Lone Wolf),₹3230.30,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2026-02-27,UJJIVANSFB,EXIT,Engine B (Lone Wolf),₹65.37,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2026-02-27,TDPOWERSYS,EXIT,Engine B (Lone Wolf),₹729.50,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2026-02-27,CUB,EXIT,Engine B (Lone Wolf),₹301.75,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2026-02-27,MUTHOOTFIN,EXIT,Engine B (Lone Wolf),₹3829.60,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2026-02-27,AUBANK,EXIT,Engine B (Lone Wolf),₹982.35,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2026-02-27,FEDERALBNK,EXIT,Engine B (Lone Wolf),₹287.75,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2026-02-27,SBIN,EXIT,Engine B (Lone Wolf),₹1077.15,Systemic Crash: Nifty 50 dropped below 200-day EMA.
+2026-02-27,DCBBANK,EXIT,Engine B (Lone Wolf),₹199.67,Systemic Crash: Nifty 50 dropped below 200-day EMA.
