@@ -16,8 +16,8 @@ Usage
 # ─────────────────────────────────────────────────────────────
 #  USER CONFIGURATION  ← edit these if not using CLI arguments
 # ─────────────────────────────────────────────────────────────
-START_DATE = "2023-01-01"   # YYYY-MM-DD
-END_DATE   = "2023-12-31"   # YYYY-MM-DD
+START_DATE = "2024-01-01"   # YYYY-MM-DD
+END_DATE   = "2026-05-18"   # YYYY-MM-DD
 OUTPUT_ROOT = "./HistoricalBhavCopy/NSE"  # base output folder
 
 
