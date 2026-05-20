@@ -5,13 +5,13 @@ backtest_pipeline.py
 2. Trains the LightGBM model dynamically in memory.
 3. Simulates a trading strategy: Buy when Breakout Probability >= 75%, Hold for 5 days.
 4. Computes performance KPIs and passes them to Gemini API for a strategic review.
+   * Includes a network fallback to prevent API 503 errors from breaking the workflow.
 """
 import os
 import sys
 import numpy as np
 import pandas as pd
 from google import genai
-# Import the training function as well!
 from train_breakout_model import load_and_clean_data, engineer_features_and_targets, train_breakout_model
 
 def run_historical_backtest(df, model):
@@ -36,7 +36,6 @@ def run_historical_backtest(df, model):
     if trades.empty:
         return None, "No trades were triggered with the current threshold."
         
-    # Drop rows at the absolute end of the timeline where forward return can't be computed
     trades = trades.dropna(subset=['FORWARD_5D_RETURN'])
     
     # Calculate Backtest KPIs
@@ -114,17 +113,28 @@ if __name__ == "__main__":
         raw_data = load_and_clean_data(DATA_PATH)
         processed_data = engineer_features_and_targets(raw_data)
         
-        # Train the model dynamically right now instead of looking for a saved file!
+        # Train model
         trained_model = train_breakout_model(processed_data)
         
+        # Run backtest simulation
         kpis, trade_log = run_historical_backtest(processed_data, trained_model)
         
         if kpis is None:
             print(trade_log)
             sys.exit(0)
             
-        ai_critique = ask_gemini_to_optimize(kpis)
+        # ── THE FALLBACK NETWORK GUARD ──
+        try:
+            ai_critique = ask_gemini_to_optimize(kpis)
+        except Exception as api_error:
+            print(f"Gemini API network call dropped or timed out: {api_error}")
+            ai_critique = (
+                "⚠️ **Gemini AI Commentary Temporarily Unavailable**\n\n"
+                "The Google Gemini endpoint is experiencing high demand (HTTP 503/Server Busy). "
+                "However, your underlying strategy simulation completed perfectly! Review the calculated table metrics below."
+            )
         
+        # Assemble Dashboard
         report_md = f"""
 ## 📊 3-Year Historical Backtest & AI Audit Report
 
