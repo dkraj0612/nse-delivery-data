@@ -3,6 +3,10 @@ name: Run Dual-Engine Portfolio & AI Audit
 on:
   workflow_dispatch: 
 
+# This permission is required for the bot to publish the website
+permissions:
+  contents: write
+
 jobs:
   execute-strategy:
     runs-on: ubuntu-latest
@@ -24,8 +28,24 @@ jobs:
         GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       run: python dual_engine_backtest.py
 
-    - name: Upload HTML Dashboard Artifact
+    - name: Upload Outputs as Artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: Portfolio-Dashboard
-        path: portfolio_dashboard.html
+        name: Portfolio-Outputs
+        path: |
+          portfolio_dashboard.html
+          history.html
+          backtest_portfolio_history.csv
+
+    - name: Prepare Dashboard for Web
+      run: |
+        mkdir public
+        cp portfolio_dashboard.html public/index.html
+        cp history.html public/history.html
+        cp backtest_portfolio_history.csv public/
+
+    - name: Publish to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public
