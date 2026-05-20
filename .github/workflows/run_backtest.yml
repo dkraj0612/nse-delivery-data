@@ -23,5 +23,5 @@ jobs:
 
     - name: Run Multi-Year Simulation & Gemini Audit
       env:
-        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        GEMINI_API_KEY: AIzaSyDUWGKRG3CftWdkhJXKEKyDlCrQi73Y8lY
       run: python backtest_pipeline.py
