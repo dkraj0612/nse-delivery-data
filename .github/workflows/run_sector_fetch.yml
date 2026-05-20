@@ -1,0 +1,34 @@
+name: Generate Sector Mapping
+
+on:
+  workflow_dispatch: # This allows you to click a button on your phone to run it
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-and-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Install Requirements
+      run: pip install requests pandas
+
+    - name: Run the Python Script
+      run: python fetch_sectors.py
+
+    - name: Save the CSV to Repository
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add nifty500_sectors.csv
+        git commit -m "Mobile Trigger: Added NSE sector mapping CSV" || echo "No changes to commit"
+        git push
