@@ -11,7 +11,7 @@ import io
 
 def fetch_nse_sector_mapping():
     # Official NSE URL for Nifty 500 constituents
-    url = "https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv"
+    url = "https://nsearchives.nseindia.com/content/indices/ind_niftytotalmarket_list.csv"
     
     # Headers to fake a standard web browser
     headers = {
