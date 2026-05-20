@@ -41,12 +41,28 @@ def load_data(folder_path, sector_map_path):
     df_list = []
     for file in all_files:
         try:
-            df = pd.read_csv(file, usecols=['SYMBOL', 'DATE', 'CLOSE_PRICE', 'TURNOVER_LACS', 'DELIV_PER'])
+            # 1. Read all columns first to bypass the hidden space issue
+            df = pd.read_csv(file)
+            
+            # 2. Strip invisible leading/trailing spaces from NSE headers
             df.columns = df.columns.str.strip()
-            df_list.append(df)
+            
+            # 3. The NSE names their date column 'DATE1' — rename it so our engine recognizes it
+            if 'DATE1' in df.columns:
+                df = df.rename(columns={'DATE1': 'DATE'})
+                
+            # 4. Safely filter for only the columns we actually need
+            req_cols = ['SYMBOL', 'DATE', 'CLOSE_PRICE', 'TURNOVER_LACS', 'DELIV_PER']
+            
+            # Only append if the file is a valid equity file with our columns
+            if all(c in df.columns for c in req_cols):
+                df_list.append(df[req_cols])
         except Exception:
             continue
             
+    if not df_list:
+        raise ValueError("Failed to parse CSVs. No files contained the expected NSE columns.")
+        
     master_df = pd.concat(df_list, ignore_index=True)
     master_df['DATE'] = pd.to_datetime(master_df['DATE'], errors='coerce')
     
@@ -56,7 +72,6 @@ def load_data(folder_path, sector_map_path):
     master_df['DELIV_PER'] = master_df['DELIV_PER'].fillna(0)
     master_df = master_df.dropna(subset=['DATE', 'CLOSE_PRICE'])
     
-    # LEFT join ensures stocks outside the top 750 remain for Engine B
     master_df = pd.merge(master_df, sector_map, on='SYMBOL', how='left')
     return master_df.sort_values(by=['SYMBOL', 'DATE']).reset_index(drop=True)
 
