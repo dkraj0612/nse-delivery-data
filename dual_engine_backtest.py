@@ -18,6 +18,11 @@ from google import genai
 def fetch_nifty_regime():
     print("Fetching Nifty 50 index data for Circuit Breaker...")
     nifty = yf.download('^NSEI', period='5y', progress=False)
+    
+    # ── FIX: Flatten yfinance's new multi-level columns ──
+    if isinstance(nifty.columns, pd.MultiIndex):
+        nifty.columns = nifty.columns.get_level_values(0)
+        
     nifty['NIFTY_EMA_200'] = nifty['Close'].ewm(span=200, adjust=False).mean()
     nifty['REGIME_GREEN'] = nifty['Close'] > nifty['NIFTY_EMA_200']
     
