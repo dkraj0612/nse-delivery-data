@@ -2477,3 +2477,1954 @@
 2026-05-19 17:59:32  INFO        📅  Holidays   : 0
 2026-05-19 17:59:32  INFO        ❌  Errors     : 0
 2026-05-19 17:59:32  INFO      ============================================================
+2026-05-20 03:14:43  INFO      ============================================================
+2026-05-20 03:14:43  INFO      NSE Full Delivery Bhav Copy Downloader
+2026-05-20 03:14:43  INFO        Date range : 2024-01-01 → 2026-05-18
+2026-05-20 03:14:43  INFO        Weekdays   : 621
+2026-05-20 03:14:43  INFO        Output root: /home/runner/work/nse-delivery-data/nse-delivery-data/HistoricalBhavCopy/NSE
+2026-05-20 03:14:43  INFO      ============================================================
+2026-05-20 03:14:43  INFO      Warming up NSE session (acquiring cookies)…
+2026-05-20 03:14:43  WARNING   NSE warm-up failed (will still attempt downloads): 403 Client Error: Forbidden for url: https://www.nseindia.com/
+2026-05-20 03:14:43  INFO      [   1 /  621]  Monday, 01 Jan 2024
+2026-05-20 03:14:43  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_01012024.csv
+2026-05-20 03:14:44  INFO        [SAVED]     sec_bhavdata_full_01012024.csv  (290 KB)
+2026-05-20 03:14:46  INFO      [   2 /  621]  Tuesday, 02 Jan 2024
+2026-05-20 03:14:46  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_02012024.csv
+2026-05-20 03:14:47  INFO        [SAVED]     sec_bhavdata_full_02012024.csv  (289 KB)
+2026-05-20 03:14:48  INFO      [   3 /  621]  Wednesday, 03 Jan 2024
+2026-05-20 03:14:48  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_03012024.csv
+2026-05-20 03:14:49  INFO        [SAVED]     sec_bhavdata_full_03012024.csv  (289 KB)
+2026-05-20 03:14:51  INFO      [   4 /  621]  Thursday, 04 Jan 2024
+2026-05-20 03:14:51  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_04012024.csv
+2026-05-20 03:14:54  INFO        [SAVED]     sec_bhavdata_full_04012024.csv  (291 KB)
+2026-05-20 03:14:57  INFO      [   5 /  621]  Friday, 05 Jan 2024
+2026-05-20 03:14:57  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_05012024.csv
+2026-05-20 03:14:57  INFO        [SAVED]     sec_bhavdata_full_05012024.csv  (290 KB)
+2026-05-20 03:14:59  INFO      [   6 /  621]  Monday, 08 Jan 2024
+2026-05-20 03:14:59  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_08012024.csv
+2026-05-20 03:15:00  INFO        [SAVED]     sec_bhavdata_full_08012024.csv  (292 KB)
+2026-05-20 03:15:02  INFO      [   7 /  621]  Tuesday, 09 Jan 2024
+2026-05-20 03:15:02  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_09012024.csv
+2026-05-20 03:15:03  INFO        [SAVED]     sec_bhavdata_full_09012024.csv  (291 KB)
+2026-05-20 03:15:05  INFO      [   8 /  621]  Wednesday, 10 Jan 2024
+2026-05-20 03:15:05  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_10012024.csv
+2026-05-20 03:15:06  INFO        [SAVED]     sec_bhavdata_full_10012024.csv  (288 KB)
+2026-05-20 03:15:08  INFO      [   9 /  621]  Thursday, 11 Jan 2024
+2026-05-20 03:15:08  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_11012024.csv
+2026-05-20 03:15:11  INFO        [SAVED]     sec_bhavdata_full_11012024.csv  (290 KB)
+2026-05-20 03:15:13  INFO      [  10 /  621]  Friday, 12 Jan 2024
+2026-05-20 03:15:13  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_12012024.csv
+2026-05-20 03:15:14  INFO        [SAVED]     sec_bhavdata_full_12012024.csv  (289 KB)
+2026-05-20 03:15:17  INFO      [  11 /  621]  Monday, 15 Jan 2024
+2026-05-20 03:15:17  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_15012024.csv
+2026-05-20 03:15:18  INFO        [SAVED]     sec_bhavdata_full_15012024.csv  (292 KB)
+2026-05-20 03:15:21  INFO      [  12 /  621]  Tuesday, 16 Jan 2024
+2026-05-20 03:15:21  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_16012024.csv
+2026-05-20 03:15:21  INFO        [SAVED]     sec_bhavdata_full_16012024.csv  (288 KB)
+2026-05-20 03:15:23  INFO      [  13 /  621]  Wednesday, 17 Jan 2024
+2026-05-20 03:15:23  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_17012024.csv
+2026-05-20 03:15:24  INFO        [SAVED]     sec_bhavdata_full_17012024.csv  (288 KB)
+2026-05-20 03:15:26  INFO      [  14 /  621]  Thursday, 18 Jan 2024
+2026-05-20 03:15:26  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_18012024.csv
+2026-05-20 03:15:27  INFO        [SAVED]     sec_bhavdata_full_18012024.csv  (287 KB)
+2026-05-20 03:15:30  INFO      [  15 /  621]  Friday, 19 Jan 2024
+2026-05-20 03:15:30  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_19012024.csv
+2026-05-20 03:15:30  INFO        [SAVED]     sec_bhavdata_full_19012024.csv  (286 KB)
+2026-05-20 03:15:33  INFO      [  16 /  621]  Monday, 22 Jan 2024
+2026-05-20 03:15:33  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_22012024.csv
+2026-05-20 03:15:33  INFO        [SAVED]     sec_bhavdata_full_22012024.csv  (284 KB)
+2026-05-20 03:15:35  INFO      [  17 /  621]  Tuesday, 23 Jan 2024
+2026-05-20 03:15:35  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_23012024.csv
+2026-05-20 03:15:36  INFO        [SAVED]     sec_bhavdata_full_23012024.csv  (293 KB)
+2026-05-20 03:15:39  INFO      [  18 /  621]  Wednesday, 24 Jan 2024
+2026-05-20 03:15:39  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_24012024.csv
+2026-05-20 03:15:44  INFO        [SAVED]     sec_bhavdata_full_24012024.csv  (287 KB)
+2026-05-20 03:15:46  INFO      [  19 /  621]  Thursday, 25 Jan 2024
+2026-05-20 03:15:46  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_25012024.csv
+2026-05-20 03:15:47  INFO        [SAVED]     sec_bhavdata_full_25012024.csv  (285 KB)
+2026-05-20 03:15:49  INFO      [  20 /  621]  Friday, 26 Jan 2024
+2026-05-20 03:15:49  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_26012024.csv
+2026-05-20 03:15:50  INFO        [SAVED]     sec_bhavdata_full_26012024.csv  (285 KB)
+2026-05-20 03:15:52  INFO      [  21 /  621]  Monday, 29 Jan 2024
+2026-05-20 03:15:52  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_29012024.csv
+2026-05-20 03:15:53  INFO        [SAVED]     sec_bhavdata_full_29012024.csv  (292 KB)
+2026-05-20 03:15:55  INFO      [  22 /  621]  Tuesday, 30 Jan 2024
+2026-05-20 03:15:55  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_30012024.csv
+2026-05-20 03:15:56  INFO        [SAVED]     sec_bhavdata_full_30012024.csv  (289 KB)
+2026-05-20 03:15:59  INFO      [  23 /  621]  Wednesday, 31 Jan 2024
+2026-05-20 03:15:59  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_31012024.csv
+2026-05-20 03:16:02  INFO        [SAVED]     sec_bhavdata_full_31012024.csv  (289 KB)
+2026-05-20 03:16:05  INFO      [  24 /  621]  Thursday, 01 Feb 2024
+2026-05-20 03:16:05  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_01022024.csv
+2026-05-20 03:16:06  INFO        [SAVED]     sec_bhavdata_full_01022024.csv  (290 KB)
+2026-05-20 03:16:08  INFO      [  25 /  621]  Friday, 02 Feb 2024
+2026-05-20 03:16:08  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_02022024.csv
+2026-05-20 03:16:09  INFO        [SAVED]     sec_bhavdata_full_02022024.csv  (295 KB)
+2026-05-20 03:16:12  INFO      ── Re-warming NSE session (request 26 / 621) ──
+2026-05-20 03:16:12  INFO      Warming up NSE session (acquiring cookies)…
+2026-05-20 03:16:13  WARNING   NSE warm-up failed (will still attempt downloads): 403 Client Error: Forbidden for url: https://www.nseindia.com/
+2026-05-20 03:16:13  INFO      [  26 /  621]  Monday, 05 Feb 2024
+2026-05-20 03:16:13  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_05022024.csv
+2026-05-20 03:16:13  INFO        [SAVED]     sec_bhavdata_full_05022024.csv  (299 KB)
+2026-05-20 03:16:17  INFO      [  27 /  621]  Tuesday, 06 Feb 2024
+2026-05-20 03:16:17  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_06022024.csv
+2026-05-20 03:16:17  INFO        [SAVED]     sec_bhavdata_full_06022024.csv  (291 KB)
+2026-05-20 03:16:20  INFO      [  28 /  621]  Wednesday, 07 Feb 2024
+2026-05-20 03:16:20  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_07022024.csv
+2026-05-20 03:16:21  INFO        [SAVED]     sec_bhavdata_full_07022024.csv  (294 KB)
+2026-05-20 03:16:23  INFO      [  29 /  621]  Thursday, 08 Feb 2024
+2026-05-20 03:16:23  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_08022024.csv
+2026-05-20 03:16:26  INFO        [SAVED]     sec_bhavdata_full_08022024.csv  (291 KB)
+2026-05-20 03:16:29  INFO      [  30 /  621]  Friday, 09 Feb 2024
+2026-05-20 03:16:29  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_09022024.csv
+2026-05-20 03:16:30  INFO        [SAVED]     sec_bhavdata_full_09022024.csv  (291 KB)
+2026-05-20 03:16:31  INFO      [  31 /  621]  Monday, 12 Feb 2024
+2026-05-20 03:16:31  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_12022024.csv
+2026-05-20 03:16:32  INFO        [SAVED]     sec_bhavdata_full_12022024.csv  (295 KB)
+2026-05-20 03:16:35  INFO      [  32 /  621]  Tuesday, 13 Feb 2024
+2026-05-20 03:16:35  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_13022024.csv
+2026-05-20 03:16:36  INFO        [SAVED]     sec_bhavdata_full_13022024.csv  (290 KB)
+2026-05-20 03:16:38  INFO      [  33 /  621]  Wednesday, 14 Feb 2024
+2026-05-20 03:16:38  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_14022024.csv
+2026-05-20 03:16:39  INFO        [SAVED]     sec_bhavdata_full_14022024.csv  (288 KB)
+2026-05-20 03:16:41  INFO      [  34 /  621]  Thursday, 15 Feb 2024
+2026-05-20 03:16:41  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_15022024.csv
+2026-05-20 03:16:46  INFO        [SAVED]     sec_bhavdata_full_15022024.csv  (289 KB)
+2026-05-20 03:16:48  INFO      [  35 /  621]  Friday, 16 Feb 2024
+2026-05-20 03:16:48  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_16022024.csv
+2026-05-20 03:16:49  INFO        [SAVED]     sec_bhavdata_full_16022024.csv  (290 KB)
+2026-05-20 03:16:52  INFO      [  36 /  621]  Monday, 19 Feb 2024
+2026-05-20 03:16:52  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_19022024.csv
+2026-05-20 03:16:52  INFO        [SAVED]     sec_bhavdata_full_19022024.csv  (295 KB)
+2026-05-20 03:16:56  INFO      [  37 /  621]  Tuesday, 20 Feb 2024
+2026-05-20 03:16:56  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_20022024.csv
+2026-05-20 03:16:56  INFO        [SAVED]     sec_bhavdata_full_20022024.csv  (290 KB)
+2026-05-20 03:16:58  INFO      [  38 /  621]  Wednesday, 21 Feb 2024
+2026-05-20 03:16:58  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_21022024.csv
+2026-05-20 03:16:59  INFO        [SAVED]     sec_bhavdata_full_21022024.csv  (289 KB)
+2026-05-20 03:17:02  INFO      [  39 /  621]  Thursday, 22 Feb 2024
+2026-05-20 03:17:02  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_22022024.csv
+2026-05-20 03:17:02  INFO        [SAVED]     sec_bhavdata_full_22022024.csv  (289 KB)
+2026-05-20 03:17:04  INFO      [  40 /  621]  Friday, 23 Feb 2024
+2026-05-20 03:17:04  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_23022024.csv
+2026-05-20 03:17:05  INFO        [SAVED]     sec_bhavdata_full_23022024.csv  (290 KB)
+2026-05-20 03:17:08  INFO      [  41 /  621]  Monday, 26 Feb 2024
+2026-05-20 03:17:08  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_26022024.csv
+2026-05-20 03:17:08  INFO        [SAVED]     sec_bhavdata_full_26022024.csv  (294 KB)
+2026-05-20 03:17:12  INFO      [  42 /  621]  Tuesday, 27 Feb 2024
+2026-05-20 03:17:12  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_27022024.csv
+2026-05-20 03:17:12  INFO        [SAVED]     sec_bhavdata_full_27022024.csv  (291 KB)
+2026-05-20 03:17:14  INFO      [  43 /  621]  Wednesday, 28 Feb 2024
+2026-05-20 03:17:14  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_28022024.csv
+2026-05-20 03:17:15  INFO        [SAVED]     sec_bhavdata_full_28022024.csv  (290 KB)
+2026-05-20 03:17:18  INFO      [  44 /  621]  Thursday, 29 Feb 2024
+2026-05-20 03:17:18  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_29022024.csv
+2026-05-20 03:17:18  INFO        [SAVED]     sec_bhavdata_full_29022024.csv  (290 KB)
+2026-05-20 03:17:21  INFO      [  45 /  621]  Friday, 01 Mar 2024
+2026-05-20 03:17:21  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_01032024.csv
+2026-05-20 03:17:21  INFO        [SAVED]     sec_bhavdata_full_01032024.csv  (292 KB)
+2026-05-20 03:17:25  INFO      [  46 /  621]  Monday, 04 Mar 2024
+2026-05-20 03:17:25  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_04032024.csv
+2026-05-20 03:17:25  INFO        [SAVED]     sec_bhavdata_full_04032024.csv  (295 KB)
+2026-05-20 03:17:28  INFO      [  47 /  621]  Tuesday, 05 Mar 2024
+2026-05-20 03:17:28  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_05032024.csv
+2026-05-20 03:17:28  INFO        [SAVED]     sec_bhavdata_full_05032024.csv  (293 KB)
+2026-05-20 03:17:30  INFO      [  48 /  621]  Wednesday, 06 Mar 2024
+2026-05-20 03:17:30  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_06032024.csv
+2026-05-20 03:17:31  INFO        [SAVED]     sec_bhavdata_full_06032024.csv  (293 KB)
+2026-05-20 03:17:34  INFO      [  49 /  621]  Thursday, 07 Mar 2024
+2026-05-20 03:17:34  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_07032024.csv
+2026-05-20 03:17:35  INFO        [SAVED]     sec_bhavdata_full_07032024.csv  (292 KB)
+2026-05-20 03:17:37  INFO      [  50 /  621]  Friday, 08 Mar 2024
+2026-05-20 03:17:37  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_08032024.csv
+2026-05-20 03:17:38  INFO        [SAVED]     sec_bhavdata_full_08032024.csv  (292 KB)
+2026-05-20 03:17:40  INFO      ── Re-warming NSE session (request 51 / 621) ──
+2026-05-20 03:17:40  INFO      Warming up NSE session (acquiring cookies)…
+2026-05-20 03:17:40  WARNING   NSE warm-up failed (will still attempt downloads): 403 Client Error: Forbidden for url: https://www.nseindia.com/
+2026-05-20 03:17:40  INFO      [  51 /  621]  Monday, 11 Mar 2024
+2026-05-20 03:17:40  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_11032024.csv
+2026-05-20 03:17:41  INFO        [SAVED]     sec_bhavdata_full_11032024.csv  (298 KB)
+2026-05-20 03:17:44  INFO      [  52 /  621]  Tuesday, 12 Mar 2024
+2026-05-20 03:17:44  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_12032024.csv
+2026-05-20 03:17:45  INFO        [SAVED]     sec_bhavdata_full_12032024.csv  (296 KB)
+2026-05-20 03:17:47  INFO      [  53 /  621]  Wednesday, 13 Mar 2024
+2026-05-20 03:17:47  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_13032024.csv
+2026-05-20 03:17:48  INFO        [SAVED]     sec_bhavdata_full_13032024.csv  (294 KB)
+2026-05-20 03:17:50  INFO      [  54 /  621]  Thursday, 14 Mar 2024
+2026-05-20 03:17:50  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_14032024.csv
+2026-05-20 03:17:50  INFO        [SAVED]     sec_bhavdata_full_14032024.csv  (294 KB)
+2026-05-20 03:17:52  INFO      [  55 /  621]  Friday, 15 Mar 2024
+2026-05-20 03:17:52  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_15032024.csv
+2026-05-20 03:17:53  INFO        [SAVED]     sec_bhavdata_full_15032024.csv  (292 KB)
+2026-05-20 03:17:56  INFO      [  56 /  621]  Monday, 18 Mar 2024
+2026-05-20 03:17:56  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_18032024.csv
+2026-05-20 03:17:57  INFO        [SAVED]     sec_bhavdata_full_18032024.csv  (294 KB)
+2026-05-20 03:17:58  INFO      [  57 /  621]  Tuesday, 19 Mar 2024
+2026-05-20 03:17:58  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_19032024.csv
+2026-05-20 03:17:59  INFO        [SAVED]     sec_bhavdata_full_19032024.csv  (293 KB)
+2026-05-20 03:18:02  INFO      [  58 /  621]  Wednesday, 20 Mar 2024
+2026-05-20 03:18:02  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_20032024.csv
+2026-05-20 03:18:03  INFO        [SAVED]     sec_bhavdata_full_20032024.csv  (291 KB)
+2026-05-20 03:18:05  INFO      [  59 /  621]  Thursday, 21 Mar 2024
+2026-05-20 03:18:05  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_21032024.csv
+2026-05-20 03:18:06  INFO        [SAVED]     sec_bhavdata_full_21032024.csv  (293 KB)
+2026-05-20 03:18:08  INFO      [  60 /  621]  Friday, 22 Mar 2024
+2026-05-20 03:18:08  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_22032024.csv
+2026-05-20 03:18:09  INFO        [SAVED]     sec_bhavdata_full_22032024.csv  (293 KB)
+2026-05-20 03:18:11  INFO      [  61 /  621]  Monday, 25 Mar 2024
+2026-05-20 03:18:11  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_25032024.csv
+2026-05-20 03:18:12  INFO        [SAVED]     sec_bhavdata_full_25032024.csv  (293 KB)
+2026-05-20 03:18:15  INFO      [  62 /  621]  Tuesday, 26 Mar 2024
+2026-05-20 03:18:15  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_26032024.csv
+2026-05-20 03:18:15  INFO        [SAVED]     sec_bhavdata_full_26032024.csv  (297 KB)
+2026-05-20 03:18:17  INFO      [  63 /  621]  Wednesday, 27 Mar 2024
+2026-05-20 03:18:17  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_27032024.csv
+2026-05-20 03:18:18  INFO        [SAVED]     sec_bhavdata_full_27032024.csv  (296 KB)
+2026-05-20 03:18:21  INFO      [  64 /  621]  Thursday, 28 Mar 2024
+2026-05-20 03:18:21  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_28032024.csv
+2026-05-20 03:18:21  INFO        [SAVED]     sec_bhavdata_full_28032024.csv  (297 KB)
+2026-05-20 03:18:24  INFO      [  65 /  621]  Friday, 29 Mar 2024
+2026-05-20 03:18:24  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_29032024.csv
+2026-05-20 03:18:25  INFO        [SAVED]     sec_bhavdata_full_29032024.csv  (297 KB)
+2026-05-20 03:18:27  INFO      [  66 /  621]  Monday, 01 Apr 2024
+2026-05-20 03:18:27  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_01042024.csv
+2026-05-20 03:18:28  INFO        [SAVED]     sec_bhavdata_full_01042024.csv  (296 KB)
+2026-05-20 03:18:30  INFO      [  67 /  621]  Tuesday, 02 Apr 2024
+2026-05-20 03:18:30  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_02042024.csv
+2026-05-20 03:18:30  INFO        [SAVED]     sec_bhavdata_full_02042024.csv  (296 KB)
+2026-05-20 03:18:33  INFO      [  68 /  621]  Wednesday, 03 Apr 2024
+2026-05-20 03:18:33  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_03042024.csv
+2026-05-20 03:18:34  INFO        [SAVED]     sec_bhavdata_full_03042024.csv  (298 KB)
+2026-05-20 03:18:36  INFO      [  69 /  621]  Thursday, 04 Apr 2024
+2026-05-20 03:18:36  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_04042024.csv
+2026-05-20 03:18:36  INFO        [SAVED]     sec_bhavdata_full_04042024.csv  (295 KB)
+2026-05-20 03:18:38  INFO      [  70 /  621]  Friday, 05 Apr 2024
+2026-05-20 03:18:38  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_05042024.csv
+2026-05-20 03:18:39  INFO        [SAVED]     sec_bhavdata_full_05042024.csv  (297 KB)
+2026-05-20 03:18:41  INFO      [  71 /  621]  Monday, 08 Apr 2024
+2026-05-20 03:18:41  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_08042024.csv
+2026-05-20 03:18:41  INFO        [SAVED]     sec_bhavdata_full_08042024.csv  (296 KB)
+2026-05-20 03:18:44  INFO      [  72 /  621]  Tuesday, 09 Apr 2024
+2026-05-20 03:18:44  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_09042024.csv
+2026-05-20 03:18:44  INFO        [SAVED]     sec_bhavdata_full_09042024.csv  (293 KB)
+2026-05-20 03:18:48  INFO      [  73 /  621]  Wednesday, 10 Apr 2024
+2026-05-20 03:18:48  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_10042024.csv
+2026-05-20 03:18:48  INFO        [SAVED]     sec_bhavdata_full_10042024.csv  (295 KB)
+2026-05-20 03:18:51  INFO      [  74 /  621]  Thursday, 11 Apr 2024
+2026-05-20 03:18:51  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_11042024.csv
+2026-05-20 03:18:51  INFO        [SAVED]     sec_bhavdata_full_11042024.csv  (295 KB)
+2026-05-20 03:18:53  INFO      [  75 /  621]  Friday, 12 Apr 2024
+2026-05-20 03:18:53  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_12042024.csv
+2026-05-20 03:18:54  INFO        [SAVED]     sec_bhavdata_full_12042024.csv  (296 KB)
+2026-05-20 03:18:55  INFO      ── Re-warming NSE session (request 76 / 621) ──
+2026-05-20 03:18:55  INFO      Warming up NSE session (acquiring cookies)…
+2026-05-20 03:18:55  WARNING   NSE warm-up failed (will still attempt downloads): 403 Client Error: Forbidden for url: https://www.nseindia.com/
+2026-05-20 03:18:55  INFO      [  76 /  621]  Monday, 15 Apr 2024
+2026-05-20 03:18:55  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_15042024.csv
+2026-05-20 03:18:56  INFO        [SAVED]     sec_bhavdata_full_15042024.csv  (299 KB)
+2026-05-20 03:18:59  INFO      [  77 /  621]  Tuesday, 16 Apr 2024
+2026-05-20 03:18:59  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_16042024.csv
+2026-05-20 03:18:59  INFO        [SAVED]     sec_bhavdata_full_16042024.csv  (295 KB)
+2026-05-20 03:19:02  INFO      [  78 /  621]  Wednesday, 17 Apr 2024
+2026-05-20 03:19:02  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_17042024.csv
+2026-05-20 03:19:02  INFO        [SAVED]     sec_bhavdata_full_17042024.csv  (295 KB)
+2026-05-20 03:19:04  INFO      [  79 /  621]  Thursday, 18 Apr 2024
+2026-05-20 03:19:04  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_18042024.csv
+2026-05-20 03:19:05  INFO        [SAVED]     sec_bhavdata_full_18042024.csv  (297 KB)
+2026-05-20 03:19:06  INFO      [  80 /  621]  Friday, 19 Apr 2024
+2026-05-20 03:19:06  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_19042024.csv
+2026-05-20 03:19:08  INFO        [SAVED]     sec_bhavdata_full_19042024.csv  (296 KB)
+2026-05-20 03:19:11  INFO      [  81 /  621]  Monday, 22 Apr 2024
+2026-05-20 03:19:11  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_22042024.csv
+2026-05-20 03:19:12  INFO        [SAVED]     sec_bhavdata_full_22042024.csv  (298 KB)
+2026-05-20 03:19:15  INFO      [  82 /  621]  Tuesday, 23 Apr 2024
+2026-05-20 03:19:15  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_23042024.csv
+2026-05-20 03:19:15  INFO        [SAVED]     sec_bhavdata_full_23042024.csv  (296 KB)
+2026-05-20 03:19:17  INFO      [  83 /  621]  Wednesday, 24 Apr 2024
+2026-05-20 03:19:17  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_24042024.csv
+2026-05-20 03:19:18  INFO        [SAVED]     sec_bhavdata_full_24042024.csv  (297 KB)
+2026-05-20 03:19:21  INFO      [  84 /  621]  Thursday, 25 Apr 2024
+2026-05-20 03:19:21  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_25042024.csv
+2026-05-20 03:19:22  INFO        [SAVED]     sec_bhavdata_full_25042024.csv  (296 KB)
+2026-05-20 03:19:25  INFO      [  85 /  621]  Friday, 26 Apr 2024
+2026-05-20 03:19:25  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_26042024.csv
+2026-05-20 03:19:26  INFO        [SAVED]     sec_bhavdata_full_26042024.csv  (297 KB)
+2026-05-20 03:19:28  INFO      [  86 /  621]  Monday, 29 Apr 2024
+2026-05-20 03:19:28  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_29042024.csv
+2026-05-20 03:19:28  INFO        [SAVED]     sec_bhavdata_full_29042024.csv  (302 KB)
+2026-05-20 03:19:30  INFO      [  87 /  621]  Tuesday, 30 Apr 2024
+2026-05-20 03:19:30  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_30042024.csv
+2026-05-20 03:19:30  INFO        [SAVED]     sec_bhavdata_full_30042024.csv  (301 KB)
+2026-05-20 03:19:33  INFO      [  88 /  621]  Wednesday, 01 May 2024
+2026-05-20 03:19:33  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_01052024.csv
+2026-05-20 03:19:33  INFO        [SAVED]     sec_bhavdata_full_01052024.csv  (301 KB)
+2026-05-20 03:19:36  INFO      [  89 /  621]  Thursday, 02 May 2024
+2026-05-20 03:19:36  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_02052024.csv
+2026-05-20 03:19:37  INFO        [SAVED]     sec_bhavdata_full_02052024.csv  (302 KB)
+2026-05-20 03:19:39  INFO      [  90 /  621]  Friday, 03 May 2024
+2026-05-20 03:19:39  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_03052024.csv
+2026-05-20 03:19:40  INFO        [SAVED]     sec_bhavdata_full_03052024.csv  (300 KB)
+2026-05-20 03:19:43  INFO      [  91 /  621]  Monday, 06 May 2024
+2026-05-20 03:19:43  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_06052024.csv
+2026-05-20 03:19:44  INFO        [SAVED]     sec_bhavdata_full_06052024.csv  (288 KB)
+2026-05-20 03:19:46  INFO      [  92 /  621]  Tuesday, 07 May 2024
+2026-05-20 03:19:46  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_07052024.csv
+2026-05-20 03:19:47  INFO        [SAVED]     sec_bhavdata_full_07052024.csv  (285 KB)
+2026-05-20 03:19:49  INFO      [  93 /  621]  Wednesday, 08 May 2024
+2026-05-20 03:19:49  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_08052024.csv
+2026-05-20 03:19:49  INFO        [SAVED]     sec_bhavdata_full_08052024.csv  (283 KB)
+2026-05-20 03:19:51  INFO      [  94 /  621]  Thursday, 09 May 2024
+2026-05-20 03:19:51  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_09052024.csv
+2026-05-20 03:19:51  INFO        [SAVED]     sec_bhavdata_full_09052024.csv  (282 KB)
+2026-05-20 03:19:55  INFO      [  95 /  621]  Friday, 10 May 2024
+2026-05-20 03:19:55  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_10052024.csv
+2026-05-20 03:19:55  INFO        [SAVED]     sec_bhavdata_full_10052024.csv  (283 KB)
+2026-05-20 03:19:57  INFO      [  96 /  621]  Monday, 13 May 2024
+2026-05-20 03:19:57  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_13052024.csv
+2026-05-20 03:19:58  INFO        [SAVED]     sec_bhavdata_full_13052024.csv  (286 KB)
+2026-05-20 03:20:01  INFO      [  97 /  621]  Tuesday, 14 May 2024
+2026-05-20 03:20:01  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_14052024.csv
+2026-05-20 03:20:01  INFO        [SAVED]     sec_bhavdata_full_14052024.csv  (282 KB)
+2026-05-20 03:20:04  INFO      [  98 /  621]  Wednesday, 15 May 2024
+2026-05-20 03:20:04  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_15052024.csv
+2026-05-20 03:20:04  INFO        [SAVED]     sec_bhavdata_full_15052024.csv  (283 KB)
+2026-05-20 03:20:07  INFO      [  99 /  621]  Thursday, 16 May 2024
+2026-05-20 03:20:07  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_16052024.csv
+2026-05-20 03:20:07  INFO        [SAVED]     sec_bhavdata_full_16052024.csv  (284 KB)
+2026-05-20 03:20:09  INFO      [ 100 /  621]  Friday, 17 May 2024
+2026-05-20 03:20:09  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_17052024.csv
+2026-05-20 03:20:09  INFO        [SAVED]     sec_bhavdata_full_17052024.csv  (284 KB)
+2026-05-20 03:20:12  INFO      ── Re-warming NSE session (request 101 / 621) ──
+2026-05-20 03:20:12  INFO      Warming up NSE session (acquiring cookies)…
+2026-05-20 03:20:12  WARNING   NSE warm-up failed (will still attempt downloads): 403 Client Error: Forbidden for url: https://www.nseindia.com/
+2026-05-20 03:20:12  INFO      [ 101 /  621]  Monday, 20 May 2024
+2026-05-20 03:20:12  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_20052024.csv
+2026-05-20 03:20:12  INFO        [SAVED]     sec_bhavdata_full_20052024.csv  (268 KB)
+2026-05-20 03:20:15  INFO      [ 102 /  621]  Tuesday, 21 May 2024
+2026-05-20 03:20:15  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_21052024.csv
+2026-05-20 03:20:15  INFO        [SAVED]     sec_bhavdata_full_21052024.csv  (289 KB)
+2026-05-20 03:20:18  INFO      [ 103 /  621]  Wednesday, 22 May 2024
+2026-05-20 03:20:18  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_22052024.csv
+2026-05-20 03:20:18  INFO        [SAVED]     sec_bhavdata_full_22052024.csv  (284 KB)
+2026-05-20 03:20:22  INFO      [ 104 /  621]  Thursday, 23 May 2024
+2026-05-20 03:20:22  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_23052024.csv
+2026-05-20 03:20:22  INFO        [SAVED]     sec_bhavdata_full_23052024.csv  (285 KB)
+2026-05-20 03:20:26  INFO      [ 105 /  621]  Friday, 24 May 2024
+2026-05-20 03:20:26  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_24052024.csv
+2026-05-20 03:20:26  INFO        [SAVED]     sec_bhavdata_full_24052024.csv  (286 KB)
+2026-05-20 03:20:29  INFO      [ 106 /  621]  Monday, 27 May 2024
+2026-05-20 03:20:29  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_27052024.csv
+2026-05-20 03:20:29  INFO        [SAVED]     sec_bhavdata_full_27052024.csv  (289 KB)
+2026-05-20 03:20:32  INFO      [ 107 /  621]  Tuesday, 28 May 2024
+2026-05-20 03:20:32  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_28052024.csv
+2026-05-20 03:20:32  INFO        [SAVED]     sec_bhavdata_full_28052024.csv  (285 KB)
+2026-05-20 03:20:35  INFO      [ 108 /  621]  Wednesday, 29 May 2024
+2026-05-20 03:20:35  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_29052024.csv
+2026-05-20 03:20:36  INFO        [SAVED]     sec_bhavdata_full_29052024.csv  (284 KB)
+2026-05-20 03:20:37  INFO      [ 109 /  621]  Thursday, 30 May 2024
+2026-05-20 03:20:37  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_30052024.csv
+2026-05-20 03:20:38  INFO        [SAVED]     sec_bhavdata_full_30052024.csv  (285 KB)
+2026-05-20 03:20:40  INFO      [ 110 /  621]  Friday, 31 May 2024
+2026-05-20 03:20:40  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_31052024.csv
+2026-05-20 03:20:40  INFO        [SAVED]     sec_bhavdata_full_31052024.csv  (285 KB)
+2026-05-20 03:20:42  INFO      [ 111 /  621]  Monday, 03 Jun 2024
+2026-05-20 03:20:42  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_03062024.csv
+2026-05-20 03:20:43  INFO        [SAVED]     sec_bhavdata_full_03062024.csv  (293 KB)
+2026-05-20 03:20:46  INFO      [ 112 /  621]  Tuesday, 04 Jun 2024
+2026-05-20 03:20:46  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_04062024.csv
+2026-05-20 03:20:46  INFO        [SAVED]     sec_bhavdata_full_04062024.csv  (289 KB)
+2026-05-20 03:20:48  INFO      [ 113 /  621]  Wednesday, 05 Jun 2024
+2026-05-20 03:20:48  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_05062024.csv
+2026-05-20 03:20:48  INFO        [SAVED]     sec_bhavdata_full_05062024.csv  (288 KB)
+2026-05-20 03:20:51  INFO      [ 114 /  621]  Thursday, 06 Jun 2024
+2026-05-20 03:20:51  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_06062024.csv
+2026-05-20 03:20:51  INFO        [SAVED]     sec_bhavdata_full_06062024.csv  (287 KB)
+2026-05-20 03:20:54  INFO      [ 115 /  621]  Friday, 07 Jun 2024
+2026-05-20 03:20:54  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_07062024.csv
+2026-05-20 03:20:54  INFO        [SAVED]     sec_bhavdata_full_07062024.csv  (288 KB)
+2026-05-20 03:20:58  INFO      [ 116 /  621]  Monday, 10 Jun 2024
+2026-05-20 03:20:58  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_10062024.csv
+2026-05-20 03:20:58  INFO        [SAVED]     sec_bhavdata_full_10062024.csv  (292 KB)
+2026-05-20 03:21:01  INFO      [ 117 /  621]  Tuesday, 11 Jun 2024
+2026-05-20 03:21:01  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_11062024.csv
+2026-05-20 03:21:02  INFO        [SAVED]     sec_bhavdata_full_11062024.csv  (289 KB)
+2026-05-20 03:21:03  INFO      [ 118 /  621]  Wednesday, 12 Jun 2024
+2026-05-20 03:21:03  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_12062024.csv
+2026-05-20 03:21:04  INFO        [SAVED]     sec_bhavdata_full_12062024.csv  (289 KB)
+2026-05-20 03:21:07  INFO      [ 119 /  621]  Thursday, 13 Jun 2024
+2026-05-20 03:21:07  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_13062024.csv
+2026-05-20 03:21:10  INFO        [SAVED]     sec_bhavdata_full_13062024.csv  (291 KB)
+2026-05-20 03:21:13  INFO      [ 120 /  621]  Friday, 14 Jun 2024
+2026-05-20 03:21:13  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_14062024.csv
+2026-05-20 03:21:15  INFO        [SAVED]     sec_bhavdata_full_14062024.csv  (289 KB)
+2026-05-20 03:21:17  INFO      [ 121 /  621]  Monday, 17 Jun 2024
+2026-05-20 03:21:17  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_17062024.csv
+2026-05-20 03:21:17  INFO        [SAVED]     sec_bhavdata_full_17062024.csv  (289 KB)
+2026-05-20 03:21:21  INFO      [ 122 /  621]  Tuesday, 18 Jun 2024
+2026-05-20 03:21:21  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_18062024.csv
+2026-05-20 03:21:21  INFO        [SAVED]     sec_bhavdata_full_18062024.csv  (294 KB)
+2026-05-20 03:21:23  INFO      [ 123 /  621]  Wednesday, 19 Jun 2024
+2026-05-20 03:21:23  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_19062024.csv
+2026-05-20 03:21:24  INFO        [SAVED]     sec_bhavdata_full_19062024.csv  (291 KB)
+2026-05-20 03:21:26  INFO      [ 124 /  621]  Thursday, 20 Jun 2024
+2026-05-20 03:21:26  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_20062024.csv
+2026-05-20 03:21:27  INFO        [SAVED]     sec_bhavdata_full_20062024.csv  (291 KB)
+2026-05-20 03:21:30  INFO      [ 125 /  621]  Friday, 21 Jun 2024
+2026-05-20 03:21:30  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_21062024.csv
+2026-05-20 03:21:31  INFO        [SAVED]     sec_bhavdata_full_21062024.csv  (290 KB)
+2026-05-20 03:21:34  INFO      ── Re-warming NSE session (request 126 / 621) ──
+2026-05-20 03:21:34  INFO      Warming up NSE session (acquiring cookies)…
+2026-05-20 03:21:34  WARNING   NSE warm-up failed (will still attempt downloads): 403 Client Error: Forbidden for url: https://www.nseindia.com/
+2026-05-20 03:21:34  INFO      [ 126 /  621]  Monday, 24 Jun 2024
+2026-05-20 03:21:34  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_24062024.csv
+2026-05-20 03:21:35  INFO        [SAVED]     sec_bhavdata_full_24062024.csv  (294 KB)
+2026-05-20 03:21:38  INFO      [ 127 /  621]  Tuesday, 25 Jun 2024
+2026-05-20 03:21:38  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_25062024.csv
+2026-05-20 03:21:38  INFO        [SAVED]     sec_bhavdata_full_25062024.csv  (291 KB)
+2026-05-20 03:21:40  INFO      [ 128 /  621]  Wednesday, 26 Jun 2024
+2026-05-20 03:21:40  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_26062024.csv
+2026-05-20 03:21:41  INFO        [SAVED]     sec_bhavdata_full_26062024.csv  (290 KB)
+2026-05-20 03:21:43  INFO      [ 129 /  621]  Thursday, 27 Jun 2024
+2026-05-20 03:21:43  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_27062024.csv
+2026-05-20 03:21:47  INFO        [SAVED]     sec_bhavdata_full_27062024.csv  (291 KB)
+2026-05-20 03:21:49  INFO      [ 130 /  621]  Friday, 28 Jun 2024
+2026-05-20 03:21:49  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_28062024.csv
+2026-05-20 03:21:50  INFO        [SAVED]     sec_bhavdata_full_28062024.csv  (290 KB)
+2026-05-20 03:21:52  INFO      [ 131 /  621]  Monday, 01 Jul 2024
+2026-05-20 03:21:52  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_01072024.csv
+2026-05-20 03:21:53  INFO        [SAVED]     sec_bhavdata_full_01072024.csv  (296 KB)
+2026-05-20 03:21:56  INFO      [ 132 /  621]  Tuesday, 02 Jul 2024
+2026-05-20 03:21:56  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_02072024.csv
+2026-05-20 03:21:57  INFO        [SAVED]     sec_bhavdata_full_02072024.csv  (293 KB)
+2026-05-20 03:21:59  INFO      [ 133 /  621]  Wednesday, 03 Jul 2024
+2026-05-20 03:21:59  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_03072024.csv
+2026-05-20 03:21:59  INFO        [SAVED]     sec_bhavdata_full_03072024.csv  (293 KB)
+2026-05-20 03:22:02  INFO      [ 134 /  621]  Thursday, 04 Jul 2024
+2026-05-20 03:22:02  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_04072024.csv
+2026-05-20 03:22:03  INFO        [SAVED]     sec_bhavdata_full_04072024.csv  (294 KB)
+2026-05-20 03:22:04  INFO      [ 135 /  621]  Friday, 05 Jul 2024
+2026-05-20 03:22:04  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_05072024.csv
+2026-05-20 03:22:05  INFO        [SAVED]     sec_bhavdata_full_05072024.csv  (294 KB)
+2026-05-20 03:22:07  INFO      [ 136 /  621]  Monday, 08 Jul 2024
+2026-05-20 03:22:07  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_08072024.csv
+2026-05-20 03:22:07  INFO        [SAVED]     sec_bhavdata_full_08072024.csv  (296 KB)
+2026-05-20 03:22:10  INFO      [ 137 /  621]  Tuesday, 09 Jul 2024
+2026-05-20 03:22:10  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_09072024.csv
+2026-05-20 03:22:11  INFO        [SAVED]     sec_bhavdata_full_09072024.csv  (293 KB)
+2026-05-20 03:22:13  INFO      [ 138 /  621]  Wednesday, 10 Jul 2024
+2026-05-20 03:22:13  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_10072024.csv
+2026-05-20 03:22:14  INFO        [SAVED]     sec_bhavdata_full_10072024.csv  (293 KB)
+2026-05-20 03:22:17  INFO      [ 139 /  621]  Thursday, 11 Jul 2024
+2026-05-20 03:22:17  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_11072024.csv
+2026-05-20 03:22:17  INFO        [SAVED]     sec_bhavdata_full_11072024.csv  (292 KB)
+2026-05-20 03:22:20  INFO      [ 140 /  621]  Friday, 12 Jul 2024
+2026-05-20 03:22:20  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_12072024.csv
+2026-05-20 03:22:21  INFO        [SAVED]     sec_bhavdata_full_12072024.csv  (293 KB)
+2026-05-20 03:22:23  INFO      [ 141 /  621]  Monday, 15 Jul 2024
+2026-05-20 03:22:23  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_15072024.csv
+2026-05-20 03:22:24  INFO        [SAVED]     sec_bhavdata_full_15072024.csv  (297 KB)
+2026-05-20 03:22:27  INFO      [ 142 /  621]  Tuesday, 16 Jul 2024
+2026-05-20 03:22:27  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_16072024.csv
+2026-05-20 03:22:28  INFO        [SAVED]     sec_bhavdata_full_16072024.csv  (292 KB)
+2026-05-20 03:22:29  INFO      [ 143 /  621]  Wednesday, 17 Jul 2024
+2026-05-20 03:22:29  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_17072024.csv
+2026-05-20 03:22:30  INFO        [SAVED]     sec_bhavdata_full_17072024.csv  (292 KB)
+2026-05-20 03:22:32  INFO      [ 144 /  621]  Thursday, 18 Jul 2024
+2026-05-20 03:22:32  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_18072024.csv
+2026-05-20 03:22:32  INFO        [SAVED]     sec_bhavdata_full_18072024.csv  (295 KB)
+2026-05-20 03:22:35  INFO      [ 145 /  621]  Friday, 19 Jul 2024
+2026-05-20 03:22:35  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_19072024.csv
+2026-05-20 03:22:36  INFO        [SAVED]     sec_bhavdata_full_19072024.csv  (293 KB)
+2026-05-20 03:22:38  INFO      [ 146 /  621]  Monday, 22 Jul 2024
+2026-05-20 03:22:38  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_22072024.csv
+2026-05-20 03:22:39  INFO        [SAVED]     sec_bhavdata_full_22072024.csv  (296 KB)
+2026-05-20 03:22:41  INFO      [ 147 /  621]  Tuesday, 23 Jul 2024
+2026-05-20 03:22:41  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_23072024.csv
+2026-05-20 03:22:42  INFO        [SAVED]     sec_bhavdata_full_23072024.csv  (293 KB)
+2026-05-20 03:22:45  INFO      [ 148 /  621]  Wednesday, 24 Jul 2024
+2026-05-20 03:22:45  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_24072024.csv
+2026-05-20 03:22:46  INFO        [SAVED]     sec_bhavdata_full_24072024.csv  (293 KB)
+2026-05-20 03:22:47  INFO      [ 149 /  621]  Thursday, 25 Jul 2024
+2026-05-20 03:22:47  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_25072024.csv
+2026-05-20 03:22:48  INFO        [SAVED]     sec_bhavdata_full_25072024.csv  (293 KB)
+2026-05-20 03:22:51  INFO      [ 150 /  621]  Friday, 26 Jul 2024
+2026-05-20 03:22:51  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_26072024.csv
+2026-05-20 03:22:52  INFO        [SAVED]     sec_bhavdata_full_26072024.csv  (295 KB)
+2026-05-20 03:22:55  INFO      ── Re-warming NSE session (request 151 / 621) ──
+2026-05-20 03:22:55  INFO      Warming up NSE session (acquiring cookies)…
+2026-05-20 03:22:55  WARNING   NSE warm-up failed (will still attempt downloads): 403 Client Error: Forbidden for url: https://www.nseindia.com/
+2026-05-20 03:22:55  INFO      [ 151 /  621]  Monday, 29 Jul 2024
+2026-05-20 03:22:55  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_29072024.csv
+2026-05-20 03:22:55  INFO        [SAVED]     sec_bhavdata_full_29072024.csv  (299 KB)
+2026-05-20 03:22:58  INFO      [ 152 /  621]  Tuesday, 30 Jul 2024
+2026-05-20 03:22:58  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_30072024.csv
+2026-05-20 03:22:59  INFO        [SAVED]     sec_bhavdata_full_30072024.csv  (296 KB)
+2026-05-20 03:23:01  INFO      [ 153 /  621]  Wednesday, 31 Jul 2024
+2026-05-20 03:23:01  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_31072024.csv
+2026-05-20 03:23:01  INFO        [SAVED]     sec_bhavdata_full_31072024.csv  (296 KB)
+2026-05-20 03:23:03  INFO      [ 154 /  621]  Thursday, 01 Aug 2024
+2026-05-20 03:23:03  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_01082024.csv
+2026-05-20 03:23:04  INFO        [SAVED]     sec_bhavdata_full_01082024.csv  (296 KB)
+2026-05-20 03:23:07  INFO      [ 155 /  621]  Friday, 02 Aug 2024
+2026-05-20 03:23:07  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_02082024.csv
+2026-05-20 03:23:08  INFO        [SAVED]     sec_bhavdata_full_02082024.csv  (294 KB)
+2026-05-20 03:23:10  INFO      [ 156 /  621]  Monday, 05 Aug 2024
+2026-05-20 03:23:10  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_05082024.csv
+2026-05-20 03:23:11  INFO        [SAVED]     sec_bhavdata_full_05082024.csv  (301 KB)
+2026-05-20 03:23:14  INFO      [ 157 /  621]  Tuesday, 06 Aug 2024
+2026-05-20 03:23:14  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_06082024.csv
+2026-05-20 03:23:15  INFO        [SAVED]     sec_bhavdata_full_06082024.csv  (296 KB)
+2026-05-20 03:23:18  INFO      [ 158 /  621]  Wednesday, 07 Aug 2024
+2026-05-20 03:23:18  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_07082024.csv
+2026-05-20 03:23:18  INFO        [SAVED]     sec_bhavdata_full_07082024.csv  (296 KB)
+2026-05-20 03:23:20  INFO      [ 159 /  621]  Thursday, 08 Aug 2024
+2026-05-20 03:23:20  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_08082024.csv
+2026-05-20 03:23:21  INFO        [SAVED]     sec_bhavdata_full_08082024.csv  (295 KB)
+2026-05-20 03:23:24  INFO      [ 160 /  621]  Friday, 09 Aug 2024
+2026-05-20 03:23:24  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_09082024.csv
+2026-05-20 03:23:24  INFO        [SAVED]     sec_bhavdata_full_09082024.csv  (296 KB)
+2026-05-20 03:23:28  INFO      [ 161 /  621]  Monday, 12 Aug 2024
+2026-05-20 03:23:28  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_12082024.csv
+2026-05-20 03:23:28  INFO        [SAVED]     sec_bhavdata_full_12082024.csv  (300 KB)
+2026-05-20 03:23:30  INFO      [ 162 /  621]  Tuesday, 13 Aug 2024
+2026-05-20 03:23:30  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_13082024.csv
+2026-05-20 03:23:31  INFO        [SAVED]     sec_bhavdata_full_13082024.csv  (297 KB)
+2026-05-20 03:23:34  INFO      [ 163 /  621]  Wednesday, 14 Aug 2024
+2026-05-20 03:23:34  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_14082024.csv
+2026-05-20 03:23:34  INFO        [SAVED]     sec_bhavdata_full_14082024.csv  (294 KB)
+2026-05-20 03:23:36  INFO      [ 164 /  621]  Thursday, 15 Aug 2024
+2026-05-20 03:23:36  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_15082024.csv
+2026-05-20 03:23:36  INFO        [SAVED]     sec_bhavdata_full_15082024.csv  (294 KB)
+2026-05-20 03:23:38  INFO      [ 165 /  621]  Friday, 16 Aug 2024
+2026-05-20 03:23:38  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_16082024.csv
+2026-05-20 03:23:39  INFO        [SAVED]     sec_bhavdata_full_16082024.csv  (296 KB)
+2026-05-20 03:23:41  INFO      [ 166 /  621]  Monday, 19 Aug 2024
+2026-05-20 03:23:41  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_19082024.csv
+2026-05-20 03:23:42  INFO        [SAVED]     sec_bhavdata_full_19082024.csv  (299 KB)
+2026-05-20 03:23:44  INFO      [ 167 /  621]  Tuesday, 20 Aug 2024
+2026-05-20 03:23:44  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_20082024.csv
+2026-05-20 03:23:44  INFO        [SAVED]     sec_bhavdata_full_20082024.csv  (296 KB)
+2026-05-20 03:23:48  INFO      [ 168 /  621]  Wednesday, 21 Aug 2024
+2026-05-20 03:23:48  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_21082024.csv
+2026-05-20 03:23:49  INFO        [SAVED]     sec_bhavdata_full_21082024.csv  (297 KB)
+2026-05-20 03:23:51  INFO      [ 169 /  621]  Thursday, 22 Aug 2024
+2026-05-20 03:23:51  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_22082024.csv
+2026-05-20 03:23:52  INFO        [SAVED]     sec_bhavdata_full_22082024.csv  (298 KB)
+2026-05-20 03:23:56  INFO      [ 170 /  621]  Friday, 23 Aug 2024
+2026-05-20 03:23:56  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_23082024.csv
+2026-05-20 03:23:56  INFO        [SAVED]     sec_bhavdata_full_23082024.csv  (298 KB)
+2026-05-20 03:23:59  INFO      [ 171 /  621]  Monday, 26 Aug 2024
+2026-05-20 03:23:59  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_26082024.csv
+2026-05-20 03:24:00  INFO        [SAVED]     sec_bhavdata_full_26082024.csv  (302 KB)
+2026-05-20 03:24:04  INFO      [ 172 /  621]  Tuesday, 27 Aug 2024
+2026-05-20 03:24:04  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_27082024.csv
+2026-05-20 03:24:04  INFO        [SAVED]     sec_bhavdata_full_27082024.csv  (298 KB)
+2026-05-20 03:24:06  INFO      [ 173 /  621]  Wednesday, 28 Aug 2024
+2026-05-20 03:24:06  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_28082024.csv
+2026-05-20 03:24:07  INFO        [SAVED]     sec_bhavdata_full_28082024.csv  (297 KB)
+2026-05-20 03:24:09  INFO      [ 174 /  621]  Thursday, 29 Aug 2024
+2026-05-20 03:24:09  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_29082024.csv
+2026-05-20 03:24:10  INFO        [SAVED]     sec_bhavdata_full_29082024.csv  (298 KB)
+2026-05-20 03:24:13  INFO      [ 175 /  621]  Friday, 30 Aug 2024
+2026-05-20 03:24:13  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_30082024.csv
+2026-05-20 03:24:16  INFO        [SAVED]     sec_bhavdata_full_30082024.csv  (297 KB)
+2026-05-20 03:24:18  INFO      ── Re-warming NSE session (request 176 / 621) ──
+2026-05-20 03:24:18  INFO      Warming up NSE session (acquiring cookies)…
+2026-05-20 03:24:19  WARNING   NSE warm-up failed (will still attempt downloads): 403 Client Error: Forbidden for url: https://www.nseindia.com/
+2026-05-20 03:24:19  INFO      [ 176 /  621]  Monday, 02 Sep 2024
+2026-05-20 03:24:19  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_02092024.csv
+2026-05-20 03:24:19  INFO        [SAVED]     sec_bhavdata_full_02092024.csv  (303 KB)
+2026-05-20 03:24:23  INFO      [ 177 /  621]  Tuesday, 03 Sep 2024
+2026-05-20 03:24:23  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_03092024.csv
+2026-05-20 03:24:23  INFO        [SAVED]     sec_bhavdata_full_03092024.csv  (299 KB)
+2026-05-20 03:24:27  INFO      [ 178 /  621]  Wednesday, 04 Sep 2024
+2026-05-20 03:24:27  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_04092024.csv
+2026-05-20 03:24:27  INFO        [SAVED]     sec_bhavdata_full_04092024.csv  (298 KB)
+2026-05-20 03:24:30  INFO      [ 179 /  621]  Thursday, 05 Sep 2024
+2026-05-20 03:24:30  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_05092024.csv
+2026-05-20 03:24:31  INFO        [SAVED]     sec_bhavdata_full_05092024.csv  (298 KB)
+2026-05-20 03:24:32  INFO      [ 180 /  621]  Friday, 06 Sep 2024
+2026-05-20 03:24:32  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_06092024.csv
+2026-05-20 03:24:33  INFO        [SAVED]     sec_bhavdata_full_06092024.csv  (298 KB)
+2026-05-20 03:24:36  INFO      [ 181 /  621]  Monday, 09 Sep 2024
+2026-05-20 03:24:36  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_09092024.csv
+2026-05-20 03:24:36  INFO        [SAVED]     sec_bhavdata_full_09092024.csv  (301 KB)
+2026-05-20 03:24:38  INFO      [ 182 /  621]  Tuesday, 10 Sep 2024
+2026-05-20 03:24:38  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_10092024.csv
+2026-05-20 03:24:38  INFO        [SAVED]     sec_bhavdata_full_10092024.csv  (298 KB)
+2026-05-20 03:24:40  INFO      [ 183 /  621]  Wednesday, 11 Sep 2024
+2026-05-20 03:24:40  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_11092024.csv
+2026-05-20 03:24:41  INFO        [SAVED]     sec_bhavdata_full_11092024.csv  (299 KB)
+2026-05-20 03:24:43  INFO      [ 184 /  621]  Thursday, 12 Sep 2024
+2026-05-20 03:24:43  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_12092024.csv
+2026-05-20 03:24:43  INFO        [SAVED]     sec_bhavdata_full_12092024.csv  (299 KB)
+2026-05-20 03:24:45  INFO      [ 185 /  621]  Friday, 13 Sep 2024
+2026-05-20 03:24:45  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_13092024.csv
+2026-05-20 03:24:46  INFO        [SAVED]     sec_bhavdata_full_13092024.csv  (301 KB)
+2026-05-20 03:24:48  INFO      [ 186 /  621]  Monday, 16 Sep 2024
+2026-05-20 03:24:48  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_16092024.csv
+2026-05-20 03:24:48  INFO        [SAVED]     sec_bhavdata_full_16092024.csv  (304 KB)
+2026-05-20 03:24:51  INFO      [ 187 /  621]  Tuesday, 17 Sep 2024
+2026-05-20 03:24:51  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_17092024.csv
+2026-05-20 03:24:51  INFO        [SAVED]     sec_bhavdata_full_17092024.csv  (301 KB)
+2026-05-20 03:24:54  INFO      [ 188 /  621]  Wednesday, 18 Sep 2024
+2026-05-20 03:24:54  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_18092024.csv
+2026-05-20 03:24:54  INFO        [SAVED]     sec_bhavdata_full_18092024.csv  (302 KB)
+2026-05-20 03:24:57  INFO      [ 189 /  621]  Thursday, 19 Sep 2024
+2026-05-20 03:24:57  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_19092024.csv
+2026-05-20 03:24:57  INFO        [SAVED]     sec_bhavdata_full_19092024.csv  (302 KB)
+2026-05-20 03:24:59  INFO      [ 190 /  621]  Friday, 20 Sep 2024
+2026-05-20 03:24:59  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_20092024.csv
+2026-05-20 03:25:00  INFO        [SAVED]     sec_bhavdata_full_20092024.csv  (300 KB)
+2026-05-20 03:25:01  INFO      [ 191 /  621]  Monday, 23 Sep 2024
+2026-05-20 03:25:01  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_23092024.csv
+2026-05-20 03:25:02  INFO        [SAVED]     sec_bhavdata_full_23092024.csv  (305 KB)
+2026-05-20 03:25:04  INFO      [ 192 /  621]  Tuesday, 24 Sep 2024
+2026-05-20 03:25:04  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_24092024.csv
+2026-05-20 03:25:04  INFO        [SAVED]     sec_bhavdata_full_24092024.csv  (302 KB)
+2026-05-20 03:25:07  INFO      [ 193 /  621]  Wednesday, 25 Sep 2024
+2026-05-20 03:25:07  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_25092024.csv
+2026-05-20 03:25:07  INFO        [SAVED]     sec_bhavdata_full_25092024.csv  (303 KB)
+2026-05-20 03:25:09  INFO      [ 194 /  621]  Thursday, 26 Sep 2024
+2026-05-20 03:25:09  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_26092024.csv
+2026-05-20 03:25:09  INFO        [SAVED]     sec_bhavdata_full_26092024.csv  (302 KB)
+2026-05-20 03:25:12  INFO      [ 195 /  621]  Friday, 27 Sep 2024
+2026-05-20 03:25:12  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_27092024.csv
+2026-05-20 03:25:13  INFO        [SAVED]     sec_bhavdata_full_27092024.csv  (304 KB)
+2026-05-20 03:25:16  INFO      [ 196 /  621]  Monday, 30 Sep 2024
+2026-05-20 03:25:16  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_30092024.csv
+2026-05-20 03:25:17  INFO        [SAVED]     sec_bhavdata_full_30092024.csv  (306 KB)
+2026-05-20 03:25:19  INFO      [ 197 /  621]  Tuesday, 01 Oct 2024
+2026-05-20 03:25:19  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_01102024.csv
+2026-05-20 03:25:20  INFO        [SAVED]     sec_bhavdata_full_01102024.csv  (303 KB)
+2026-05-20 03:25:21  INFO      [ 198 /  621]  Wednesday, 02 Oct 2024
+2026-05-20 03:25:21  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_02102024.csv
+2026-05-20 03:25:22  INFO        [SAVED]     sec_bhavdata_full_02102024.csv  (303 KB)
+2026-05-20 03:25:23  INFO      [ 199 /  621]  Thursday, 03 Oct 2024
+2026-05-20 03:25:23  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_03102024.csv
+2026-05-20 03:25:24  INFO        [SAVED]     sec_bhavdata_full_03102024.csv  (307 KB)
+2026-05-20 03:25:26  INFO      [ 200 /  621]  Friday, 04 Oct 2024
+2026-05-20 03:25:26  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_04102024.csv
+2026-05-20 03:25:26  INFO        [SAVED]     sec_bhavdata_full_04102024.csv  (307 KB)
+2026-05-20 03:25:29  INFO      ── Re-warming NSE session (request 201 / 621) ──
+2026-05-20 03:25:29  INFO      Warming up NSE session (acquiring cookies)…
+2026-05-20 03:25:29  WARNING   NSE warm-up failed (will still attempt downloads): 403 Client Error: Forbidden for url: https://www.nseindia.com/
+2026-05-20 03:25:29  INFO      [ 201 /  621]  Monday, 07 Oct 2024
+2026-05-20 03:25:29  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_07102024.csv
+2026-05-20 03:25:29  INFO        [SAVED]     sec_bhavdata_full_07102024.csv  (310 KB)
+2026-05-20 03:25:32  INFO      [ 202 /  621]  Tuesday, 08 Oct 2024
+2026-05-20 03:25:32  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_08102024.csv
+2026-05-20 03:25:32  INFO        [SAVED]     sec_bhavdata_full_08102024.csv  (304 KB)
+2026-05-20 03:25:35  INFO      [ 203 /  621]  Wednesday, 09 Oct 2024
+2026-05-20 03:25:35  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_09102024.csv
+2026-05-20 03:25:36  INFO        [SAVED]     sec_bhavdata_full_09102024.csv  (303 KB)
+2026-05-20 03:25:39  INFO      [ 204 /  621]  Thursday, 10 Oct 2024
+2026-05-20 03:25:39  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_10102024.csv
+2026-05-20 03:25:40  INFO        [SAVED]     sec_bhavdata_full_10102024.csv  (301 KB)
+2026-05-20 03:25:42  INFO      [ 205 /  621]  Friday, 11 Oct 2024
+2026-05-20 03:25:42  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_11102024.csv
+2026-05-20 03:25:43  INFO        [SAVED]     sec_bhavdata_full_11102024.csv  (301 KB)
+2026-05-20 03:25:44  INFO      [ 206 /  621]  Monday, 14 Oct 2024
+2026-05-20 03:25:44  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_14102024.csv
+2026-05-20 03:25:45  INFO        [SAVED]     sec_bhavdata_full_14102024.csv  (306 KB)
+2026-05-20 03:25:47  INFO      [ 207 /  621]  Tuesday, 15 Oct 2024
+2026-05-20 03:25:47  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_15102024.csv
+2026-05-20 03:25:47  INFO        [SAVED]     sec_bhavdata_full_15102024.csv  (302 KB)
+2026-05-20 03:25:51  INFO      [ 208 /  621]  Wednesday, 16 Oct 2024
+2026-05-20 03:25:51  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_16102024.csv
+2026-05-20 03:25:51  INFO        [SAVED]     sec_bhavdata_full_16102024.csv  (304 KB)
+2026-05-20 03:25:54  INFO      [ 209 /  621]  Thursday, 17 Oct 2024
+2026-05-20 03:25:54  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_17102024.csv
+2026-05-20 03:25:55  INFO        [SAVED]     sec_bhavdata_full_17102024.csv  (302 KB)
+2026-05-20 03:25:58  INFO      [ 210 /  621]  Friday, 18 Oct 2024
+2026-05-20 03:25:58  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_18102024.csv
+2026-05-20 03:25:58  INFO        [SAVED]     sec_bhavdata_full_18102024.csv  (302 KB)
+2026-05-20 03:26:01  INFO      [ 211 /  621]  Monday, 21 Oct 2024
+2026-05-20 03:26:01  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_21102024.csv
+2026-05-20 03:26:01  INFO        [SAVED]     sec_bhavdata_full_21102024.csv  (306 KB)
+2026-05-20 03:26:03  INFO      [ 212 /  621]  Tuesday, 22 Oct 2024
+2026-05-20 03:26:03  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_22102024.csv
+2026-05-20 03:26:04  INFO        [SAVED]     sec_bhavdata_full_22102024.csv  (305 KB)
+2026-05-20 03:26:06  INFO      [ 213 /  621]  Wednesday, 23 Oct 2024
+2026-05-20 03:26:06  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_23102024.csv
+2026-05-20 03:26:06  INFO        [SAVED]     sec_bhavdata_full_23102024.csv  (303 KB)
+2026-05-20 03:26:08  INFO      [ 214 /  621]  Thursday, 24 Oct 2024
+2026-05-20 03:26:08  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_24102024.csv
+2026-05-20 03:26:09  INFO        [SAVED]     sec_bhavdata_full_24102024.csv  (300 KB)
+2026-05-20 03:26:12  INFO      [ 215 /  621]  Friday, 25 Oct 2024
+2026-05-20 03:26:12  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_25102024.csv
+2026-05-20 03:26:12  INFO        [SAVED]     sec_bhavdata_full_25102024.csv  (305 KB)
+2026-05-20 03:26:14  INFO      [ 216 /  621]  Monday, 28 Oct 2024
+2026-05-20 03:26:14  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_28102024.csv
+2026-05-20 03:26:14  INFO        [SAVED]     sec_bhavdata_full_28102024.csv  (305 KB)
+2026-05-20 03:26:16  INFO      [ 217 /  621]  Tuesday, 29 Oct 2024
+2026-05-20 03:26:16  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_29102024.csv
+2026-05-20 03:26:17  INFO        [SAVED]     sec_bhavdata_full_29102024.csv  (301 KB)
+2026-05-20 03:26:20  INFO      [ 218 /  621]  Wednesday, 30 Oct 2024
+2026-05-20 03:26:20  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_30102024.csv
+2026-05-20 03:26:22  INFO        [SAVED]     sec_bhavdata_full_30102024.csv  (302 KB)
+2026-05-20 03:26:25  INFO      [ 219 /  621]  Thursday, 31 Oct 2024
+2026-05-20 03:26:25  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_31102024.csv
+2026-05-20 03:26:25  INFO        [SAVED]     sec_bhavdata_full_31102024.csv  (301 KB)
+2026-05-20 03:26:29  INFO      [ 220 /  621]  Friday, 01 Nov 2024
+2026-05-20 03:26:29  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_01112024.csv
+2026-05-20 03:26:29  INFO        [SAVED]     sec_bhavdata_full_01112024.csv  (294 KB)
+2026-05-20 03:26:32  INFO      [ 221 /  621]  Monday, 04 Nov 2024
+2026-05-20 03:26:32  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_04112024.csv
+2026-05-20 03:26:33  INFO        [SAVED]     sec_bhavdata_full_04112024.csv  (309 KB)
+2026-05-20 03:26:34  INFO      [ 222 /  621]  Tuesday, 05 Nov 2024
+2026-05-20 03:26:34  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_05112024.csv
+2026-05-20 03:26:35  INFO        [SAVED]     sec_bhavdata_full_05112024.csv  (304 KB)
+2026-05-20 03:26:36  INFO      [ 223 /  621]  Wednesday, 06 Nov 2024
+2026-05-20 03:26:36  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_06112024.csv
+2026-05-20 03:26:37  INFO        [SAVED]     sec_bhavdata_full_06112024.csv  (307 KB)
+2026-05-20 03:26:38  INFO      [ 224 /  621]  Thursday, 07 Nov 2024
+2026-05-20 03:26:38  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_07112024.csv
+2026-05-20 03:26:38  INFO        [SAVED]     sec_bhavdata_full_07112024.csv  (305 KB)
+2026-05-20 03:26:42  INFO      [ 225 /  621]  Friday, 08 Nov 2024
+2026-05-20 03:26:42  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_08112024.csv
+2026-05-20 03:26:42  INFO        [SAVED]     sec_bhavdata_full_08112024.csv  (305 KB)
+2026-05-20 03:26:45  INFO      ── Re-warming NSE session (request 226 / 621) ──
+2026-05-20 03:26:45  INFO      Warming up NSE session (acquiring cookies)…
+2026-05-20 03:26:45  WARNING   NSE warm-up failed (will still attempt downloads): 403 Client Error: Forbidden for url: https://www.nseindia.com/
+2026-05-20 03:26:45  INFO      [ 226 /  621]  Monday, 11 Nov 2024
+2026-05-20 03:26:45  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_11112024.csv
+2026-05-20 03:26:46  INFO        [SAVED]     sec_bhavdata_full_11112024.csv  (308 KB)
+2026-05-20 03:26:48  INFO      [ 227 /  621]  Tuesday, 12 Nov 2024
+2026-05-20 03:26:48  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_12112024.csv
+2026-05-20 03:26:48  INFO        [SAVED]     sec_bhavdata_full_12112024.csv  (305 KB)
+2026-05-20 03:26:51  INFO      [ 228 /  621]  Wednesday, 13 Nov 2024
+2026-05-20 03:26:51  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_13112024.csv
+2026-05-20 03:26:51  INFO        [SAVED]     sec_bhavdata_full_13112024.csv  (306 KB)
+2026-05-20 03:26:54  INFO      [ 229 /  621]  Thursday, 14 Nov 2024
+2026-05-20 03:26:54  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_14112024.csv
+2026-05-20 03:26:55  INFO        [SAVED]     sec_bhavdata_full_14112024.csv  (304 KB)
+2026-05-20 03:26:58  INFO      [ 230 /  621]  Friday, 15 Nov 2024
+2026-05-20 03:26:58  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_15112024.csv
+2026-05-20 03:26:58  INFO        [HOLIDAY]   15-Nov-2024 → 404 (market holiday or no data)
+2026-05-20 03:26:59  INFO      [ 231 /  621]  Monday, 18 Nov 2024
+2026-05-20 03:26:59  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_18112024.csv
+2026-05-20 03:27:00  INFO        [SAVED]     sec_bhavdata_full_18112024.csv  (309 KB)
+2026-05-20 03:27:02  INFO      [ 232 /  621]  Tuesday, 19 Nov 2024
+2026-05-20 03:27:02  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_19112024.csv
+2026-05-20 03:27:03  INFO        [SAVED]     sec_bhavdata_full_19112024.csv  (306 KB)
+2026-05-20 03:27:05  INFO      [ 233 /  621]  Wednesday, 20 Nov 2024
+2026-05-20 03:27:05  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_20112024.csv
+2026-05-20 03:27:05  INFO        [SAVED]     sec_bhavdata_full_20112024.csv  (306 KB)
+2026-05-20 03:27:07  INFO      [ 234 /  621]  Thursday, 21 Nov 2024
+2026-05-20 03:27:07  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_21112024.csv
+2026-05-20 03:27:07  INFO        [SAVED]     sec_bhavdata_full_21112024.csv  (305 KB)
+2026-05-20 03:27:10  INFO      [ 235 /  621]  Friday, 22 Nov 2024
+2026-05-20 03:27:10  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_22112024.csv
+2026-05-20 03:27:11  INFO        [SAVED]     sec_bhavdata_full_22112024.csv  (304 KB)
+2026-05-20 03:27:13  INFO      [ 236 /  621]  Monday, 25 Nov 2024
+2026-05-20 03:27:13  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_25112024.csv
+2026-05-20 03:27:14  INFO        [SAVED]     sec_bhavdata_full_25112024.csv  (308 KB)
+2026-05-20 03:27:15  INFO      [ 237 /  621]  Tuesday, 26 Nov 2024
+2026-05-20 03:27:15  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_26112024.csv
+2026-05-20 03:27:16  INFO        [SAVED]     sec_bhavdata_full_26112024.csv  (303 KB)
+2026-05-20 03:27:18  INFO      [ 238 /  621]  Wednesday, 27 Nov 2024
+2026-05-20 03:27:18  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_27112024.csv
+2026-05-20 03:27:18  INFO        [SAVED]     sec_bhavdata_full_27112024.csv  (305 KB)
+2026-05-20 03:27:21  INFO      [ 239 /  621]  Thursday, 28 Nov 2024
+2026-05-20 03:27:21  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_28112024.csv
+2026-05-20 03:27:21  INFO        [SAVED]     sec_bhavdata_full_28112024.csv  (305 KB)
+2026-05-20 03:27:23  INFO      [ 240 /  621]  Friday, 29 Nov 2024
+2026-05-20 03:27:23  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_29112024.csv
+2026-05-20 03:27:24  INFO        [SAVED]     sec_bhavdata_full_29112024.csv  (305 KB)
+2026-05-20 03:27:26  INFO      [ 241 /  621]  Monday, 02 Dec 2024
+2026-05-20 03:27:26  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_02122024.csv
+2026-05-20 03:27:26  INFO        [SAVED]     sec_bhavdata_full_02122024.csv  (309 KB)
+2026-05-20 03:27:28  INFO      [ 242 /  621]  Tuesday, 03 Dec 2024
+2026-05-20 03:27:28  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_03122024.csv
+2026-05-20 03:27:29  INFO        [SAVED]     sec_bhavdata_full_03122024.csv  (307 KB)
+2026-05-20 03:27:31  INFO      [ 243 /  621]  Wednesday, 04 Dec 2024
+2026-05-20 03:27:31  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_04122024.csv
+2026-05-20 03:27:31  INFO        [SAVED]     sec_bhavdata_full_04122024.csv  (308 KB)
+2026-05-20 03:27:34  INFO      [ 244 /  621]  Thursday, 05 Dec 2024
+2026-05-20 03:27:34  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_05122024.csv
+2026-05-20 03:27:35  INFO        [SAVED]     sec_bhavdata_full_05122024.csv  (306 KB)
+2026-05-20 03:27:37  INFO      [ 245 /  621]  Friday, 06 Dec 2024
+2026-05-20 03:27:37  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_06122024.csv
+2026-05-20 03:27:38  INFO        [SAVED]     sec_bhavdata_full_06122024.csv  (308 KB)
+2026-05-20 03:27:41  INFO      [ 246 /  621]  Monday, 09 Dec 2024
+2026-05-20 03:27:41  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_09122024.csv
+2026-05-20 03:27:41  INFO        [SAVED]     sec_bhavdata_full_09122024.csv  (311 KB)
+2026-05-20 03:27:44  INFO      [ 247 /  621]  Tuesday, 10 Dec 2024
+2026-05-20 03:27:44  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_10122024.csv
+2026-05-20 03:27:44  INFO        [SAVED]     sec_bhavdata_full_10122024.csv  (309 KB)
+2026-05-20 03:27:46  INFO      [ 248 /  621]  Wednesday, 11 Dec 2024
+2026-05-20 03:27:46  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_11122024.csv
+2026-05-20 03:27:46  INFO        [SAVED]     sec_bhavdata_full_11122024.csv  (308 KB)
+2026-05-20 03:27:49  INFO      [ 249 /  621]  Thursday, 12 Dec 2024
+2026-05-20 03:27:49  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_12122024.csv
+2026-05-20 03:27:50  INFO        [SAVED]     sec_bhavdata_full_12122024.csv  (306 KB)
+2026-05-20 03:27:52  INFO      [ 250 /  621]  Friday, 13 Dec 2024
+2026-05-20 03:27:52  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_13122024.csv
+2026-05-20 03:27:52  INFO        [SAVED]     sec_bhavdata_full_13122024.csv  (305 KB)
+2026-05-20 03:27:55  INFO      ── Re-warming NSE session (request 251 / 621) ──
+2026-05-20 03:27:55  INFO      Warming up NSE session (acquiring cookies)…
+2026-05-20 03:27:55  WARNING   NSE warm-up failed (will still attempt downloads): 403 Client Error: Forbidden for url: https://www.nseindia.com/
+2026-05-20 03:27:55  INFO      [ 251 /  621]  Monday, 16 Dec 2024
+2026-05-20 03:27:55  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_16122024.csv
+2026-05-20 03:27:55  INFO        [SAVED]     sec_bhavdata_full_16122024.csv  (310 KB)
+2026-05-20 03:27:58  INFO      [ 252 /  621]  Tuesday, 17 Dec 2024
+2026-05-20 03:27:58  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_17122024.csv
+2026-05-20 03:27:58  INFO        [SAVED]     sec_bhavdata_full_17122024.csv  (309 KB)
+2026-05-20 03:28:02  INFO      [ 253 /  621]  Wednesday, 18 Dec 2024
+2026-05-20 03:28:02  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_18122024.csv
+2026-05-20 03:28:02  INFO        [SAVED]     sec_bhavdata_full_18122024.csv  (308 KB)
+2026-05-20 03:28:03  INFO      [ 254 /  621]  Thursday, 19 Dec 2024
+2026-05-20 03:28:03  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_19122024.csv
+2026-05-20 03:28:04  INFO        [SAVED]     sec_bhavdata_full_19122024.csv  (307 KB)
+2026-05-20 03:28:06  INFO      [ 255 /  621]  Friday, 20 Dec 2024
+2026-05-20 03:28:06  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_20122024.csv
+2026-05-20 03:28:06  INFO        [SAVED]     sec_bhavdata_full_20122024.csv  (307 KB)
+2026-05-20 03:28:09  INFO      [ 256 /  621]  Monday, 23 Dec 2024
+2026-05-20 03:28:09  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_23122024.csv
+2026-05-20 03:28:09  INFO        [SAVED]     sec_bhavdata_full_23122024.csv  (310 KB)
+2026-05-20 03:28:12  INFO      [ 257 /  621]  Tuesday, 24 Dec 2024
+2026-05-20 03:28:12  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_24122024.csv
+2026-05-20 03:28:13  INFO        [SAVED]     sec_bhavdata_full_24122024.csv  (306 KB)
+2026-05-20 03:28:16  INFO      [ 258 /  621]  Wednesday, 25 Dec 2024
+2026-05-20 03:28:16  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_25122024.csv
+2026-05-20 03:28:16  INFO        [SAVED]     sec_bhavdata_full_25122024.csv  (306 KB)
+2026-05-20 03:28:18  INFO      [ 259 /  621]  Thursday, 26 Dec 2024
+2026-05-20 03:28:18  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_26122024.csv
+2026-05-20 03:28:19  INFO        [SAVED]     sec_bhavdata_full_26122024.csv  (307 KB)
+2026-05-20 03:28:20  INFO      [ 260 /  621]  Friday, 27 Dec 2024
+2026-05-20 03:28:20  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_27122024.csv
+2026-05-20 03:28:21  INFO        [SAVED]     sec_bhavdata_full_27122024.csv  (307 KB)
+2026-05-20 03:28:24  INFO      [ 261 /  621]  Monday, 30 Dec 2024
+2026-05-20 03:28:24  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_30122024.csv
+2026-05-20 03:28:24  INFO        [SAVED]     sec_bhavdata_full_30122024.csv  (312 KB)
+2026-05-20 03:28:26  INFO      [ 262 /  621]  Tuesday, 31 Dec 2024
+2026-05-20 03:28:26  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_31122024.csv
+2026-05-20 03:28:26  INFO        [SAVED]     sec_bhavdata_full_31122024.csv  (307 KB)
+2026-05-20 03:28:28  INFO      [ 263 /  621]  Wednesday, 01 Jan 2025
+2026-05-20 03:28:28  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_01012025.csv
+2026-05-20 03:28:29  INFO        [SAVED]     sec_bhavdata_full_01012025.csv  (307 KB)
+2026-05-20 03:28:32  INFO      [ 264 /  621]  Thursday, 02 Jan 2025
+2026-05-20 03:28:32  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_02012025.csv
+2026-05-20 03:28:32  INFO        [SAVED]     sec_bhavdata_full_02012025.csv  (309 KB)
+2026-05-20 03:28:35  INFO      [ 265 /  621]  Friday, 03 Jan 2025
+2026-05-20 03:28:35  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_03012025.csv
+2026-05-20 03:28:36  INFO        [SAVED]     sec_bhavdata_full_03012025.csv  (309 KB)
+2026-05-20 03:28:38  INFO      [ 266 /  621]  Monday, 06 Jan 2025
+2026-05-20 03:28:38  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_06012025.csv
+2026-05-20 03:28:39  INFO        [SAVED]     sec_bhavdata_full_06012025.csv  (314 KB)
+2026-05-20 03:28:42  INFO      [ 267 /  621]  Tuesday, 07 Jan 2025
+2026-05-20 03:28:42  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_07012025.csv
+2026-05-20 03:28:42  INFO        [SAVED]     sec_bhavdata_full_07012025.csv  (307 KB)
+2026-05-20 03:28:45  INFO      [ 268 /  621]  Wednesday, 08 Jan 2025
+2026-05-20 03:28:45  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_08012025.csv
+2026-05-20 03:28:45  INFO        [SAVED]     sec_bhavdata_full_08012025.csv  (309 KB)
+2026-05-20 03:28:48  INFO      [ 269 /  621]  Thursday, 09 Jan 2025
+2026-05-20 03:28:48  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_09012025.csv
+2026-05-20 03:28:49  INFO        [SAVED]     sec_bhavdata_full_09012025.csv  (309 KB)
+2026-05-20 03:28:52  INFO      [ 270 /  621]  Friday, 10 Jan 2025
+2026-05-20 03:28:52  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_10012025.csv
+2026-05-20 03:28:52  INFO        [SAVED]     sec_bhavdata_full_10012025.csv  (308 KB)
+2026-05-20 03:28:55  INFO      [ 271 /  621]  Monday, 13 Jan 2025
+2026-05-20 03:28:55  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_13012025.csv
+2026-05-20 03:28:55  INFO        [SAVED]     sec_bhavdata_full_13012025.csv  (314 KB)
+2026-05-20 03:28:58  INFO      [ 272 /  621]  Tuesday, 14 Jan 2025
+2026-05-20 03:28:58  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_14012025.csv
+2026-05-20 03:28:58  INFO        [SAVED]     sec_bhavdata_full_14012025.csv  (307 KB)
+2026-05-20 03:29:02  INFO      [ 273 /  621]  Wednesday, 15 Jan 2025
+2026-05-20 03:29:02  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_15012025.csv
+2026-05-20 03:29:02  INFO        [SAVED]     sec_bhavdata_full_15012025.csv  (306 KB)
+2026-05-20 03:29:04  INFO      [ 274 /  621]  Thursday, 16 Jan 2025
+2026-05-20 03:29:04  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_16012025.csv
+2026-05-20 03:29:04  INFO        [SAVED]     sec_bhavdata_full_16012025.csv  (305 KB)
+2026-05-20 03:29:07  INFO      [ 275 /  621]  Friday, 17 Jan 2025
+2026-05-20 03:29:07  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_17012025.csv
+2026-05-20 03:29:08  INFO        [SAVED]     sec_bhavdata_full_17012025.csv  (306 KB)
+2026-05-20 03:29:09  INFO      ── Re-warming NSE session (request 276 / 621) ──
+2026-05-20 03:29:09  INFO      Warming up NSE session (acquiring cookies)…
+2026-05-20 03:29:10  WARNING   NSE warm-up failed (will still attempt downloads): 403 Client Error: Forbidden for url: https://www.nseindia.com/
+2026-05-20 03:29:10  INFO      [ 276 /  621]  Monday, 20 Jan 2025
+2026-05-20 03:29:10  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_20012025.csv
+2026-05-20 03:29:10  INFO        [SAVED]     sec_bhavdata_full_20012025.csv  (311 KB)
+2026-05-20 03:29:13  INFO      [ 277 /  621]  Tuesday, 21 Jan 2025
+2026-05-20 03:29:13  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_21012025.csv
+2026-05-20 03:29:14  INFO        [SAVED]     sec_bhavdata_full_21012025.csv  (307 KB)
+2026-05-20 03:29:16  INFO      [ 278 /  621]  Wednesday, 22 Jan 2025
+2026-05-20 03:29:16  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_22012025.csv
+2026-05-20 03:29:16  INFO        [SAVED]     sec_bhavdata_full_22012025.csv  (307 KB)
+2026-05-20 03:29:18  INFO      [ 279 /  621]  Thursday, 23 Jan 2025
+2026-05-20 03:29:18  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_23012025.csv
+2026-05-20 03:29:19  INFO        [SAVED]     sec_bhavdata_full_23012025.csv  (305 KB)
+2026-05-20 03:29:22  INFO      [ 280 /  621]  Friday, 24 Jan 2025
+2026-05-20 03:29:22  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_24012025.csv
+2026-05-20 03:29:22  INFO        [SAVED]     sec_bhavdata_full_24012025.csv  (307 KB)
+2026-05-20 03:29:25  INFO      [ 281 /  621]  Monday, 27 Jan 2025
+2026-05-20 03:29:25  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_27012025.csv
+2026-05-20 03:29:25  INFO        [SAVED]     sec_bhavdata_full_27012025.csv  (313 KB)
+2026-05-20 03:29:27  INFO      [ 282 /  621]  Tuesday, 28 Jan 2025
+2026-05-20 03:29:27  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_28012025.csv
+2026-05-20 03:29:28  INFO        [SAVED]     sec_bhavdata_full_28012025.csv  (310 KB)
+2026-05-20 03:29:29  INFO      [ 283 /  621]  Wednesday, 29 Jan 2025
+2026-05-20 03:29:29  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_29012025.csv
+2026-05-20 03:29:29  INFO        [SAVED]     sec_bhavdata_full_29012025.csv  (308 KB)
+2026-05-20 03:29:32  INFO      [ 284 /  621]  Thursday, 30 Jan 2025
+2026-05-20 03:29:32  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_30012025.csv
+2026-05-20 03:29:32  INFO        [SAVED]     sec_bhavdata_full_30012025.csv  (308 KB)
+2026-05-20 03:29:34  INFO      [ 285 /  621]  Friday, 31 Jan 2025
+2026-05-20 03:29:34  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_31012025.csv
+2026-05-20 03:29:35  INFO        [SAVED]     sec_bhavdata_full_31012025.csv  (308 KB)
+2026-05-20 03:29:37  INFO      [ 286 /  621]  Monday, 03 Feb 2025
+2026-05-20 03:29:37  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_03022025.csv
+2026-05-20 03:29:37  INFO        [SAVED]     sec_bhavdata_full_03022025.csv  (308 KB)
+2026-05-20 03:29:40  INFO      [ 287 /  621]  Tuesday, 04 Feb 2025
+2026-05-20 03:29:40  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_04022025.csv
+2026-05-20 03:29:41  INFO        [SAVED]     sec_bhavdata_full_04022025.csv  (308 KB)
+2026-05-20 03:29:44  INFO      [ 288 /  621]  Wednesday, 05 Feb 2025
+2026-05-20 03:29:44  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_05022025.csv
+2026-05-20 03:29:44  INFO        [SAVED]     sec_bhavdata_full_05022025.csv  (309 KB)
+2026-05-20 03:29:46  INFO      [ 289 /  621]  Thursday, 06 Feb 2025
+2026-05-20 03:29:46  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_06022025.csv
+2026-05-20 03:29:46  INFO        [SAVED]     sec_bhavdata_full_06022025.csv  (309 KB)
+2026-05-20 03:29:50  INFO      [ 290 /  621]  Friday, 07 Feb 2025
+2026-05-20 03:29:50  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_07022025.csv
+2026-05-20 03:29:50  INFO        [SAVED]     sec_bhavdata_full_07022025.csv  (308 KB)
+2026-05-20 03:29:53  INFO      [ 291 /  621]  Monday, 10 Feb 2025
+2026-05-20 03:29:53  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_10022025.csv
+2026-05-20 03:29:53  INFO        [SAVED]     sec_bhavdata_full_10022025.csv  (311 KB)
+2026-05-20 03:29:56  INFO      [ 292 /  621]  Tuesday, 11 Feb 2025
+2026-05-20 03:29:56  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_11022025.csv
+2026-05-20 03:29:56  INFO        [SAVED]     sec_bhavdata_full_11022025.csv  (311 KB)
+2026-05-20 03:29:58  INFO      [ 293 /  621]  Wednesday, 12 Feb 2025
+2026-05-20 03:29:58  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_12022025.csv
+2026-05-20 03:29:59  INFO        [SAVED]     sec_bhavdata_full_12022025.csv  (310 KB)
+2026-05-20 03:30:02  INFO      [ 294 /  621]  Thursday, 13 Feb 2025
+2026-05-20 03:30:02  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_13022025.csv
+2026-05-20 03:30:02  INFO        [SAVED]     sec_bhavdata_full_13022025.csv  (307 KB)
+2026-05-20 03:30:05  INFO      [ 295 /  621]  Friday, 14 Feb 2025
+2026-05-20 03:30:05  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_14022025.csv
+2026-05-20 03:30:06  INFO        [SAVED]     sec_bhavdata_full_14022025.csv  (311 KB)
+2026-05-20 03:30:09  INFO      [ 296 /  621]  Monday, 17 Feb 2025
+2026-05-20 03:30:09  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_17022025.csv
+2026-05-20 03:30:09  INFO        [SAVED]     sec_bhavdata_full_17022025.csv  (313 KB)
+2026-05-20 03:30:11  INFO      [ 297 /  621]  Tuesday, 18 Feb 2025
+2026-05-20 03:30:11  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_18022025.csv
+2026-05-20 03:30:12  INFO        [SAVED]     sec_bhavdata_full_18022025.csv  (308 KB)
+2026-05-20 03:30:14  INFO      [ 298 /  621]  Wednesday, 19 Feb 2025
+2026-05-20 03:30:14  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_19022025.csv
+2026-05-20 03:30:15  INFO        [SAVED]     sec_bhavdata_full_19022025.csv  (310 KB)
+2026-05-20 03:30:17  INFO      [ 299 /  621]  Thursday, 20 Feb 2025
+2026-05-20 03:30:17  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_20022025.csv
+2026-05-20 03:30:17  INFO        [SAVED]     sec_bhavdata_full_20022025.csv  (307 KB)
+2026-05-20 03:30:20  INFO      [ 300 /  621]  Friday, 21 Feb 2025
+2026-05-20 03:30:20  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_21022025.csv
+2026-05-20 03:30:20  INFO        [SAVED]     sec_bhavdata_full_21022025.csv  (309 KB)
+2026-05-20 03:30:23  INFO      ── Re-warming NSE session (request 301 / 621) ──
+2026-05-20 03:30:23  INFO      Warming up NSE session (acquiring cookies)…
+2026-05-20 03:30:23  WARNING   NSE warm-up failed (will still attempt downloads): 403 Client Error: Forbidden for url: https://www.nseindia.com/
+2026-05-20 03:30:23  INFO      [ 301 /  621]  Monday, 24 Feb 2025
+2026-05-20 03:30:23  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_24022025.csv
+2026-05-20 03:30:23  INFO        [SAVED]     sec_bhavdata_full_24022025.csv  (313 KB)
+2026-05-20 03:30:25  INFO      [ 302 /  621]  Tuesday, 25 Feb 2025
+2026-05-20 03:30:25  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_25022025.csv
+2026-05-20 03:30:26  INFO        [SAVED]     sec_bhavdata_full_25022025.csv  (308 KB)
+2026-05-20 03:30:28  INFO      [ 303 /  621]  Wednesday, 26 Feb 2025
+2026-05-20 03:30:28  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_26022025.csv
+2026-05-20 03:30:29  INFO        [HOLIDAY]   26-Feb-2025 → 404 (market holiday or no data)
+2026-05-20 03:30:30  INFO      [ 304 /  621]  Thursday, 27 Feb 2025
+2026-05-20 03:30:30  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_27022025.csv
+2026-05-20 03:30:31  INFO        [SAVED]     sec_bhavdata_full_27022025.csv  (310 KB)
+2026-05-20 03:30:33  INFO      [ 305 /  621]  Friday, 28 Feb 2025
+2026-05-20 03:30:33  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_28022025.csv
+2026-05-20 03:30:35  INFO        [SAVED]     sec_bhavdata_full_28022025.csv  (313 KB)
+2026-05-20 03:30:37  INFO      [ 306 /  621]  Monday, 03 Mar 2025
+2026-05-20 03:30:37  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_03032025.csv
+2026-05-20 03:30:38  INFO        [SAVED]     sec_bhavdata_full_03032025.csv  (317 KB)
+2026-05-20 03:30:40  INFO      [ 307 /  621]  Tuesday, 04 Mar 2025
+2026-05-20 03:30:40  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_04032025.csv
+2026-05-20 03:30:40  INFO        [SAVED]     sec_bhavdata_full_04032025.csv  (312 KB)
+2026-05-20 03:30:43  INFO      [ 308 /  621]  Wednesday, 05 Mar 2025
+2026-05-20 03:30:43  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_05032025.csv
+2026-05-20 03:30:45  INFO        [SAVED]     sec_bhavdata_full_05032025.csv  (314 KB)
+2026-05-20 03:30:46  INFO      [ 309 /  621]  Thursday, 06 Mar 2025
+2026-05-20 03:30:46  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_06032025.csv
+2026-05-20 03:30:47  INFO        [SAVED]     sec_bhavdata_full_06032025.csv  (315 KB)
+2026-05-20 03:30:49  INFO      [ 310 /  621]  Friday, 07 Mar 2025
+2026-05-20 03:30:49  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_07032025.csv
+2026-05-20 03:30:49  INFO        [SAVED]     sec_bhavdata_full_07032025.csv  (314 KB)
+2026-05-20 03:30:53  INFO      [ 311 /  621]  Monday, 10 Mar 2025
+2026-05-20 03:30:53  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_10032025.csv
+2026-05-20 03:30:53  INFO        [SAVED]     sec_bhavdata_full_10032025.csv  (316 KB)
+2026-05-20 03:30:55  INFO      [ 312 /  621]  Tuesday, 11 Mar 2025
+2026-05-20 03:30:55  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_11032025.csv
+2026-05-20 03:30:55  INFO        [SAVED]     sec_bhavdata_full_11032025.csv  (313 KB)
+2026-05-20 03:30:59  INFO      [ 313 /  621]  Wednesday, 12 Mar 2025
+2026-05-20 03:30:59  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_12032025.csv
+2026-05-20 03:30:59  INFO        [SAVED]     sec_bhavdata_full_12032025.csv  (313 KB)
+2026-05-20 03:31:02  INFO      [ 314 /  621]  Thursday, 13 Mar 2025
+2026-05-20 03:31:02  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_13032025.csv
+2026-05-20 03:31:02  INFO        [SAVED]     sec_bhavdata_full_13032025.csv  (312 KB)
+2026-05-20 03:31:04  INFO      [ 315 /  621]  Friday, 14 Mar 2025
+2026-05-20 03:31:04  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_14032025.csv
+2026-05-20 03:31:04  INFO        [HOLIDAY]   14-Mar-2025 → 404 (market holiday or no data)
+2026-05-20 03:31:05  INFO      [ 316 /  621]  Monday, 17 Mar 2025
+2026-05-20 03:31:05  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_17032025.csv
+2026-05-20 03:31:05  INFO        [SAVED]     sec_bhavdata_full_17032025.csv  (317 KB)
+2026-05-20 03:31:07  INFO      [ 317 /  621]  Tuesday, 18 Mar 2025
+2026-05-20 03:31:07  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_18032025.csv
+2026-05-20 03:31:07  INFO        [SAVED]     sec_bhavdata_full_18032025.csv  (318 KB)
+2026-05-20 03:31:10  INFO      [ 318 /  621]  Wednesday, 19 Mar 2025
+2026-05-20 03:31:10  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_19032025.csv
+2026-05-20 03:31:10  INFO        [SAVED]     sec_bhavdata_full_19032025.csv  (317 KB)
+2026-05-20 03:31:12  INFO      [ 319 /  621]  Thursday, 20 Mar 2025
+2026-05-20 03:31:12  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_20032025.csv
+2026-05-20 03:31:12  INFO        [SAVED]     sec_bhavdata_full_20032025.csv  (316 KB)
+2026-05-20 03:31:16  INFO      [ 320 /  621]  Friday, 21 Mar 2025
+2026-05-20 03:31:16  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_21032025.csv
+2026-05-20 03:31:16  INFO        [SAVED]     sec_bhavdata_full_21032025.csv  (318 KB)
+2026-05-20 03:31:18  INFO      [ 321 /  621]  Monday, 24 Mar 2025
+2026-05-20 03:31:18  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_24032025.csv
+2026-05-20 03:31:18  INFO        [SAVED]     sec_bhavdata_full_24032025.csv  (321 KB)
+2026-05-20 03:31:21  INFO      [ 322 /  621]  Tuesday, 25 Mar 2025
+2026-05-20 03:31:21  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_25032025.csv
+2026-05-20 03:31:21  INFO        [SAVED]     sec_bhavdata_full_25032025.csv  (317 KB)
+2026-05-20 03:31:24  INFO      [ 323 /  621]  Wednesday, 26 Mar 2025
+2026-05-20 03:31:24  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_26032025.csv
+2026-05-20 03:31:25  INFO        [SAVED]     sec_bhavdata_full_26032025.csv  (319 KB)
+2026-05-20 03:31:28  INFO      [ 324 /  621]  Thursday, 27 Mar 2025
+2026-05-20 03:31:28  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_27032025.csv
+2026-05-20 03:31:28  INFO        [SAVED]     sec_bhavdata_full_27032025.csv  (320 KB)
+2026-05-20 03:31:30  INFO      [ 325 /  621]  Friday, 28 Mar 2025
+2026-05-20 03:31:30  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_28032025.csv
+2026-05-20 03:31:31  INFO        [SAVED]     sec_bhavdata_full_28032025.csv  (319 KB)
+2026-05-20 03:31:33  INFO      ── Re-warming NSE session (request 326 / 621) ──
+2026-05-20 03:31:33  INFO      Warming up NSE session (acquiring cookies)…
+2026-05-20 03:31:33  WARNING   NSE warm-up failed (will still attempt downloads): 403 Client Error: Forbidden for url: https://www.nseindia.com/
+2026-05-20 03:31:33  INFO      [ 326 /  621]  Monday, 31 Mar 2025
+2026-05-20 03:31:33  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_31032025.csv
+2026-05-20 03:31:35  INFO        [HOLIDAY]   31-Mar-2025 → 404 (market holiday or no data)
+2026-05-20 03:31:36  INFO      [ 327 /  621]  Tuesday, 01 Apr 2025
+2026-05-20 03:31:36  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_01042025.csv
+2026-05-20 03:31:37  INFO        [SAVED]     sec_bhavdata_full_01042025.csv  (316 KB)
+2026-05-20 03:31:40  INFO      [ 328 /  621]  Wednesday, 02 Apr 2025
+2026-05-20 03:31:40  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_02042025.csv
+2026-05-20 03:31:41  INFO        [SAVED]     sec_bhavdata_full_02042025.csv  (314 KB)
+2026-05-20 03:31:44  INFO      [ 329 /  621]  Thursday, 03 Apr 2025
+2026-05-20 03:31:44  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_03042025.csv
+2026-05-20 03:31:44  INFO        [SAVED]     sec_bhavdata_full_03042025.csv  (316 KB)
+2026-05-20 03:31:47  INFO      [ 330 /  621]  Friday, 04 Apr 2025
+2026-05-20 03:31:47  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_04042025.csv
+2026-05-20 03:31:48  INFO        [SAVED]     sec_bhavdata_full_04042025.csv  (315 KB)
+2026-05-20 03:31:49  INFO      [ 331 /  621]  Monday, 07 Apr 2025
+2026-05-20 03:31:49  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_07042025.csv
+2026-05-20 03:31:50  INFO        [SAVED]     sec_bhavdata_full_07042025.csv  (318 KB)
+2026-05-20 03:31:53  INFO      [ 332 /  621]  Tuesday, 08 Apr 2025
+2026-05-20 03:31:53  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_08042025.csv
+2026-05-20 03:31:53  INFO        [SAVED]     sec_bhavdata_full_08042025.csv  (313 KB)
+2026-05-20 03:31:56  INFO      [ 333 /  621]  Wednesday, 09 Apr 2025
+2026-05-20 03:31:56  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_09042025.csv
+2026-05-20 03:31:57  INFO        [SAVED]     sec_bhavdata_full_09042025.csv  (307 KB)
+2026-05-20 03:31:59  INFO      [ 334 /  621]  Thursday, 10 Apr 2025
+2026-05-20 03:31:59  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_10042025.csv
+2026-05-20 03:31:59  INFO        [HOLIDAY]   10-Apr-2025 → 404 (market holiday or no data)
+2026-05-20 03:31:59  INFO      [ 335 /  621]  Friday, 11 Apr 2025
+2026-05-20 03:31:59  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_11042025.csv
+2026-05-20 03:32:00  INFO        [SAVED]     sec_bhavdata_full_11042025.csv  (314 KB)
+2026-05-20 03:32:03  INFO      [ 336 /  621]  Monday, 14 Apr 2025
+2026-05-20 03:32:03  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_14042025.csv
+2026-05-20 03:32:03  INFO        [HOLIDAY]   14-Apr-2025 → 404 (market holiday or no data)
+2026-05-20 03:32:03  INFO      [ 337 /  621]  Tuesday, 15 Apr 2025
+2026-05-20 03:32:03  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_15042025.csv
+2026-05-20 03:32:04  INFO        [SAVED]     sec_bhavdata_full_15042025.csv  (319 KB)
+2026-05-20 03:32:07  INFO      [ 338 /  621]  Wednesday, 16 Apr 2025
+2026-05-20 03:32:07  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_16042025.csv
+2026-05-20 03:32:07  INFO        [SAVED]     sec_bhavdata_full_16042025.csv  (316 KB)
+2026-05-20 03:32:10  INFO      [ 339 /  621]  Thursday, 17 Apr 2025
+2026-05-20 03:32:10  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_17042025.csv
+2026-05-20 03:32:10  INFO        [SAVED]     sec_bhavdata_full_17042025.csv  (317 KB)
+2026-05-20 03:32:13  INFO      [ 340 /  621]  Friday, 18 Apr 2025
+2026-05-20 03:32:13  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_18042025.csv
+2026-05-20 03:32:13  INFO        [HOLIDAY]   18-Apr-2025 → 404 (market holiday or no data)
+2026-05-20 03:32:13  INFO      [ 341 /  621]  Monday, 21 Apr 2025
+2026-05-20 03:32:13  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_21042025.csv
+2026-05-20 03:32:14  INFO        [SAVED]     sec_bhavdata_full_21042025.csv  (321 KB)
+2026-05-20 03:32:16  INFO      [ 342 /  621]  Tuesday, 22 Apr 2025
+2026-05-20 03:32:16  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_22042025.csv
+2026-05-20 03:32:16  INFO        [SAVED]     sec_bhavdata_full_22042025.csv  (319 KB)
+2026-05-20 03:32:18  INFO      [ 343 /  621]  Wednesday, 23 Apr 2025
+2026-05-20 03:32:18  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_23042025.csv
+2026-05-20 03:32:18  INFO        [SAVED]     sec_bhavdata_full_23042025.csv  (315 KB)
+2026-05-20 03:32:21  INFO      [ 344 /  621]  Thursday, 24 Apr 2025
+2026-05-20 03:32:21  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_24042025.csv
+2026-05-20 03:32:22  INFO        [SAVED]     sec_bhavdata_full_24042025.csv  (314 KB)
+2026-05-20 03:32:24  INFO      [ 345 /  621]  Friday, 25 Apr 2025
+2026-05-20 03:32:24  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_25042025.csv
+2026-05-20 03:32:25  INFO        [SAVED]     sec_bhavdata_full_25042025.csv  (316 KB)
+2026-05-20 03:32:26  INFO      [ 346 /  621]  Monday, 28 Apr 2025
+2026-05-20 03:32:26  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_28042025.csv
+2026-05-20 03:32:27  INFO        [SAVED]     sec_bhavdata_full_28042025.csv  (316 KB)
+2026-05-20 03:32:29  INFO      [ 347 /  621]  Tuesday, 29 Apr 2025
+2026-05-20 03:32:29  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_29042025.csv
+2026-05-20 03:32:30  INFO        [SAVED]     sec_bhavdata_full_29042025.csv  (312 KB)
+2026-05-20 03:32:31  INFO      [ 348 /  621]  Wednesday, 30 Apr 2025
+2026-05-20 03:32:31  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_30042025.csv
+2026-05-20 03:32:32  INFO        [SAVED]     sec_bhavdata_full_30042025.csv  (313 KB)
+2026-05-20 03:32:33  INFO      [ 349 /  621]  Thursday, 01 May 2025
+2026-05-20 03:32:33  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_01052025.csv
+2026-05-20 03:32:34  INFO        [HOLIDAY]   01-May-2025 → 404 (market holiday or no data)
+2026-05-20 03:32:35  INFO      [ 350 /  621]  Friday, 02 May 2025
+2026-05-20 03:32:35  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_02052025.csv
+2026-05-20 03:32:35  INFO        [SAVED]     sec_bhavdata_full_02052025.csv  (312 KB)
+2026-05-20 03:32:39  INFO      ── Re-warming NSE session (request 351 / 621) ──
+2026-05-20 03:32:39  INFO      Warming up NSE session (acquiring cookies)…
+2026-05-20 03:32:39  WARNING   NSE warm-up failed (will still attempt downloads): 403 Client Error: Forbidden for url: https://www.nseindia.com/
+2026-05-20 03:32:39  INFO      [ 351 /  621]  Monday, 05 May 2025
+2026-05-20 03:32:39  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_05052025.csv
+2026-05-20 03:32:39  INFO        [SAVED]     sec_bhavdata_full_05052025.csv  (315 KB)
+2026-05-20 03:32:41  INFO      [ 352 /  621]  Tuesday, 06 May 2025
+2026-05-20 03:32:41  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_06052025.csv
+2026-05-20 03:32:42  INFO        [SAVED]     sec_bhavdata_full_06052025.csv  (315 KB)
+2026-05-20 03:32:45  INFO      [ 353 /  621]  Wednesday, 07 May 2025
+2026-05-20 03:32:45  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_07052025.csv
+2026-05-20 03:32:45  INFO        [SAVED]     sec_bhavdata_full_07052025.csv  (311 KB)
+2026-05-20 03:32:47  INFO      [ 354 /  621]  Thursday, 08 May 2025
+2026-05-20 03:32:47  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_08052025.csv
+2026-05-20 03:32:48  INFO        [SAVED]     sec_bhavdata_full_08052025.csv  (312 KB)
+2026-05-20 03:32:51  INFO      [ 355 /  621]  Friday, 09 May 2025
+2026-05-20 03:32:51  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_09052025.csv
+2026-05-20 03:32:51  INFO        [SAVED]     sec_bhavdata_full_09052025.csv  (310 KB)
+2026-05-20 03:32:54  INFO      [ 356 /  621]  Monday, 12 May 2025
+2026-05-20 03:32:54  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_12052025.csv
+2026-05-20 03:32:55  INFO        [SAVED]     sec_bhavdata_full_12052025.csv  (319 KB)
+2026-05-20 03:32:58  INFO      [ 357 /  621]  Tuesday, 13 May 2025
+2026-05-20 03:32:58  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_13052025.csv
+2026-05-20 03:32:59  INFO        [SAVED]     sec_bhavdata_full_13052025.csv  (314 KB)
+2026-05-20 03:33:02  INFO      [ 358 /  621]  Wednesday, 14 May 2025
+2026-05-20 03:33:02  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_14052025.csv
+2026-05-20 03:33:02  INFO        [SAVED]     sec_bhavdata_full_14052025.csv  (317 KB)
+2026-05-20 03:33:04  INFO      [ 359 /  621]  Thursday, 15 May 2025
+2026-05-20 03:33:04  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_15052025.csv
+2026-05-20 03:33:05  INFO        [SAVED]     sec_bhavdata_full_15052025.csv  (316 KB)
+2026-05-20 03:33:08  INFO      [ 360 /  621]  Friday, 16 May 2025
+2026-05-20 03:33:08  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_16052025.csv
+2026-05-20 03:33:08  INFO        [SAVED]     sec_bhavdata_full_16052025.csv  (317 KB)
+2026-05-20 03:33:12  INFO      [ 361 /  621]  Monday, 19 May 2025
+2026-05-20 03:33:12  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_19052025.csv
+2026-05-20 03:33:12  INFO        [SAVED]     sec_bhavdata_full_19052025.csv  (321 KB)
+2026-05-20 03:33:14  INFO      [ 362 /  621]  Tuesday, 20 May 2025
+2026-05-20 03:33:14  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_20052025.csv
+2026-05-20 03:33:15  INFO        [SAVED]     sec_bhavdata_full_20052025.csv  (316 KB)
+2026-05-20 03:33:18  INFO      [ 363 /  621]  Wednesday, 21 May 2025
+2026-05-20 03:33:18  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_21052025.csv
+2026-05-20 03:33:19  INFO        [SAVED]     sec_bhavdata_full_21052025.csv  (315 KB)
+2026-05-20 03:33:22  INFO      [ 364 /  621]  Thursday, 22 May 2025
+2026-05-20 03:33:22  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_22052025.csv
+2026-05-20 03:33:22  INFO        [SAVED]     sec_bhavdata_full_22052025.csv  (315 KB)
+2026-05-20 03:33:25  INFO      [ 365 /  621]  Friday, 23 May 2025
+2026-05-20 03:33:25  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_23052025.csv
+2026-05-20 03:33:26  INFO        [SAVED]     sec_bhavdata_full_23052025.csv  (315 KB)
+2026-05-20 03:33:29  INFO      [ 366 /  621]  Monday, 26 May 2025
+2026-05-20 03:33:29  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_26052025.csv
+2026-05-20 03:33:29  INFO        [SAVED]     sec_bhavdata_full_26052025.csv  (319 KB)
+2026-05-20 03:33:32  INFO      [ 367 /  621]  Tuesday, 27 May 2025
+2026-05-20 03:33:32  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_27052025.csv
+2026-05-20 03:33:32  INFO        [SAVED]     sec_bhavdata_full_27052025.csv  (316 KB)
+2026-05-20 03:33:35  INFO      [ 368 /  621]  Wednesday, 28 May 2025
+2026-05-20 03:33:35  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_28052025.csv
+2026-05-20 03:33:36  INFO        [SAVED]     sec_bhavdata_full_28052025.csv  (316 KB)
+2026-05-20 03:33:38  INFO      [ 369 /  621]  Thursday, 29 May 2025
+2026-05-20 03:33:38  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_29052025.csv
+2026-05-20 03:33:39  INFO        [SAVED]     sec_bhavdata_full_29052025.csv  (316 KB)
+2026-05-20 03:33:42  INFO      [ 370 /  621]  Friday, 30 May 2025
+2026-05-20 03:33:42  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_30052025.csv
+2026-05-20 03:33:42  INFO        [SAVED]     sec_bhavdata_full_30052025.csv  (317 KB)
+2026-05-20 03:33:45  INFO      [ 371 /  621]  Monday, 02 Jun 2025
+2026-05-20 03:33:45  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_02062025.csv
+2026-05-20 03:33:46  INFO        [SAVED]     sec_bhavdata_full_02062025.csv  (321 KB)
+2026-05-20 03:33:47  INFO      [ 372 /  621]  Tuesday, 03 Jun 2025
+2026-05-20 03:33:47  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_03062025.csv
+2026-05-20 03:33:48  INFO        [SAVED]     sec_bhavdata_full_03062025.csv  (319 KB)
+2026-05-20 03:33:50  INFO      [ 373 /  621]  Wednesday, 04 Jun 2025
+2026-05-20 03:33:50  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_04062025.csv
+2026-05-20 03:33:51  INFO        [SAVED]     sec_bhavdata_full_04062025.csv  (317 KB)
+2026-05-20 03:33:52  INFO      [ 374 /  621]  Thursday, 05 Jun 2025
+2026-05-20 03:33:52  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_05062025.csv
+2026-05-20 03:33:53  INFO        [SAVED]     sec_bhavdata_full_05062025.csv  (318 KB)
+2026-05-20 03:33:54  INFO      [ 375 /  621]  Friday, 06 Jun 2025
+2026-05-20 03:33:54  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_06062025.csv
+2026-05-20 03:33:55  INFO        [SAVED]     sec_bhavdata_full_06062025.csv  (319 KB)
+2026-05-20 03:33:58  INFO      ── Re-warming NSE session (request 376 / 621) ──
+2026-05-20 03:33:58  INFO      Warming up NSE session (acquiring cookies)…
+2026-05-20 03:33:58  WARNING   NSE warm-up failed (will still attempt downloads): 403 Client Error: Forbidden for url: https://www.nseindia.com/
+2026-05-20 03:33:58  INFO      [ 376 /  621]  Monday, 09 Jun 2025
+2026-05-20 03:33:58  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_09062025.csv
+2026-05-20 03:33:58  INFO        [SAVED]     sec_bhavdata_full_09062025.csv  (323 KB)
+2026-05-20 03:34:00  INFO      [ 377 /  621]  Tuesday, 10 Jun 2025
+2026-05-20 03:34:00  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_10062025.csv
+2026-05-20 03:34:00  INFO        [SAVED]     sec_bhavdata_full_10062025.csv  (320 KB)
+2026-05-20 03:34:03  INFO      [ 378 /  621]  Wednesday, 11 Jun 2025
+2026-05-20 03:34:03  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_11062025.csv
+2026-05-20 03:34:03  INFO        [SAVED]     sec_bhavdata_full_11062025.csv  (321 KB)
+2026-05-20 03:34:05  INFO      [ 379 /  621]  Thursday, 12 Jun 2025
+2026-05-20 03:34:05  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_12062025.csv
+2026-05-20 03:34:05  INFO        [SAVED]     sec_bhavdata_full_12062025.csv  (319 KB)
+2026-05-20 03:34:07  INFO      [ 380 /  621]  Friday, 13 Jun 2025
+2026-05-20 03:34:07  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_13062025.csv
+2026-05-20 03:34:08  INFO        [SAVED]     sec_bhavdata_full_13062025.csv  (318 KB)
+2026-05-20 03:34:11  INFO      [ 381 /  621]  Monday, 16 Jun 2025
+2026-05-20 03:34:11  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_16062025.csv
+2026-05-20 03:34:11  INFO        [SAVED]     sec_bhavdata_full_16062025.csv  (321 KB)
+2026-05-20 03:34:13  INFO      [ 382 /  621]  Tuesday, 17 Jun 2025
+2026-05-20 03:34:13  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_17062025.csv
+2026-05-20 03:34:13  INFO        [SAVED]     sec_bhavdata_full_17062025.csv  (317 KB)
+2026-05-20 03:34:16  INFO      [ 383 /  621]  Wednesday, 18 Jun 2025
+2026-05-20 03:34:16  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_18062025.csv
+2026-05-20 03:34:17  INFO        [SAVED]     sec_bhavdata_full_18062025.csv  (318 KB)
+2026-05-20 03:34:18  INFO      [ 384 /  621]  Thursday, 19 Jun 2025
+2026-05-20 03:34:18  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_19062025.csv
+2026-05-20 03:34:19  INFO        [SAVED]     sec_bhavdata_full_19062025.csv  (318 KB)
+2026-05-20 03:34:21  INFO      [ 385 /  621]  Friday, 20 Jun 2025
+2026-05-20 03:34:21  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_20062025.csv
+2026-05-20 03:34:21  INFO        [SAVED]     sec_bhavdata_full_20062025.csv  (317 KB)
+2026-05-20 03:34:24  INFO      [ 386 /  621]  Monday, 23 Jun 2025
+2026-05-20 03:34:24  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_23062025.csv
+2026-05-20 03:34:24  INFO        [SAVED]     sec_bhavdata_full_23062025.csv  (321 KB)
+2026-05-20 03:34:25  INFO      [ 387 /  621]  Tuesday, 24 Jun 2025
+2026-05-20 03:34:25  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_24062025.csv
+2026-05-20 03:34:26  INFO        [SAVED]     sec_bhavdata_full_24062025.csv  (319 KB)
+2026-05-20 03:34:28  INFO      [ 388 /  621]  Wednesday, 25 Jun 2025
+2026-05-20 03:34:28  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_25062025.csv
+2026-05-20 03:34:28  INFO        [SAVED]     sec_bhavdata_full_25062025.csv  (319 KB)
+2026-05-20 03:34:31  INFO      [ 389 /  621]  Thursday, 26 Jun 2025
+2026-05-20 03:34:31  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_26062025.csv
+2026-05-20 03:34:32  INFO        [SAVED]     sec_bhavdata_full_26062025.csv  (319 KB)
+2026-05-20 03:34:34  INFO      [ 390 /  621]  Friday, 27 Jun 2025
+2026-05-20 03:34:34  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_27062025.csv
+2026-05-20 03:34:34  INFO        [SAVED]     sec_bhavdata_full_27062025.csv  (321 KB)
+2026-05-20 03:34:36  INFO      [ 391 /  621]  Monday, 30 Jun 2025
+2026-05-20 03:34:36  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_30062025.csv
+2026-05-20 03:34:36  INFO        [SAVED]     sec_bhavdata_full_30062025.csv  (323 KB)
+2026-05-20 03:34:39  INFO      [ 392 /  621]  Tuesday, 01 Jul 2025
+2026-05-20 03:34:39  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_01072025.csv
+2026-05-20 03:34:40  INFO        [SAVED]     sec_bhavdata_full_01072025.csv  (321 KB)
+2026-05-20 03:34:43  INFO      [ 393 /  621]  Wednesday, 02 Jul 2025
+2026-05-20 03:34:43  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_02072025.csv
+2026-05-20 03:34:43  INFO        [SAVED]     sec_bhavdata_full_02072025.csv  (322 KB)
+2026-05-20 03:34:46  INFO      [ 394 /  621]  Thursday, 03 Jul 2025
+2026-05-20 03:34:46  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_03072025.csv
+2026-05-20 03:34:46  INFO        [SAVED]     sec_bhavdata_full_03072025.csv  (321 KB)
+2026-05-20 03:34:48  INFO      [ 395 /  621]  Friday, 04 Jul 2025
+2026-05-20 03:34:48  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_04072025.csv
+2026-05-20 03:34:48  INFO        [SAVED]     sec_bhavdata_full_04072025.csv  (321 KB)
+2026-05-20 03:34:52  INFO      [ 396 /  621]  Monday, 07 Jul 2025
+2026-05-20 03:34:52  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_07072025.csv
+2026-05-20 03:34:52  INFO        [SAVED]     sec_bhavdata_full_07072025.csv  (323 KB)
+2026-05-20 03:34:54  INFO      [ 397 /  621]  Tuesday, 08 Jul 2025
+2026-05-20 03:34:54  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_08072025.csv
+2026-05-20 03:34:54  INFO        [SAVED]     sec_bhavdata_full_08072025.csv  (321 KB)
+2026-05-20 03:34:56  INFO      [ 398 /  621]  Wednesday, 09 Jul 2025
+2026-05-20 03:34:56  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_09072025.csv
+2026-05-20 03:34:56  INFO        [SAVED]     sec_bhavdata_full_09072025.csv  (322 KB)
+2026-05-20 03:34:59  INFO      [ 399 /  621]  Thursday, 10 Jul 2025
+2026-05-20 03:34:59  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_10072025.csv
+2026-05-20 03:34:59  INFO        [SAVED]     sec_bhavdata_full_10072025.csv  (321 KB)
+2026-05-20 03:35:01  INFO      [ 400 /  621]  Friday, 11 Jul 2025
+2026-05-20 03:35:01  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_11072025.csv
+2026-05-20 03:35:02  INFO        [SAVED]     sec_bhavdata_full_11072025.csv  (320 KB)
+2026-05-20 03:35:04  INFO      ── Re-warming NSE session (request 401 / 621) ──
+2026-05-20 03:35:04  INFO      Warming up NSE session (acquiring cookies)…
+2026-05-20 03:35:04  WARNING   NSE warm-up failed (will still attempt downloads): 403 Client Error: Forbidden for url: https://www.nseindia.com/
+2026-05-20 03:35:04  INFO      [ 401 /  621]  Monday, 14 Jul 2025
+2026-05-20 03:35:04  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_14072025.csv
+2026-05-20 03:35:05  INFO        [SAVED]     sec_bhavdata_full_14072025.csv  (325 KB)
+2026-05-20 03:35:06  INFO      [ 402 /  621]  Tuesday, 15 Jul 2025
+2026-05-20 03:35:06  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_15072025.csv
+2026-05-20 03:35:06  INFO        [SAVED]     sec_bhavdata_full_15072025.csv  (323 KB)
+2026-05-20 03:35:09  INFO      [ 403 /  621]  Wednesday, 16 Jul 2025
+2026-05-20 03:35:09  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_16072025.csv
+2026-05-20 03:35:10  INFO        [SAVED]     sec_bhavdata_full_16072025.csv  (323 KB)
+2026-05-20 03:35:13  INFO      [ 404 /  621]  Thursday, 17 Jul 2025
+2026-05-20 03:35:13  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_17072025.csv
+2026-05-20 03:35:14  INFO        [SAVED]     sec_bhavdata_full_17072025.csv  (323 KB)
+2026-05-20 03:35:17  INFO      [ 405 /  621]  Friday, 18 Jul 2025
+2026-05-20 03:35:17  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_18072025.csv
+2026-05-20 03:35:17  INFO        [SAVED]     sec_bhavdata_full_18072025.csv  (323 KB)
+2026-05-20 03:35:19  INFO      [ 406 /  621]  Monday, 21 Jul 2025
+2026-05-20 03:35:19  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_21072025.csv
+2026-05-20 03:35:20  INFO        [SAVED]     sec_bhavdata_full_21072025.csv  (324 KB)
+2026-05-20 03:35:23  INFO      [ 407 /  621]  Tuesday, 22 Jul 2025
+2026-05-20 03:35:23  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_22072025.csv
+2026-05-20 03:35:23  INFO        [SAVED]     sec_bhavdata_full_22072025.csv  (324 KB)
+2026-05-20 03:35:26  INFO      [ 408 /  621]  Wednesday, 23 Jul 2025
+2026-05-20 03:35:26  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_23072025.csv
+2026-05-20 03:35:27  INFO        [SAVED]     sec_bhavdata_full_23072025.csv  (323 KB)
+2026-05-20 03:35:30  INFO      [ 409 /  621]  Thursday, 24 Jul 2025
+2026-05-20 03:35:30  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_24072025.csv
+2026-05-20 03:35:30  INFO        [SAVED]     sec_bhavdata_full_24072025.csv  (323 KB)
+2026-05-20 03:35:33  INFO      [ 410 /  621]  Friday, 25 Jul 2025
+2026-05-20 03:35:33  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_25072025.csv
+2026-05-20 03:35:33  INFO        [SAVED]     sec_bhavdata_full_25072025.csv  (321 KB)
+2026-05-20 03:35:36  INFO      [ 411 /  621]  Monday, 28 Jul 2025
+2026-05-20 03:35:36  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_28072025.csv
+2026-05-20 03:35:36  INFO        [SAVED]     sec_bhavdata_full_28072025.csv  (325 KB)
+2026-05-20 03:35:39  INFO      [ 412 /  621]  Tuesday, 29 Jul 2025
+2026-05-20 03:35:39  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_29072025.csv
+2026-05-20 03:35:40  INFO        [SAVED]     sec_bhavdata_full_29072025.csv  (321 KB)
+2026-05-20 03:35:43  INFO      [ 413 /  621]  Wednesday, 30 Jul 2025
+2026-05-20 03:35:43  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_30072025.csv
+2026-05-20 03:35:44  INFO        [SAVED]     sec_bhavdata_full_30072025.csv  (321 KB)
+2026-05-20 03:35:47  INFO      [ 414 /  621]  Thursday, 31 Jul 2025
+2026-05-20 03:35:47  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_31072025.csv
+2026-05-20 03:35:47  INFO        [SAVED]     sec_bhavdata_full_31072025.csv  (322 KB)
+2026-05-20 03:35:49  INFO      [ 415 /  621]  Friday, 01 Aug 2025
+2026-05-20 03:35:49  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_01082025.csv
+2026-05-20 03:35:49  INFO        [SAVED]     sec_bhavdata_full_01082025.csv  (322 KB)
+2026-05-20 03:35:51  INFO      [ 416 /  621]  Monday, 04 Aug 2025
+2026-05-20 03:35:51  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_04082025.csv
+2026-05-20 03:35:52  INFO        [SAVED]     sec_bhavdata_full_04082025.csv  (326 KB)
+2026-05-20 03:35:53  INFO      [ 417 /  621]  Tuesday, 05 Aug 2025
+2026-05-20 03:35:53  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_05082025.csv
+2026-05-20 03:35:54  INFO        [SAVED]     sec_bhavdata_full_05082025.csv  (323 KB)
+2026-05-20 03:35:57  INFO      [ 418 /  621]  Wednesday, 06 Aug 2025
+2026-05-20 03:35:57  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_06082025.csv
+2026-05-20 03:35:58  INFO        [SAVED]     sec_bhavdata_full_06082025.csv  (325 KB)
+2026-05-20 03:36:00  INFO      [ 419 /  621]  Thursday, 07 Aug 2025
+2026-05-20 03:36:00  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_07082025.csv
+2026-05-20 03:36:01  INFO        [SAVED]     sec_bhavdata_full_07082025.csv  (323 KB)
+2026-05-20 03:36:03  INFO      [ 420 /  621]  Friday, 08 Aug 2025
+2026-05-20 03:36:03  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_08082025.csv
+2026-05-20 03:36:03  INFO        [SAVED]     sec_bhavdata_full_08082025.csv  (325 KB)
+2026-05-20 03:36:06  INFO      [ 421 /  621]  Monday, 11 Aug 2025
+2026-05-20 03:36:06  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_11082025.csv
+2026-05-20 03:36:06  INFO        [SAVED]     sec_bhavdata_full_11082025.csv  (327 KB)
+2026-05-20 03:36:10  INFO      [ 422 /  621]  Tuesday, 12 Aug 2025
+2026-05-20 03:36:10  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_12082025.csv
+2026-05-20 03:36:10  INFO        [SAVED]     sec_bhavdata_full_12082025.csv  (323 KB)
+2026-05-20 03:36:14  INFO      [ 423 /  621]  Wednesday, 13 Aug 2025
+2026-05-20 03:36:14  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_13082025.csv
+2026-05-20 03:36:14  INFO        [SAVED]     sec_bhavdata_full_13082025.csv  (324 KB)
+2026-05-20 03:36:16  INFO      [ 424 /  621]  Thursday, 14 Aug 2025
+2026-05-20 03:36:16  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_14082025.csv
+2026-05-20 03:36:17  INFO        [SAVED]     sec_bhavdata_full_14082025.csv  (322 KB)
+2026-05-20 03:36:19  INFO      [ 425 /  621]  Friday, 15 Aug 2025
+2026-05-20 03:36:19  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_15082025.csv
+2026-05-20 03:36:19  INFO        [HOLIDAY]   15-Aug-2025 → 404 (market holiday or no data)
+2026-05-20 03:36:19  INFO      ── Re-warming NSE session (request 426 / 621) ──
+2026-05-20 03:36:19  INFO      Warming up NSE session (acquiring cookies)…
+2026-05-20 03:36:20  WARNING   NSE warm-up failed (will still attempt downloads): 403 Client Error: Forbidden for url: https://www.nseindia.com/
+2026-05-20 03:36:20  INFO      [ 426 /  621]  Monday, 18 Aug 2025
+2026-05-20 03:36:20  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_18082025.csv
+2026-05-20 03:36:20  INFO        [SAVED]     sec_bhavdata_full_18082025.csv  (330 KB)
+2026-05-20 03:36:23  INFO      [ 427 /  621]  Tuesday, 19 Aug 2025
+2026-05-20 03:36:23  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_19082025.csv
+2026-05-20 03:36:24  INFO        [SAVED]     sec_bhavdata_full_19082025.csv  (327 KB)
+2026-05-20 03:36:26  INFO      [ 428 /  621]  Wednesday, 20 Aug 2025
+2026-05-20 03:36:26  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_20082025.csv
+2026-05-20 03:36:27  INFO        [SAVED]     sec_bhavdata_full_20082025.csv  (325 KB)
+2026-05-20 03:36:29  INFO      [ 429 /  621]  Thursday, 21 Aug 2025
+2026-05-20 03:36:29  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_21082025.csv
+2026-05-20 03:36:30  INFO        [SAVED]     sec_bhavdata_full_21082025.csv  (326 KB)
+2026-05-20 03:36:33  INFO      [ 430 /  621]  Friday, 22 Aug 2025
+2026-05-20 03:36:33  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_22082025.csv
+2026-05-20 03:36:33  INFO        [SAVED]     sec_bhavdata_full_22082025.csv  (325 KB)
+2026-05-20 03:36:36  INFO      [ 431 /  621]  Monday, 25 Aug 2025
+2026-05-20 03:36:36  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_25082025.csv
+2026-05-20 03:36:36  INFO        [SAVED]     sec_bhavdata_full_25082025.csv  (329 KB)
+2026-05-20 03:36:39  INFO      [ 432 /  621]  Tuesday, 26 Aug 2025
+2026-05-20 03:36:39  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_26082025.csv
+2026-05-20 03:36:39  INFO        [SAVED]     sec_bhavdata_full_26082025.csv  (328 KB)
+2026-05-20 03:36:41  INFO      [ 433 /  621]  Wednesday, 27 Aug 2025
+2026-05-20 03:36:41  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_27082025.csv
+2026-05-20 03:36:41  INFO        [HOLIDAY]   27-Aug-2025 → 404 (market holiday or no data)
+2026-05-20 03:36:42  INFO      [ 434 /  621]  Thursday, 28 Aug 2025
+2026-05-20 03:36:42  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_28082025.csv
+2026-05-20 03:36:42  INFO        [SAVED]     sec_bhavdata_full_28082025.csv  (325 KB)
+2026-05-20 03:36:45  INFO      [ 435 /  621]  Friday, 29 Aug 2025
+2026-05-20 03:36:45  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_29082025.csv
+2026-05-20 03:36:45  INFO        [SAVED]     sec_bhavdata_full_29082025.csv  (327 KB)
+2026-05-20 03:36:48  INFO      [ 436 /  621]  Monday, 01 Sep 2025
+2026-05-20 03:36:48  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_01092025.csv
+2026-05-20 03:36:49  INFO        [SAVED]     sec_bhavdata_full_01092025.csv  (332 KB)
+2026-05-20 03:36:51  INFO      [ 437 /  621]  Tuesday, 02 Sep 2025
+2026-05-20 03:36:51  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_02092025.csv
+2026-05-20 03:36:52  INFO        [SAVED]     sec_bhavdata_full_02092025.csv  (329 KB)
+2026-05-20 03:36:55  INFO      [ 438 /  621]  Wednesday, 03 Sep 2025
+2026-05-20 03:36:55  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_03092025.csv
+2026-05-20 03:36:56  INFO        [SAVED]     sec_bhavdata_full_03092025.csv  (331 KB)
+2026-05-20 03:36:58  INFO      [ 439 /  621]  Thursday, 04 Sep 2025
+2026-05-20 03:36:58  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_04092025.csv
+2026-05-20 03:36:58  INFO        [SAVED]     sec_bhavdata_full_04092025.csv  (331 KB)
+2026-05-20 03:37:01  INFO      [ 440 /  621]  Friday, 05 Sep 2025
+2026-05-20 03:37:01  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_05092025.csv
+2026-05-20 03:37:01  INFO        [SAVED]     sec_bhavdata_full_05092025.csv  (329 KB)
+2026-05-20 03:37:03  INFO      [ 441 /  621]  Monday, 08 Sep 2025
+2026-05-20 03:37:03  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_08092025.csv
+2026-05-20 03:37:04  INFO        [SAVED]     sec_bhavdata_full_08092025.csv  (333 KB)
+2026-05-20 03:37:06  INFO      [ 442 /  621]  Tuesday, 09 Sep 2025
+2026-05-20 03:37:06  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_09092025.csv
+2026-05-20 03:37:07  INFO        [SAVED]     sec_bhavdata_full_09092025.csv  (330 KB)
+2026-05-20 03:37:09  INFO      [ 443 /  621]  Wednesday, 10 Sep 2025
+2026-05-20 03:37:09  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_10092025.csv
+2026-05-20 03:37:09  INFO        [SAVED]     sec_bhavdata_full_10092025.csv  (332 KB)
+2026-05-20 03:37:11  INFO      [ 444 /  621]  Thursday, 11 Sep 2025
+2026-05-20 03:37:11  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_11092025.csv
+2026-05-20 03:37:11  INFO        [SAVED]     sec_bhavdata_full_11092025.csv  (332 KB)
+2026-05-20 03:37:14  INFO      [ 445 /  621]  Friday, 12 Sep 2025
+2026-05-20 03:37:14  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_12092025.csv
+2026-05-20 03:37:14  INFO        [SAVED]     sec_bhavdata_full_12092025.csv  (332 KB)
+2026-05-20 03:37:18  INFO      [ 446 /  621]  Monday, 15 Sep 2025
+2026-05-20 03:37:18  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_15092025.csv
+2026-05-20 03:37:18  INFO        [SAVED]     sec_bhavdata_full_15092025.csv  (336 KB)
+2026-05-20 03:37:21  INFO      [ 447 /  621]  Tuesday, 16 Sep 2025
+2026-05-20 03:37:21  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_16092025.csv
+2026-05-20 03:37:22  INFO        [SAVED]     sec_bhavdata_full_16092025.csv  (332 KB)
+2026-05-20 03:37:25  INFO      [ 448 /  621]  Wednesday, 17 Sep 2025
+2026-05-20 03:37:25  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_17092025.csv
+2026-05-20 03:37:26  INFO        [SAVED]     sec_bhavdata_full_17092025.csv  (335 KB)
+2026-05-20 03:37:28  INFO      [ 449 /  621]  Thursday, 18 Sep 2025
+2026-05-20 03:37:28  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_18092025.csv
+2026-05-20 03:37:29  INFO        [SAVED]     sec_bhavdata_full_18092025.csv  (333 KB)
+2026-05-20 03:37:31  INFO      [ 450 /  621]  Friday, 19 Sep 2025
+2026-05-20 03:37:31  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_19092025.csv
+2026-05-20 03:37:31  INFO        [SAVED]     sec_bhavdata_full_19092025.csv  (332 KB)
+2026-05-20 03:37:33  INFO      ── Re-warming NSE session (request 451 / 621) ──
+2026-05-20 03:37:33  INFO      Warming up NSE session (acquiring cookies)…
+2026-05-20 03:37:33  WARNING   NSE warm-up failed (will still attempt downloads): 403 Client Error: Forbidden for url: https://www.nseindia.com/
+2026-05-20 03:37:33  INFO      [ 451 /  621]  Monday, 22 Sep 2025
+2026-05-20 03:37:33  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_22092025.csv
+2026-05-20 03:37:34  INFO        [SAVED]     sec_bhavdata_full_22092025.csv  (339 KB)
+2026-05-20 03:37:36  INFO      [ 452 /  621]  Tuesday, 23 Sep 2025
+2026-05-20 03:37:36  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_23092025.csv
+2026-05-20 03:37:37  INFO        [SAVED]     sec_bhavdata_full_23092025.csv  (333 KB)
+2026-05-20 03:37:39  INFO      [ 453 /  621]  Wednesday, 24 Sep 2025
+2026-05-20 03:37:39  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_24092025.csv
+2026-05-20 03:37:40  INFO        [SAVED]     sec_bhavdata_full_24092025.csv  (333 KB)
+2026-05-20 03:37:42  INFO      [ 454 /  621]  Thursday, 25 Sep 2025
+2026-05-20 03:37:42  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_25092025.csv
+2026-05-20 03:37:42  INFO        [SAVED]     sec_bhavdata_full_25092025.csv  (332 KB)
+2026-05-20 03:37:44  INFO      [ 455 /  621]  Friday, 26 Sep 2025
+2026-05-20 03:37:44  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_26092025.csv
+2026-05-20 03:37:45  INFO        [SAVED]     sec_bhavdata_full_26092025.csv  (334 KB)
+2026-05-20 03:37:47  INFO      [ 456 /  621]  Monday, 29 Sep 2025
+2026-05-20 03:37:47  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_29092025.csv
+2026-05-20 03:37:47  INFO        [SAVED]     sec_bhavdata_full_29092025.csv  (336 KB)
+2026-05-20 03:37:49  INFO      [ 457 /  621]  Tuesday, 30 Sep 2025
+2026-05-20 03:37:49  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_30092025.csv
+2026-05-20 03:37:50  INFO        [SAVED]     sec_bhavdata_full_30092025.csv  (332 KB)
+2026-05-20 03:37:52  INFO      [ 458 /  621]  Wednesday, 01 Oct 2025
+2026-05-20 03:37:52  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_01102025.csv
+2026-05-20 03:37:53  INFO        [SAVED]     sec_bhavdata_full_01102025.csv  (334 KB)
+2026-05-20 03:37:55  INFO      [ 459 /  621]  Thursday, 02 Oct 2025
+2026-05-20 03:37:55  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_02102025.csv
+2026-05-20 03:37:56  INFO        [HOLIDAY]   02-Oct-2025 → 404 (market holiday or no data)
+2026-05-20 03:37:57  INFO      [ 460 /  621]  Friday, 03 Oct 2025
+2026-05-20 03:37:57  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_03102025.csv
+2026-05-20 03:37:57  INFO        [SAVED]     sec_bhavdata_full_03102025.csv  (338 KB)
+2026-05-20 03:38:00  INFO      [ 461 /  621]  Monday, 06 Oct 2025
+2026-05-20 03:38:00  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_06102025.csv
+2026-05-20 03:38:00  INFO        [SAVED]     sec_bhavdata_full_06102025.csv  (339 KB)
+2026-05-20 03:38:02  INFO      [ 462 /  621]  Tuesday, 07 Oct 2025
+2026-05-20 03:38:02  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_07102025.csv
+2026-05-20 03:38:03  INFO        [SAVED]     sec_bhavdata_full_07102025.csv  (336 KB)
+2026-05-20 03:38:05  INFO      [ 463 /  621]  Wednesday, 08 Oct 2025
+2026-05-20 03:38:05  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_08102025.csv
+2026-05-20 03:38:06  INFO        [SAVED]     sec_bhavdata_full_08102025.csv  (337 KB)
+2026-05-20 03:38:09  INFO      [ 464 /  621]  Thursday, 09 Oct 2025
+2026-05-20 03:38:09  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_09102025.csv
+2026-05-20 03:38:09  INFO        [SAVED]     sec_bhavdata_full_09102025.csv  (337 KB)
+2026-05-20 03:38:12  INFO      [ 465 /  621]  Friday, 10 Oct 2025
+2026-05-20 03:38:12  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_10102025.csv
+2026-05-20 03:38:12  INFO        [SAVED]     sec_bhavdata_full_10102025.csv  (336 KB)
+2026-05-20 03:38:15  INFO      [ 466 /  621]  Monday, 13 Oct 2025
+2026-05-20 03:38:15  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_13102025.csv
+2026-05-20 03:38:15  INFO        [SAVED]     sec_bhavdata_full_13102025.csv  (338 KB)
+2026-05-20 03:38:18  INFO      [ 467 /  621]  Tuesday, 14 Oct 2025
+2026-05-20 03:38:18  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_14102025.csv
+2026-05-20 03:38:18  INFO        [SAVED]     sec_bhavdata_full_14102025.csv  (339 KB)
+2026-05-20 03:38:21  INFO      [ 468 /  621]  Wednesday, 15 Oct 2025
+2026-05-20 03:38:21  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_15102025.csv
+2026-05-20 03:38:21  INFO        [SAVED]     sec_bhavdata_full_15102025.csv  (338 KB)
+2026-05-20 03:38:24  INFO      [ 469 /  621]  Thursday, 16 Oct 2025
+2026-05-20 03:38:24  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_16102025.csv
+2026-05-20 03:38:24  INFO        [SAVED]     sec_bhavdata_full_16102025.csv  (339 KB)
+2026-05-20 03:38:27  INFO      [ 470 /  621]  Friday, 17 Oct 2025
+2026-05-20 03:38:27  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_17102025.csv
+2026-05-20 03:38:28  INFO        [SAVED]     sec_bhavdata_full_17102025.csv  (336 KB)
+2026-05-20 03:38:31  INFO      [ 471 /  621]  Monday, 20 Oct 2025
+2026-05-20 03:38:31  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_20102025.csv
+2026-05-20 03:38:31  INFO        [SAVED]     sec_bhavdata_full_20102025.csv  (341 KB)
+2026-05-20 03:38:33  INFO      [ 472 /  621]  Tuesday, 21 Oct 2025
+2026-05-20 03:38:33  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_21102025.csv
+2026-05-20 03:38:34  INFO        [SAVED]     sec_bhavdata_full_21102025.csv  (325 KB)
+2026-05-20 03:38:36  INFO      [ 473 /  621]  Wednesday, 22 Oct 2025
+2026-05-20 03:38:36  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_22102025.csv
+2026-05-20 03:38:37  INFO        [SAVED]     sec_bhavdata_full_22102025.csv  (325 KB)
+2026-05-20 03:38:40  INFO      [ 474 /  621]  Thursday, 23 Oct 2025
+2026-05-20 03:38:40  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_23102025.csv
+2026-05-20 03:38:40  INFO        [SAVED]     sec_bhavdata_full_23102025.csv  (340 KB)
+2026-05-20 03:38:43  INFO      [ 475 /  621]  Friday, 24 Oct 2025
+2026-05-20 03:38:43  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_24102025.csv
+2026-05-20 03:38:43  INFO        [SAVED]     sec_bhavdata_full_24102025.csv  (338 KB)
+2026-05-20 03:38:45  INFO      ── Re-warming NSE session (request 476 / 621) ──
+2026-05-20 03:38:45  INFO      Warming up NSE session (acquiring cookies)…
+2026-05-20 03:38:45  WARNING   NSE warm-up failed (will still attempt downloads): 403 Client Error: Forbidden for url: https://www.nseindia.com/
+2026-05-20 03:38:45  INFO      [ 476 /  621]  Monday, 27 Oct 2025
+2026-05-20 03:38:45  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_27102025.csv
+2026-05-20 03:38:46  INFO        [SAVED]     sec_bhavdata_full_27102025.csv  (343 KB)
+2026-05-20 03:38:49  INFO      [ 477 /  621]  Tuesday, 28 Oct 2025
+2026-05-20 03:38:49  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_28102025.csv
+2026-05-20 03:38:49  INFO        [SAVED]     sec_bhavdata_full_28102025.csv  (340 KB)
+2026-05-20 03:38:51  INFO      [ 478 /  621]  Wednesday, 29 Oct 2025
+2026-05-20 03:38:51  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_29102025.csv
+2026-05-20 03:38:52  INFO        [SAVED]     sec_bhavdata_full_29102025.csv  (338 KB)
+2026-05-20 03:38:54  INFO      [ 479 /  621]  Thursday, 30 Oct 2025
+2026-05-20 03:38:54  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_30102025.csv
+2026-05-20 03:38:55  INFO        [SAVED]     sec_bhavdata_full_30102025.csv  (337 KB)
+2026-05-20 03:38:56  INFO      [ 480 /  621]  Friday, 31 Oct 2025
+2026-05-20 03:38:56  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_31102025.csv
+2026-05-20 03:38:57  INFO        [SAVED]     sec_bhavdata_full_31102025.csv  (338 KB)
+2026-05-20 03:38:59  INFO      [ 481 /  621]  Monday, 03 Nov 2025
+2026-05-20 03:38:59  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_03112025.csv
+2026-05-20 03:39:00  INFO        [SAVED]     sec_bhavdata_full_03112025.csv  (340 KB)
+2026-05-20 03:39:03  INFO      [ 482 /  621]  Tuesday, 04 Nov 2025
+2026-05-20 03:39:03  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_04112025.csv
+2026-05-20 03:39:03  INFO        [SAVED]     sec_bhavdata_full_04112025.csv  (338 KB)
+2026-05-20 03:39:05  INFO      [ 483 /  621]  Wednesday, 05 Nov 2025
+2026-05-20 03:39:05  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_05112025.csv
+2026-05-20 03:39:05  INFO        [SAVED]     sec_bhavdata_full_05112025.csv  (338 KB)
+2026-05-20 03:39:08  INFO      [ 484 /  621]  Thursday, 06 Nov 2025
+2026-05-20 03:39:08  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_06112025.csv
+2026-05-20 03:39:09  INFO        [SAVED]     sec_bhavdata_full_06112025.csv  (339 KB)
+2026-05-20 03:39:11  INFO      [ 485 /  621]  Friday, 07 Nov 2025
+2026-05-20 03:39:11  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_07112025.csv
+2026-05-20 03:39:11  INFO        [SAVED]     sec_bhavdata_full_07112025.csv  (338 KB)
+2026-05-20 03:39:13  INFO      [ 486 /  621]  Monday, 10 Nov 2025
+2026-05-20 03:39:13  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_10112025.csv
+2026-05-20 03:39:13  INFO        [SAVED]     sec_bhavdata_full_10112025.csv  (341 KB)
+2026-05-20 03:39:16  INFO      [ 487 /  621]  Tuesday, 11 Nov 2025
+2026-05-20 03:39:16  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_11112025.csv
+2026-05-20 03:39:17  INFO        [SAVED]     sec_bhavdata_full_11112025.csv  (339 KB)
+2026-05-20 03:39:20  INFO      [ 488 /  621]  Wednesday, 12 Nov 2025
+2026-05-20 03:39:20  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_12112025.csv
+2026-05-20 03:39:20  INFO        [SAVED]     sec_bhavdata_full_12112025.csv  (340 KB)
+2026-05-20 03:39:23  INFO      [ 489 /  621]  Thursday, 13 Nov 2025
+2026-05-20 03:39:23  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_13112025.csv
+2026-05-20 03:39:23  INFO        [SAVED]     sec_bhavdata_full_13112025.csv  (339 KB)
+2026-05-20 03:39:27  INFO      [ 490 /  621]  Friday, 14 Nov 2025
+2026-05-20 03:39:27  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_14112025.csv
+2026-05-20 03:39:27  INFO        [SAVED]     sec_bhavdata_full_14112025.csv  (339 KB)
+2026-05-20 03:39:29  INFO      [ 491 /  621]  Monday, 17 Nov 2025
+2026-05-20 03:39:29  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_17112025.csv
+2026-05-20 03:39:30  INFO        [SAVED]     sec_bhavdata_full_17112025.csv  (344 KB)
+2026-05-20 03:39:32  INFO      [ 492 /  621]  Tuesday, 18 Nov 2025
+2026-05-20 03:39:32  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_18112025.csv
+2026-05-20 03:39:32  INFO        [SAVED]     sec_bhavdata_full_18112025.csv  (339 KB)
+2026-05-20 03:39:35  INFO      [ 493 /  621]  Wednesday, 19 Nov 2025
+2026-05-20 03:39:35  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_19112025.csv
+2026-05-20 03:39:36  INFO        [SAVED]     sec_bhavdata_full_19112025.csv  (339 KB)
+2026-05-20 03:39:37  INFO      [ 494 /  621]  Thursday, 20 Nov 2025
+2026-05-20 03:39:37  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_20112025.csv
+2026-05-20 03:39:38  INFO        [SAVED]     sec_bhavdata_full_20112025.csv  (339 KB)
+2026-05-20 03:39:41  INFO      [ 495 /  621]  Friday, 21 Nov 2025
+2026-05-20 03:39:41  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_21112025.csv
+2026-05-20 03:39:41  INFO        [SAVED]     sec_bhavdata_full_21112025.csv  (338 KB)
+2026-05-20 03:39:43  INFO      [ 496 /  621]  Monday, 24 Nov 2025
+2026-05-20 03:39:43  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_24112025.csv
+2026-05-20 03:39:43  INFO        [SAVED]     sec_bhavdata_full_24112025.csv  (342 KB)
+2026-05-20 03:39:45  INFO      [ 497 /  621]  Tuesday, 25 Nov 2025
+2026-05-20 03:39:45  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_25112025.csv
+2026-05-20 03:39:45  INFO        [SAVED]     sec_bhavdata_full_25112025.csv  (339 KB)
+2026-05-20 03:39:49  INFO      [ 498 /  621]  Wednesday, 26 Nov 2025
+2026-05-20 03:39:49  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_26112025.csv
+2026-05-20 03:39:49  INFO        [SAVED]     sec_bhavdata_full_26112025.csv  (338 KB)
+2026-05-20 03:39:51  INFO      [ 499 /  621]  Thursday, 27 Nov 2025
+2026-05-20 03:39:51  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_27112025.csv
+2026-05-20 03:39:51  INFO        [SAVED]     sec_bhavdata_full_27112025.csv  (338 KB)
+2026-05-20 03:39:54  INFO      [ 500 /  621]  Friday, 28 Nov 2025
+2026-05-20 03:39:54  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_28112025.csv
+2026-05-20 03:39:55  INFO        [SAVED]     sec_bhavdata_full_28112025.csv  (339 KB)
+2026-05-20 03:39:56  INFO      ── Re-warming NSE session (request 501 / 621) ──
+2026-05-20 03:39:56  INFO      Warming up NSE session (acquiring cookies)…
+2026-05-20 03:39:56  WARNING   NSE warm-up failed (will still attempt downloads): 403 Client Error: Forbidden for url: https://www.nseindia.com/
+2026-05-20 03:39:56  INFO      [ 501 /  621]  Monday, 01 Dec 2025
+2026-05-20 03:39:56  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_01122025.csv
+2026-05-20 03:39:57  INFO        [SAVED]     sec_bhavdata_full_01122025.csv  (342 KB)
+2026-05-20 03:40:00  INFO      [ 502 /  621]  Tuesday, 02 Dec 2025
+2026-05-20 03:40:00  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_02122025.csv
+2026-05-20 03:40:00  INFO        [SAVED]     sec_bhavdata_full_02122025.csv  (339 KB)
+2026-05-20 03:40:03  INFO      [ 503 /  621]  Wednesday, 03 Dec 2025
+2026-05-20 03:40:03  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_03122025.csv
+2026-05-20 03:40:03  INFO        [SAVED]     sec_bhavdata_full_03122025.csv  (341 KB)
+2026-05-20 03:40:05  INFO      [ 504 /  621]  Thursday, 04 Dec 2025
+2026-05-20 03:40:05  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_04122025.csv
+2026-05-20 03:40:06  INFO        [SAVED]     sec_bhavdata_full_04122025.csv  (339 KB)
+2026-05-20 03:40:08  INFO      [ 505 /  621]  Friday, 05 Dec 2025
+2026-05-20 03:40:08  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_05122025.csv
+2026-05-20 03:40:09  INFO        [SAVED]     sec_bhavdata_full_05122025.csv  (337 KB)
+2026-05-20 03:40:11  INFO      [ 506 /  621]  Monday, 08 Dec 2025
+2026-05-20 03:40:11  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_08122025.csv
+2026-05-20 03:40:12  INFO        [SAVED]     sec_bhavdata_full_08122025.csv  (345 KB)
+2026-05-20 03:40:14  INFO      [ 507 /  621]  Tuesday, 09 Dec 2025
+2026-05-20 03:40:14  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_09122025.csv
+2026-05-20 03:40:14  INFO        [SAVED]     sec_bhavdata_full_09122025.csv  (341 KB)
+2026-05-20 03:40:17  INFO      [ 508 /  621]  Wednesday, 10 Dec 2025
+2026-05-20 03:40:17  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_10122025.csv
+2026-05-20 03:40:17  INFO        [SAVED]     sec_bhavdata_full_10122025.csv  (339 KB)
+2026-05-20 03:40:19  INFO      [ 509 /  621]  Thursday, 11 Dec 2025
+2026-05-20 03:40:19  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_11122025.csv
+2026-05-20 03:40:19  INFO        [SAVED]     sec_bhavdata_full_11122025.csv  (338 KB)
+2026-05-20 03:40:21  INFO      [ 510 /  621]  Friday, 12 Dec 2025
+2026-05-20 03:40:21  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_12122025.csv
+2026-05-20 03:40:22  INFO        [SAVED]     sec_bhavdata_full_12122025.csv  (339 KB)
+2026-05-20 03:40:25  INFO      [ 511 /  621]  Monday, 15 Dec 2025
+2026-05-20 03:40:25  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_15122025.csv
+2026-05-20 03:40:26  INFO        [SAVED]     sec_bhavdata_full_15122025.csv  (341 KB)
+2026-05-20 03:40:29  INFO      [ 512 /  621]  Tuesday, 16 Dec 2025
+2026-05-20 03:40:29  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_16122025.csv
+2026-05-20 03:40:29  INFO        [SAVED]     sec_bhavdata_full_16122025.csv  (339 KB)
+2026-05-20 03:40:31  INFO      [ 513 /  621]  Wednesday, 17 Dec 2025
+2026-05-20 03:40:31  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_17122025.csv
+2026-05-20 03:40:31  INFO        [SAVED]     sec_bhavdata_full_17122025.csv  (340 KB)
+2026-05-20 03:40:35  INFO      [ 514 /  621]  Thursday, 18 Dec 2025
+2026-05-20 03:40:35  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_18122025.csv
+2026-05-20 03:40:35  INFO        [SAVED]     sec_bhavdata_full_18122025.csv  (339 KB)
+2026-05-20 03:40:37  INFO      [ 515 /  621]  Friday, 19 Dec 2025
+2026-05-20 03:40:37  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_19122025.csv
+2026-05-20 03:40:37  INFO        [SAVED]     sec_bhavdata_full_19122025.csv  (340 KB)
+2026-05-20 03:40:39  INFO      [ 516 /  621]  Monday, 22 Dec 2025
+2026-05-20 03:40:39  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_22122025.csv
+2026-05-20 03:40:40  INFO        [SAVED]     sec_bhavdata_full_22122025.csv  (345 KB)
+2026-05-20 03:40:41  INFO      [ 517 /  621]  Tuesday, 23 Dec 2025
+2026-05-20 03:40:41  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_23122025.csv
+2026-05-20 03:40:42  INFO        [SAVED]     sec_bhavdata_full_23122025.csv  (343 KB)
+2026-05-20 03:40:45  INFO      [ 518 /  621]  Wednesday, 24 Dec 2025
+2026-05-20 03:40:45  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_24122025.csv
+2026-05-20 03:40:45  INFO        [SAVED]     sec_bhavdata_full_24122025.csv  (343 KB)
+2026-05-20 03:40:48  INFO      [ 519 /  621]  Thursday, 25 Dec 2025
+2026-05-20 03:40:48  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_25122025.csv
+2026-05-20 03:40:48  INFO        [SAVED]     sec_bhavdata_full_25122025.csv  (343 KB)
+2026-05-20 03:40:50  INFO      [ 520 /  621]  Friday, 26 Dec 2025
+2026-05-20 03:40:50  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_26122025.csv
+2026-05-20 03:40:50  INFO        [SAVED]     sec_bhavdata_full_26122025.csv  (343 KB)
+2026-05-20 03:40:53  INFO      [ 521 /  621]  Monday, 29 Dec 2025
+2026-05-20 03:40:53  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_29122025.csv
+2026-05-20 03:40:53  INFO        [SAVED]     sec_bhavdata_full_29122025.csv  (346 KB)
+2026-05-20 03:40:56  INFO      [ 522 /  621]  Tuesday, 30 Dec 2025
+2026-05-20 03:40:56  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_30122025.csv
+2026-05-20 03:40:56  INFO        [SAVED]     sec_bhavdata_full_30122025.csv  (343 KB)
+2026-05-20 03:40:58  INFO      [ 523 /  621]  Wednesday, 31 Dec 2025
+2026-05-20 03:40:58  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_31122025.csv
+2026-05-20 03:40:58  INFO        [SAVED]     sec_bhavdata_full_31122025.csv  (343 KB)
+2026-05-20 03:41:01  INFO      [ 524 /  621]  Thursday, 01 Jan 2026
+2026-05-20 03:41:01  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_01012026.csv
+2026-05-20 03:41:01  INFO        [SAVED]     sec_bhavdata_full_01012026.csv  (340 KB)
+2026-05-20 03:41:04  INFO      [ 525 /  621]  Friday, 02 Jan 2026
+2026-05-20 03:41:04  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_02012026.csv
+2026-05-20 03:41:04  INFO        [SAVED]     sec_bhavdata_full_02012026.csv  (341 KB)
+2026-05-20 03:41:06  INFO      ── Re-warming NSE session (request 526 / 621) ──
+2026-05-20 03:41:06  INFO      Warming up NSE session (acquiring cookies)…
+2026-05-20 03:41:06  WARNING   NSE warm-up failed (will still attempt downloads): 403 Client Error: Forbidden for url: https://www.nseindia.com/
+2026-05-20 03:41:06  INFO      [ 526 /  621]  Monday, 05 Jan 2026
+2026-05-20 03:41:06  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_05012026.csv
+2026-05-20 03:41:06  INFO        [SAVED]     sec_bhavdata_full_05012026.csv  (345 KB)
+2026-05-20 03:41:10  INFO      [ 527 /  621]  Tuesday, 06 Jan 2026
+2026-05-20 03:41:10  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_06012026.csv
+2026-05-20 03:41:10  INFO        [SAVED]     sec_bhavdata_full_06012026.csv  (342 KB)
+2026-05-20 03:41:12  INFO      [ 528 /  621]  Wednesday, 07 Jan 2026
+2026-05-20 03:41:12  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_07012026.csv
+2026-05-20 03:41:13  INFO        [SAVED]     sec_bhavdata_full_07012026.csv  (343 KB)
+2026-05-20 03:41:16  INFO      [ 529 /  621]  Thursday, 08 Jan 2026
+2026-05-20 03:41:16  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_08012026.csv
+2026-05-20 03:41:16  INFO        [SAVED]     sec_bhavdata_full_08012026.csv  (344 KB)
+2026-05-20 03:41:19  INFO      [ 530 /  621]  Friday, 09 Jan 2026
+2026-05-20 03:41:19  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_09012026.csv
+2026-05-20 03:41:20  INFO        [SAVED]     sec_bhavdata_full_09012026.csv  (342 KB)
+2026-05-20 03:41:23  INFO      [ 531 /  621]  Monday, 12 Jan 2026
+2026-05-20 03:41:23  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_12012026.csv
+2026-05-20 03:41:23  INFO        [SAVED]     sec_bhavdata_full_12012026.csv  (344 KB)
+2026-05-20 03:41:25  INFO      [ 532 /  621]  Tuesday, 13 Jan 2026
+2026-05-20 03:41:25  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_13012026.csv
+2026-05-20 03:41:26  INFO        [SAVED]     sec_bhavdata_full_13012026.csv  (341 KB)
+2026-05-20 03:41:29  INFO      [ 533 /  621]  Wednesday, 14 Jan 2026
+2026-05-20 03:41:29  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_14012026.csv
+2026-05-20 03:41:29  INFO        [SAVED]     sec_bhavdata_full_14012026.csv  (341 KB)
+2026-05-20 03:41:32  INFO      [ 534 /  621]  Thursday, 15 Jan 2026
+2026-05-20 03:41:32  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_15012026.csv
+2026-05-20 03:41:32  INFO        [SAVED]     sec_bhavdata_full_15012026.csv  (341 KB)
+2026-05-20 03:41:34  INFO      [ 535 /  621]  Friday, 16 Jan 2026
+2026-05-20 03:41:34  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_16012026.csv
+2026-05-20 03:41:35  INFO        [SAVED]     sec_bhavdata_full_16012026.csv  (344 KB)
+2026-05-20 03:41:37  INFO      [ 536 /  621]  Monday, 19 Jan 2026
+2026-05-20 03:41:37  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_19012026.csv
+2026-05-20 03:41:37  INFO        [SAVED]     sec_bhavdata_full_19012026.csv  (345 KB)
+2026-05-20 03:41:40  INFO      [ 537 /  621]  Tuesday, 20 Jan 2026
+2026-05-20 03:41:40  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_20012026.csv
+2026-05-20 03:41:41  INFO        [SAVED]     sec_bhavdata_full_20012026.csv  (347 KB)
+2026-05-20 03:41:44  INFO      [ 538 /  621]  Wednesday, 21 Jan 2026
+2026-05-20 03:41:44  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_21012026.csv
+2026-05-20 03:41:44  INFO        [SAVED]     sec_bhavdata_full_21012026.csv  (347 KB)
+2026-05-20 03:41:46  INFO      [ 539 /  621]  Thursday, 22 Jan 2026
+2026-05-20 03:41:46  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_22012026.csv
+2026-05-20 03:41:47  INFO        [SAVED]     sec_bhavdata_full_22012026.csv  (344 KB)
+2026-05-20 03:41:49  INFO      [ 540 /  621]  Friday, 23 Jan 2026
+2026-05-20 03:41:49  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_23012026.csv
+2026-05-20 03:41:49  INFO        [SAVED]     sec_bhavdata_full_23012026.csv  (344 KB)
+2026-05-20 03:41:53  INFO      [ 541 /  621]  Monday, 26 Jan 2026
+2026-05-20 03:41:53  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_26012026.csv
+2026-05-20 03:41:53  INFO        [SAVED]     sec_bhavdata_full_26012026.csv  (344 KB)
+2026-05-20 03:41:57  INFO      [ 542 /  621]  Tuesday, 27 Jan 2026
+2026-05-20 03:41:57  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_27012026.csv
+2026-05-20 03:41:57  INFO        [SAVED]     sec_bhavdata_full_27012026.csv  (347 KB)
+2026-05-20 03:42:00  INFO      [ 543 /  621]  Wednesday, 28 Jan 2026
+2026-05-20 03:42:00  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_28012026.csv
+2026-05-20 03:42:00  INFO        [SAVED]     sec_bhavdata_full_28012026.csv  (344 KB)
+2026-05-20 03:42:03  INFO      [ 544 /  621]  Thursday, 29 Jan 2026
+2026-05-20 03:42:03  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_29012026.csv
+2026-05-20 03:42:04  INFO        [SAVED]     sec_bhavdata_full_29012026.csv  (346 KB)
+2026-05-20 03:42:06  INFO      [ 545 /  621]  Friday, 30 Jan 2026
+2026-05-20 03:42:06  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_30012026.csv
+2026-05-20 03:42:07  INFO        [SAVED]     sec_bhavdata_full_30012026.csv  (345 KB)
+2026-05-20 03:42:08  INFO      [ 546 /  621]  Monday, 02 Feb 2026
+2026-05-20 03:42:08  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_02022026.csv
+2026-05-20 03:42:09  INFO        [SAVED]     sec_bhavdata_full_02022026.csv  (344 KB)
+2026-05-20 03:42:12  INFO      [ 547 /  621]  Tuesday, 03 Feb 2026
+2026-05-20 03:42:12  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_03022026.csv
+2026-05-20 03:42:13  INFO        [SAVED]     sec_bhavdata_full_03022026.csv  (348 KB)
+2026-05-20 03:42:15  INFO      [ 548 /  621]  Wednesday, 04 Feb 2026
+2026-05-20 03:42:15  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_04022026.csv
+2026-05-20 03:42:15  INFO        [SAVED]     sec_bhavdata_full_04022026.csv  (345 KB)
+2026-05-20 03:42:19  INFO      [ 549 /  621]  Thursday, 05 Feb 2026
+2026-05-20 03:42:19  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_05022026.csv
+2026-05-20 03:42:19  INFO        [SAVED]     sec_bhavdata_full_05022026.csv  (342 KB)
+2026-05-20 03:42:22  INFO      [ 550 /  621]  Friday, 06 Feb 2026
+2026-05-20 03:42:22  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_06022026.csv
+2026-05-20 03:42:23  INFO        [SAVED]     sec_bhavdata_full_06022026.csv  (340 KB)
+2026-05-20 03:42:26  INFO      ── Re-warming NSE session (request 551 / 621) ──
+2026-05-20 03:42:26  INFO      Warming up NSE session (acquiring cookies)…
+2026-05-20 03:42:26  WARNING   NSE warm-up failed (will still attempt downloads): 403 Client Error: Forbidden for url: https://www.nseindia.com/
+2026-05-20 03:42:26  INFO      [ 551 /  621]  Monday, 09 Feb 2026
+2026-05-20 03:42:26  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_09022026.csv
+2026-05-20 03:42:26  INFO        [SAVED]     sec_bhavdata_full_09022026.csv  (348 KB)
+2026-05-20 03:42:28  INFO      [ 552 /  621]  Tuesday, 10 Feb 2026
+2026-05-20 03:42:28  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_10022026.csv
+2026-05-20 03:42:29  INFO        [SAVED]     sec_bhavdata_full_10022026.csv  (346 KB)
+2026-05-20 03:42:32  INFO      [ 553 /  621]  Wednesday, 11 Feb 2026
+2026-05-20 03:42:32  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_11022026.csv
+2026-05-20 03:42:32  INFO        [SAVED]     sec_bhavdata_full_11022026.csv  (344 KB)
+2026-05-20 03:42:35  INFO      [ 554 /  621]  Thursday, 12 Feb 2026
+2026-05-20 03:42:35  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_12022026.csv
+2026-05-20 03:42:35  INFO        [SAVED]     sec_bhavdata_full_12022026.csv  (344 KB)
+2026-05-20 03:42:38  INFO      [ 555 /  621]  Friday, 13 Feb 2026
+2026-05-20 03:42:38  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_13022026.csv
+2026-05-20 03:42:39  INFO        [SAVED]     sec_bhavdata_full_13022026.csv  (343 KB)
+2026-05-20 03:42:41  INFO      [ 556 /  621]  Monday, 16 Feb 2026
+2026-05-20 03:42:41  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_16022026.csv
+2026-05-20 03:42:41  INFO        [SAVED]     sec_bhavdata_full_16022026.csv  (345 KB)
+2026-05-20 03:42:43  INFO      [ 557 /  621]  Tuesday, 17 Feb 2026
+2026-05-20 03:42:43  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_17022026.csv
+2026-05-20 03:42:43  INFO        [SAVED]     sec_bhavdata_full_17022026.csv  (343 KB)
+2026-05-20 03:42:47  INFO      [ 558 /  621]  Wednesday, 18 Feb 2026
+2026-05-20 03:42:47  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_18022026.csv
+2026-05-20 03:42:48  INFO        [SAVED]     sec_bhavdata_full_18022026.csv  (346 KB)
+2026-05-20 03:42:51  INFO      [ 559 /  621]  Thursday, 19 Feb 2026
+2026-05-20 03:42:51  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_19022026.csv
+2026-05-20 03:42:52  INFO        [SAVED]     sec_bhavdata_full_19022026.csv  (345 KB)
+2026-05-20 03:42:55  INFO      [ 560 /  621]  Friday, 20 Feb 2026
+2026-05-20 03:42:55  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_20022026.csv
+2026-05-20 03:42:55  INFO        [SAVED]     sec_bhavdata_full_20022026.csv  (343 KB)
+2026-05-20 03:42:58  INFO      [ 561 /  621]  Monday, 23 Feb 2026
+2026-05-20 03:42:58  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_23022026.csv
+2026-05-20 03:42:58  INFO        [SAVED]     sec_bhavdata_full_23022026.csv  (346 KB)
+2026-05-20 03:43:01  INFO      [ 562 /  621]  Tuesday, 24 Feb 2026
+2026-05-20 03:43:01  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_24022026.csv
+2026-05-20 03:43:01  INFO        [SAVED]     sec_bhavdata_full_24022026.csv  (346 KB)
+2026-05-20 03:43:05  INFO      [ 563 /  621]  Wednesday, 25 Feb 2026
+2026-05-20 03:43:05  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_25022026.csv
+2026-05-20 03:43:05  INFO        [SAVED]     sec_bhavdata_full_25022026.csv  (346 KB)
+2026-05-20 03:43:07  INFO      [ 564 /  621]  Thursday, 26 Feb 2026
+2026-05-20 03:43:07  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_26022026.csv
+2026-05-20 03:43:08  INFO        [SAVED]     sec_bhavdata_full_26022026.csv  (345 KB)
+2026-05-20 03:43:09  INFO      [ 565 /  621]  Friday, 27 Feb 2026
+2026-05-20 03:43:09  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_27022026.csv
+2026-05-20 03:43:10  INFO        [SAVED]     sec_bhavdata_full_27022026.csv  (342 KB)
+2026-05-20 03:43:12  INFO      [ 566 /  621]  Monday, 02 Mar 2026
+2026-05-20 03:43:12  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_02032026.csv
+2026-05-20 03:43:12  INFO        [SAVED]     sec_bhavdata_full_02032026.csv  (349 KB)
+2026-05-20 03:43:15  INFO      [ 567 /  621]  Tuesday, 03 Mar 2026
+2026-05-20 03:43:15  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_03032026.csv
+2026-05-20 03:43:15  INFO        [SAVED]     sec_bhavdata_full_03032026.csv  (349 KB)
+2026-05-20 03:43:17  INFO      [ 568 /  621]  Wednesday, 04 Mar 2026
+2026-05-20 03:43:17  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_04032026.csv
+2026-05-20 03:43:17  INFO        [SAVED]     sec_bhavdata_full_04032026.csv  (350 KB)
+2026-05-20 03:43:20  INFO      [ 569 /  621]  Thursday, 05 Mar 2026
+2026-05-20 03:43:20  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_05032026.csv
+2026-05-20 03:43:20  INFO        [SAVED]     sec_bhavdata_full_05032026.csv  (348 KB)
+2026-05-20 03:43:23  INFO      [ 570 /  621]  Friday, 06 Mar 2026
+2026-05-20 03:43:23  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_06032026.csv
+2026-05-20 03:43:23  INFO        [SAVED]     sec_bhavdata_full_06032026.csv  (346 KB)
+2026-05-20 03:43:26  INFO      [ 571 /  621]  Monday, 09 Mar 2026
+2026-05-20 03:43:26  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_09032026.csv
+2026-05-20 03:43:27  INFO        [SAVED]     sec_bhavdata_full_09032026.csv  (350 KB)
+2026-05-20 03:43:29  INFO      [ 572 /  621]  Tuesday, 10 Mar 2026
+2026-05-20 03:43:29  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_10032026.csv
+2026-05-20 03:43:29  INFO        [SAVED]     sec_bhavdata_full_10032026.csv  (347 KB)
+2026-05-20 03:43:32  INFO      [ 573 /  621]  Wednesday, 11 Mar 2026
+2026-05-20 03:43:32  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_11032026.csv
+2026-05-20 03:43:32  INFO        [SAVED]     sec_bhavdata_full_11032026.csv  (347 KB)
+2026-05-20 03:43:35  INFO      [ 574 /  621]  Thursday, 12 Mar 2026
+2026-05-20 03:43:35  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_12032026.csv
+2026-05-20 03:43:35  INFO        [SAVED]     sec_bhavdata_full_12032026.csv  (348 KB)
+2026-05-20 03:43:38  INFO      [ 575 /  621]  Friday, 13 Mar 2026
+2026-05-20 03:43:38  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_13032026.csv
+2026-05-20 03:43:38  INFO        [SAVED]     sec_bhavdata_full_13032026.csv  (349 KB)
+2026-05-20 03:43:40  INFO      ── Re-warming NSE session (request 576 / 621) ──
+2026-05-20 03:43:40  INFO      Warming up NSE session (acquiring cookies)…
+2026-05-20 03:43:40  WARNING   NSE warm-up failed (will still attempt downloads): 403 Client Error: Forbidden for url: https://www.nseindia.com/
+2026-05-20 03:43:40  INFO      [ 576 /  621]  Monday, 16 Mar 2026
+2026-05-20 03:43:40  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_16032026.csv
+2026-05-20 03:43:40  INFO        [SAVED]     sec_bhavdata_full_16032026.csv  (352 KB)
+2026-05-20 03:43:43  INFO      [ 577 /  621]  Tuesday, 17 Mar 2026
+2026-05-20 03:43:43  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_17032026.csv
+2026-05-20 03:43:43  INFO        [SAVED]     sec_bhavdata_full_17032026.csv  (349 KB)
+2026-05-20 03:43:46  INFO      [ 578 /  621]  Wednesday, 18 Mar 2026
+2026-05-20 03:43:46  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_18032026.csv
+2026-05-20 03:43:46  INFO        [SAVED]     sec_bhavdata_full_18032026.csv  (351 KB)
+2026-05-20 03:43:48  INFO      [ 579 /  621]  Thursday, 19 Mar 2026
+2026-05-20 03:43:48  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_19032026.csv
+2026-05-20 03:43:49  INFO        [SAVED]     sec_bhavdata_full_19032026.csv  (348 KB)
+2026-05-20 03:43:52  INFO      [ 580 /  621]  Friday, 20 Mar 2026
+2026-05-20 03:43:52  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_20032026.csv
+2026-05-20 03:43:52  INFO        [SAVED]     sec_bhavdata_full_20032026.csv  (351 KB)
+2026-05-20 03:43:54  INFO      [ 581 /  621]  Monday, 23 Mar 2026
+2026-05-20 03:43:54  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_23032026.csv
+2026-05-20 03:43:54  INFO        [SAVED]     sec_bhavdata_full_23032026.csv  (357 KB)
+2026-05-20 03:43:56  INFO      [ 582 /  621]  Tuesday, 24 Mar 2026
+2026-05-20 03:43:56  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_24032026.csv
+2026-05-20 03:43:56  INFO        [SAVED]     sec_bhavdata_full_24032026.csv  (354 KB)
+2026-05-20 03:43:58  INFO      [ 583 /  621]  Wednesday, 25 Mar 2026
+2026-05-20 03:43:58  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_25032026.csv
+2026-05-20 03:43:58  INFO        [SAVED]     sec_bhavdata_full_25032026.csv  (355 KB)
+2026-05-20 03:44:01  INFO      [ 584 /  621]  Thursday, 26 Mar 2026
+2026-05-20 03:44:01  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_26032026.csv
+2026-05-20 03:44:01  INFO        [SAVED]     sec_bhavdata_full_26032026.csv  (355 KB)
+2026-05-20 03:44:03  INFO      [ 585 /  621]  Friday, 27 Mar 2026
+2026-05-20 03:44:03  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_27032026.csv
+2026-05-20 03:44:03  INFO        [SAVED]     sec_bhavdata_full_27032026.csv  (358 KB)
+2026-05-20 03:44:06  INFO      [ 586 /  621]  Monday, 30 Mar 2026
+2026-05-20 03:44:06  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_30032026.csv
+2026-05-20 03:44:07  INFO        [SAVED]     sec_bhavdata_full_30032026.csv  (359 KB)
+2026-05-20 03:44:09  INFO      [ 587 /  621]  Tuesday, 31 Mar 2026
+2026-05-20 03:44:09  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_31032026.csv
+2026-05-20 03:44:09  INFO        [SAVED]     sec_bhavdata_full_31032026.csv  (359 KB)
+2026-05-20 03:44:12  INFO      [ 588 /  621]  Wednesday, 01 Apr 2026
+2026-05-20 03:44:12  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_01042026.csv
+2026-05-20 03:44:13  INFO        [SAVED]     sec_bhavdata_full_01042026.csv  (349 KB)
+2026-05-20 03:44:15  INFO      [ 589 /  621]  Thursday, 02 Apr 2026
+2026-05-20 03:44:15  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_02042026.csv
+2026-05-20 03:44:16  INFO        [SAVED]     sec_bhavdata_full_02042026.csv  (348 KB)
+2026-05-20 03:44:17  INFO      [ 590 /  621]  Friday, 03 Apr 2026
+2026-05-20 03:44:17  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_03042026.csv
+2026-05-20 03:44:18  INFO        [SAVED]     sec_bhavdata_full_03042026.csv  (348 KB)
+2026-05-20 03:44:20  INFO      [ 591 /  621]  Monday, 06 Apr 2026
+2026-05-20 03:44:20  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_06042026.csv
+2026-05-20 03:44:21  INFO        [SAVED]     sec_bhavdata_full_06042026.csv  (351 KB)
+2026-05-20 03:44:23  INFO      [ 592 /  621]  Tuesday, 07 Apr 2026
+2026-05-20 03:44:23  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_07042026.csv
+2026-05-20 03:44:23  INFO        [SAVED]     sec_bhavdata_full_07042026.csv  (349 KB)
+2026-05-20 03:44:25  INFO      [ 593 /  621]  Wednesday, 08 Apr 2026
+2026-05-20 03:44:25  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_08042026.csv
+2026-05-20 03:44:26  INFO        [SAVED]     sec_bhavdata_full_08042026.csv  (356 KB)
+2026-05-20 03:44:28  INFO      [ 594 /  621]  Thursday, 09 Apr 2026
+2026-05-20 03:44:28  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_09042026.csv
+2026-05-20 03:44:28  INFO        [SAVED]     sec_bhavdata_full_09042026.csv  (349 KB)
+2026-05-20 03:44:31  INFO      [ 595 /  621]  Friday, 10 Apr 2026
+2026-05-20 03:44:31  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_10042026.csv
+2026-05-20 03:44:32  INFO        [SAVED]     sec_bhavdata_full_10042026.csv  (351 KB)
+2026-05-20 03:44:35  INFO      [ 596 /  621]  Monday, 13 Apr 2026
+2026-05-20 03:44:35  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_13042026.csv
+2026-05-20 03:44:35  INFO        [SAVED]     sec_bhavdata_full_13042026.csv  (350 KB)
+2026-05-20 03:44:38  INFO      [ 597 /  621]  Tuesday, 14 Apr 2026
+2026-05-20 03:44:38  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_14042026.csv
+2026-05-20 03:44:38  INFO        [SAVED]     sec_bhavdata_full_14042026.csv  (350 KB)
+2026-05-20 03:44:40  INFO      [ 598 /  621]  Wednesday, 15 Apr 2026
+2026-05-20 03:44:40  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_15042026.csv
+2026-05-20 03:44:41  INFO        [SAVED]     sec_bhavdata_full_15042026.csv  (354 KB)
+2026-05-20 03:44:44  INFO      [ 599 /  621]  Thursday, 16 Apr 2026
+2026-05-20 03:44:44  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_16042026.csv
+2026-05-20 03:44:44  INFO        [SAVED]     sec_bhavdata_full_16042026.csv  (351 KB)
+2026-05-20 03:44:46  INFO      [ 600 /  621]  Friday, 17 Apr 2026
+2026-05-20 03:44:46  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_17042026.csv
+2026-05-20 03:44:46  INFO        [SAVED]     sec_bhavdata_full_17042026.csv  (353 KB)
+2026-05-20 03:44:49  INFO      ── Re-warming NSE session (request 601 / 621) ──
+2026-05-20 03:44:49  INFO      Warming up NSE session (acquiring cookies)…
+2026-05-20 03:44:49  WARNING   NSE warm-up failed (will still attempt downloads): 403 Client Error: Forbidden for url: https://www.nseindia.com/
+2026-05-20 03:44:49  INFO      [ 601 /  621]  Monday, 20 Apr 2026
+2026-05-20 03:44:49  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_20042026.csv
+2026-05-20 03:44:49  INFO        [SAVED]     sec_bhavdata_full_20042026.csv  (362 KB)
+2026-05-20 03:44:51  INFO      [ 602 /  621]  Tuesday, 21 Apr 2026
+2026-05-20 03:44:51  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_21042026.csv
+2026-05-20 03:44:51  INFO        [SAVED]     sec_bhavdata_full_21042026.csv  (361 KB)
+2026-05-20 03:44:53  INFO      [ 603 /  621]  Wednesday, 22 Apr 2026
+2026-05-20 03:44:53  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_22042026.csv
+2026-05-20 03:44:54  INFO        [SAVED]     sec_bhavdata_full_22042026.csv  (359 KB)
+2026-05-20 03:44:57  INFO      [ 604 /  621]  Thursday, 23 Apr 2026
+2026-05-20 03:44:57  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_23042026.csv
+2026-05-20 03:44:57  INFO        [SAVED]     sec_bhavdata_full_23042026.csv  (360 KB)
+2026-05-20 03:44:59  INFO      [ 605 /  621]  Friday, 24 Apr 2026
+2026-05-20 03:44:59  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_24042026.csv
+2026-05-20 03:44:59  INFO        [SAVED]     sec_bhavdata_full_24042026.csv  (359 KB)
+2026-05-20 03:45:02  INFO      [ 606 /  621]  Monday, 27 Apr 2026
+2026-05-20 03:45:02  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_27042026.csv
+2026-05-20 03:45:02  INFO        [SAVED]     sec_bhavdata_full_27042026.csv  (362 KB)
+2026-05-20 03:45:05  INFO      [ 607 /  621]  Tuesday, 28 Apr 2026
+2026-05-20 03:45:05  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_28042026.csv
+2026-05-20 03:45:05  INFO        [SAVED]     sec_bhavdata_full_28042026.csv  (358 KB)
+2026-05-20 03:45:08  INFO      [ 608 /  621]  Wednesday, 29 Apr 2026
+2026-05-20 03:45:08  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_29042026.csv
+2026-05-20 03:45:08  INFO        [SAVED]     sec_bhavdata_full_29042026.csv  (358 KB)
+2026-05-20 03:45:11  INFO      [ 609 /  621]  Thursday, 30 Apr 2026
+2026-05-20 03:45:11  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_30042026.csv
+2026-05-20 03:45:12  INFO        [SAVED]     sec_bhavdata_full_30042026.csv  (356 KB)
+2026-05-20 03:45:14  INFO      [ 610 /  621]  Friday, 01 May 2026
+2026-05-20 03:45:14  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_01052026.csv
+2026-05-20 03:45:14  INFO        [SAVED]     sec_bhavdata_full_01052026.csv  (356 KB)
+2026-05-20 03:45:16  INFO      [ 611 /  621]  Monday, 04 May 2026
+2026-05-20 03:45:16  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_04052026.csv
+2026-05-20 03:45:17  INFO        [SAVED]     sec_bhavdata_full_04052026.csv  (362 KB)
+2026-05-20 03:45:19  INFO      [ 612 /  621]  Tuesday, 05 May 2026
+2026-05-20 03:45:19  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_05052026.csv
+2026-05-20 03:45:19  INFO        [SAVED]     sec_bhavdata_full_05052026.csv  (360 KB)
+2026-05-20 03:45:22  INFO      [ 613 /  621]  Wednesday, 06 May 2026
+2026-05-20 03:45:22  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_06052026.csv
+2026-05-20 03:45:23  INFO        [SAVED]     sec_bhavdata_full_06052026.csv  (359 KB)
+2026-05-20 03:45:25  INFO      [ 614 /  621]  Thursday, 07 May 2026
+2026-05-20 03:45:25  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_07052026.csv
+2026-05-20 03:45:25  INFO        [SAVED]     sec_bhavdata_full_07052026.csv  (361 KB)
+2026-05-20 03:45:27  INFO      [ 615 /  621]  Friday, 08 May 2026
+2026-05-20 03:45:27  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_08052026.csv
+2026-05-20 03:45:27  INFO        [SAVED]     sec_bhavdata_full_08052026.csv  (359 KB)
+2026-05-20 03:45:29  INFO      [ 616 /  621]  Monday, 11 May 2026
+2026-05-20 03:45:29  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_11052026.csv
+2026-05-20 03:45:30  INFO        [SAVED]     sec_bhavdata_full_11052026.csv  (362 KB)
+2026-05-20 03:45:33  INFO      [ 617 /  621]  Tuesday, 12 May 2026
+2026-05-20 03:45:33  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_12052026.csv
+2026-05-20 03:45:34  INFO        [SAVED]     sec_bhavdata_full_12052026.csv  (359 KB)
+2026-05-20 03:45:35  INFO      [ 618 /  621]  Wednesday, 13 May 2026
+2026-05-20 03:45:35  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_13052026.csv
+2026-05-20 03:45:36  INFO        [SAVED]     sec_bhavdata_full_13052026.csv  (358 KB)
+2026-05-20 03:45:38  INFO      [ 619 /  621]  Thursday, 14 May 2026
+2026-05-20 03:45:38  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_14052026.csv
+2026-05-20 03:45:38  INFO        [SAVED]     sec_bhavdata_full_14052026.csv  (357 KB)
+2026-05-20 03:45:41  INFO      [ 620 /  621]  Friday, 15 May 2026
+2026-05-20 03:45:41  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_15052026.csv
+2026-05-20 03:45:41  INFO        [SAVED]     sec_bhavdata_full_15052026.csv  (357 KB)
+2026-05-20 03:45:44  INFO      [ 621 /  621]  Monday, 18 May 2026
+2026-05-20 03:45:44  INFO        [FETCH]     https://archives.nseindia.com/products/content/sec_bhavdata_full_18052026.csv
+2026-05-20 03:45:44  INFO        [SAVED]     sec_bhavdata_full_18052026.csv  (361 KB)
+2026-05-20 03:45:46  INFO      
+============================================================
+2026-05-20 03:45:46  INFO      DOWNLOAD COMPLETE
+2026-05-20 03:45:46  INFO        ✅  Downloaded : 610
+2026-05-20 03:45:46  INFO        ⏭️  Skipped    : 0
+2026-05-20 03:45:46  INFO        📅  Holidays   : 11
+2026-05-20 03:45:46  INFO        ❌  Errors     : 0
+2026-05-20 03:45:46  INFO      ============================================================
