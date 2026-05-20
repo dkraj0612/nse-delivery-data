@@ -5,7 +5,7 @@ dual_engine_backtest.py
 2. Cleans dirty NSE CSV headers and merges with sector map.
 3. Corporate Action Filter: Detects and excludes stock splits.
 4. Allocates 50% capital to Top Sectors, 50% to Lone Wolves.
-5. Logs all month-on-month Entries, Holds, and Exits to a Master CSV and HTML page.
+5. Logs all trades to a CSV and a structured, searchable HTML Data Table.
 6. Uses Gemini AI to audit the final portfolio and generate an HTML dashboard.
 """
 import os
@@ -71,12 +71,10 @@ def load_data(folder_path, sector_map_path):
 def run_dual_engine_backtest(df, regime_df):
     print("Calculating Metrics & Simulating Dual-Engine Portfolio...")
     
-    # Corporate Action Filter
     df['DAILY_RET'] = df.groupby('SYMBOL')['CLOSE_PRICE'].pct_change()
     df['IS_CORPORATE_ACTION'] = (df['DAILY_RET'] < -0.25) | (df['DAILY_RET'] > 0.50)
     df['RECENT_SPLIT'] = df.groupby('SYMBOL')['IS_CORPORATE_ACTION'].transform(lambda x: x.rolling(252).max())
     
-    # Momentum & Metrics
     df['12M_RET'] = df.groupby('SYMBOL')['CLOSE_PRICE'].pct_change(252)
     df['6M_RET']  = df.groupby('SYMBOL')['CLOSE_PRICE'].pct_change(126)
     df['PRICE_MOMENTUM'] = (df['12M_RET'] + df['6M_RET']) / 2
@@ -119,7 +117,6 @@ def run_dual_engine_backtest(df, regime_df):
         regime_status = candidates['REGIME_GREEN'].iloc[0] if not candidates.empty else False
         
         if not regime_status:
-            # BEAR MARKET - FORCE LIQUIDATION
             if not prev_portfolio_df.empty:
                 for _, row in prev_portfolio_df.iterrows():
                     history_records.append({
@@ -127,14 +124,13 @@ def run_dual_engine_backtest(df, regime_df):
                         'SYMBOL': row['SYMBOL'],
                         'ACTION': 'EXIT',
                         'ENGINE': row.get('SOURCE_ENGINE', 'Unknown'),
-                        'PRICE': row['CLOSE_PRICE'],
+                        'PRICE': f"₹{row['CLOSE_PRICE']:.2f}",
                         'JUSTIFICATION': 'Systemic Crash: Nifty 50 dropped below 200-day EMA.'
                     })
             prev_portfolio_df = pd.DataFrame()
             monthly_records.append({'DATE': current_date, 'NET_RETURN': 0.004, 'REGIME': 'BEAR (CASH)'})
             continue
 
-        # BULL MARKET - ALLOCATE
         sector_mom = candidates.groupby('SECTOR')['PRICE_MOMENTUM'].mean().reset_index()
         top_3_sectors = sector_mom.sort_values(by='PRICE_MOMENTUM', ascending=False).head(3)['SECTOR'].tolist()
         
@@ -151,10 +147,9 @@ def run_dual_engine_backtest(df, regime_df):
         current_symbols = set(final_portfolio['SYMBOL'])
         prev_symbols = set(prev_portfolio_df['SYMBOL']) if not prev_portfolio_df.empty else set()
         
-        # Log Exits
         exits = prev_symbols - current_symbols
         for sym in exits:
-            justification = "Rank Decay: Momentum dropped below top 10 threshold." if sym in candidates['SYMBOL'].values else "Filter Failure: Lost momentum, liquidity, or split detected."
+            justification = "Rank Decay: Momentum dropped below top 10." if sym in candidates['SYMBOL'].values else "Filter Failure: Lost momentum, liquidity, or split detected."
             history_records.append({
                 'DATE': current_date.strftime('%Y-%m-%d'),
                 'SYMBOL': sym,
@@ -164,18 +159,17 @@ def run_dual_engine_backtest(df, regime_df):
                 'JUSTIFICATION': justification
             })
             
-        # Log Entries and Holds
         for _, row in final_portfolio.iterrows():
             sym = row['SYMBOL']
             action = 'HOLD' if sym in prev_symbols else 'ENTRY'
-            justification = f"Top Breakout Picked by {row['SOURCE_ENGINE']}" if action == 'ENTRY' else "Maintained Top 10 Momentum Rank"
+            justification = f"Top Breakout Picked by {row['SOURCE_ENGINE']}" if action == 'ENTRY' else "Maintained Top 10 Rank"
             
             history_records.append({
                 'DATE': current_date.strftime('%Y-%m-%d'),
                 'SYMBOL': sym,
                 'ACTION': action,
                 'ENGINE': row['SOURCE_ENGINE'],
-                'PRICE': row['CLOSE_PRICE'],
+                'PRICE': f"₹{row['CLOSE_PRICE']:.2f}",
                 'JUSTIFICATION': justification
             })
             
@@ -186,37 +180,68 @@ def run_dual_engine_backtest(df, regime_df):
             net_monthly_return = avg_raw_return - 0.002
             monthly_records.append({'DATE': current_date, 'NET_RETURN': net_monthly_return, 'REGIME': 'BULL (EQUITY)'})
 
-    # Save the Ledger to CSV and HTML
+    # Save to CSV and generate STRUCTURED HTML Table
     if history_records:
         history_df = pd.DataFrame(history_records)
         history_df.to_csv("backtest_portfolio_history.csv", index=False)
-        print("✅ Master Portfolio History saved to 'backtest_portfolio_history.csv'")
         
-        # Auto-generate a sleek HTML page for the history
-        html_table = history_df.to_html(index=False, border=0)
+        # We tell Pandas to assign an ID so Javascript can control it
+        html_table = history_df.to_html(index=False, border=0, table_id="historyTable", classes="display")
+        
         history_html = f"""
         <!DOCTYPE html>
         <html>
         <head>
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Quant Fund - Backtest Ledger</title>
+            <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
             <style>
-                body {{ background-color: #121212; color: #e0e0e0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 20px; }}
-                h2 {{ color: #ffffff; }}
+                body {{ background-color: #121212; color: #e0e0e0; font-family: -apple-system, sans-serif; padding: 20px; }}
+                h2 {{ color: #ffffff; margin-bottom: 20px; }}
                 .btn {{ display: inline-block; padding: 10px 15px; background-color: #333; color: #fff; text-decoration: none; border-radius: 5px; margin-bottom: 20px; }}
-                table {{ width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 10px; }}
-                th, td {{ padding: 12px; border-bottom: 1px solid #333; text-align: left; }}
-                th {{ background-color: #1e1e1e; color: #bb86fc; position: sticky; top: 0; }}
-                tr:hover {{ background-color: #1a1a1a; }}
+                
+                /* Dark Mode fixes for the table */
+                .dataTables_wrapper {{ background: #1e1e1e; padding: 15px; border-radius: 8px; }}
+                table.dataTable tbody tr {{ background-color: #1e1e1e; color: #e0e0e0; }}
+                table.dataTable tbody tr:hover {{ background-color: #2a2a2a; }}
+                table.dataTable thead th {{ border-bottom: 1px solid #444; color: #bb86fc; }}
+                .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_paginate {{ color: #e0e0e0 !important; margin-bottom: 15px; }}
+                .dataTables_wrapper input, .dataTables_wrapper select {{ background-color: #333; color: #fff; border: 1px solid #555; border-radius: 4px; padding: 4px; }}
+                
+                /* Color Badges for Actions */
+                .badge-entry {{ background-color: #2e7d32; color: white; padding: 5px 10px; border-radius: 4px; font-weight: bold; font-size: 12px; }}
+                .badge-exit {{ background-color: #c62828; color: white; padding: 5px 10px; border-radius: 4px; font-weight: bold; font-size: 12px; }}
+                .badge-hold {{ background-color: #555555; color: white; padding: 5px 10px; border-radius: 4px; font-weight: bold; font-size: 12px; }}
             </style>
         </head>
         <body>
             <a href="index.html" class="btn">⬅ Back to Live Dashboard</a>
             <a href="backtest_portfolio_history.csv" class="btn" style="background-color: #1e88e5;">⬇️ Download Raw CSV</a>
             <h2>Master Backtest Ledger</h2>
-            <div style="overflow-x:auto;">
-                {html_table}
-            </div>
+            
+            {html_table}
+
+            <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+            <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+            <script>
+                $(document).ready(function() {{
+                    $('#historyTable').DataTable({{
+                        "pageLength": 50,
+                        "order": [[ 0, "desc" ]], // Auto-sort Date by Newest First
+                        "createdRow": function(row, data, dataIndex) {{
+                            // Apply Color Badges to the Action column (Index 2)
+                            var action = data[2]; 
+                            if (action === 'ENTRY') {{
+                                $('td:eq(2)', row).html('<span class="badge-entry">ENTRY</span>');
+                            }} else if (action === 'EXIT') {{
+                                $('td:eq(2)', row).html('<span class="badge-exit">EXIT</span>');
+                            }} else if (action === 'HOLD') {{
+                                $('td:eq(2)', row).html('<span class="badge-hold">HOLD</span>');
+                            }}
+                        }}
+                    }});
+                }});
+            </script>
         </body>
         </html>
         """
@@ -301,16 +326,14 @@ def audit_portfolio_with_gemini(valid_pool):
         
         text_output = response.text
         
-        html_match = re.search(r"""
-```html\s*(.*?)\s*```""", text_output, re.DOTALL)
+        html_match = re.search(r"""```html\s*(.*?)\s*```""", text_output, re.DOTALL)
         if html_match:
             html_content = html_match.group(1)
             with open("portfolio_dashboard.html", "w", encoding="utf-8") as f:
                 f.write(html_content)
             print("✅ HTML Dashboard successfully generated and saved as 'portfolio_dashboard.html'")
             
-            text_output = re.sub(r"""```html\s*(.*?)\s*
-```""", '\n[HTML Saved to File]', text_output, flags=re.DOTALL)
+            text_output = re.sub(r"""```html\s*(.*?)\s*```""", '\n[HTML Saved to File]', text_output, flags=re.DOTALL)
             
         print("\n" + text_output)
         
