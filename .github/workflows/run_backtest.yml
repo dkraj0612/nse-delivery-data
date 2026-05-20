@@ -23,5 +23,6 @@ jobs:
 
     - name: Run Multi-Year Simulation & Gemini Audit
       env:
-        GEMINI_API_KEY: AIzaSyDUWGKRG3CftWdkhJXKEKyDlCrQi73Y8lY
+        # CORRECT WAY: This pulls it securely from GitHub's hidden memory vault
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       run: python backtest_pipeline.py
