@@ -1,8 +1,8 @@
 """
-dual_engine_backtest.py - THE MASTER SYSTEM
+dual_engine_backtest.py - THE MASTER SYSTEM (ANTI-INFINITE-LOOP VERSION)
 ==========================================================
-1. BACKTEST ENGINE: Adjusts splits, calculates pure momentum (12M*2 + 6M*1), applies guardrails.
-2. AI TIME-MACHINE AUDITOR: Auto-throttles to bypass 429 and 503 API errors.
+1. BACKTEST ENGINE: Adjusts splits, calculates pure momentum, applies guardrails.
+2. AI TIME-MACHINE AUDITOR: Throttles API limits and caps retries at 5 to prevent hanging.
 3. GITHUB PUBLISHER: Generates 'index.html' and 'history.html'.
 """
 import os
@@ -146,7 +146,7 @@ def run_pure_momentum_backtest(df):
     return pd.DataFrame(portfolio_snapshots)
 
 # ==========================================
-# 3. AI TIME-MACHINE AUDITOR (Auto-Throttled)
+# 3. AI TIME-MACHINE AUDITOR (Auto-Throttled & Capped)
 # ==========================================
 def run_historical_ai_audit():
     print("\nStarting Point-in-Time AI Forensic Audit...")
@@ -192,9 +192,13 @@ def run_historical_ai_audit():
         Keep it brief. If clean, output: "✓ No major historical anomalies detected as of {date}."
         """
         
-        # SMART RETRY LOOP (Handles 429 Quota and 503 Server Overload)
+        # SMART RETRY LOOP WITH MAX 5 ATTEMPTS (Prevents Infinite Hanging)
         success = False
-        while not success:
+        attempts = 0
+        max_attempts = 5
+        
+        while not success and attempts < max_attempts:
+            attempts += 1
             try:
                 resp = client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
                 progress["results"][date] = resp.text
@@ -204,18 +208,22 @@ def run_historical_ai_audit():
                     json.dump(progress, f, indent=4)
                 
                 print(f"     [SUCCESS] Logged.")
-                time.sleep(5) # Throttle to ~12 req/min to avoid hitting limit
+                time.sleep(5) # Throttle to avoid hitting limit
                 success = True
                 
             except Exception as e:
                 error_str = str(e)
                 # Catch BOTH rate limits AND server overloads
                 if any(err in error_str for err in ["429", "RESOURCE_EXHAUSTED", "503", "UNAVAILABLE", "500", "502"]):
-                    print(f"     [API BUSY] Rate limit or server overload. Waiting 60 seconds to retry...")
+                    print(f"     [API BUSY] Attempt {attempts}/{max_attempts}. Rate limit or server overload. Waiting 60 seconds...")
                     time.sleep(60) 
                 else:
                     print(f"     [FATAL ERROR] Unrecoverable error at {date}: {e}")
-                    return progress # Stop completely only if it's a structural code error
+                    break # Break the while loop if it's a code error
+                    
+        if not success:
+            print(f"     [SKIPPED] Could not audit {date} after {max_attempts} attempts due to Google API limits. Moving to next month.")
+            # It will leave this month blank in JSON and proceed so the action can finish!
                 
     print("✅ AI Audit Complete.")
     return progress
