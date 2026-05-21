@@ -1,8 +1,8 @@
 """
-dual_engine_backtest.py - ORIGINAL REAL-TIME LOOP
+dual_engine_backtest.py - REAL-TIME LOOP WITH STRICT NETWORK CUTOFF
 ==========================================================
-Constructs the portfolio and IMMEDIATELY triggers the AI audit 
-for that specific date before moving to the next month.
+Constructs the portfolio, triggers the AI audit, and cuts off
+the API connection if it hangs for more than 30 seconds.
 """
 import os
 import glob
@@ -10,6 +10,7 @@ import json
 import time
 import pandas as pd
 import numpy as np
+import concurrent.futures
 from google import genai
 
 # ==========================================
@@ -43,7 +44,6 @@ def load_and_adjust_data(folder_path, sector_map_path):
     master_df = master_df.dropna(subset=['DATE', 'CLOSE_PRICE'])
     master_df = master_df.drop_duplicates(subset=['SYMBOL', 'DATE']).sort_values(['SYMBOL', 'DATE'])
     
-    # Split/Bonus Adjustments
     master_df['PCT_CHG'] = master_df.groupby('SYMBOL')['CLOSE_PRICE'].pct_change()
     adjusted_dfs = []
     for sym, group in master_df.groupby('SYMBOL'):
@@ -65,7 +65,6 @@ def load_and_adjust_data(folder_path, sector_map_path):
 def run_realtime_construction_and_audit(df):
     print("Initializing Unified Backtest and Real-Time AI Agent...")
     
-    # Prepare API Client and load existing progress so we don't re-audit past months
     api_key = os.environ.get("GEMINI_API_KEY")
     client = genai.Client() if api_key else None
     
@@ -76,7 +75,6 @@ def run_realtime_construction_and_audit(df):
     else:
         audit_progress = {"results": {}}
 
-    # Momentum Calculations
     df['P_1M'] = df.groupby('SYMBOL')['CLOSE_PRICE'].shift(21)
     df['P_7M'] = df.groupby('SYMBOL')['CLOSE_PRICE'].shift(147) 
     df['P_13M'] = df.groupby('SYMBOL')['CLOSE_PRICE'].shift(273) 
@@ -104,9 +102,6 @@ def run_realtime_construction_and_audit(df):
     entry_prices = {}
     entry_dates = {}
     
-    # ---------------------------------------------------------
-    # MAIN LOOP: Construct -> Audit -> Save -> Next Month
-    # ---------------------------------------------------------
     for current_date in dates:
         curr_date_str = current_date.strftime('%Y-%m-%d')
         day_data = rebalance_df[rebalance_df['DATE'] == current_date]
@@ -116,7 +111,6 @@ def run_realtime_construction_and_audit(df):
         candidates = valid_pool[valid_pool['DATE'] == current_date].copy()
         prev_symbols = set(prev_portfolio_df['SYMBOL']) if not prev_portfolio_df.empty else set()
         
-        # Guardrail failure logic
         if candidates.empty:
             for sym in prev_symbols:
                 portfolio_snapshots.append({
@@ -160,12 +154,11 @@ def run_realtime_construction_and_audit(df):
         prev_portfolio_df = final_portfolio.copy()
 
         # ========================================================
-        # REAL-TIME AI AUDIT (Triggers instantly after construction)
+        # REAL-TIME AI AUDIT WITH STRICT 30-SECOND CUTOFF
         # ========================================================
         if client and curr_date_str not in audit_progress["results"] and current_month_holdings:
             print(f"[{curr_date_str}] Portfolio Constructed. Triggering Point-in-Time AI Audit...")
             
-            # Convert just this month's holdings into a DataFrame for the prompt
             audit_df = pd.DataFrame(current_month_holdings)[['SYMBOL', 'SECTOR', 'PRICE', 'ENTRY_DATE']]
             
             prompt = f"""
@@ -181,13 +174,16 @@ def run_realtime_construction_and_audit(df):
             Keep it brief. If clean, output: "✓ No major historical anomalies detected as of {curr_date_str}."
             """
             
-            # API Retry logic to survive limits
             success = False
             attempts = 0
             while not success and attempts < 5:
                 attempts += 1
                 try:
-                    resp = client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
+                    # Enforce a strict 30-second timeout to prevent silent network hangs
+                    with concurrent.futures.ThreadPoolExecutor() as executor:
+                        future = executor.submit(client.models.generate_content, model='gemini-2.5-flash', contents=prompt)
+                        resp = future.result(timeout=30) 
+                        
                     audit_progress["results"][curr_date_str] = resp.text
                     
                     with open(progress_file, "w") as f:
@@ -198,9 +194,12 @@ def run_realtime_construction_and_audit(df):
                     time.sleep(5) 
                     success = True
                     
+                except concurrent.futures.TimeoutError:
+                    print(f"  -> [NETWORK TIMEOUT] Google API silently hung. Attempt {attempts}/5. Retrying...")
+                    time.sleep(10)
                 except Exception as e:
                     error_str = str(e)
-                    if any(err in error_str for err in ["429", "RESOURCE_EXHAUSTED", "503", "UNAVAILABLE"]):
+                    if any(err in error_str for err in ["429", "RESOURCE_EXHAUSTED", "503", "UNAVAILABLE", "500", "502"]):
                         print(f"  -> [API BUSY] Attempt {attempts}/5. Waiting 60 seconds...")
                         time.sleep(60) 
                     else:
@@ -285,7 +284,6 @@ if __name__ == "__main__":
     
     try:
         raw_df = load_and_adjust_data(DATA_PATH, SECTOR_MAP)
-        # This function now does the math AND the AI audit together in the same loop
         audit_state = run_realtime_construction_and_audit(raw_df)
         generate_dashboards(audit_state)
         
