@@ -1,14 +1,13 @@
 """
-dual_engine_backtest.py
-=======================
-1. Fetches Nifty 50. Uses 5-Day SMA vs 200-Day EMA Circuit Breaker.
-2. Cleans dirty NSE CSV headers and merges with sector map.
-3. Corporate Action Filter: Detects and excludes stock splits.
-4. Allocates 50% capital to Top Sectors, 50% to Lone Wolves.
-5. Scores based PURELY on Price Momentum.
-6. Institutional Buffer Rank Rebalancing.
-7. Logs detailed Trade Ledger (Entry/Hold/Exit, CUMULATIVE PnL, Entry/Exit Dates) to HTML.
-8. FIXED: Enhanced AI Prompt to generate a beautiful, dark-mode HTML dashboard.
+dual_engine_backtest.py (PURE SINGLE ENGINE + TECHNICAL GUARDRAILS + POINT-IN-TIME AI AUDIT)
+==========================================================================================
+1. Cleans dirty NSE CSV headers and merges with sector map.
+2. Corporate Action Filter: Detects and excludes stock splits.
+3. RAW MOMENTUM: (12M Return * 2) + (6M Return * 1) [1-Month Skip preserved]
+4. SINGLE ENGINE: Top 20 absolute momentum stocks across the entire market.
+5. NEW GUARDRAILS: > 51 EMA, Within 20% of 52W High, > 10Cr Avg Turnover.
+6. Logs detailed Trade Ledger to HTML.
+7. AI FORENSIC AUDIT: Strict point-in-time analysis based ONLY on entry dates.
 """
 import os
 import glob
@@ -17,23 +16,7 @@ import time
 import json
 import pandas as pd
 import numpy as np
-import yfinance as yf
 from google import genai
-
-def fetch_nifty_regime():
-    print("Fetching Nifty 50 index data for Circuit Breaker...")
-    nifty = yf.download('^NSEI', period='5y', progress=False)
-    
-    if isinstance(nifty.columns, pd.MultiIndex):
-        nifty.columns = nifty.columns.get_level_values(0)
-        
-    nifty['NIFTY_EMA_200'] = nifty['Close'].ewm(span=200, adjust=False).mean()
-    nifty['NIFTY_5D_SMA'] = nifty['Close'].rolling(window=5).mean()
-    nifty['REGIME_GREEN'] = nifty['NIFTY_5D_SMA'] >= nifty['NIFTY_EMA_200']
-    
-    nifty = nifty.reset_index()
-    nifty['DATE'] = pd.to_datetime(nifty['Date']).dt.tz_localize(None)
-    return nifty[['DATE', 'REGIME_GREEN']]
 
 def load_data(folder_path, sector_map_path):
     print("Loading Bhav Copy and Sector Mapping...")
@@ -75,20 +58,25 @@ def load_data(folder_path, sector_map_path):
     master_df = pd.merge(master_df, sector_map, on='SYMBOL', how='left')
     return master_df.sort_values(by=['SYMBOL', 'DATE']).reset_index(drop=True)
 
-def run_dual_engine_backtest(df, regime_df):
-    print("Calculating Metrics & Simulating Dual-Engine Portfolio...")
+def run_pure_momentum_backtest(df):
+    print("Calculating Metrics & Simulating Pure Single-Engine Portfolio...")
     
     df['DAILY_RET'] = df.groupby('SYMBOL')['CLOSE_PRICE'].pct_change()
     df['IS_CORPORATE_ACTION'] = (df['DAILY_RET'] < -0.25) | (df['DAILY_RET'] > 0.50)
-    df['RECENT_SPLIT'] = df.groupby('SYMBOL')['IS_CORPORATE_ACTION'].transform(lambda x: x.rolling(252).max())
+    df['RECENT_SPLIT'] = df.groupby('SYMBOL')['IS_CORPORATE_ACTION'].transform(lambda x: x.rolling(126).max())
     
-    df['12M_RET'] = df.groupby('SYMBOL')['CLOSE_PRICE'].pct_change(252)
-    df['6M_RET']  = df.groupby('SYMBOL')['CLOSE_PRICE'].pct_change(126)
-    df['PRICE_MOMENTUM'] = (df['12M_RET'] + df['6M_RET']) / 2
+    df['PRICE_1M_AGO'] = df.groupby('SYMBOL')['CLOSE_PRICE'].shift(21)
+    df['PRICE_7M_AGO'] = df.groupby('SYMBOL')['CLOSE_PRICE'].shift(147) 
+    df['PRICE_13M_AGO'] = df.groupby('SYMBOL')['CLOSE_PRICE'].shift(273) 
     
-    df['AVG_TURNOVER'] = df.groupby('SYMBOL')['TURNOVER_LACS'].transform(lambda x: x.rolling(20).mean())
-    df['DELIV_PER_20MA'] = df.groupby('SYMBOL')['DELIV_PER'].transform(lambda x: x.rolling(20).mean())
+    df['12M_RET'] = (df['PRICE_1M_AGO'] - df['PRICE_13M_AGO']) / df['PRICE_13M_AGO']
+    df['6M_RET']  = (df['PRICE_1M_AGO'] - df['PRICE_7M_AGO']) / df['PRICE_7M_AGO']
+    
+    df['PRICE_MOMENTUM'] = (df['12M_RET'] * 2) + df['6M_RET']
+    
+    df['EMA_51'] = df.groupby('SYMBOL')['CLOSE_PRICE'].transform(lambda x: x.ewm(span=51, adjust=False).mean())
     df['52W_HIGH'] = df.groupby('SYMBOL')['CLOSE_PRICE'].transform(lambda x: x.rolling(252).max())
+    df['AVG_TURNOVER'] = df.groupby('SYMBOL')['TURNOVER_LACS'].transform(lambda x: x.rolling(20).mean())
     
     df['YEAR_MONTH'] = df['DATE'].dt.to_period('M')
     month_ends = df.groupby('YEAR_MONTH')['DATE'].max().reset_index()
@@ -99,14 +87,10 @@ def run_dual_engine_backtest(df, regime_df):
     
     rebalance_df['MASTER_SCORE'] = rebalance_df['PRICE_MOMENTUM'] * 100
     
-    rebalance_df = pd.merge(rebalance_df, regime_df, on='DATE', how='left')
-    rebalance_df['REGIME_GREEN'] = rebalance_df['REGIME_GREEN'].fillna(True)
-    
     valid_pool = rebalance_df[
-        (rebalance_df['CLOSE_PRICE'] >= 50.0) & 
+        (rebalance_df['CLOSE_PRICE'] >= rebalance_df['EMA_51']) & 
+        (rebalance_df['CLOSE_PRICE'] >= (rebalance_df['52W_HIGH'] * 0.80)) & 
         (rebalance_df['AVG_TURNOVER'] >= 1000.0) & 
-        (rebalance_df['DELIV_PER_20MA'] >= 30.0) & 
-        (rebalance_df['CLOSE_PRICE'] >= (rebalance_df['52W_HIGH'] * 0.70)) & 
         (rebalance_df['MASTER_SCORE'].notna()) &
         (rebalance_df['RECENT_SPLIT'] == 0) & 
         (rebalance_df['SECTOR'].notna()) 
@@ -128,18 +112,15 @@ def run_dual_engine_backtest(df, regime_df):
         if day_data_full.empty: continue
             
         day_prices = day_data_full.set_index('SYMBOL')['CLOSE_PRICE'].to_dict()
-        regime_status = day_data_full['REGIME_GREEN'].iloc[0]
         candidates = valid_pool[valid_pool['DATE'] == current_date].copy()
         
         prev_symbols = set(prev_portfolio_df['SYMBOL']) if not prev_portfolio_df.empty else set()
         
-        if not regime_status or candidates.empty:
-            justification = "Systematic Market Crash (1W SMA < 200 EMA)" if not regime_status else "No Stocks Passed Filter"
+        if candidates.empty:
             for sym in prev_symbols:
                 entry_price = entry_prices.get(sym, 0)
                 sym_entry_date = entry_dates.get(sym, "Unknown")
                 curr_price = day_prices.get(sym)
-                
                 if curr_price is not None and entry_price > 0:
                     pnl_str = f"{((curr_price / entry_price) - 1)*100:+.2f}%"
                     curr_price_str = f"₹{curr_price:.2f}"
@@ -154,11 +135,10 @@ def run_dual_engine_backtest(df, regime_df):
                     'ACTION': 'EXIT',
                     'PRICE': curr_price_str,
                     'PNL': pnl_str,
-                    'JUSTIFICATION': justification,
+                    'JUSTIFICATION': "Failed EMA51 / 52W High / Liquidity Rules",
                     'ENTRY_DATE': sym_entry_date,
                     'EXIT_DATE': curr_date_str
                 })
-                
             entry_prices.clear()
             entry_dates.clear()
             crash_return = -0.01 if prev_symbols else 0.004
@@ -166,21 +146,12 @@ def run_dual_engine_backtest(df, regime_df):
             prev_portfolio_df = pd.DataFrame() 
             continue
 
-        sector_mom = candidates.groupby('SECTOR')['PRICE_MOMENTUM'].mean().reset_index()
-        top_3_sectors = sector_mom.sort_values(by='PRICE_MOMENTUM', ascending=False).head(3)['SECTOR'].tolist()
+        candidates = candidates.sort_values(by='MASTER_SCORE', ascending=False)
+        top_40 = candidates.head(40).copy()
+        held_stocks = top_40[top_40['SYMBOL'].isin(prev_symbols)]
+        new_stocks = top_40[~top_40['SYMBOL'].isin(prev_symbols)]
         
-        engine_a_candidates = candidates[candidates['SECTOR'].isin(top_3_sectors)].sort_values(by='MASTER_SCORE', ascending=False)
-        engine_a_candidates = engine_a_candidates.groupby('SECTOR').head(3).reset_index(drop=True)
-        top_15_a = engine_a_candidates.head(15).copy()
-        engine_a = pd.concat([top_15_a[top_15_a['SYMBOL'].isin(prev_symbols)], top_15_a[~top_15_a['SYMBOL'].isin(prev_symbols)]]).head(10).copy()
-        engine_a['SOURCE_ENGINE'] = 'Engine A'
-        
-        engine_b_candidates = candidates[~candidates['SYMBOL'].isin(engine_a['SYMBOL'])].sort_values(by='MASTER_SCORE', ascending=False)
-        top_20_b = engine_b_candidates.head(20).copy()
-        engine_b = pd.concat([top_20_b[top_20_b['SYMBOL'].isin(prev_symbols)], top_20_b[~top_20_b['SYMBOL'].isin(prev_symbols)]]).head(10).copy()
-        engine_b['SOURCE_ENGINE'] = 'Engine B'
-        
-        final_portfolio = pd.concat([engine_a, engine_b])
+        final_portfolio = pd.concat([held_stocks, new_stocks]).head(20).copy()
         current_symbols = set(final_portfolio['SYMBOL'])
         
         exits = prev_symbols - current_symbols
@@ -197,7 +168,8 @@ def run_dual_engine_backtest(df, regime_df):
                 pnl_str = "-"
                 curr_price_str = "N/A"
                 
-            justification = "Fell below Buffer Rank" if sym in candidates['SYMBOL'].values else "Failed Liquidity/Delivery/Price Filter"
+            justification = "Fell below Top 40 Buffer Rank" if sym in candidates['SYMBOL'].values else "Failed EMA51 / 52W High / Liquidity Rules"
+            
             portfolio_snapshots.append({
                 'DATE': curr_date_str,
                 'SYMBOL': sym,
@@ -215,20 +187,21 @@ def run_dual_engine_backtest(df, regime_df):
         for _, row in final_portfolio.iterrows():
             sym = row['SYMBOL']
             curr_price = row['CLOSE_PRICE']
+            score = row['MASTER_SCORE']
             
             if sym in prev_symbols:
                 action = 'HOLD'
                 entry_price = entry_prices.get(sym, curr_price)
                 sym_entry_date = entry_dates.get(sym, curr_date_str)
                 pnl_str = f"{((curr_price / entry_price) - 1)*100:+.2f}%" if entry_price > 0 else "-"
-                justification = "Maintained Buffer Rank"
+                justification = "Maintained Top 40 Buffer"
             else:
                 action = 'ENTRY'
                 entry_prices[sym] = curr_price
                 entry_dates[sym] = curr_date_str
                 sym_entry_date = curr_date_str
                 pnl_str = "NEW"
-                justification = f"Top Breakout ({row['SOURCE_ENGINE']})"
+                justification = "Top 20 Absolute Breakout"
                 
             portfolio_snapshots.append({
                 'DATE': curr_date_str,
@@ -236,6 +209,7 @@ def run_dual_engine_backtest(df, regime_df):
                 'SECTOR': row['SECTOR'],
                 'ACTION': action,
                 'PRICE': f"₹{curr_price:.2f}",
+                'SCORE': f"{score:.1f}",
                 'PNL': pnl_str,
                 'JUSTIFICATION': justification,
                 'ENTRY_DATE': sym_entry_date,
@@ -248,7 +222,7 @@ def run_dual_engine_backtest(df, regime_df):
             avg_raw_return = clean_returns.mean() if not clean_returns.empty else 0
             
             churn_ratio = len(entries) / max(1, len(current_symbols))
-            transaction_drag = churn_ratio * 0.01 
+            transaction_drag = churn_ratio * 0.005 
             
             net_monthly_return = avg_raw_return - transaction_drag
             monthly_records.append({'DATE': current_date, 'NET_RETURN': net_monthly_return, 'REGIME': 'BULL (EQUITY)'})
@@ -278,7 +252,7 @@ def run_dual_engine_backtest(df, regime_df):
         win_rate = (perf_df[perf_df['NET_RETURN'] > 0].shape[0] / total_months) * 100
         
         print("\n" + "="*50)
-        print("🚀 FINAL STRATEGY SUMMARY")
+        print("🚀 TECHNICAL SINGLE-ENGINE SUMMARY")
         print("="*50)
         print(f"Total Return        : {total_return:.2f}%")
         print(f"Realized CAGR       : {cagr:.2f}%")
@@ -461,10 +435,6 @@ def run_dual_engine_backtest(df, regime_df):
                         `;
                         tbody.appendChild(tr);
                     }});
-                }} else {{
-                    let tr = document.createElement('tr');
-                    tr.innerHTML = `<td colspan="4" style="text-align:center; color:#ff5252; padding: 20px; font-weight:bold;">100% CASH REGIME</td>`;
-                    tbody.appendChild(tr);
                 }}
             }}
             
@@ -484,9 +454,9 @@ def run_dual_engine_backtest(df, regime_df):
     with open("history.html", "w", encoding="utf-8") as f:
         f.write(history_html)
         
-    return valid_pool 
+    return portfolio_snapshots # Passing ALL snapshots to AI so it knows exact entry dates
 
-def audit_portfolio_with_gemini(valid_pool):
+def audit_portfolio_with_gemini(all_snapshots):
     fallback_html = """
     <!DOCTYPE html><html><head><title>Dashboard</title>
     <style>body{background:#121212; color:#fff; font-family:sans-serif; text-align:center; padding:50px;} 
@@ -498,25 +468,17 @@ def audit_portfolio_with_gemini(valid_pool):
     </body></html>
     """
     
-    if valid_pool.empty:
+    if not all_snapshots:
         print("No valid portfolio data generated to audit.")
         with open("portfolio_dashboard.html", "w", encoding="utf-8") as f:
             f.write(fallback_html)
         return
 
-    latest_date = valid_pool['DATE'].max()
-    month_data = valid_pool[valid_pool['DATE'] == latest_date].copy()
+    df_snap = pd.DataFrame(all_snapshots)
+    latest_date = df_snap['DATE'].max()
     
-    sector_mom = month_data.groupby('SECTOR')['PRICE_MOMENTUM'].mean().reset_index()
-    top_3_sectors = sector_mom.sort_values(by='PRICE_MOMENTUM', ascending=False).head(3)['SECTOR'].tolist()
-    
-    engine_a = month_data[month_data['SECTOR'].isin(top_3_sectors)].groupby('SECTOR').head(3).sort_values(by='MASTER_SCORE', ascending=False).head(10)
-    engine_a['SOURCE_ENGINE'] = 'Engine A (Sector)'
-    
-    engine_b = month_data[~month_data['SYMBOL'].isin(engine_a['SYMBOL'])].sort_values(by='MASTER_SCORE', ascending=False).head(10)
-    engine_b['SOURCE_ENGINE'] = 'Engine B (Lone Wolf)'
-    
-    final_live_portfolio = pd.concat([engine_a, engine_b])
+    # Get only the currently held stocks for the live dashboard
+    live_portfolio = df_snap[(df_snap['DATE'] == latest_date) & (df_snap['ACTION'].isin(['ENTRY', 'HOLD']))].copy()
     
     api_key = os.environ.get("GEMINI_API_KEY")
     if not api_key: 
@@ -525,19 +487,35 @@ def audit_portfolio_with_gemini(valid_pool):
             f.write(fallback_html)
         return
         
-    table_str = final_live_portfolio[['SYMBOL', 'SECTOR', 'SOURCE_ENGINE', 'CLOSE_PRICE', 'MASTER_SCORE']].to_markdown(index=False)
+    table_str = live_portfolio[['SYMBOL', 'SECTOR', 'PRICE', 'ENTRY_DATE', 'PNL']].to_markdown(index=False)
     
+    # THE STRICT POINT-IN-TIME PROMPT
     prompt = f"""
-    You are the Lead UI Developer for an Indian quant fund. 
-    Our Dual-Engine algorithm selected these 20 stocks on {latest_date.strftime('%Y-%m-%d')}.
-    Data:
+    You are the Chief Risk Officer and Forensic Equities Auditor for a top-tier Indian quant fund.
+    You are performing a STRICT POINT-IN-TIME risk audit for our current momentum portfolio.
+
+    CRITICAL TEMPORAL DIRECTIVE:
+    You are operating strictly on {latest_date}.
+    You MUST NOT access, use, or reference any information, news, earnings, price action, or SEBI actions that occurred AFTER {latest_date}. 
+    If a stock crashed or had a scandal in 2025, but the ENTRY_DATE in the table is 2024, YOU MUST NOT MENTION THE 2025 SCANDAL.
+    Look at the 'ENTRY_DATE' for each stock in the table. Evaluate anomalies and red flags ONLY based on data available BEFORE that specific entry date.
+
+    DATA:
     {table_str}
-    
-    Generate a complete, single-file HTML document (with embedded CSS) that creates a beautiful, dark-mode, mobile-responsive dashboard displaying these 20 stocks.
-    - Group them visually into two distinct sections: 'Engine A (Sector)' and 'Engine B (Lone Wolf)'.
-    - For each stock, display the Ticker, Sector, Price, and Master Score in a clean card or grid format.
-    - Include a prominent button at the top that links to 'history.html' with the text 'View Detailed Trade Ledger'.
-    - Use modern CSS (flexbox/grid, nice typography, dark theme #121212 background, #bb86fc accents).
+
+    TASK 1: FORENSIC RISK AUDIT
+    Perform a ruthless, sophisticated analysis of these stocks based ONLY on data prior to their respective Entry Dates.
+    - Flag any stocks with historical SEBI warnings, corporate governance issues, auditor resignations, excessive pledged shares, or operator manipulation prior to their entry.
+    - Be highly structured. Do not evaluate every stock—only list the ones that trigger a severe red flag based on historical data.
+    - Be blunt. Do not sugarcoat.
+    - If the portfolio is clean up to this date, explicitly state "No major historical red flags detected prior to entry dates."
+
+    TASK 2: UI GENERATION
+    Generate a complete, single-file HTML document (with embedded CSS) that creates a beautiful, dark-mode, mobile-responsive dashboard.
+    - Top of page: Prominent button `<a href="history.html" class="btn">View Detailed Trade Ledger</a>`
+    - Section 1: The 'Forensic Risk Audit' results (format this elegantly, use warning emojis if red flags exist).
+    - Section 2: The 'Live Portfolio Grid' displaying Ticker, Sector, Price, Entry Date, and PnL.
+    - Use modern CSS (flexbox/grid, #121212 background, #bb86fc accents, clean typography).
     - You MUST wrap the HTML code inside a ```html codeblock.
     """
     
@@ -558,7 +536,7 @@ def audit_portfolio_with_gemini(valid_pool):
             with open("portfolio_dashboard.html", "w", encoding="utf-8") as f:
                 f.write(html_content)
                 
-            print("✅ HTML Dashboard generated successfully.")
+            print("✅ HTML Dashboard with Point-in-Time Audit generated successfully.")
             success = True
             break 
             
@@ -579,9 +557,8 @@ if __name__ == "__main__":
     DATA_PATH = "./HistoricalBhavCopy/NSE"
     SECTOR_MAP = "./nifty500_sectors.csv" 
     try:
-        nifty_regime = fetch_nifty_regime()
         raw_df = load_data(DATA_PATH, SECTOR_MAP)
-        valid_pool = run_dual_engine_backtest(raw_df, nifty_regime)
-        audit_portfolio_with_gemini(valid_pool)
+        snapshots = run_pure_momentum_backtest(raw_df)
+        audit_portfolio_with_gemini(snapshots)
     except Exception as e:
         print(f"Execution failed: {e}")
