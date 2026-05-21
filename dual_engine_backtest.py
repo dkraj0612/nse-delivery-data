@@ -8,6 +8,7 @@ dual_engine_backtest.py
 5. Scores based PURELY on Price Momentum.
 6. Institutional Buffer Rank Rebalancing.
 7. Logs detailed Trade Ledger (Entry/Hold/Exit, PnL, Justification) to HTML.
+8. BULLETPROOF Dashboard Generator (prevents cp: cannot stat errors).
 """
 import os
 import glob
@@ -128,7 +129,6 @@ def run_dual_engine_backtest(df, regime_df):
         prev_symbols = set(prev_portfolio_df['SYMBOL']) if not prev_portfolio_df.empty else set()
         prev_prices = prev_portfolio_df.set_index('SYMBOL')['CLOSE_PRICE'].to_dict() if not prev_portfolio_df.empty else {}
         
-        # MARKET CRASH: Liquidate everything
         if not regime_status or candidates.empty:
             justification = "Systematic Market Crash" if not regime_status else "No Stocks Passed Filter"
             for sym in prev_symbols:
@@ -155,7 +155,6 @@ def run_dual_engine_backtest(df, regime_df):
             prev_portfolio_df = pd.DataFrame() 
             continue
 
-        # NORMAL REBALANCE
         sector_mom = candidates.groupby('SECTOR')['PRICE_MOMENTUM'].mean().reset_index()
         top_3_sectors = sector_mom.sort_values(by='PRICE_MOMENTUM', ascending=False).head(3)['SECTOR'].tolist()
         
@@ -173,7 +172,6 @@ def run_dual_engine_backtest(df, regime_df):
         final_portfolio = pd.concat([engine_a, engine_b])
         current_symbols = set(final_portfolio['SYMBOL'])
         
-        # LOG EXITS
         exits = prev_symbols - current_symbols
         for sym in exits:
             prev_price = prev_prices.get(sym, 0)
@@ -196,7 +194,6 @@ def run_dual_engine_backtest(df, regime_df):
                 'JUSTIFICATION': justification
             })
             
-        # LOG ENTRIES & HOLDS
         for _, row in final_portfolio.iterrows():
             sym = row['SYMBOL']
             curr_price = row['CLOSE_PRICE']
@@ -382,7 +379,6 @@ def run_dual_engine_backtest(df, regime_df):
             function updateView() {{
                 const selectedDate = select.value;
                 
-                // Sort data to show Entries first, then Holds, then Exits
                 const actionOrder = {{ 'ENTRY': 1, 'HOLD': 2, 'EXIT': 3 }};
                 const data = snapshots.filter(item => item.DATE === selectedDate).sort((a, b) => actionOrder[a.ACTION] - actionOrder[b.ACTION]);
                 
@@ -448,8 +444,22 @@ def run_dual_engine_backtest(df, regime_df):
     return valid_pool 
 
 def audit_portfolio_with_gemini(valid_pool):
+    # Absolute fallback HTML generation to prevent cp error in GitHub Actions
+    fallback_html = """
+    <!DOCTYPE html><html><head><title>Dashboard</title>
+    <style>body{background:#121212; color:#fff; font-family:sans-serif; text-align:center; padding:50px;} 
+    a{color:#bb86fc; text-decoration:none; font-size:20px; border:1px solid #bb86fc; padding:10px 20px; border-radius:5px;}</style>
+    </head><body>
+    <h2>Live Portfolio Snapshot Unavailable</h2>
+    <p style="color:#aaa; margin-bottom:30px;">The AI audit failed or the API key is missing. Historical data is still intact.</p>
+    <a href="history.html">View Detailed Trade Ledger ➔</a>
+    </body></html>
+    """
+    
     if valid_pool.empty:
         print("No valid portfolio data generated to audit.")
+        with open("portfolio_dashboard.html", "w", encoding="utf-8") as f:
+            f.write(fallback_html)
         return
 
     latest_date = valid_pool['DATE'].max()
@@ -467,7 +477,11 @@ def audit_portfolio_with_gemini(valid_pool):
     final_live_portfolio = pd.concat([engine_a, engine_b])
     
     api_key = os.environ.get("GEMINI_API_KEY")
-    if not api_key: return
+    if not api_key: 
+        print("⚠️ GEMINI_API_KEY secret not found. Writing fallback HTML.")
+        with open("portfolio_dashboard.html", "w", encoding="utf-8") as f:
+            f.write(fallback_html)
+        return
         
     table_str = final_live_portfolio[['SYMBOL', 'SECTOR', 'SOURCE_ENGINE', 'CLOSE_PRICE', 'MASTER_SCORE']].to_markdown(index=False)
     
@@ -481,20 +495,40 @@ def audit_portfolio_with_gemini(valid_pool):
     """
     
     client = genai.Client()
+    success = False
+    
     for attempt in range(3):
         try:
             response = client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
-            html_match = re.search(r"""
-```html\s*(.*?)\s*```""", response.text, re.DOTALL)
-            if html_match:
-                with open("portfolio_dashboard.html", "w", encoding="utf-8") as f:
-                    f.write(html_match.group(1))
+            
+            # Extract HTML
+            html_match = re.search(r"""```html\s*(.*?)\s*
+```""", response.text, re.DOTALL)
+            html_content = html_match.group(1) if html_match else response.text
+            
+            # Ensure it is at least basic HTML if regex fails
+            if "<html" not in html_content.lower():
+                html_content = f"<html><body><pre>{response.text}</pre><br><a href='history.html'>View History</a></body></html>"
+                
+            with open("portfolio_dashboard.html", "w", encoding="utf-8") as f:
+                f.write(html_content)
+                
+            print("✅ HTML Dashboard generated successfully.")
+            success = True
             break 
+            
         except Exception as e:
             if '503' in str(e) and attempt < 2:
+                print(f"⚠️ Gemini servers busy (503). Retrying in {10 * (attempt + 1)}s...")
                 time.sleep(10 * (attempt + 1))
             else:
+                print(f"❌ Gemini API Error: {e}")
                 break
+                
+    if not success:
+        print("⚠️ Gemini failed after all retries. Writing fallback HTML.")
+        with open("portfolio_dashboard.html", "w", encoding="utf-8") as f:
+            f.write(fallback_html)
 
 if __name__ == "__main__":
     DATA_PATH = "./HistoricalBhavCopy/NSE"
