@@ -1,13 +1,13 @@
 """
 dual_engine_backtest.py
 =======================
-1. Fetches Nifty 50 from Yahoo Finance (handles multi-index).
+1. Fetches Nifty 50 from Yahoo Finance.
 2. Cleans dirty NSE CSV headers and merges with sector map.
 3. Corporate Action Filter: Detects and excludes stock splits.
 4. Allocates 50% capital to Top Sectors, 50% to Lone Wolves.
-5. Logs portfolio snapshots to an Interactive HTML Dashboard with pagination.
-6. Uses Gemini AI to audit the final portfolio and generate an HTML dashboard.
-7. Includes Bulletproof Retry Loop for Gemini API 503 server errors.
+5. Scores based PURELY on Price Momentum.
+6. Institutional Buffer Rank Rebalancing.
+7. Logs detailed Trade Ledger (Entry/Hold/Exit, PnL, Justification) to HTML.
 """
 import os
 import glob
@@ -95,87 +95,151 @@ def run_dual_engine_backtest(df, regime_df):
     rebalance_df['NEXT_MONTH_CLOSE'] = rebalance_df.groupby('SYMBOL')['CLOSE_PRICE'].shift(-1)
     rebalance_df['FORWARD_1M_RET'] = (rebalance_df['NEXT_MONTH_CLOSE'] / rebalance_df['CLOSE_PRICE']) - 1
     
-    rebalance_df['ACCUMULATION_MULT'] = rebalance_df['DELIV_PER_20MA'] / 50.0
-    
-    # MULTIPLY BY 100 FOR CLEANER READABILITY ON DASHBOARD
-    rebalance_df['MASTER_SCORE'] = (rebalance_df['PRICE_MOMENTUM'] * rebalance_df['ACCUMULATION_MULT']) * 100
+    rebalance_df['MASTER_SCORE'] = rebalance_df['PRICE_MOMENTUM'] * 100
     
     rebalance_df = pd.merge(rebalance_df, regime_df, on='DATE', how='left')
     rebalance_df['REGIME_GREEN'] = rebalance_df['REGIME_GREEN'].fillna(True)
     
     valid_pool = rebalance_df[
         (rebalance_df['CLOSE_PRICE'] >= 50.0) & 
-        (rebalance_df['AVG_TURNOVER'] >= 2500.0) & 
-        (rebalance_df['DELIV_PER_20MA'] >= 35.0) & 
-        (rebalance_df['CLOSE_PRICE'] >= (rebalance_df['52W_HIGH'] * 0.80)) & 
+        (rebalance_df['AVG_TURNOVER'] >= 1000.0) & 
+        (rebalance_df['DELIV_PER_20MA'] >= 30.0) & 
+        (rebalance_df['CLOSE_PRICE'] >= (rebalance_df['52W_HIGH'] * 0.70)) & 
         (rebalance_df['MASTER_SCORE'].notna()) &
         (rebalance_df['RECENT_SPLIT'] == 0) & 
         (rebalance_df['SECTOR'].notna()) 
     ].copy()
 
-    dates = sorted(valid_pool['DATE'].unique())
+    dates = sorted(rebalance_df['DATE'].dropna().unique())
+    formatted_dates = [d.strftime('%Y-%m-%d') for d in dates]
     
     monthly_records = []
     portfolio_snapshots = []
+    prev_portfolio_df = pd.DataFrame()
     
     for current_date in dates:
+        day_data_full = rebalance_df[rebalance_df['DATE'] == current_date]
+        if day_data_full.empty: continue
+            
+        day_prices = day_data_full.set_index('SYMBOL')['CLOSE_PRICE'].to_dict()
+        regime_status = day_data_full['REGIME_GREEN'].iloc[0]
         candidates = valid_pool[valid_pool['DATE'] == current_date].copy()
-        regime_status = candidates['REGIME_GREEN'].iloc[0] if not candidates.empty else False
         
-        if not regime_status:
+        prev_symbols = set(prev_portfolio_df['SYMBOL']) if not prev_portfolio_df.empty else set()
+        prev_prices = prev_portfolio_df.set_index('SYMBOL')['CLOSE_PRICE'].to_dict() if not prev_portfolio_df.empty else {}
+        
+        # MARKET CRASH: Liquidate everything
+        if not regime_status or candidates.empty:
+            justification = "Systematic Market Crash" if not regime_status else "No Stocks Passed Filter"
+            for sym in prev_symbols:
+                prev_price = prev_prices.get(sym, 0)
+                curr_price = day_prices.get(sym)
+                if curr_price is not None and prev_price > 0:
+                    pnl_str = f"{((curr_price / prev_price) - 1)*100:+.2f}%"
+                    curr_price_str = f"₹{curr_price:.2f}"
+                else:
+                    pnl_str = "-"
+                    curr_price_str = "N/A"
+                    
+                portfolio_snapshots.append({
+                    'DATE': current_date.strftime('%Y-%m-%d'),
+                    'SYMBOL': sym,
+                    'SECTOR': prev_portfolio_df[prev_portfolio_df['SYMBOL'] == sym]['SECTOR'].values[0],
+                    'ACTION': 'EXIT',
+                    'PRICE': curr_price_str,
+                    'PNL': pnl_str,
+                    'JUSTIFICATION': justification
+                })
+                
             monthly_records.append({'DATE': current_date, 'NET_RETURN': 0.004, 'REGIME': 'BEAR (CASH)'})
+            prev_portfolio_df = pd.DataFrame() 
             continue
 
+        # NORMAL REBALANCE
         sector_mom = candidates.groupby('SECTOR')['PRICE_MOMENTUM'].mean().reset_index()
         top_3_sectors = sector_mom.sort_values(by='PRICE_MOMENTUM', ascending=False).head(3)['SECTOR'].tolist()
         
-        engine_a_candidates = candidates[candidates['SECTOR'].isin(top_3_sectors)]
-        engine_a = engine_a_candidates.groupby('SECTOR').head(3).sort_values(by='MASTER_SCORE', ascending=False).head(10).copy()
-        engine_a['SOURCE_ENGINE'] = 'Engine A (Sector)'
+        engine_a_candidates = candidates[candidates['SECTOR'].isin(top_3_sectors)].sort_values(by='MASTER_SCORE', ascending=False)
+        engine_a_candidates = engine_a_candidates.groupby('SECTOR').head(3).reset_index(drop=True)
+        top_15_a = engine_a_candidates.head(15).copy()
+        engine_a = pd.concat([top_15_a[top_15_a['SYMBOL'].isin(prev_symbols)], top_15_a[~top_15_a['SYMBOL'].isin(prev_symbols)]]).head(10).copy()
+        engine_a['SOURCE_ENGINE'] = 'Engine A'
         
-        engine_b_candidates = candidates[~candidates['SYMBOL'].isin(engine_a['SYMBOL'])]
-        engine_b = engine_b_candidates.sort_values(by='MASTER_SCORE', ascending=False).head(10).copy()
-        engine_b['SOURCE_ENGINE'] = 'Engine B (Lone Wolf)'
+        engine_b_candidates = candidates[~candidates['SYMBOL'].isin(engine_a['SYMBOL'])].sort_values(by='MASTER_SCORE', ascending=False)
+        top_20_b = engine_b_candidates.head(20).copy()
+        engine_b = pd.concat([top_20_b[top_20_b['SYMBOL'].isin(prev_symbols)], top_20_b[~top_20_b['SYMBOL'].isin(prev_symbols)]]).head(10).copy()
+        engine_b['SOURCE_ENGINE'] = 'Engine B'
         
         final_portfolio = pd.concat([engine_a, engine_b])
+        current_symbols = set(final_portfolio['SYMBOL'])
         
-        for _, row in final_portfolio.iterrows():
+        # LOG EXITS
+        exits = prev_symbols - current_symbols
+        for sym in exits:
+            prev_price = prev_prices.get(sym, 0)
+            curr_price = day_prices.get(sym)
+            if curr_price is not None and prev_price > 0:
+                pnl_str = f"{((curr_price / prev_price) - 1)*100:+.2f}%"
+                curr_price_str = f"₹{curr_price:.2f}"
+            else:
+                pnl_str = "-"
+                curr_price_str = "N/A"
+                
+            justification = "Fell below Buffer Rank" if sym in candidates['SYMBOL'].values else "Failed Liquidity/Delivery/Price Filter"
             portfolio_snapshots.append({
                 'DATE': current_date.strftime('%Y-%m-%d'),
-                'SYMBOL': row['SYMBOL'],
+                'SYMBOL': sym,
+                'SECTOR': prev_portfolio_df[prev_portfolio_df['SYMBOL'] == sym]['SECTOR'].values[0],
+                'ACTION': 'EXIT',
+                'PRICE': curr_price_str,
+                'PNL': pnl_str,
+                'JUSTIFICATION': justification
+            })
+            
+        # LOG ENTRIES & HOLDS
+        for _, row in final_portfolio.iterrows():
+            sym = row['SYMBOL']
+            curr_price = row['CLOSE_PRICE']
+            if sym in prev_symbols:
+                action = 'HOLD'
+                prev_price = prev_prices.get(sym, curr_price)
+                pnl_str = f"{((curr_price / prev_price) - 1)*100:+.2f}%" if prev_price > 0 else "-"
+                justification = "Maintained Buffer Rank"
+            else:
+                action = 'ENTRY'
+                pnl_str = "NEW"
+                justification = f"Top Breakout ({row['SOURCE_ENGINE']})"
+                
+            portfolio_snapshots.append({
+                'DATE': current_date.strftime('%Y-%m-%d'),
+                'SYMBOL': sym,
                 'SECTOR': row['SECTOR'],
-                'ENGINE': row['SOURCE_ENGINE'],
-                'PRICE': f"₹{row['CLOSE_PRICE']:.2f}"
+                'ACTION': action,
+                'PRICE': f"₹{curr_price:.2f}",
+                'PNL': pnl_str,
+                'JUSTIFICATION': justification
             })
             
         if not final_portfolio.empty:
-            # FIX: Filter out artificial drops (<-35%) caused by unadjusted stock splits
             returns = final_portfolio['FORWARD_1M_RET']
             clean_returns = returns[(returns >= -0.35) & (returns <= 1.0)] 
-            
             avg_raw_return = clean_returns.mean() if not clean_returns.empty else 0
-            net_monthly_return = avg_raw_return - 0.002 # Accounting for slippage
+            net_monthly_return = avg_raw_return - 0.003
             monthly_records.append({'DATE': current_date, 'NET_RETURN': net_monthly_return, 'REGIME': 'BULL (EQUITY)'})
+            
+        prev_portfolio_df = final_portfolio.copy()
 
-    # Strategy Summary Metrics
     perf_df = pd.DataFrame(monthly_records).dropna()
     perf_dict = {}
-    
-    total_months = 0
-    cagr = 0.0
-    max_dd = 0.0
-    total_return = 0.0
-    win_rate = 0.0
+    total_months = cagr = max_dd = total_return = win_rate = 0.0
     
     if not perf_df.empty:
         perf_df['EQUITY_CURVE'] = (1 + perf_df['NET_RETURN']).cumprod()
         perf_df['CUM_MONTHS'] = range(1, len(perf_df) + 1)
         perf_df['CAGR'] = ((perf_df['EQUITY_CURVE'] ** (12 / perf_df['CUM_MONTHS'])) - 1) * 100
-        
         perf_df['MONTHLY_PNL'] = (perf_df['NET_RETURN'] * 100).round(2).astype(str) + '%'
         perf_df['CAGR_STR'] = perf_df['CAGR'].round(2).astype(str) + '%'
         perf_df['DATE_STR'] = perf_df['DATE'].dt.strftime('%Y-%m-%d')
-        
         perf_dict = perf_df.set_index('DATE_STR')[['MONTHLY_PNL', 'CAGR_STR']].to_dict('index')
 
         total_months = len(perf_df)
@@ -184,208 +248,202 @@ def run_dual_engine_backtest(df, regime_df):
         perf_df['DRAWDOWN'] = (perf_df['EQUITY_CURVE'] - perf_df['PEAK']) / perf_df['PEAK']
         max_dd = perf_df['DRAWDOWN'].min() * 100
         total_return = (perf_df['EQUITY_CURVE'].iloc[-1] - 1) * 100
-        
-        winning_months = perf_df[perf_df['NET_RETURN'] > 0].shape[0]
-        win_rate = (winning_months / total_months) * 100
+        win_rate = (perf_df[perf_df['NET_RETURN'] > 0].shape[0] / total_months) * 100
         
         print("\n" + "="*50)
-        print("🚀 FINAL STRATEGY SUMMARY")
+        print("🚀 FINAL STRATEGY SUMMARY (LEDGER INTEGRATED)")
         print("="*50)
-        print(f"Total Return        : {total_return:.2f}%")
         print(f"Realized CAGR       : {cagr:.2f}%")
         print(f"Maximum Drawdown    : {max_dd:.2f}%")
-        print(f"Win Rate            : {win_rate:.2f}%")
         print("="*50)
 
-    # Generate the Ultimate Dashboard HTML
-    if portfolio_snapshots:
-        pd.DataFrame(portfolio_snapshots).to_csv("backtest_portfolio_history.csv", index=False)
-        snapshots_json = json.dumps(portfolio_snapshots)
-        perf_json = json.dumps(perf_dict)
+    pd.DataFrame(portfolio_snapshots).to_csv("backtest_portfolio_history.csv", index=False)
+    snapshots_json = json.dumps(portfolio_snapshots)
+    perf_json = json.dumps(perf_dict)
+    dates_json = json.dumps(formatted_dates[::-1])
+    
+    history_html = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Quant Fund - Detailed Ledger</title>
+        <style>
+            body {{ background-color: #121212; color: #e0e0e0; font-family: -apple-system, sans-serif; padding: 10px; margin: 0; }}
+            h2 {{ color: #ffffff; font-size: 18px; text-align: center; margin-bottom: 15px; }}
+            .top-bar {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }}
+            .btn {{ padding: 8px 12px; background-color: #333; color: #fff; text-decoration: none; border-radius: 5px; font-size: 13px; border: none; cursor: pointer; }}
+            
+            .summary-dashboard {{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 20px; background: #1a1a1a; padding: 12px; border-radius: 8px; border: 1px solid #333; }}
+            .summary-dashboard .full-width {{ grid-column: span 2; background: #222; border: 1px solid #bb86fc; }}
+            .metric-box {{ background: #252525; padding: 10px; border-radius: 6px; text-align: center; }}
+            .metric-box h4 {{ margin: 0 0 4px 0; font-size: 10px; color: #aaa; text-transform: uppercase; }}
+            .metric-box p {{ margin: 0; font-size: 16px; font-weight: bold; color: #fff; }}
+            .metric-box .highlight {{ color: #bb86fc; font-size: 20px; }}
+            
+            .nav-controls {{ display: flex; justify-content: space-between; align-items: center; background: #1e1e1e; padding: 10px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #333; }}
+            select {{ flex-grow: 1; margin: 0 10px; padding: 8px; background: #2a2a2a; color: white; border: 1px solid #444; border-radius: 6px; font-size: 14px; font-weight: bold; text-align: center; appearance: none; }}
+            
+            .metrics-grid {{ display: flex; justify-content: space-between; gap: 8px; margin-bottom: 15px; }}
+            .metric-card {{ background: #1e1e1e; padding: 10px; border-radius: 8px; width: 48%; text-align: center; border: 1px solid #333; }}
+            .metric-title {{ font-size: 10px; color: #888; text-transform: uppercase; margin-bottom: 4px; }}
+            .pnl-value {{ font-size: 18px; font-weight: bold; }}
+            
+            .table-container {{ background: #1e1e1e; border-radius: 8px; overflow-x: auto; border: 1px solid #333; }}
+            table {{ width: 100%; border-collapse: collapse; font-size: 12px; }}
+            th, td {{ padding: 10px 8px; text-align: left; border-bottom: 1px solid #2a2a2a; }}
+            th {{ background-color: #2a2a2a; color: #bb86fc; font-weight: 600; text-transform: uppercase; font-size: 10px; }}
+            tr:hover {{ background-color: #252525; }}
+            
+            .badge {{ padding: 3px 6px; border-radius: 4px; font-weight: bold; font-size: 10px; }}
+            .badge-entry {{ background: #1b5e20; color: #a5d6a7; }}
+            .badge-hold {{ background: #37474f; color: #b0bec5; }}
+            .badge-exit {{ background: #b71c1c; color: #ef9a9a; }}
+        </style>
+    </head>
+    <body>
+        <div class="top-bar">
+            <a href="index.html" class="btn">⬅ Live View</a>
+            <a href="backtest_portfolio_history.csv" class="btn" style="background-color: #1e88e5;">⬇️ CSV</a>
+        </div>
         
-        history_html = f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Quant Fund - Backtest Viewer</title>
-            <style>
-                body {{ background-color: #121212; color: #e0e0e0; font-family: -apple-system, sans-serif; padding: 15px; margin: 0; }}
-                h2 {{ color: #ffffff; font-size: 20px; text-align: center; margin-bottom: 20px; }}
-                .top-bar {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }}
-                .btn {{ padding: 8px 12px; background-color: #333; color: #fff; text-decoration: none; border-radius: 5px; font-size: 14px; border: none; cursor: pointer; }}
-                .btn:hover {{ background-color: #444; }}
-                .btn:disabled {{ opacity: 0.5; cursor: not-allowed; }}
-                
-                /* Final Report Dashboard Grid */
-                .summary-dashboard {{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 25px; background: #1a1a1a; padding: 15px; border-radius: 8px; border: 1px solid #333; }}
-                .summary-dashboard .full-width {{ grid-column: span 2; background: #222; border: 1px solid #bb86fc; }}
-                .metric-box {{ background: #252525; padding: 12px; border-radius: 6px; text-align: center; }}
-                .metric-box h4 {{ margin: 0 0 5px 0; font-size: 11px; color: #aaa; text-transform: uppercase; letter-spacing: 0.5px; }}
-                .metric-box p {{ margin: 0; font-size: 18px; font-weight: bold; color: #fff; }}
-                .metric-box .highlight {{ color: #bb86fc; font-size: 24px; }}
-                
-                /* Navigation Controls */
-                .nav-controls {{ display: flex; justify-content: space-between; align-items: center; background: #1e1e1e; padding: 10px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #333; }}
-                select {{ flex-grow: 1; margin: 0 10px; padding: 10px; background: #2a2a2a; color: white; border: 1px solid #444; border-radius: 6px; font-size: 16px; font-weight: bold; text-align: center; appearance: none; }}
-                
-                .metrics-grid {{ display: flex; justify-content: space-between; gap: 10px; margin-bottom: 15px; }}
-                .metric-card {{ background: #1e1e1e; padding: 12px; border-radius: 8px; width: 48%; text-align: center; border: 1px solid #333; }}
-                .metric-title {{ font-size: 11px; color: #888; text-transform: uppercase; margin-bottom: 5px; }}
-                .metric-value {{ font-size: 20px; font-weight: bold; color: #bb86fc; }}
-                .pnl-value {{ font-size: 20px; font-weight: bold; }}
-                
-                .table-container {{ background: #1e1e1e; border-radius: 8px; overflow-x: auto; border: 1px solid #333; }}
-                table {{ width: 100%; border-collapse: collapse; font-size: 13px; }}
-                th, td {{ padding: 10px; text-align: left; border-bottom: 1px solid #2a2a2a; }}
-                th {{ background-color: #2a2a2a; color: #bb86fc; font-weight: 600; text-transform: uppercase; font-size: 11px; }}
-                tr:hover {{ background-color: #252525; }}
-            </style>
-        </head>
-        <body>
-            <div class="top-bar">
-                <a href="index.html" class="btn">⬅ Live View</a>
-                <a href="backtest_portfolio_history.csv" class="btn" style="background-color: #1e88e5;">⬇️ CSV</a>
+        <h2>Detailed Trade Ledger</h2>
+        
+        <div class="summary-dashboard">
+            <div class="metric-box full-width">
+                <h4>Total Strategy Return</h4>
+                <p class="highlight">{total_return:.2f}%</p>
             </div>
-            
-            <h2>Performance Dashboard</h2>
-            
-            <!-- Strategy Summary Dashboard -->
-            <div class="summary-dashboard">
-                <div class="metric-box full-width">
-                    <h4>Total Strategy Return</h4>
-                    <p class="highlight">{total_return:.2f}%</p>
-                </div>
-                <div class="metric-box">
-                    <h4>CAGR</h4>
-                    <p style="color: #4caf50;">{cagr:.2f}%</p>
-                </div>
-                <div class="metric-box">
-                    <h4>Max Drawdown</h4>
-                    <p style="color: #ff5252;">{max_dd:.2f}%</p>
-                </div>
-                <div class="metric-box">
-                    <h4>Win Rate</h4>
-                    <p>{win_rate:.1f}%</p>
-                </div>
-                <div class="metric-box">
-                    <h4>Months Active</h4>
-                    <p>{total_months}</p>
-                </div>
+            <div class="metric-box">
+                <h4>CAGR</h4>
+                <p style="color: #4caf50;">{cagr:.2f}%</p>
             </div>
+            <div class="metric-box">
+                <h4>Max Drawdown</h4>
+                <p style="color: #ff5252;">{max_dd:.2f}%</p>
+            </div>
+            <div class="metric-box">
+                <h4>Win Rate</h4>
+                <p>{win_rate:.1f}%</p>
+            </div>
+            <div class="metric-box">
+                <h4>Months Active</h4>
+                <p>{total_months}</p>
+            </div>
+        </div>
 
-            <!-- Month Navigation Controls -->
-            <div class="nav-controls">
-                <button id="prevBtn" class="btn">Older ⬅</button>
-                <select id="dateSelect"></select>
-                <button id="nextBtn" class="btn">➡ Newer</button>
+        <div class="nav-controls">
+            <button id="prevBtn" class="btn">Older ⬅</button>
+            <select id="dateSelect"></select>
+            <button id="nextBtn" class="btn">➡ Newer</button>
+        </div>
+        
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-title">Portfolio Month PnL</div>
+                <div id="monthPnl" class="pnl-value">-</div>
             </div>
-            
-            <!-- Dynamic PnL and CAGR Banner -->
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <div class="metric-title">Month PnL</div>
-                    <div id="monthPnl" class="pnl-value">-</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-title">Running CAGR</div>
-                    <div id="cagr-running" class="metric-value">-</div>
-                </div>
+            <div class="metric-card">
+                <div class="metric-title">Running CAGR</div>
+                <div id="cagr-running" class="pnl-value" style="color: #bb86fc;">-</div>
             </div>
-            
-            <!-- 20 Stock Table -->
-            <div class="table-container">
-                <table id="portfolioTable">
-                    <thead>
-                        <tr>
-                            <th>Ticker</th>
-                            <th>Sector</th>
-                            <th>Engine</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
+        </div>
+        
+        <div class="table-container">
+            <table id="portfolioTable">
+                <thead>
+                    <tr>
+                        <th>Asset</th>
+                        <th>Action</th>
+                        <th>Stock PnL</th>
+                        <th>Reasoning</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
 
-            <script>
-                const snapshots = {snapshots_json};
-                const perfData = {perf_json};
+        <script>
+            const snapshots = {snapshots_json};
+            const perfData = {perf_json};
+            const dates = {dates_json}; 
+            
+            const select = document.getElementById('dateSelect');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            dates.forEach(date => {{
+                let opt = document.createElement('option');
+                opt.value = date;
+                opt.innerHTML = date;
+                select.appendChild(opt);
+            }});
+            
+            function updateView() {{
+                const selectedDate = select.value;
                 
-                // Get unique dates and populate the dropdown
-                const dates = [...new Set(snapshots.map(item => item.DATE))].sort().reverse();
-                const select = document.getElementById('dateSelect');
-                const prevBtn = document.getElementById('prevBtn');
-                const nextBtn = document.getElementById('nextBtn');
+                // Sort data to show Entries first, then Holds, then Exits
+                const actionOrder = {{ 'ENTRY': 1, 'HOLD': 2, 'EXIT': 3 }};
+                const data = snapshots.filter(item => item.DATE === selectedDate).sort((a, b) => actionOrder[a.ACTION] - actionOrder[b.ACTION]);
                 
-                dates.forEach(date => {{
-                    let opt = document.createElement('option');
-                    opt.value = date;
-                    opt.innerHTML = date;
-                    select.appendChild(opt);
-                }});
+                const currentIndex = select.selectedIndex;
+                prevBtn.disabled = (currentIndex === select.options.length - 1);
+                nextBtn.disabled = (currentIndex === 0);
                 
-                function updateView() {{
-                    const selectedDate = select.value;
-                    const data = snapshots.filter(item => item.DATE === selectedDate);
-                    const currentIndex = select.selectedIndex;
-                    
-                    prevBtn.disabled = (currentIndex === select.options.length - 1);
-                    nextBtn.disabled = (currentIndex === 0);
-                    
-                    const pnl = perfData[selectedDate] ? perfData[selectedDate].MONTHLY_PNL : '0.00%';
-                    const runningCagr = perfData[selectedDate] ? perfData[selectedDate].CAGR_STR : '0.00%';
-                    
-                    const pnlElement = document.getElementById('monthPnl');
-                    pnlElement.innerHTML = pnl;
-                    pnlElement.style.color = pnl.includes('-') ? '#ff5252' : '#4caf50';
-                    
-                    document.getElementById('cagr-running').innerHTML = runningCagr;
-                    
-                    const tbody = document.querySelector('#portfolioTable tbody');
-                    tbody.innerHTML = '';
-                    
+                const pnl = perfData[selectedDate] ? perfData[selectedDate].MONTHLY_PNL : '0.00%';
+                const runningCagr = perfData[selectedDate] ? perfData[selectedDate].CAGR_STR : '0.00%';
+                
+                const pnlElement = document.getElementById('monthPnl');
+                pnlElement.innerHTML = pnl;
+                pnlElement.style.color = pnl.includes('-') ? '#ff5252' : '#4caf50';
+                document.getElementById('cagr-running').innerHTML = runningCagr;
+                
+                const tbody = document.querySelector('#portfolioTable tbody');
+                tbody.innerHTML = '';
+                
+                if (data.length > 0) {{
                     data.forEach(row => {{
                         let tr = document.createElement('tr');
+                        
+                        let badgeClass = row.ACTION === 'ENTRY' ? 'badge-entry' : (row.ACTION === 'EXIT' ? 'badge-exit' : 'badge-hold');
+                        let pnlColor = row.PNL.includes('+') ? '#4caf50' : (row.PNL.includes('-') ? '#ff5252' : '#aaa');
+                        
                         tr.innerHTML = `
-                            <td><strong>${{row.SYMBOL}}</strong></td>
-                            <td style="color:#aaa;">${{row.SECTOR.substring(0, 15)}}</td>
-                            <td>${{row.ENGINE.replace('Engine A', 'A').replace('Engine B', 'B')}}</td>
-                            <td>${{row.PRICE}}</td>
+                            <td>
+                                <div style="font-weight:bold; font-size:13px; color:#fff;">${{row.SYMBOL}}</div>
+                                <div style="font-size:10px; color:#aaa; max-width:90px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${{row.SECTOR}}</div>
+                            </td>
+                            <td><span class="badge ${{badgeClass}}">${{row.ACTION}}</span></td>
+                            <td>
+                                <div style="font-weight:bold; color:${{pnlColor}}">${{row.PNL}}</div>
+                                <div style="font-size:10px; color:#aaa;">${{row.PRICE}}</div>
+                            </td>
+                            <td style="font-size:10px; color:#bbb; line-height:1.2;">${{row.JUSTIFICATION}}</td>
                         `;
                         tbody.appendChild(tr);
                     }});
-                    
-                    if (data.length === 0) {{
-                        let tr = document.createElement('tr');
-                        tr.innerHTML = `<td colspan="4" style="text-align:center; color:#ff5252; padding: 20px;">BEAR MARKET: 100% Cash Regime</td>`;
-                        tbody.appendChild(tr);
-                    }}
+                }} else {{
+                    let tr = document.createElement('tr');
+                    tr.innerHTML = `<td colspan="4" style="text-align:center; color:#ff5252; padding: 20px; font-weight:bold;">100% CASH REGIME</td>`;
+                    tbody.appendChild(tr);
                 }}
-                
-                select.addEventListener('change', updateView);
-                
-                prevBtn.addEventListener('click', () => {{
-                    if (select.selectedIndex < select.options.length - 1) {{
-                        select.selectedIndex++;
-                        updateView();
-                    }}
-                }});
-                
-                nextBtn.addEventListener('click', () => {{
-                    if (select.selectedIndex > 0) {{
-                        select.selectedIndex--;
-                        updateView();
-                    }}
-                }});
-                
-                if(dates.length > 0) updateView();
-            </script>
-        </body>
-        </html>
-        """
-        with open("history.html", "w", encoding="utf-8") as f:
-            f.write(history_html)
+            }}
+            
+            select.addEventListener('change', updateView);
+            prevBtn.addEventListener('click', () => {{
+                if (select.selectedIndex < select.options.length - 1) {{ select.selectedIndex++; updateView(); }}
+            }});
+            nextBtn.addEventListener('click', () => {{
+                if (select.selectedIndex > 0) {{ select.selectedIndex--; updateView(); }}
+            }});
+            
+            if(dates.length > 0) updateView();
+        </script>
+    </body>
+    </html>
+    """
+    with open("history.html", "w", encoding="utf-8") as f:
+        f.write(history_html)
         
     return valid_pool 
 
@@ -408,82 +466,43 @@ def audit_portfolio_with_gemini(valid_pool):
     
     final_live_portfolio = pd.concat([engine_a, engine_b])
     
-    print("\n" + "="*50)
-    print(f"🤖 GEMINI AI RISK AUDIT & DASHBOARD GEN: {latest_date.strftime('%Y-%m-%d')}")
-    print("="*50)
-    
     api_key = os.environ.get("GEMINI_API_KEY")
-    if not api_key:
-        print("⚠️ GEMINI_API_KEY secret not found in GitHub Actions. Skipping AI audit.")
-        return
+    if not api_key: return
         
-    table_str = final_live_portfolio[['SYMBOL', 'SECTOR', 'SOURCE_ENGINE', 'CLOSE_PRICE', 'AVG_TURNOVER', 'DELIV_PER_20MA', 'MASTER_SCORE']].to_markdown(index=False)
+    table_str = final_live_portfolio[['SYMBOL', 'SECTOR', 'SOURCE_ENGINE', 'CLOSE_PRICE', 'MASTER_SCORE']].to_markdown(index=False)
     
     prompt = f"""
-    You are the Chief Risk Officer and Lead UI Developer for an Indian quant fund. 
-    Our Dual-Engine algorithm selected these 20 stocks on {latest_date.strftime('%Y-%m-%d')}.
-    
+    You are the Chief Risk Officer for an Indian quant fund. 
+    Our algorithm selected these 20 stocks on {latest_date.strftime('%Y-%m-%d')}.
     Data:
     {table_str}
     
-    Perform two tasks:
-    
-    PART 1: RISK AUDIT
-    Provide a brief safety audit. Confirm that sector concentration is now managed and verify the overall liquidity profile of the portfolio. Explicitly list any remaining outlier stocks to manually reject. Use markdown.
-    
-    PART 2: HTML DASHBOARD
-    Generate a complete, single-file HTML document (with embedded CSS) that creates a beautiful, dark-mode, mobile-responsive dashboard displaying these 20 stocks. 
-    - Group them visually by Engine A vs Engine B.
-    - Highlight the Ticker, Sector, Price, and Master Score.
-    - Include a prominent button at the top that links to 'history.html' with the text 'View Full Backtest Ledger'.
-    - You MUST wrap the HTML code inside a ```html codeblock.
+    Generate a complete HTML dashboard wrapping the 20 stocks. Ensure it contains a prominent button linking to 'history.html' with the text 'View Detailed Trade Ledger'. Wrap output in ```html codeblock.
     """
     
     client = genai.Client()
-    
-    max_retries = 3
-    for attempt in range(max_retries):
+    for attempt in range(3):
         try:
-            response = client.models.generate_content(
-                model='gemini-2.5-flash',
-                contents=prompt,
-            )
-            
-            text_output = response.text
-            
+            response = client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
             html_match = re.search(r"""
-```html\s*(.*?)\s*```""", text_output, re.DOTALL)
+```html\s*(.*?)\s*```""", response.text, re.DOTALL)
             if html_match:
-                html_content = html_match.group(1)
                 with open("portfolio_dashboard.html", "w", encoding="utf-8") as f:
-                    f.write(html_content)
-                print("✅ HTML Dashboard successfully generated and saved as 'portfolio_dashboard.html'")
-                
-                text_output = re.sub(r"""```html\s*(.*?)\s*
-```""", '\n[HTML Saved to File]', text_output, flags=re.DOTALL)
-                
-            print("\n" + text_output)
+                    f.write(html_match.group(1))
             break 
-            
         except Exception as e:
-            if '503' in str(e) and attempt < max_retries - 1:
-                wait_time = 10 * (attempt + 1)
-                print(f"⚠️ Gemini servers busy (503). Retrying in {wait_time} seconds (Attempt {attempt + 2}/{max_retries})...")
-                time.sleep(wait_time)
+            if '503' in str(e) and attempt < 2:
+                time.sleep(10 * (attempt + 1))
             else:
-                print(f"❌ Gemini API Error: {e}")
                 break
 
 if __name__ == "__main__":
     DATA_PATH = "./HistoricalBhavCopy/NSE"
     SECTOR_MAP = "./nifty500_sectors.csv" 
-    
     try:
         nifty_regime = fetch_nifty_regime()
         raw_df = load_data(DATA_PATH, SECTOR_MAP)
-        
         valid_pool = run_dual_engine_backtest(raw_df, nifty_regime)
         audit_portfolio_with_gemini(valid_pool)
-        
     except Exception as e:
         print(f"Execution failed: {e}")
