@@ -1,48 +1,47 @@
 """
-dual_engine_backtest.py - HISTORICAL AI AUDITOR VERSION
+dual_engine_backtest.py - THE MASTER SYSTEM
 ==========================================================
-1. Python handles the mathematical Split/Bonus adjustments.
-2. PURE MOMENTUM: (12M Return * 2) + (6M Return * 1).
-3. SINGLE ENGINE: Top 20 absolute momentum stocks.
-4. HISTORICAL AI AUDIT: Gemini is called AT EVERY REBALANCE DATE to check for anomalies.
-5. Generates a master HTML timeline of AI audits.
+1. BACKTEST ENGINE: Adjusts splits, calculates pure momentum (12M*2 + 6M*1), applies guardrails.
+2. AI TIME-MACHINE AUDITOR: Uses JSON to save progress month-by-month. Resumes automatically if timed out.
+3. GITHUB PUBLISHER: Generates 'index.html' (AI Audit Timeline) and 'history.html' (Trade Ledger).
 """
 import os
 import glob
 import json
 import time
-import re
 import pandas as pd
 import numpy as np
 from google import genai
 
+# ==========================================
+# 1. DATA LOADING & ADJUSTMENT
+# ==========================================
 def load_and_adjust_data(folder_path, sector_map_path):
     print("Loading and Adjusting Bhav Copy for Corporate Actions...")
     sector_map = pd.read_csv(sector_map_path)[['SYMBOL', 'SECTOR']]
     
     all_files = glob.glob(os.path.join(folder_path, "**/*.csv"), recursive=True)
-    if not all_files:
-        raise ValueError("No CSV files found in the specified path.")
-        
     df_list = []
     for file in all_files:
         try:
             df = pd.read_csv(file)
             df.columns = df.columns.str.strip()
             if 'DATE1' in df.columns: df = df.rename(columns={'DATE1': 'DATE'})
-            df = df[['SYMBOL', 'DATE', 'CLOSE_PRICE', 'TURNOVER_LACS', 'DELIV_PER']]
-            df['DATE'] = pd.to_datetime(df['DATE'])
-            df['CLOSE_PRICE'] = pd.to_numeric(df['CLOSE_PRICE'], errors='coerce')
-            df_list.append(df)
+            req_cols = ['SYMBOL', 'DATE', 'CLOSE_PRICE', 'TURNOVER_LACS', 'DELIV_PER']
+            if all(c in df.columns for c in req_cols):
+                df_list.append(df[req_cols])
         except Exception:
             continue
             
     master_df = pd.concat(df_list, ignore_index=True)
-    master_df = master_df.dropna(subset=['DATE', 'CLOSE_PRICE'])
-    master_df = master_df.drop_duplicates(subset=['SYMBOL', 'DATE'])
-    master_df = master_df.sort_values(['SYMBOL', 'DATE'])
+    master_df['DATE'] = pd.to_datetime(master_df['DATE'], errors='coerce')
+    master_df['CLOSE_PRICE'] = pd.to_numeric(master_df['CLOSE_PRICE'], errors='coerce')
+    master_df['TURNOVER_LACS'] = pd.to_numeric(master_df['TURNOVER_LACS'], errors='coerce')
     
-    # Python MUST do mathematical back-adjustment for accurate momentum scoring
+    master_df = master_df.dropna(subset=['DATE', 'CLOSE_PRICE'])
+    master_df = master_df.drop_duplicates(subset=['SYMBOL', 'DATE']).sort_values(['SYMBOL', 'DATE'])
+    
+    # Split/Bonus Adjustments
     master_df['PCT_CHG'] = master_df.groupby('SYMBOL')['CLOSE_PRICE'].pct_change()
     adjusted_dfs = []
     for sym, group in master_df.groupby('SYMBOL'):
@@ -56,60 +55,18 @@ def load_and_adjust_data(folder_path, sector_map_path):
         adjusted_dfs.append(g)
         
     master_df = pd.concat(adjusted_dfs)
-    master_df = pd.merge(master_df, sector_map, on='SYMBOL', how='left')
-    return master_df.reset_index(drop=True)
+    return pd.merge(master_df, sector_map, on='SYMBOL', how='left').reset_index(drop=True)
 
-def analyze_with_gemini(client, current_date_str, portfolio_df):
-    """Calls Gemini for a specific historical date to find anomalies."""
-    if portfolio_df.empty:
-        return "No stocks in portfolio for this period."
-
-    table_str = portfolio_df[['SYMBOL', 'SECTOR', 'CLOSE_PRICE']].to_markdown(index=False)
-    
-    prompt = f"""
-    You are a Forensic Equities Auditor for a quant fund.
-    You are performing a STRICT POINT-IN-TIME risk audit for {current_date_str}.
-    
-    CRITICAL TEMPORAL DIRECTIVE:
-    You are operating strictly on {current_date_str}. 
-    You MUST NOT access, use, or reference any information, news, earnings, or price action that occurred AFTER {current_date_str}.
-    
-    Look at these 20 stocks we are holding on {current_date_str}:
-    {table_str}
-    
-    Based ONLY on data available BEFORE {current_date_str}, do any of these stocks have severe anomalies? 
-    Look for:
-    1. Historical SEBI warnings or bans prior to {current_date_str}.
-    2. Severe corporate governance issues or auditor resignations prior to {current_date_str}.
-    3. Announced (but not yet executed) massive equity dilution.
-    
-    Be extremely brief. If a stock is clean, DO NOT mention it. Only list the stocks with severe anomalies in bullet points.
-    If all stocks are clean up to this date, simply output "✓ No major historical anomalies detected prior to {current_date_str}."
-    """
-    
-    for attempt in range(5):
-        try:
-            resp = client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
-            return resp.text.strip()
-        except Exception as e:
-            if '429' in str(e) or '503' in str(e):
-                wait_time = 30 * (attempt + 1)
-                print(f"    [Gemini API Rate Limit] Pausing for {wait_time}s to avoid quota exhaustion...")
-                time.sleep(wait_time)
-            else:
-                return f"Error analyzing data: {e}"
-    return "Failed to analyze due to API limits."
-
+# ==========================================
+# 2. PURE MOMENTUM BACKTEST ENGINE
+# ==========================================
 def run_pure_momentum_backtest(df):
-    print("Calculating Metrics & Simulating Pure Single-Engine Portfolio...")
+    print("Running Backtest Engine...")
+    df['P_1M'] = df.groupby('SYMBOL')['CLOSE_PRICE'].shift(21)
+    df['P_7M'] = df.groupby('SYMBOL')['CLOSE_PRICE'].shift(147) 
+    df['P_13M'] = df.groupby('SYMBOL')['CLOSE_PRICE'].shift(273) 
     
-    df['PRICE_1M_AGO'] = df.groupby('SYMBOL')['CLOSE_PRICE'].shift(21)
-    df['PRICE_7M_AGO'] = df.groupby('SYMBOL')['CLOSE_PRICE'].shift(147) 
-    df['PRICE_13M_AGO'] = df.groupby('SYMBOL')['CLOSE_PRICE'].shift(273) 
-    
-    df['12M_RET'] = (df['PRICE_1M_AGO'] - df['PRICE_13M_AGO']) / df['PRICE_13M_AGO']
-    df['6M_RET']  = (df['PRICE_1M_AGO'] - df['PRICE_7M_AGO']) / df['PRICE_7M_AGO']
-    df['PRICE_MOMENTUM'] = (df['12M_RET'] * 2) + df['6M_RET']
+    df['PRICE_MOMENTUM'] = (((df['P_1M'] - df['P_13M']) / df['P_13M']) * 2) + ((df['P_1M'] - df['P_7M']) / df['P_7M'])
     
     df['EMA_51'] = df.groupby('SYMBOL')['CLOSE_PRICE'].transform(lambda x: x.ewm(span=51, adjust=False).mean())
     df['52W_HIGH'] = df.groupby('SYMBOL')['CLOSE_PRICE'].transform(lambda x: x.rolling(252).max())
@@ -118,7 +75,6 @@ def run_pure_momentum_backtest(df):
     df['YEAR_MONTH'] = df['DATE'].dt.to_period('M')
     month_ends = df.groupby('YEAR_MONTH')['DATE'].max().reset_index()
     rebalance_df = df[df['DATE'].isin(month_ends['DATE'])].copy()
-    
     rebalance_df['NEXT_MONTH_CLOSE'] = rebalance_df.groupby('SYMBOL')['CLOSE_PRICE'].shift(-1)
     rebalance_df['FORWARD_1M_RET'] = (rebalance_df['NEXT_MONTH_CLOSE'] / rebalance_df['CLOSE_PRICE']) - 1
     rebalance_df['MASTER_SCORE'] = rebalance_df['PRICE_MOMENTUM'] * 100
@@ -127,99 +83,220 @@ def run_pure_momentum_backtest(df):
         (rebalance_df['CLOSE_PRICE'] >= rebalance_df['EMA_51']) & 
         (rebalance_df['CLOSE_PRICE'] >= (rebalance_df['52W_HIGH'] * 0.80)) & 
         (rebalance_df['AVG_TURNOVER'] >= 1000.0) & 
-        (rebalance_df['MASTER_SCORE'].notna()) & 
-        (rebalance_df['SECTOR'].notna()) 
+        (rebalance_df['MASTER_SCORE'].notna())
     ].copy()
 
     dates = sorted(rebalance_df['DATE'].dropna().unique())
+    portfolio_snapshots = []
+    monthly_records = []
     prev_portfolio_df = pd.DataFrame()
-    
-    ai_audit_log = []
-    
-    # Initialize Gemini Client for the loop
-    api_key = os.environ.get("GEMINI_API_KEY")
-    client = genai.Client() if api_key else None
-    
-    print(f"Starting Month-by-Month Rebalance & AI Audit across {len(dates)} periods...")
+    entry_prices = {}
+    entry_dates = {}
     
     for current_date in dates:
         curr_date_str = current_date.strftime('%Y-%m-%d')
+        day_data = rebalance_df[rebalance_df['DATE'] == current_date]
+        if day_data.empty: continue
+            
+        day_prices = day_data.set_index('SYMBOL')['CLOSE_PRICE'].to_dict()
         candidates = valid_pool[valid_pool['DATE'] == current_date].copy()
         prev_symbols = set(prev_portfolio_df['SYMBOL']) if not prev_portfolio_df.empty else set()
         
         if candidates.empty:
+            for sym in prev_symbols:
+                portfolio_snapshots.append({
+                    'DATE': curr_date_str, 'SYMBOL': sym, 'SECTOR': prev_portfolio_df[prev_portfolio_df['SYMBOL']==sym]['SECTOR'].iloc[0],
+                    'ACTION': 'EXIT', 'PRICE': day_prices.get(sym, 0), 'ENTRY_DATE': entry_dates.get(sym, 'N/A'),
+                    'PNL': f"{((day_prices.get(sym, 0)/entry_prices.get(sym, 1))-1)*100:+.2f}%", 'JUSTIFICATION': "Failed Guardrails"
+                })
+            entry_prices.clear(); entry_dates.clear()
+            monthly_records.append({'DATE': current_date, 'NET_RETURN': -0.01 if prev_symbols else 0.004})
             prev_portfolio_df = pd.DataFrame() 
             continue
 
         candidates = candidates.sort_values(by='MASTER_SCORE', ascending=False)
         top_40 = candidates.head(40).copy()
+        final_portfolio = pd.concat([top_40[top_40['SYMBOL'].isin(prev_symbols)], top_40[~top_40['SYMBOL'].isin(prev_symbols)]]).head(20).copy()
+        current_symbols = set(final_portfolio['SYMBOL'])
         
-        held_stocks = top_40[top_40['SYMBOL'].isin(prev_symbols)]
-        new_stocks = top_40[~top_40['SYMBOL'].isin(prev_symbols)]
-        final_portfolio = pd.concat([held_stocks, new_stocks]).head(20).copy()
-        
-        # --- HISTORICAL AI AUDIT TRIGGER ---
-        if client and not final_portfolio.empty:
-            print(f"  -> {curr_date_str}: Calling Gemini to audit {len(final_portfolio)} stocks...")
-            audit_result = analyze_with_gemini(client, curr_date_str, final_portfolio)
-            ai_audit_log.append({
-                'DATE': curr_date_str,
-                'AUDIT_TEXT': audit_result
+        for sym in (prev_symbols - current_symbols):
+            portfolio_snapshots.append({
+                'DATE': curr_date_str, 'SYMBOL': sym, 'SECTOR': prev_portfolio_df[prev_portfolio_df['SYMBOL']==sym]['SECTOR'].iloc[0],
+                'ACTION': 'EXIT', 'PRICE': day_prices.get(sym, 0), 'ENTRY_DATE': entry_dates.get(sym, 'N/A'),
+                'PNL': f"{((day_prices.get(sym, 0)/entry_prices.get(sym, 1))-1)*100:+.2f}%", 'JUSTIFICATION': "Fell below Buffer"
+            })
+            if sym in entry_prices: del entry_prices[sym]
+            if sym in entry_dates: del entry_dates[sym]
+            
+        for _, row in final_portfolio.iterrows():
+            sym, curr_price = row['SYMBOL'], row['CLOSE_PRICE']
+            if sym not in prev_symbols:
+                entry_prices[sym], entry_dates[sym] = curr_price, curr_date_str
+            pnl_str = f"{((curr_price/entry_prices[sym])-1)*100:+.2f}%" if entry_prices[sym] > 0 else "NEW"
+            portfolio_snapshots.append({
+                'DATE': curr_date_str, 'SYMBOL': sym, 'SECTOR': row['SECTOR'],
+                'ACTION': 'HOLD' if sym in prev_symbols else 'ENTRY', 'PRICE': curr_price, 
+                'ENTRY_DATE': entry_dates[sym], 'PNL': pnl_str, 'JUSTIFICATION': "Top 20 Momentum"
             })
             
+        if not final_portfolio.empty:
+            returns = final_portfolio['FORWARD_1M_RET']
+            avg_ret = returns[(returns >= -0.25) & (returns <= 2.5)].mean()
+            monthly_records.append({'DATE': current_date, 'NET_RETURN': avg_ret - ((len(current_symbols - prev_symbols)/max(1, len(current_symbols))) * 0.005)})
         prev_portfolio_df = final_portfolio.copy()
 
-    # Generate HTML Audit Report
-    generate_audit_html(ai_audit_log)
-    print("\n✅ Backtest & AI Historical Audit Complete.")
+    pd.DataFrame(portfolio_snapshots).to_csv("backtest_portfolio_history.csv", index=False)
+    return pd.DataFrame(portfolio_snapshots)
 
-def generate_audit_html(audit_log):
-    html_content = """
+# ==========================================
+# 3. AI TIME-MACHINE AUDITOR (Stateful via JSON)
+# ==========================================
+def run_historical_ai_audit():
+    print("\nStarting Point-in-Time AI Forensic Audit...")
+    df = pd.read_csv("backtest_portfolio_history.csv")
+    dates = sorted(df['DATE'].unique())
+    
+    # This is the JSON state manager to prevent timeout losses
+    progress_file = "audit_progress.json"
+    if os.path.exists(progress_file):
+        with open(progress_file, "r") as f:
+            progress = json.load(f)
+    else:
+        progress = {"results": {}}
+        
+    api_key = os.environ.get("GEMINI_API_KEY")
+    client = genai.Client() if api_key else None
+    
+    if not client:
+        print("No GEMINI_API_KEY found. Skipping AI Audit.")
+        return progress
+
+    for date in dates:
+        if date in progress["results"]:
+            continue # Skip already audited dates (RESUME LOGIC)
+            
+        portfolio = df[(df['DATE'] == date) & (df['ACTION'].isin(['ENTRY', 'HOLD']))]
+        if portfolio.empty: continue
+            
+        print(f"  -> Auditing Portfolio exactly as it was on {date}...")
+        prompt = f"""
+        FORENSIC AUDIT DATE: {date}
+        
+        You are performing a STRICT point-in-time audit for {date}.
+        You are FORBIDDEN from using any data, news, price action, or SEBI filings that occurred AFTER {date}.
+        
+        Stocks:
+        {portfolio[['SYMBOL', 'SECTOR', 'PRICE', 'ENTRY_DATE']].to_markdown(index=False)}
+        
+        Analyze for severe historical governance red flags known ONLY up to {date}. 
+        Keep it brief. If clean, output: "✓ No major historical anomalies detected as of {date}."
+        """
+        
+        for attempt in range(5):
+            try:
+                resp = client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
+                progress["results"][date] = resp.text
+                
+                # Save state to JSON immediately
+                with open(progress_file, "w") as f:
+                    json.dump(progress, f, indent=4)
+                
+                time.sleep(10) # API rate limit padding
+                break
+            except Exception as e:
+                if attempt == 4:
+                    print(f"Error at {date}: {e}. Stopping audit run. State saved.")
+                    return progress
+                time.sleep(30)
+                
+    print("✅ AI Audit Complete.")
+    return progress
+
+# ==========================================
+# 4. GITHUB PAGES HTML PUBLISHER
+# ==========================================
+def generate_dashboards(audit_progress):
+    print("Generating HTML Dashboards for GitHub Pages...")
+    
+    # 1. Generate 'index.html' (The AI Audit Timeline)
+    html_timeline = """
     <!DOCTYPE html>
-    <html lang="en">
+    <html>
     <head>
-        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Historical AI Risk Audit</title>
+        <title>AI Forensic Timeline</title>
         <style>
-            body { background-color: #121212; color: #e0e0e0; font-family: sans-serif; padding: 20px; }
-            h1 { color: #bb86fc; text-align: center; }
-            .card { background-color: #1e1e1e; border-left: 4px solid #bb86fc; padding: 15px; margin-bottom: 20px; border-radius: 6px; }
-            .date { font-weight: bold; font-size: 1.2em; color: #fff; margin-bottom: 10px; }
-            .text { font-size: 14px; line-height: 1.5; color: #ccc; white-space: pre-wrap; }
+            body { font-family: -apple-system, sans-serif; background: #121212; color: #e0e0e0; padding: 20px; }
+            .header { text-align: center; margin-bottom: 30px; }
+            .btn { background: #bb86fc; color: #121212; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; }
+            .card { background: #1e1e1e; border-left: 4px solid #bb86fc; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+            .date { font-size: 18px; font-weight: bold; color: #fff; margin-bottom: 10px; }
+            pre { white-space: pre-wrap; font-family: inherit; font-size: 14px; color: #ccc; }
         </style>
     </head>
     <body>
-        <h1>Month-by-Month AI Forensic Audit Log</h1>
-        <p style="text-align:center; color:#888;">Gemini evaluated the Top 20 stocks every single month using strict Point-in-Time data.</p>
+        <div class="header">
+            <h1>Momentum AI Audit Timeline</h1>
+            <a href="history.html" class="btn">View Detailed Trade Ledger</a>
+        </div>
         <div style="max-width: 800px; margin: auto;">
     """
     
-    for log in reversed(audit_log):
-        # Color coding: If it found anomalies, make the border red
-        border_color = "#ff5252" if "anomaly" in log['AUDIT_TEXT'].lower() or "warning" in log['AUDIT_TEXT'].lower() else "#4caf50"
+    for date in sorted(audit_progress.get("results", {}).keys(), reverse=True):
+        report = audit_progress["results"][date]
+        b_color = "#ff5252" if "warning" in report.lower() or "anomaly" in report.lower() else "#4caf50"
+        html_timeline += f"<div class='card' style='border-left-color: {b_color};'><div class='date'>{date}</div><pre>{report}</pre></div>"
         
-        html_content += f"""
-        <div class="card" style="border-left-color: {border_color};">
-            <div class="date">{log['DATE']}</div>
-            <div class="text">{log['AUDIT_TEXT']}</div>
-        </div>
+    html_timeline += "</div></body></html>"
+    with open("index.html", "w", encoding="utf-8") as f:
+        f.write(html_timeline)
+
+    # 2. Generate 'history.html' (The Raw Trade Data)
+    if os.path.exists("backtest_portfolio_history.csv"):
+        df = pd.read_csv("backtest_portfolio_history.csv")
+        table_html = df.to_html(index=False, classes='trade-table')
+        
+        html_history = f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Trade Ledger</title>
+            <style>
+                body {{ background: #121212; color: #fff; font-family: sans-serif; padding: 20px; }}
+                a {{ color: #bb86fc; text-decoration: none; font-size: 18px; margin-bottom: 20px; display: inline-block; }}
+                .trade-table {{ width: 100%; border-collapse: collapse; font-size: 12px; text-align: left; }}
+                th, td {{ padding: 8px; border-bottom: 1px solid #333; }}
+                th {{ background: #1e1e1e; color: #bb86fc; }}
+                tr:hover {{ background: #1a1a1a; }}
+            </style>
+        </head>
+        <body>
+            <a href="index.html">⬅ Back to AI Audit</a>
+            <h2>Complete Historical Trade Ledger</h2>
+            {table_html}
+        </body>
+        </html>
         """
-        
-    html_content += """
-        </div>
-    </body>
-    </html>
-    """
-    
-    with open("historical_ai_audit.html", "w", encoding="utf-8") as f:
-        f.write(html_content)
+        with open("history.html", "w", encoding="utf-8") as f:
+            f.write(html_history)
 
 if __name__ == "__main__":
     DATA_PATH = "./HistoricalBhavCopy/NSE"
     SECTOR_MAP = "./nifty500_sectors.csv" 
+    
     try:
-        raw_df = load_and_adjust_data(DATA_PATH, SECTOR_MAP)
-        run_pure_momentum_backtest(raw_df)
+        # Step 1: Mathematical Engine (Only runs if CSV doesn't exist to save time on resume)
+        if not os.path.exists("backtest_portfolio_history.csv"):
+            raw_df = load_and_adjust_data(DATA_PATH, SECTOR_MAP)
+            run_pure_momentum_backtest(raw_df)
+        else:
+            print("Backtest data found. Skipping math engine...")
+            
+        # Step 2: The Time-Machine AI Audit (Uses JSON to save/resume progress)
+        audit_state = run_historical_ai_audit()
+        
+        # Step 3: Build Web Files for GitHub
+        generate_dashboards(audit_state)
+        
     except Exception as e:
         print(f"Execution failed: {e}")
