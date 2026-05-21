@@ -1,611 +1,797 @@
-DATE,SYMBOL,SECTOR,ACTION,PRICE,PNL,JUSTIFICATION,ENTRY_DATE,EXIT_DATE
-2024-01-31,ELECTCAST,Capital Goods,ENTRY,₹175.10,NEW,Top Breakout (Engine A),2024-01-31,-
-2024-01-31,WEBELSOLAR,Capital Goods,ENTRY,₹369.75,NEW,Top Breakout (Engine A),2024-01-31,-
-2024-01-31,INOXWIND,Capital Goods,ENTRY,₹478.00,NEW,Top Breakout (Engine A),2024-01-31,-
-2024-01-31,KPIGREEN,Power,ENTRY,₹1821.10,NEW,Top Breakout (Engine A),2024-01-31,-
-2024-01-31,SJVN,Power,ENTRY,₹131.80,NEW,Top Breakout (Engine A),2024-01-31,-
-2024-01-31,DBREALTY,Realty,ENTRY,₹252.55,NEW,Top Breakout (Engine A),2024-01-31,-
-2024-01-31,PURVA,Realty,ENTRY,₹259.30,NEW,Top Breakout (Engine A),2024-01-31,-
-2024-01-31,NLCINDIA,Power,ENTRY,₹259.30,NEW,Top Breakout (Engine A),2024-01-31,-
-2024-01-31,PRESTIGE,Realty,ENTRY,₹1265.40,NEW,Top Breakout (Engine A),2024-01-31,-
-2024-01-31,BSE,Financial Services,ENTRY,₹2323.60,NEW,Top Breakout (Engine B),2024-01-31,-
-2024-01-31,RECLTD,Financial Services,ENTRY,₹499.05,NEW,Top Breakout (Engine B),2024-01-31,-
-2024-01-31,ANANDRATHI,Financial Services,ENTRY,₹3058.25,NEW,Top Breakout (Engine B),2024-01-31,-
-2024-01-31,ARVIND,Textiles,ENTRY,₹315.00,NEW,Top Breakout (Engine B),2024-01-31,-
-2024-01-31,NEULANDLAB,Healthcare,ENTRY,₹6413.65,NEW,Top Breakout (Engine B),2024-01-31,-
-2024-01-31,MSTCLTD,Services,ENTRY,₹1060.85,NEW,Top Breakout (Engine B),2024-01-31,-
-2024-01-31,TEXRAIL,Capital Goods,ENTRY,₹219.60,NEW,Top Breakout (Engine B),2024-01-31,-
-2024-01-31,JINDALSAW,Capital Goods,ENTRY,₹521.80,NEW,Top Breakout (Engine B),2024-01-31,-
-2024-01-31,SHAKTIPUMP,Capital Goods,ENTRY,₹1478.30,NEW,Top Breakout (Engine B),2024-01-31,-
-2024-01-31,ZENTEC,Capital Goods,ENTRY,₹840.40,NEW,Top Breakout (Engine B),2024-01-31,-
-2024-02-29,SJVN,Power,EXIT,₹121.15,-8.08%,Failed Liquidity/Delivery/Price Filter,2024-01-31,2024-02-29
-2024-02-29,PRESTIGE,Realty,EXIT,₹1166.75,-7.80%,Fell below Buffer Rank,2024-01-31,2024-02-29
-2024-02-29,SHAKTIPUMP,Capital Goods,EXIT,₹1315.40,-11.02%,Failed Liquidity/Delivery/Price Filter,2024-01-31,2024-02-29
-2024-02-29,JINDALSAW,Capital Goods,EXIT,₹476.95,-8.60%,Fell below Buffer Rank,2024-01-31,2024-02-29
-2024-02-29,ZENTEC,Capital Goods,EXIT,₹865.85,+3.03%,Fell below Buffer Rank,2024-01-31,2024-02-29
-2024-02-29,KPIGREEN,Power,EXIT,₹1740.15,-4.45%,Failed Liquidity/Delivery/Price Filter,2024-01-31,2024-02-29
-2024-02-29,DBREALTY,Realty,HOLD,₹268.15,+6.18%,Maintained Buffer Rank,2024-01-31,-
-2024-02-29,PURVA,Realty,HOLD,₹238.70,-7.94%,Maintained Buffer Rank,2024-01-31,-
-2024-02-29,NLCINDIA,Power,HOLD,₹222.45,-14.21%,Maintained Buffer Rank,2024-01-31,-
-2024-02-29,ADANIGREEN,Power,ENTRY,₹1895.05,NEW,Top Breakout (Engine A),2024-02-29,-
-2024-02-29,SOBHA,Realty,ENTRY,₹1565.15,NEW,Top Breakout (Engine A),2024-02-29,-
-2024-02-29,GMRP&UI,Power,ENTRY,₹52.25,NEW,Top Breakout (Engine A),2024-02-29,-
-2024-02-29,WABAG,Utilities,ENTRY,₹731.60,NEW,Top Breakout (Engine A),2024-02-29,-
-2024-02-29,INOXWIND,Capital Goods,HOLD,₹602.80,+26.11%,Maintained Buffer Rank,2024-01-31,-
-2024-02-29,WEBELSOLAR,Capital Goods,HOLD,₹391.60,+5.91%,Maintained Buffer Rank,2024-01-31,-
-2024-02-29,BSE,Financial Services,HOLD,₹2366.85,+1.86%,Maintained Buffer Rank,2024-01-31,-
-2024-02-29,ANANDRATHI,Financial Services,HOLD,₹3656.80,+19.57%,Maintained Buffer Rank,2024-01-31,-
-2024-02-29,ELECTCAST,Capital Goods,HOLD,₹159.90,-8.68%,Maintained Buffer Rank,2024-01-31,-
-2024-02-29,NEULANDLAB,Healthcare,HOLD,₹7161.95,+11.67%,Maintained Buffer Rank,2024-01-31,-
-2024-02-29,RECLTD,Financial Services,HOLD,₹442.05,-11.42%,Maintained Buffer Rank,2024-01-31,-
-2024-02-29,MSTCLTD,Services,HOLD,₹909.25,-14.29%,Maintained Buffer Rank,2024-01-31,-
-2024-02-29,TEXRAIL,Capital Goods,HOLD,₹190.35,-13.32%,Maintained Buffer Rank,2024-01-31,-
-2024-02-29,ARVIND,Textiles,HOLD,₹280.00,-11.11%,Maintained Buffer Rank,2024-01-31,-
-2024-03-28,PURVA,Realty,EXIT,₹209.75,-19.11%,Failed Liquidity/Delivery/Price Filter,2024-01-31,2024-03-28
-2024-03-28,GMRP&UI,Power,EXIT,₹42.85,-17.99%,Failed Liquidity/Delivery/Price Filter,2024-02-29,2024-03-28
-2024-03-28,DBREALTY,Realty,EXIT,₹196.35,-22.25%,Failed Liquidity/Delivery/Price Filter,2024-01-31,2024-03-28
-2024-03-28,SOBHA,Realty,HOLD,₹1448.75,-7.44%,Maintained Buffer Rank,2024-02-29,-
-2024-03-28,NLCINDIA,Power,HOLD,₹228.10,-12.03%,Maintained Buffer Rank,2024-01-31,-
-2024-03-28,WABAG,Utilities,HOLD,₹763.45,+4.35%,Maintained Buffer Rank,2024-02-29,-
-2024-03-28,ADANIGREEN,Power,HOLD,₹1835.15,-3.16%,Maintained Buffer Rank,2024-02-29,-
-2024-03-28,PRESTIGE,Realty,ENTRY,₹1170.00,NEW,Top Breakout (Engine A),2024-03-28,-
-2024-03-28,TORNTPOWER,Power,ENTRY,₹1357.95,NEW,Top Breakout (Engine A),2024-03-28,-
-2024-03-28,ANANTRAJ,Realty,ENTRY,₹311.35,NEW,Top Breakout (Engine A),2024-03-28,-
-2024-03-28,WEBELSOLAR,Capital Goods,HOLD,₹485.30,+31.25%,Maintained Buffer Rank,2024-01-31,-
-2024-03-28,ELECTCAST,Capital Goods,HOLD,₹178.20,+1.77%,Maintained Buffer Rank,2024-01-31,-
-2024-03-28,INOXWIND,Capital Goods,HOLD,₹521.60,+9.12%,Maintained Buffer Rank,2024-01-31,-
-2024-03-28,BSE,Financial Services,HOLD,₹2515.90,+8.28%,Maintained Buffer Rank,2024-01-31,-
-2024-03-28,ANANDRATHI,Financial Services,HOLD,₹3694.35,+20.80%,Maintained Buffer Rank,2024-01-31,-
-2024-03-28,NEULANDLAB,Healthcare,HOLD,₹6322.15,-1.43%,Maintained Buffer Rank,2024-01-31,-
-2024-03-28,RECLTD,Financial Services,HOLD,₹451.00,-9.63%,Maintained Buffer Rank,2024-01-31,-
-2024-03-28,MSTCLTD,Services,HOLD,₹831.70,-21.60%,Maintained Buffer Rank,2024-01-31,-
-2024-03-28,TEXRAIL,Capital Goods,HOLD,₹164.80,-24.95%,Maintained Buffer Rank,2024-01-31,-
-2024-03-28,ARVIND,Textiles,HOLD,₹270.45,-14.14%,Maintained Buffer Rank,2024-01-31,-
-2024-04-30,ARVIND,Textiles,EXIT,₹315.05,+0.02%,Fell below Buffer Rank,2024-01-31,2024-04-30
-2024-04-30,WEBELSOLAR,Capital Goods,EXIT,₹681.05,+84.19%,Failed Liquidity/Delivery/Price Filter,2024-01-31,2024-04-30
-2024-04-30,TORNTPOWER,Power,EXIT,₹1501.10,+10.54%,Fell below Buffer Rank,2024-03-28,2024-04-30
-2024-04-30,ADANIGREEN,Power,EXIT,₹1797.65,-5.14%,Fell below Buffer Rank,2024-02-29,2024-04-30
-2024-04-30,TEXRAIL,Capital Goods,EXIT,₹182.25,-17.01%,Fell below Buffer Rank,2024-01-31,2024-04-30
-2024-04-30,ANANTRAJ,Realty,EXIT,₹362.90,+16.56%,Fell below Buffer Rank,2024-03-28,2024-04-30
-2024-04-30,NLCINDIA,Power,EXIT,₹242.35,-6.54%,Fell below Buffer Rank,2024-01-31,2024-04-30
-2024-04-30,SOBHA,Realty,HOLD,₹1776.75,+13.52%,Maintained Buffer Rank,2024-02-29,-
-2024-04-30,PRESTIGE,Realty,HOLD,₹1380.25,+17.97%,Maintained Buffer Rank,2024-03-28,-
-2024-04-30,WABAG,Utilities,HOLD,₹966.05,+32.05%,Maintained Buffer Rank,2024-02-29,-
-2024-04-30,SJVN,Power,ENTRY,₹134.40,NEW,Top Breakout (Engine A),2024-04-30,-
-2024-04-30,GMRP&UI,Power,ENTRY,₹64.00,NEW,Top Breakout (Engine A),2024-04-30,-
-2024-04-30,ADANIPOWER,Power,ENTRY,₹612.45,NEW,Top Breakout (Engine A),2024-04-30,-
-2024-04-30,DBREALTY,Realty,ENTRY,₹235.90,NEW,Top Breakout (Engine A),2024-04-30,-
-2024-04-30,INOXWIND,Capital Goods,HOLD,₹627.60,+31.30%,Maintained Buffer Rank,2024-01-31,-
-2024-04-30,ELECTCAST,Capital Goods,HOLD,₹192.00,+9.65%,Maintained Buffer Rank,2024-01-31,-
-2024-04-30,BSE,Financial Services,HOLD,₹2790.15,+20.08%,Maintained Buffer Rank,2024-01-31,-
-2024-04-30,ANANDRATHI,Financial Services,HOLD,₹3998.25,+30.74%,Maintained Buffer Rank,2024-01-31,-
-2024-04-30,RECLTD,Financial Services,HOLD,₹507.15,+1.62%,Maintained Buffer Rank,2024-01-31,-
-2024-04-30,NEULANDLAB,Healthcare,HOLD,₹7593.45,+18.40%,Maintained Buffer Rank,2024-01-31,-
-2024-04-30,MSTCLTD,Services,HOLD,₹901.15,-15.05%,Maintained Buffer Rank,2024-01-31,-
-2024-04-30,HUDCO,Financial Services,ENTRY,₹224.50,NEW,Top Breakout (Engine B),2024-04-30,-
-2024-04-30,IRFC,Financial Services,ENTRY,₹157.25,NEW,Top Breakout (Engine B),2024-04-30,-
-2024-04-30,MOTILALOFS,Financial Services,ENTRY,₹2376.90,NEW,Top Breakout (Engine B),2024-04-30,-
-2024-05-31,IRFC,Financial Services,EXIT,₹177.80,+13.07%,Failed Liquidity/Delivery/Price Filter,2024-04-30,2024-05-31
-2024-05-31,NEULANDLAB,Healthcare,EXIT,₹6042.50,-5.79%,Fell below Buffer Rank,2024-01-31,2024-05-31
-2024-05-31,RECLTD,Financial Services,EXIT,₹537.75,+7.75%,Failed Liquidity/Delivery/Price Filter,2024-01-31,2024-05-31
-2024-05-31,DBREALTY,Realty,EXIT,₹203.45,-13.76%,Fell below Buffer Rank,2024-04-30,2024-05-31
-2024-05-31,WABAG,Utilities,EXIT,₹980.05,+33.96%,Fell below Buffer Rank,2024-02-29,2024-05-31
-2024-05-31,INOXWIND,Capital Goods,EXIT,₹148.95,-68.84%,Failed Liquidity/Delivery/Price Filter,2024-01-31,2024-05-31
-2024-05-31,SOBHA,Realty,HOLD,₹1899.80,+21.38%,Maintained Buffer Rank,2024-02-29,-
-2024-05-31,SJVN,Power,HOLD,₹139.70,+3.94%,Maintained Buffer Rank,2024-04-30,-
-2024-05-31,GMRP&UI,Power,HOLD,₹65.90,+2.97%,Maintained Buffer Rank,2024-04-30,-
-2024-05-31,PRESTIGE,Realty,HOLD,₹1597.55,+36.54%,Maintained Buffer Rank,2024-03-28,-
-2024-05-31,ADANIPOWER,Power,HOLD,₹755.80,+23.41%,Maintained Buffer Rank,2024-04-30,-
-2024-05-31,TECHNOE,Construction,ENTRY,₹1418.35,NEW,Top Breakout (Engine A),2024-05-31,-
-2024-05-31,NBCC,Construction,ENTRY,₹142.40,NEW,Top Breakout (Engine A),2024-05-31,-
-2024-05-31,IRCON,Construction,ENTRY,₹270.80,NEW,Top Breakout (Engine A),2024-05-31,-
-2024-05-31,TARC,Realty,ENTRY,₹168.20,NEW,Top Breakout (Engine A),2024-05-31,-
-2024-05-31,HUDCO,Financial Services,HOLD,₹273.80,+21.96%,Maintained Buffer Rank,2024-04-30,-
-2024-05-31,ANANDRATHI,Financial Services,HOLD,₹4195.40,+37.18%,Maintained Buffer Rank,2024-01-31,-
-2024-05-31,BSE,Financial Services,HOLD,₹2693.85,+15.93%,Maintained Buffer Rank,2024-01-31,-
-2024-05-31,MOTILALOFS,Financial Services,HOLD,₹2219.70,-6.61%,Maintained Buffer Rank,2024-04-30,-
-2024-05-31,ELECTCAST,Capital Goods,HOLD,₹160.90,-8.11%,Maintained Buffer Rank,2024-01-31,-
-2024-05-31,MSTCLTD,Services,HOLD,₹891.20,-15.99%,Maintained Buffer Rank,2024-01-31,-
-2024-05-31,FORCEMOT,Automobile and Auto Components,ENTRY,₹8734.70,NEW,Top Breakout (Engine B),2024-05-31,-
-2024-05-31,IFCI,Financial Services,ENTRY,₹58.10,NEW,Top Breakout (Engine B),2024-05-31,-
-2024-05-31,SHAKTIPUMP,Capital Goods,ENTRY,₹2482.95,NEW,Top Breakout (Engine B),2024-05-31,-
-2024-05-31,JWL,Capital Goods,ENTRY,₹602.20,NEW,Top Breakout (Engine B),2024-05-31,-
-2024-06-28,ADANIPOWER,Power,EXIT,₹718.60,+17.33%,Fell below Buffer Rank,2024-04-30,2024-06-28
-2024-06-28,SHAKTIPUMP,Capital Goods,EXIT,₹3664.70,+47.59%,Failed Liquidity/Delivery/Price Filter,2024-05-31,2024-06-28
-2024-06-28,MOTILALOFS,Financial Services,EXIT,₹614.55,-74.14%,Failed Liquidity/Delivery/Price Filter,2024-04-30,2024-06-28
-2024-06-28,ELECTCAST,Capital Goods,EXIT,₹173.44,-0.95%,Fell below Buffer Rank,2024-01-31,2024-06-28
-2024-06-28,TECHNOE,Construction,EXIT,₹1553.30,+9.51%,Failed Liquidity/Delivery/Price Filter,2024-05-31,2024-06-28
-2024-06-28,MSTCLTD,Services,EXIT,₹857.30,-19.19%,Fell below Buffer Rank,2024-01-31,2024-06-28
-2024-06-28,GMRP&UI,Power,HOLD,₹83.89,+31.08%,Maintained Buffer Rank,2024-04-30,-
-2024-06-28,NBCC,Construction,HOLD,₹156.96,+10.22%,Maintained Buffer Rank,2024-05-31,-
-2024-06-28,SOBHA,Realty,HOLD,₹1956.65,+25.01%,Maintained Buffer Rank,2024-02-29,-
-2024-06-28,PRESTIGE,Realty,HOLD,₹1892.60,+61.76%,Maintained Buffer Rank,2024-03-28,-
-2024-06-28,SJVN,Power,HOLD,₹131.63,-2.06%,Maintained Buffer Rank,2024-04-30,-
-2024-06-28,IRCON,Construction,HOLD,₹269.65,-0.42%,Maintained Buffer Rank,2024-05-31,-
-2024-06-28,TARC,Realty,HOLD,₹190.91,+13.50%,Maintained Buffer Rank,2024-05-31,-
-2024-06-28,JSWENERGY,Power,ENTRY,₹734.50,NEW,Top Breakout (Engine A),2024-06-28,-
-2024-06-28,NCC,Construction,ENTRY,₹316.45,NEW,Top Breakout (Engine A),2024-06-28,-
-2024-06-28,FORCEMOT,Automobile and Auto Components,HOLD,₹8965.40,+2.64%,Maintained Buffer Rank,2024-05-31,-
-2024-06-28,HUDCO,Financial Services,HOLD,₹281.20,+25.26%,Maintained Buffer Rank,2024-04-30,-
-2024-06-28,IFCI,Financial Services,HOLD,₹61.58,+5.99%,Maintained Buffer Rank,2024-05-31,-
-2024-06-28,JWL,Capital Goods,HOLD,₹689.25,+14.46%,Maintained Buffer Rank,2024-05-31,-
-2024-06-28,ANANDRATHI,Financial Services,HOLD,₹3907.85,+27.78%,Maintained Buffer Rank,2024-01-31,-
-2024-06-28,BSE,Financial Services,HOLD,₹2582.55,+11.14%,Maintained Buffer Rank,2024-01-31,-
-2024-06-28,IRFC,Financial Services,ENTRY,₹173.81,NEW,Top Breakout (Engine B),2024-06-28,-
-2024-06-28,KIRLOSBROS,Capital Goods,ENTRY,₹2121.85,NEW,Top Breakout (Engine B),2024-06-28,-
-2024-06-28,SCHNEIDER,Capital Goods,ENTRY,₹865.30,NEW,Top Breakout (Engine B),2024-06-28,-
-2024-06-28,POWERINDIA,Capital Goods,ENTRY,₹12911.60,NEW,Top Breakout (Engine B),2024-06-28,-
-2024-07-31,IRFC,Financial Services,EXIT,₹193.65,+11.41%,Failed Liquidity/Delivery/Price Filter,2024-06-28,2024-07-31
-2024-07-31,IFCI,Financial Services,EXIT,₹87.33,+50.31%,Failed Liquidity/Delivery/Price Filter,2024-05-31,2024-07-31
-2024-07-31,HUDCO,Financial Services,EXIT,₹312.25,+39.09%,Failed Liquidity/Delivery/Price Filter,2024-04-30,2024-07-31
-2024-07-31,SJVN,Power,EXIT,₹148.47,+10.47%,Fell below Buffer Rank,2024-04-30,2024-07-31
-2024-07-31,SOBHA,Realty,EXIT,₹1800.20,+15.02%,Fell below Buffer Rank,2024-02-29,2024-07-31
-2024-07-31,IRCON,Construction,EXIT,₹288.75,+6.63%,Failed Liquidity/Delivery/Price Filter,2024-05-31,2024-07-31
-2024-07-31,TARC,Realty,EXIT,₹219.07,+30.24%,Failed Liquidity/Delivery/Price Filter,2024-05-31,2024-07-31
-2024-07-31,JSWENERGY,Power,EXIT,₹728.00,-0.88%,Fell below Buffer Rank,2024-06-28,2024-07-31
-2024-07-31,GMRP&UI,Power,HOLD,₹97.94,+53.03%,Maintained Buffer Rank,2024-04-30,-
-2024-07-31,NBCC,Construction,HOLD,₹181.21,+27.25%,Maintained Buffer Rank,2024-05-31,-
-2024-07-31,NCC,Construction,HOLD,₹357.95,+13.11%,Maintained Buffer Rank,2024-06-28,-
-2024-07-31,TORNTPOWER,Power,ENTRY,₹1866.45,NEW,Top Breakout (Engine A),2024-07-31,-
-2024-07-31,WABAG,Utilities,ENTRY,₹1342.65,NEW,Top Breakout (Engine A),2024-07-31,-
-2024-07-31,NAVA,Power,ENTRY,₹914.90,NEW,Top Breakout (Engine A),2024-07-31,-
-2024-07-31,HCC,Construction,ENTRY,₹55.75,NEW,Top Breakout (Engine A),2024-07-31,-
-2024-07-31,IONEXCHANG,Utilities,ENTRY,₹695.50,NEW,Top Breakout (Engine A),2024-07-31,-
-2024-07-31,FORCEMOT,Automobile and Auto Components,HOLD,₹9244.75,+5.84%,Maintained Buffer Rank,2024-05-31,-
-2024-07-31,KIRLOSBROS,Capital Goods,HOLD,₹2437.00,+14.85%,Maintained Buffer Rank,2024-06-28,-
-2024-07-31,ANANDRATHI,Financial Services,HOLD,₹3778.35,+23.55%,Maintained Buffer Rank,2024-01-31,-
-2024-07-31,PRESTIGE,Realty,HOLD,₹1815.90,+55.21%,Maintained Buffer Rank,2024-03-28,-
-2024-07-31,POWERINDIA,Capital Goods,HOLD,₹11607.10,-10.10%,Maintained Buffer Rank,2024-06-28,-
-2024-07-31,JWL,Capital Goods,HOLD,₹609.30,+1.18%,Maintained Buffer Rank,2024-05-31,-
-2024-07-31,BSE,Financial Services,HOLD,₹2556.45,+10.02%,Maintained Buffer Rank,2024-01-31,-
-2024-07-31,SCHNEIDER,Capital Goods,HOLD,₹803.15,-7.18%,Maintained Buffer Rank,2024-06-28,-
-2024-07-31,GRSE,Capital Goods,ENTRY,₹2405.55,NEW,Top Breakout (Engine B),2024-07-31,-
-2024-07-31,ELECTCAST,Capital Goods,ENTRY,₹216.51,NEW,Top Breakout (Engine B),2024-07-31,-
-2024-08-30,KIRLOSBROS,Capital Goods,EXIT,₹1805.60,-14.90%,Failed Liquidity/Delivery/Price Filter,2024-06-28,2024-08-30
-2024-08-30,HCC,Construction,EXIT,₹47.19,-15.35%,Failed Liquidity/Delivery/Price Filter,2024-07-31,2024-08-30
-2024-08-30,GRSE,Capital Goods,EXIT,₹1811.00,-24.72%,Failed Liquidity/Delivery/Price Filter,2024-07-31,2024-08-30
-2024-08-30,SCHNEIDER,Capital Goods,EXIT,₹829.65,-4.12%,Fell below Buffer Rank,2024-06-28,2024-08-30
-2024-08-30,ANANDRATHI,Financial Services,EXIT,₹3813.80,+24.71%,Fell below Buffer Rank,2024-01-31,2024-08-30
-2024-08-30,JWL,Capital Goods,EXIT,₹575.65,-4.41%,Fell below Buffer Rank,2024-05-31,2024-08-30
-2024-08-30,NCC,Construction,EXIT,₹319.05,+0.82%,Fell below Buffer Rank,2024-06-28,2024-08-30
-2024-08-30,GMRP&UI,Power,HOLD,₹137.91,+115.48%,Maintained Buffer Rank,2024-04-30,-
-2024-08-30,PRESTIGE,Realty,HOLD,₹1813.15,+54.97%,Maintained Buffer Rank,2024-03-28,-
-2024-08-30,WABAG,Utilities,HOLD,₹1272.55,-5.22%,Maintained Buffer Rank,2024-07-31,-
-2024-08-30,NAVA,Power,HOLD,₹952.45,+4.10%,Maintained Buffer Rank,2024-07-31,-
-2024-08-30,TORNTPOWER,Power,HOLD,₹1743.50,-6.59%,Maintained Buffer Rank,2024-07-31,-
-2024-08-30,IONEXCHANG,Utilities,HOLD,₹648.95,-6.69%,Maintained Buffer Rank,2024-07-31,-
-2024-08-30,ANANTRAJ,Realty,ENTRY,₹595.90,NEW,Top Breakout (Engine A),2024-08-30,-
-2024-08-30,SOBHA,Realty,ENTRY,₹1689.75,NEW,Top Breakout (Engine A),2024-08-30,-
-2024-08-30,FORCEMOT,Automobile and Auto Components,HOLD,₹8329.40,-4.64%,Maintained Buffer Rank,2024-05-31,-
-2024-08-30,NBCC,Construction,HOLD,₹186.37,+30.88%,Maintained Buffer Rank,2024-05-31,-
-2024-08-30,POWERINDIA,Capital Goods,HOLD,₹12095.05,-6.32%,Maintained Buffer Rank,2024-06-28,-
-2024-08-30,ELECTCAST,Capital Goods,HOLD,₹214.20,-1.07%,Maintained Buffer Rank,2024-07-31,-
-2024-08-30,BSE,Financial Services,HOLD,₹2832.65,+21.91%,Maintained Buffer Rank,2024-01-31,-
-2024-08-30,PCJEWELLER,Consumer Durables,ENTRY,₹110.87,NEW,Top Breakout (Engine B),2024-08-30,-
-2024-08-30,GRAVITA,Metals & Mining,ENTRY,₹2277.15,NEW,Top Breakout (Engine B),2024-08-30,-
-2024-08-30,TRENT,Consumer Services,ENTRY,₹7158.75,NEW,Top Breakout (Engine B),2024-08-30,-
-2024-08-30,SUZLON,Capital Goods,ENTRY,₹75.84,NEW,Top Breakout (Engine B),2024-08-30,-
-2024-08-30,HUDCO,Financial Services,ENTRY,₹280.65,NEW,Top Breakout (Engine B),2024-08-30,-
-2024-09-30,NBCC,Construction,EXIT,₹179.30,+25.91%,Fell below Buffer Rank,2024-05-31,2024-09-30
-2024-09-30,BSE,Financial Services,EXIT,₹3684.65,+58.58%,Fell below Buffer Rank,2024-01-31,2024-09-30
-2024-09-30,ELECTCAST,Capital Goods,EXIT,₹211.46,-2.33%,Fell below Buffer Rank,2024-07-31,2024-09-30
-2024-09-30,HUDCO,Financial Services,EXIT,₹241.80,-13.84%,Fell below Buffer Rank,2024-08-30,2024-09-30
-2024-09-30,GMRP&UI,Power,HOLD,₹159.70,+149.53%,Maintained Buffer Rank,2024-04-30,-
-2024-09-30,ANANTRAJ,Realty,HOLD,₹704.40,+18.21%,Maintained Buffer Rank,2024-08-30,-
-2024-09-30,WABAG,Utilities,HOLD,₹1510.50,+12.50%,Maintained Buffer Rank,2024-07-31,-
-2024-09-30,NAVA,Power,HOLD,₹1149.40,+25.63%,Maintained Buffer Rank,2024-07-31,-
-2024-09-30,PRESTIGE,Realty,HOLD,₹1845.25,+57.71%,Maintained Buffer Rank,2024-03-28,-
-2024-09-30,SOBHA,Realty,HOLD,₹1940.40,+14.83%,Maintained Buffer Rank,2024-08-30,-
-2024-09-30,TORNTPOWER,Power,HOLD,₹1878.00,+0.62%,Maintained Buffer Rank,2024-07-31,-
-2024-09-30,IONEXCHANG,Utilities,HOLD,₹638.45,-8.20%,Maintained Buffer Rank,2024-07-31,-
-2024-09-30,PCJEWELLER,Consumer Durables,HOLD,₹178.17,+60.70%,Maintained Buffer Rank,2024-08-30,-
-2024-09-30,TRENT,Consumer Services,HOLD,₹7574.65,+5.81%,Maintained Buffer Rank,2024-08-30,-
-2024-09-30,POWERINDIA,Capital Goods,HOLD,₹14545.30,+12.65%,Maintained Buffer Rank,2024-06-28,-
-2024-09-30,GRAVITA,Metals & Mining,HOLD,₹2453.05,+7.72%,Maintained Buffer Rank,2024-08-30,-
-2024-09-30,SUZLON,Capital Goods,HOLD,₹80.05,+5.55%,Maintained Buffer Rank,2024-08-30,-
-2024-09-30,FORCEMOT,Automobile and Auto Components,HOLD,₹7481.70,-14.35%,Maintained Buffer Rank,2024-05-31,-
-2024-09-30,OPTIEMUS,Telecommunication,ENTRY,₹815.35,NEW,Top Breakout (Engine B),2024-09-30,-
-2024-09-30,PCBL,Chemicals,ENTRY,₹577.60,NEW,Top Breakout (Engine B),2024-09-30,-
-2024-09-30,KITEX,Textiles,ENTRY,₹516.15,NEW,Top Breakout (Engine B),2024-09-30,-
-2024-09-30,RVNL,Construction,ENTRY,₹531.45,NEW,Top Breakout (Engine B),2024-09-30,-
-2024-10-31,SOBHA,Realty,EXIT,₹1588.40,-6.00%,Fell below Buffer Rank,2024-08-30,2024-10-31
-2024-10-31,FORCEMOT,Automobile and Auto Components,EXIT,₹7863.50,-9.97%,Fell below Buffer Rank,2024-05-31,2024-10-31
-2024-10-31,PCJEWELLER,Consumer Durables,EXIT,₹156.31,+40.98%,Failed Liquidity/Delivery/Price Filter,2024-08-30,2024-10-31
-2024-10-31,OPTIEMUS,Telecommunication,EXIT,₹672.40,-17.53%,Failed Liquidity/Delivery/Price Filter,2024-09-30,2024-10-31
-2024-10-31,TORNTPOWER,Power,EXIT,₹1821.75,-2.39%,Fell below Buffer Rank,2024-07-31,2024-10-31
-2024-10-31,RVNL,Construction,EXIT,₹471.80,-11.22%,Failed Liquidity/Delivery/Price Filter,2024-09-30,2024-10-31
-2024-10-31,PCBL,Chemicals,EXIT,₹410.95,-28.85%,Fell below Buffer Rank,2024-09-30,2024-10-31
-2024-10-31,SUZLON,Capital Goods,EXIT,₹66.95,-11.72%,Fell below Buffer Rank,2024-08-30,2024-10-31
-2024-10-31,WABAG,Utilities,HOLD,₹1777.95,+32.42%,Maintained Buffer Rank,2024-07-31,-
-2024-10-31,ANANTRAJ,Realty,HOLD,₹740.80,+24.32%,Maintained Buffer Rank,2024-08-30,-
-2024-10-31,PRESTIGE,Realty,HOLD,₹1636.45,+39.87%,Maintained Buffer Rank,2024-03-28,-
-2024-10-31,IONEXCHANG,Utilities,HOLD,₹702.00,+0.93%,Maintained Buffer Rank,2024-07-31,-
-2024-10-31,WOCKPHARMA,Healthcare,ENTRY,₹1208.35,NEW,Top Breakout (Engine A),2024-10-31,-
-2024-10-31,NEULANDLAB,Healthcare,ENTRY,₹14606.60,NEW,Top Breakout (Engine A),2024-10-31,-
-2024-10-31,JUBLPHARMA,Healthcare,ENTRY,₹1211.75,NEW,Top Breakout (Engine A),2024-10-31,-
-2024-10-31,OBEROIRLTY,Realty,ENTRY,₹1966.80,NEW,Top Breakout (Engine A),2024-10-31,-
-2024-10-31,KITEX,Textiles,HOLD,₹584.10,+13.16%,Maintained Buffer Rank,2024-09-30,-
-2024-10-31,GMRP&UI,Power,HOLD,₹117.78,+84.03%,Maintained Buffer Rank,2024-04-30,-
-2024-10-31,TRENT,Consumer Services,HOLD,₹7128.35,-0.42%,Maintained Buffer Rank,2024-08-30,-
-2024-10-31,POWERINDIA,Capital Goods,HOLD,₹13819.00,+7.03%,Maintained Buffer Rank,2024-06-28,-
-2024-10-31,GRAVITA,Metals & Mining,HOLD,₹2119.80,-6.91%,Maintained Buffer Rank,2024-08-30,-
-2024-10-31,NAVA,Power,HOLD,₹962.20,+5.17%,Maintained Buffer Rank,2024-07-31,-
-2024-10-31,WEBELSOLAR,Capital Goods,ENTRY,₹1421.75,NEW,Top Breakout (Engine B),2024-10-31,-
-2024-10-31,GRWRHITECH,Capital Goods,ENTRY,₹4086.20,NEW,Top Breakout (Engine B),2024-10-31,-
-2024-10-31,GODFRYPHLP,Fast Moving Consumer Goods,ENTRY,₹6625.15,NEW,Top Breakout (Engine B),2024-10-31,-
-2024-10-31,NETWEB,Information Technology,ENTRY,₹2697.80,NEW,Top Breakout (Engine B),2024-10-31,-
-2024-11-29,PRESTIGE,Realty,EXIT,₹1650.55,+41.07%,Fell below Buffer Rank,2024-03-28,2024-11-29
-2024-11-29,POWERINDIA,Capital Goods,EXIT,₹11978.55,-7.23%,Fell below Buffer Rank,2024-06-28,2024-11-29
-2024-11-29,OBEROIRLTY,Realty,EXIT,₹2007.35,+2.06%,Fell below Buffer Rank,2024-10-31,2024-11-29
-2024-11-29,GODFRYPHLP,Fast Moving Consumer Goods,EXIT,₹5673.15,-14.37%,Failed Liquidity/Delivery/Price Filter,2024-10-31,2024-11-29
-2024-11-29,GRAVITA,Metals & Mining,EXIT,₹2176.80,-4.41%,Fell below Buffer Rank,2024-08-30,2024-11-29
-2024-11-29,KITEX,Textiles,HOLD,₹742.45,+43.84%,Maintained Buffer Rank,2024-09-30,-
-2024-11-29,WOCKPHARMA,Healthcare,HOLD,₹1404.25,+16.21%,Maintained Buffer Rank,2024-10-31,-
-2024-11-29,NEULANDLAB,Healthcare,HOLD,₹16709.30,+14.40%,Maintained Buffer Rank,2024-10-31,-
-2024-11-29,WABAG,Utilities,HOLD,₹1794.90,+33.68%,Maintained Buffer Rank,2024-07-31,-
-2024-11-29,IONEXCHANG,Utilities,HOLD,₹662.50,-4.74%,Maintained Buffer Rank,2024-07-31,-
-2024-11-29,SUPRIYA,Healthcare,ENTRY,₹775.95,NEW,Top Breakout (Engine A),2024-11-29,-
-2024-11-29,ARVIND,Textiles,ENTRY,₹378.70,NEW,Top Breakout (Engine A),2024-11-29,-
-2024-11-29,PAGEIND,Textiles,ENTRY,₹44644.90,NEW,Top Breakout (Engine A),2024-11-29,-
-2024-11-29,WEBELSOLAR,Capital Goods,HOLD,₹1268.75,-10.76%,Maintained Buffer Rank,2024-10-31,-
-2024-11-29,GRWRHITECH,Capital Goods,HOLD,₹4937.05,+20.82%,Maintained Buffer Rank,2024-10-31,-
-2024-11-29,NAVA,Power,HOLD,₹1059.40,+15.79%,Maintained Buffer Rank,2024-07-31,-
-2024-11-29,JUBLPHARMA,Healthcare,HOLD,₹1234.25,+1.86%,Maintained Buffer Rank,2024-10-31,-
-2024-11-29,NETWEB,Information Technology,HOLD,₹2750.15,+1.94%,Maintained Buffer Rank,2024-10-31,-
-2024-11-29,GMRP&UI,Power,HOLD,₹114.72,+79.25%,Maintained Buffer Rank,2024-04-30,-
-2024-11-29,ANANTRAJ,Realty,HOLD,₹673.45,+13.01%,Maintained Buffer Rank,2024-08-30,-
-2024-11-29,TRENT,Consumer Services,HOLD,₹6795.40,-5.08%,Maintained Buffer Rank,2024-08-30,-
-2024-11-29,STAR,Healthcare,ENTRY,₹1635.35,NEW,Top Breakout (Engine B),2024-11-29,-
-2024-11-29,BBOX,Information Technology,ENTRY,₹628.95,NEW,Top Breakout (Engine B),2024-11-29,-
-2024-12-31,NETWEB,Information Technology,EXIT,₹2725.65,+1.03%,Fell below Buffer Rank,2024-10-31,2024-12-31
-2024-12-31,ARVIND,Textiles,EXIT,₹410.40,+8.37%,Fell below Buffer Rank,2024-11-29,2024-12-31
-2024-12-31,NAVA,Power,EXIT,₹988.45,+8.04%,Fell below Buffer Rank,2024-07-31,2024-12-31
-2024-12-31,KITEX,Textiles,EXIT,₹667.20,+29.26%,Failed Liquidity/Delivery/Price Filter,2024-09-30,2024-12-31
-2024-12-31,JUBLPHARMA,Healthcare,EXIT,₹1105.20,-8.79%,Fell below Buffer Rank,2024-10-31,2024-12-31
-2024-12-31,STAR,Healthcare,EXIT,₹659.40,-59.68%,Failed Liquidity/Delivery/Price Filter,2024-11-29,2024-12-31
-2024-12-31,PAGEIND,Textiles,EXIT,₹47514.40,+6.43%,Fell below Buffer Rank,2024-11-29,2024-12-31
-2024-12-31,WOCKPHARMA,Healthcare,HOLD,₹1416.85,+17.25%,Maintained Buffer Rank,2024-10-31,-
-2024-12-31,NEULANDLAB,Healthcare,HOLD,₹13723.80,-6.04%,Maintained Buffer Rank,2024-10-31,-
-2024-12-31,SUPRIYA,Healthcare,HOLD,₹739.80,-4.66%,Maintained Buffer Rank,2024-11-29,-
-2024-12-31,WABAG,Utilities,HOLD,₹1643.10,+22.38%,Maintained Buffer Rank,2024-07-31,-
-2024-12-31,IONEXCHANG,Utilities,HOLD,₹657.20,-5.51%,Maintained Buffer Rank,2024-07-31,-
-2024-12-31,ASHOKA,Construction,ENTRY,₹311.17,NEW,Top Breakout (Engine A),2024-12-31,-
-2024-12-31,KEC,Construction,ENTRY,₹1198.80,NEW,Top Breakout (Engine A),2024-12-31,-
-2024-12-31,WELENT,Construction,ENTRY,₹614.35,NEW,Top Breakout (Engine A),2024-12-31,-
-2024-12-31,WEBELSOLAR,Capital Goods,HOLD,₹1656.85,+16.54%,Maintained Buffer Rank,2024-10-31,-
-2024-12-31,GRWRHITECH,Capital Goods,HOLD,₹5007.95,+22.56%,Maintained Buffer Rank,2024-10-31,-
-2024-12-31,ANANTRAJ,Realty,HOLD,₹855.35,+43.54%,Maintained Buffer Rank,2024-08-30,-
-2024-12-31,BBOX,Information Technology,HOLD,₹648.75,+3.15%,Maintained Buffer Rank,2024-11-29,-
-2024-12-31,GMRP&UI,Power,HOLD,₹120.87,+88.86%,Maintained Buffer Rank,2024-04-30,-
-2024-12-31,TRENT,Consumer Services,HOLD,₹7123.35,-0.49%,Maintained Buffer Rank,2024-08-30,-
-2024-12-31,SHAILY,Consumer Durables,ENTRY,₹1439.60,NEW,Top Breakout (Engine B),2024-12-31,-
-2024-12-31,JSLL,Consumer Services,ENTRY,₹2130.25,NEW,Top Breakout (Engine B),2024-12-31,-
-2024-12-31,ZENTEC,Capital Goods,ENTRY,₹2445.65,NEW,Top Breakout (Engine B),2024-12-31,-
-2024-12-31,KFINTECH,Financial Services,ENTRY,₹1537.25,NEW,Top Breakout (Engine B),2024-12-31,-
-2025-01-31,BBOX,Information Technology,EXIT,₹515.20,-18.09%,Systematic Market Crash (1W SMA < 200 EMA),2024-11-29,2025-01-31
-2025-01-31,IONEXCHANG,Utilities,EXIT,₹581.65,-16.37%,Systematic Market Crash (1W SMA < 200 EMA),2024-07-31,2025-01-31
-2025-01-31,NEULANDLAB,Healthcare,EXIT,₹14123.35,-3.31%,Systematic Market Crash (1W SMA < 200 EMA),2024-10-31,2025-01-31
-2025-01-31,WOCKPHARMA,Healthcare,EXIT,₹1416.90,+17.26%,Systematic Market Crash (1W SMA < 200 EMA),2024-10-31,2025-01-31
-2025-01-31,ASHOKA,Construction,EXIT,₹257.80,-17.15%,Systematic Market Crash (1W SMA < 200 EMA),2024-12-31,2025-01-31
-2025-01-31,GMRP&UI,Power,EXIT,₹106.56,+66.50%,Systematic Market Crash (1W SMA < 200 EMA),2024-04-30,2025-01-31
-2025-01-31,GRWRHITECH,Capital Goods,EXIT,₹3631.65,-11.12%,Systematic Market Crash (1W SMA < 200 EMA),2024-10-31,2025-01-31
-2025-01-31,SUPRIYA,Healthcare,EXIT,₹720.10,-7.20%,Systematic Market Crash (1W SMA < 200 EMA),2024-11-29,2025-01-31
-2025-01-31,WEBELSOLAR,Capital Goods,EXIT,₹1346.90,-5.26%,Systematic Market Crash (1W SMA < 200 EMA),2024-10-31,2025-01-31
-2025-01-31,KFINTECH,Financial Services,EXIT,₹1090.25,-29.08%,Systematic Market Crash (1W SMA < 200 EMA),2024-12-31,2025-01-31
-2025-01-31,WELENT,Construction,EXIT,₹603.75,-1.73%,Systematic Market Crash (1W SMA < 200 EMA),2024-12-31,2025-01-31
-2025-01-31,KEC,Construction,EXIT,₹840.80,-29.86%,Systematic Market Crash (1W SMA < 200 EMA),2024-12-31,2025-01-31
-2025-01-31,WABAG,Utilities,EXIT,₹1372.35,+2.21%,Systematic Market Crash (1W SMA < 200 EMA),2024-07-31,2025-01-31
-2025-01-31,JSLL,Consumer Services,EXIT,₹1825.80,-14.29%,Systematic Market Crash (1W SMA < 200 EMA),2024-12-31,2025-01-31
-2025-01-31,ANANTRAJ,Realty,EXIT,₹598.30,+0.40%,Systematic Market Crash (1W SMA < 200 EMA),2024-08-30,2025-01-31
-2025-01-31,SHAILY,Consumer Durables,EXIT,₹1537.85,+6.82%,Systematic Market Crash (1W SMA < 200 EMA),2024-12-31,2025-01-31
-2025-01-31,ZENTEC,Capital Goods,EXIT,₹1741.10,-28.81%,Systematic Market Crash (1W SMA < 200 EMA),2024-12-31,2025-01-31
-2025-01-31,TRENT,Consumer Services,EXIT,₹5753.20,-19.63%,Systematic Market Crash (1W SMA < 200 EMA),2024-08-30,2025-01-31
-2025-03-28,PGIL,Textiles,ENTRY,₹1318.25,NEW,Top Breakout (Engine A),2025-03-28,-
-2025-03-28,SARDAEN,Metals & Mining,ENTRY,₹513.90,NEW,Top Breakout (Engine A),2025-03-28,-
-2025-03-28,LLOYDSME,Metals & Mining,ENTRY,₹1287.25,NEW,Top Breakout (Engine A),2025-03-28,-
-2025-03-28,WABAG,Utilities,ENTRY,₹1454.65,NEW,Top Breakout (Engine A),2025-03-28,-
-2025-03-28,VEDL,Metals & Mining,ENTRY,₹463.40,NEW,Top Breakout (Engine A),2025-03-28,-
-2025-03-28,PAGEIND,Textiles,ENTRY,₹42693.75,NEW,Top Breakout (Engine A),2025-03-28,-
-2025-03-28,KPRMILL,Textiles,ENTRY,₹906.50,NEW,Top Breakout (Engine A),2025-03-28,-
-2025-03-28,MANORAMA,Fast Moving Consumer Goods,ENTRY,₹1060.90,NEW,Top Breakout (Engine B),2025-03-28,-
-2025-03-28,CARTRADE,Consumer Services,ENTRY,₹1644.95,NEW,Top Breakout (Engine B),2025-03-28,-
-2025-03-28,BLUEJET,Healthcare,ENTRY,₹884.85,NEW,Top Breakout (Engine B),2025-03-28,-
-2025-03-28,WOCKPHARMA,Healthcare,ENTRY,₹1424.40,NEW,Top Breakout (Engine B),2025-03-28,-
-2025-03-28,GRWRHITECH,Capital Goods,ENTRY,₹3944.75,NEW,Top Breakout (Engine B),2025-03-28,-
-2025-03-28,SUPRIYA,Healthcare,ENTRY,₹734.15,NEW,Top Breakout (Engine B),2025-03-28,-
-2025-03-28,DEEPAKFERT,Chemicals,ENTRY,₹1116.20,NEW,Top Breakout (Engine B),2025-03-28,-
-2025-03-28,KSCL,Fast Moving Consumer Goods,ENTRY,₹1263.15,NEW,Top Breakout (Engine B),2025-03-28,-
-2025-03-28,GODFRYPHLP,Fast Moving Consumer Goods,ENTRY,₹6769.20,NEW,Top Breakout (Engine B),2025-03-28,-
-2025-03-28,GMRP&UI,Power,ENTRY,₹114.33,NEW,Top Breakout (Engine B),2025-03-28,-
-2025-04-30,KSCL,Fast Moving Consumer Goods,EXIT,₹1434.80,+13.59%,Failed Liquidity/Delivery/Price Filter,2025-03-28,2025-04-30
-2025-04-30,GMRP&UI,Power,EXIT,₹113.46,-0.76%,Failed Liquidity/Delivery/Price Filter,2025-03-28,2025-04-30
-2025-04-30,GRWRHITECH,Capital Goods,EXIT,₹3187.00,-19.21%,Failed Liquidity/Delivery/Price Filter,2025-03-28,2025-04-30
-2025-04-30,PGIL,Textiles,EXIT,₹959.10,-27.24%,Failed Liquidity/Delivery/Price Filter,2025-03-28,2025-04-30
-2025-04-30,WABAG,Utilities,EXIT,₹1285.10,-11.66%,Failed Liquidity/Delivery/Price Filter,2025-03-28,2025-04-30
-2025-04-30,VEDL,Metals & Mining,EXIT,₹419.20,-9.54%,Fell below Buffer Rank,2025-03-28,2025-04-30
-2025-04-30,KPRMILL,Textiles,EXIT,₹997.25,+10.01%,Fell below Buffer Rank,2025-03-28,2025-04-30
-2025-04-30,PAGEIND,Textiles,EXIT,₹45615.00,+6.84%,Fell below Buffer Rank,2025-03-28,2025-04-30
-2025-04-30,DEEPAKFERT,Chemicals,HOLD,₹1279.90,+14.67%,Maintained Buffer Rank,2025-03-28,-
-2025-04-30,PARADEEP,Chemicals,ENTRY,₹144.04,NEW,Top Breakout (Engine A),2025-04-30,-
-2025-04-30,COROMANDEL,Chemicals,ENTRY,₹2214.20,NEW,Top Breakout (Engine A),2025-04-30,-
-2025-04-30,BHARTIHEXA,Telecommunication,ENTRY,₹1689.10,NEW,Top Breakout (Engine A),2025-04-30,-
-2025-04-30,NAZARA,Media Entertainment & Publication,ENTRY,₹1011.50,NEW,Top Breakout (Engine A),2025-04-30,-
-2025-04-30,BHARTIARTL,Telecommunication,ENTRY,₹1864.50,NEW,Top Breakout (Engine A),2025-04-30,-
-2025-04-30,SAREGAMA,Media Entertainment & Publication,ENTRY,₹524.05,NEW,Top Breakout (Engine A),2025-04-30,-
-2025-04-30,INDUSTOWER,Telecommunication,ENTRY,₹408.20,NEW,Top Breakout (Engine A),2025-04-30,-
-2025-04-30,CARTRADE,Consumer Services,HOLD,₹1704.30,+3.61%,Maintained Buffer Rank,2025-03-28,-
-2025-04-30,GODFRYPHLP,Fast Moving Consumer Goods,HOLD,₹8116.00,+19.90%,Maintained Buffer Rank,2025-03-28,-
-2025-04-30,WOCKPHARMA,Healthcare,HOLD,₹1296.70,-8.97%,Maintained Buffer Rank,2025-03-28,-
-2025-04-30,MANORAMA,Fast Moving Consumer Goods,HOLD,₹1274.70,+20.15%,Maintained Buffer Rank,2025-03-28,-
-2025-04-30,BLUEJET,Healthcare,HOLD,₹711.15,-19.63%,Maintained Buffer Rank,2025-03-28,-
-2025-04-30,SARDAEN,Metals & Mining,HOLD,₹452.00,-12.05%,Maintained Buffer Rank,2025-03-28,-
-2025-04-30,LLOYDSME,Metals & Mining,HOLD,₹1203.20,-6.53%,Maintained Buffer Rank,2025-03-28,-
-2025-04-30,SUPRIYA,Healthcare,HOLD,₹645.15,-12.12%,Maintained Buffer Rank,2025-03-28,-
-2025-04-30,SHAILY,Consumer Durables,ENTRY,₹1530.00,NEW,Top Breakout (Engine B),2025-04-30,-
-2025-04-30,PAYTM,Financial Services,ENTRY,₹864.75,NEW,Top Breakout (Engine B),2025-04-30,-
-2025-05-30,COROMANDEL,Chemicals,EXIT,₹2289.40,+3.40%,Fell below Buffer Rank,2025-04-30,2025-05-30
-2025-05-30,SUPRIYA,Healthcare,EXIT,₹724.00,-1.38%,Fell below Buffer Rank,2025-03-28,2025-05-30
-2025-05-30,CARTRADE,Consumer Services,EXIT,₹1553.00,-5.59%,Fell below Buffer Rank,2025-03-28,2025-05-30
-2025-05-30,SARDAEN,Metals & Mining,EXIT,₹437.10,-14.94%,Fell below Buffer Rank,2025-03-28,2025-05-30
-2025-05-30,INDUSTOWER,Telecommunication,EXIT,₹384.15,-5.89%,Fell below Buffer Rank,2025-04-30,2025-05-30
-2025-05-30,NAZARA,Media Entertainment & Publication,HOLD,₹1295.10,+28.04%,Maintained Buffer Rank,2025-04-30,-
-2025-05-30,BHARTIHEXA,Telecommunication,HOLD,₹1830.70,+8.38%,Maintained Buffer Rank,2025-04-30,-
-2025-05-30,BHARTIARTL,Telecommunication,HOLD,₹1856.20,-0.45%,Maintained Buffer Rank,2025-04-30,-
-2025-05-30,SAREGAMA,Media Entertainment & Publication,HOLD,₹542.55,+3.53%,Maintained Buffer Rank,2025-04-30,-
-2025-05-30,OPTIEMUS,Telecommunication,ENTRY,₹612.50,NEW,Top Breakout (Engine A),2025-05-30,-
-2025-05-30,WABAG,Utilities,ENTRY,₹1628.50,NEW,Top Breakout (Engine A),2025-05-30,-
-2025-05-30,ZEEL,Media Entertainment & Publication,ENTRY,₹130.42,NEW,Top Breakout (Engine A),2025-05-30,-
-2025-05-30,SHAILY,Consumer Durables,HOLD,₹2016.80,+31.82%,Maintained Buffer Rank,2025-04-30,-
-2025-05-30,PARADEEP,Chemicals,HOLD,₹172.28,+19.61%,Maintained Buffer Rank,2025-04-30,-
-2025-05-30,BLUEJET,Healthcare,HOLD,₹904.80,+2.25%,Maintained Buffer Rank,2025-03-28,-
-2025-05-30,MANORAMA,Fast Moving Consumer Goods,HOLD,₹1460.70,+37.68%,Maintained Buffer Rank,2025-03-28,-
-2025-05-30,DEEPAKFERT,Chemicals,HOLD,₹1483.70,+32.92%,Maintained Buffer Rank,2025-03-28,-
-2025-05-30,WOCKPHARMA,Healthcare,HOLD,₹1465.30,+2.87%,Maintained Buffer Rank,2025-03-28,-
-2025-05-30,GODFRYPHLP,Fast Moving Consumer Goods,HOLD,₹8702.50,+28.56%,Maintained Buffer Rank,2025-03-28,-
-2025-05-30,PAYTM,Financial Services,HOLD,₹890.45,+2.97%,Maintained Buffer Rank,2025-04-30,-
-2025-05-30,LLOYDSME,Metals & Mining,HOLD,₹1393.10,+8.22%,Maintained Buffer Rank,2025-03-28,-
-2025-05-30,AIIL,Financial Services,ENTRY,₹2379.20,NEW,Top Breakout (Engine B),2025-05-30,-
-2025-06-30,ZEEL,Media Entertainment & Publication,EXIT,₹146.25,+12.14%,Fell below Buffer Rank,2025-05-30,2025-06-30
-2025-06-30,NAZARA,Media Entertainment & Publication,EXIT,₹1298.60,+28.38%,Fell below Buffer Rank,2025-04-30,2025-06-30
-2025-06-30,WABAG,Utilities,EXIT,₹1481.40,-9.03%,Fell below Buffer Rank,2025-05-30,2025-06-30
-2025-06-30,SAREGAMA,Media Entertainment & Publication,EXIT,₹498.45,-4.89%,Fell below Buffer Rank,2025-04-30,2025-06-30
-2025-06-30,DEEPAKFERT,Chemicals,HOLD,₹1707.40,+52.97%,Maintained Buffer Rank,2025-03-28,-
-2025-06-30,BHARTIHEXA,Telecommunication,HOLD,₹1952.70,+15.61%,Maintained Buffer Rank,2025-04-30,-
-2025-06-30,OPTIEMUS,Telecommunication,HOLD,₹632.50,+3.27%,Maintained Buffer Rank,2025-05-30,-
-2025-06-30,BHARTIARTL,Telecommunication,HOLD,₹2009.60,+7.78%,Maintained Buffer Rank,2025-04-30,-
-2025-06-30,REFEX,Chemicals,ENTRY,₹458.10,NEW,Top Breakout (Engine A),2025-06-30,-
-2025-06-30,SOLARINDS,Chemicals,ENTRY,₹17598.00,NEW,Top Breakout (Engine A),2025-06-30,-
-2025-06-30,GODREJIND,Diversified,ENTRY,₹1246.20,NEW,Top Breakout (Engine A),2025-06-30,-
-2025-06-30,DCMSHRIRAM,Diversified,ENTRY,₹1232.80,NEW,Top Breakout (Engine A),2025-06-30,-
-2025-06-30,WOCKPHARMA,Healthcare,HOLD,₹1714.00,+20.33%,Maintained Buffer Rank,2025-03-28,-
-2025-06-30,AIIL,Financial Services,HOLD,₹2630.70,+10.57%,Maintained Buffer Rank,2025-05-30,-
-2025-06-30,GODFRYPHLP,Fast Moving Consumer Goods,HOLD,₹8976.50,+32.61%,Maintained Buffer Rank,2025-03-28,-
-2025-06-30,BLUEJET,Healthcare,HOLD,₹877.75,-0.80%,Maintained Buffer Rank,2025-03-28,-
-2025-06-30,LLOYDSME,Metals & Mining,HOLD,₹1588.90,+23.43%,Maintained Buffer Rank,2025-03-28,-
-2025-06-30,MANORAMA,Fast Moving Consumer Goods,HOLD,₹1460.60,+37.68%,Maintained Buffer Rank,2025-03-28,-
-2025-06-30,PARADEEP,Chemicals,HOLD,₹159.98,+11.07%,Maintained Buffer Rank,2025-04-30,-
-2025-06-30,SHAILY,Consumer Durables,HOLD,₹1663.50,+8.73%,Maintained Buffer Rank,2025-04-30,-
-2025-06-30,PAYTM,Financial Services,HOLD,₹924.00,+6.85%,Maintained Buffer Rank,2025-04-30,-
-2025-06-30,LUMAXTECH,Automobile and Auto Components,ENTRY,₹1176.10,NEW,Top Breakout (Engine B),2025-06-30,-
-2025-07-31,GODREJIND,Diversified,EXIT,₹1147.40,-7.93%,Fell below Buffer Rank,2025-06-30,2025-07-31
-2025-07-31,BHARTIHEXA,Telecommunication,EXIT,₹1847.70,+9.39%,Fell below Buffer Rank,2025-04-30,2025-07-31
-2025-07-31,SOLARINDS,Chemicals,EXIT,₹14220.00,-19.20%,Fell below Buffer Rank,2025-06-30,2025-07-31
-2025-07-31,BHARTIARTL,Telecommunication,EXIT,₹1914.30,+2.67%,Fell below Buffer Rank,2025-04-30,2025-07-31
-2025-07-31,OPTIEMUS,Telecommunication,EXIT,₹599.10,-2.19%,Fell below Buffer Rank,2025-05-30,2025-07-31
-2025-07-31,REFEX,Chemicals,EXIT,₹432.95,-5.49%,Fell below Buffer Rank,2025-06-30,2025-07-31
-2025-07-31,GODFRYPHLP,Fast Moving Consumer Goods,EXIT,₹9110.50,+34.59%,Failed Liquidity/Delivery/Price Filter,2025-03-28,2025-07-31
-2025-07-31,DCMSHRIRAM,Diversified,EXIT,₹1429.60,+15.96%,Failed Liquidity/Delivery/Price Filter,2025-06-30,2025-07-31
-2025-07-31,SHAILY,Consumer Durables,EXIT,₹1586.30,+3.68%,Failed Liquidity/Delivery/Price Filter,2025-04-30,2025-07-31
-2025-07-31,PARADEEP,Chemicals,HOLD,₹215.44,+49.57%,Maintained Buffer Rank,2025-04-30,-
-2025-07-31,DEEPAKFERT,Chemicals,HOLD,₹1598.80,+43.24%,Maintained Buffer Rank,2025-03-28,-
-2025-07-31,WOCKPHARMA,Healthcare,HOLD,₹1667.50,+17.07%,Maintained Buffer Rank,2025-03-28,-
-2025-07-31,SHARDACROP,Chemicals,ENTRY,₹1137.55,NEW,Top Breakout (Engine A),2025-07-31,-
-2025-07-31,LAURUSLABS,Healthcare,ENTRY,₹874.35,NEW,Top Breakout (Engine A),2025-07-31,-
-2025-07-31,THYROCARE,Healthcare,ENTRY,₹1325.90,NEW,Top Breakout (Engine A),2025-07-31,-
-2025-07-31,WABAG,Utilities,ENTRY,₹1585.70,NEW,Top Breakout (Engine A),2025-07-31,-
-2025-07-31,AIIL,Financial Services,HOLD,₹2776.20,+16.69%,Maintained Buffer Rank,2025-05-30,-
-2025-07-31,LUMAXTECH,Automobile and Auto Components,HOLD,₹1101.90,-6.31%,Maintained Buffer Rank,2025-06-30,-
-2025-07-31,MANORAMA,Fast Moving Consumer Goods,HOLD,₹1521.70,+43.43%,Maintained Buffer Rank,2025-03-28,-
-2025-07-31,PAYTM,Financial Services,HOLD,₹1089.35,+25.97%,Maintained Buffer Rank,2025-04-30,-
-2025-07-31,BLUEJET,Healthcare,HOLD,₹805.95,-8.92%,Maintained Buffer Rank,2025-03-28,-
-2025-07-31,LLOYDSME,Metals & Mining,HOLD,₹1504.70,+16.89%,Maintained Buffer Rank,2025-03-28,-
-2025-07-31,GABRIEL,Automobile and Auto Components,ENTRY,₹1037.25,NEW,Top Breakout (Engine B),2025-07-31,-
-2025-07-31,CARTRADE,Consumer Services,ENTRY,₹2186.50,NEW,Top Breakout (Engine B),2025-07-31,-
-2025-07-31,CUPID,Fast Moving Consumer Goods,ENTRY,₹150.89,NEW,Top Breakout (Engine B),2025-07-31,-
-2025-07-31,POWERINDIA,Capital Goods,ENTRY,₹20095.00,NEW,Top Breakout (Engine B),2025-07-31,-
-2025-08-29,WOCKPHARMA,Healthcare,EXIT,₹1427.50,+0.22%,Fell below Buffer Rank,2025-03-28,2025-08-29
-2025-08-29,DEEPAKFERT,Chemicals,EXIT,₹1387.80,+24.33%,Fell below Buffer Rank,2025-03-28,2025-08-29
-2025-08-29,PARADEEP,Chemicals,EXIT,₹217.42,+50.94%,Failed Liquidity/Delivery/Price Filter,2025-04-30,2025-08-29
-2025-08-29,MANORAMA,Fast Moving Consumer Goods,EXIT,₹1355.30,+27.75%,Fell below Buffer Rank,2025-03-28,2025-08-29
-2025-08-29,LLOYDSME,Metals & Mining,EXIT,₹1288.80,+0.12%,Fell below Buffer Rank,2025-03-28,2025-08-29
-2025-08-29,BLUEJET,Healthcare,EXIT,₹667.85,-24.52%,Failed Liquidity/Delivery/Price Filter,2025-03-28,2025-08-29
-2025-08-29,WABAG,Utilities,EXIT,₹1457.80,-8.07%,Fell below Buffer Rank,2025-07-31,2025-08-29
-2025-08-29,GABRIEL,Automobile and Auto Components,HOLD,₹1152.40,+11.10%,Maintained Buffer Rank,2025-07-31,-
-2025-08-29,CUPID,Fast Moving Consumer Goods,HOLD,₹172.29,+14.18%,Maintained Buffer Rank,2025-07-31,-
-2025-08-29,LUMAXTECH,Automobile and Auto Components,HOLD,₹1174.70,-0.12%,Maintained Buffer Rank,2025-06-30,-
-2025-08-29,FORCEMOT,Automobile and Auto Components,ENTRY,₹19477.00,NEW,Top Breakout (Engine A),2025-08-29,-
-2025-08-29,TI,Fast Moving Consumer Goods,ENTRY,₹473.80,NEW,Top Breakout (Engine A),2025-08-29,-
-2025-08-29,JKCEMENT,Construction Materials,ENTRY,₹6946.50,NEW,Top Breakout (Engine A),2025-08-29,-
-2025-08-29,ABDL,Fast Moving Consumer Goods,ENTRY,₹505.40,NEW,Top Breakout (Engine A),2025-08-29,-
-2025-08-29,NUVOCO,Construction Materials,ENTRY,₹456.05,NEW,Top Breakout (Engine A),2025-08-29,-
-2025-08-29,DALBHARAT,Construction Materials,ENTRY,₹2401.50,NEW,Top Breakout (Engine A),2025-08-29,-
-2025-08-29,CARTRADE,Consumer Services,HOLD,₹2398.00,+9.67%,Maintained Buffer Rank,2025-07-31,-
-2025-08-29,AIIL,Financial Services,HOLD,₹3232.90,+35.88%,Maintained Buffer Rank,2025-05-30,-
-2025-08-29,PAYTM,Financial Services,HOLD,₹1207.00,+39.58%,Maintained Buffer Rank,2025-04-30,-
-2025-08-29,LAURUSLABS,Healthcare,HOLD,₹856.90,-2.00%,Maintained Buffer Rank,2025-07-31,-
-2025-08-29,SHARDACROP,Chemicals,HOLD,₹949.10,-16.57%,Maintained Buffer Rank,2025-07-31,-
-2025-08-29,POWERINDIA,Capital Goods,HOLD,₹19110.00,-4.90%,Maintained Buffer Rank,2025-07-31,-
-2025-08-29,THYROCARE,Healthcare,HOLD,₹1265.30,-4.57%,Maintained Buffer Rank,2025-07-31,-
-2025-08-29,SHAILY,Consumer Durables,ENTRY,₹2232.00,NEW,Top Breakout (Engine B),2025-08-29,-
-2025-08-29,JMFINANCIL,Financial Services,ENTRY,₹177.48,NEW,Top Breakout (Engine B),2025-08-29,-
-2025-08-29,CHOICEIN,Financial Services,ENTRY,₹796.00,NEW,Top Breakout (Engine B),2025-08-29,-
-2025-09-30,JKCEMENT,Construction Materials,EXIT,₹6300.00,-9.31%,Fell below Buffer Rank,2025-08-29,2025-09-30
-2025-09-30,ABDL,Fast Moving Consumer Goods,EXIT,₹507.70,+0.46%,Fell below Buffer Rank,2025-08-29,2025-09-30
-2025-09-30,POWERINDIA,Capital Goods,EXIT,₹18001.00,-10.42%,Fell below Buffer Rank,2025-07-31,2025-09-30
-2025-09-30,JMFINANCIL,Financial Services,EXIT,₹159.70,-10.02%,Fell below Buffer Rank,2025-08-29,2025-09-30
-2025-09-30,THYROCARE,Healthcare,EXIT,₹1160.60,-12.47%,Fell below Buffer Rank,2025-07-31,2025-09-30
-2025-09-30,DALBHARAT,Construction Materials,EXIT,₹2227.20,-7.26%,Fell below Buffer Rank,2025-08-29,2025-09-30
-2025-09-30,NUVOCO,Construction Materials,EXIT,₹419.60,-7.99%,Fell below Buffer Rank,2025-08-29,2025-09-30
-2025-09-30,SHARDACROP,Chemicals,EXIT,₹821.80,-27.76%,Fell below Buffer Rank,2025-07-31,2025-09-30
-2025-09-30,LUMAXTECH,Automobile and Auto Components,HOLD,₹1249.80,+6.27%,Maintained Buffer Rank,2025-06-30,-
-2025-09-30,FORCEMOT,Automobile and Auto Components,HOLD,₹16795.00,-13.77%,Maintained Buffer Rank,2025-08-29,-
-2025-09-30,GABRIEL,Automobile and Auto Components,HOLD,₹1181.40,+13.90%,Maintained Buffer Rank,2025-07-31,-
-2025-09-30,AXISCADES,Capital Goods,ENTRY,₹1594.00,NEW,Top Breakout (Engine A),2025-09-30,-
-2025-09-30,GALLANTT,Capital Goods,ENTRY,₹655.35,NEW,Top Breakout (Engine A),2025-09-30,-
-2025-09-30,JAYNECOIND,Capital Goods,ENTRY,₹67.30,NEW,Top Breakout (Engine A),2025-09-30,-
-2025-09-30,PFOCUS,Media Entertainment & Publication,ENTRY,₹175.94,NEW,Top Breakout (Engine A),2025-09-30,-
-2025-09-30,ZEEL,Media Entertainment & Publication,ENTRY,₹112.37,NEW,Top Breakout (Engine A),2025-09-30,-
-2025-09-30,CUPID,Fast Moving Consumer Goods,HOLD,₹214.96,+42.46%,Maintained Buffer Rank,2025-07-31,-
-2025-09-30,CARTRADE,Consumer Services,HOLD,₹2450.10,+12.06%,Maintained Buffer Rank,2025-07-31,-
-2025-09-30,AIIL,Financial Services,HOLD,₹3082.20,+29.55%,Maintained Buffer Rank,2025-05-30,-
-2025-09-30,TI,Fast Moving Consumer Goods,HOLD,₹448.55,-5.33%,Maintained Buffer Rank,2025-08-29,-
-2025-09-30,SHAILY,Consumer Durables,HOLD,₹2176.90,-2.47%,Maintained Buffer Rank,2025-08-29,-
-2025-09-30,CHOICEIN,Financial Services,HOLD,₹767.50,-3.58%,Maintained Buffer Rank,2025-08-29,-
-2025-09-30,LAURUSLABS,Healthcare,HOLD,₹841.80,-3.72%,Maintained Buffer Rank,2025-07-31,-
-2025-09-30,PAYTM,Financial Services,HOLD,₹1123.80,+29.96%,Maintained Buffer Rank,2025-04-30,-
-2025-09-30,PARADEEP,Chemicals,ENTRY,₹196.02,NEW,Top Breakout (Engine B),2025-09-30,-
-2025-09-30,ASHAPURMIN,Metals & Mining,ENTRY,₹651.00,NEW,Top Breakout (Engine B),2025-09-30,-
-2025-10-31,PARADEEP,Chemicals,EXIT,₹166.40,-15.11%,Fell below Buffer Rank,2025-09-30,2025-10-31
-2025-10-31,FORCEMOT,Automobile and Auto Components,EXIT,₹17654.00,-9.36%,Failed Liquidity/Delivery/Price Filter,2025-08-29,2025-10-31
-2025-10-31,AXISCADES,Capital Goods,EXIT,₹1601.10,+0.45%,Failed Liquidity/Delivery/Price Filter,2025-09-30,2025-10-31
-2025-10-31,ZEEL,Media Entertainment & Publication,EXIT,₹100.58,-10.49%,Failed Liquidity/Delivery/Price Filter,2025-09-30,2025-10-31
-2025-10-31,PFOCUS,Media Entertainment & Publication,EXIT,₹181.90,+3.39%,Failed Liquidity/Delivery/Price Filter,2025-09-30,2025-10-31
-2025-10-31,CHOICEIN,Financial Services,EXIT,₹836.60,+5.10%,Fell below Buffer Rank,2025-08-29,2025-10-31
-2025-10-31,GALLANTT,Capital Goods,EXIT,₹524.00,-20.04%,Failed Liquidity/Delivery/Price Filter,2025-09-30,2025-10-31
-2025-10-31,GABRIEL,Automobile and Auto Components,HOLD,₹1273.90,+22.82%,Maintained Buffer Rank,2025-07-31,-
-2025-10-31,LUMAXTECH,Automobile and Auto Components,HOLD,₹1127.70,-4.12%,Maintained Buffer Rank,2025-06-30,-
-2025-10-31,ASHAPURMIN,Metals & Mining,HOLD,₹664.50,+2.07%,Maintained Buffer Rank,2025-09-30,-
-2025-10-31,APOLLO,Capital Goods,ENTRY,₹276.80,NEW,Top Breakout (Engine A),2025-10-31,-
-2025-10-31,IMFA,Metals & Mining,ENTRY,₹1202.60,NEW,Top Breakout (Engine A),2025-10-31,-
-2025-10-31,TDPOWERSYS,Capital Goods,ENTRY,₹774.90,NEW,Top Breakout (Engine A),2025-10-31,-
-2025-10-31,SYRMA,Capital Goods,ENTRY,₹813.80,NEW,Top Breakout (Engine A),2025-10-31,-
-2025-10-31,LLOYDSENT,Metals & Mining,ENTRY,₹68.55,NEW,Top Breakout (Engine A),2025-10-31,-
-2025-10-31,FIEMIND,Automobile and Auto Components,ENTRY,₹2088.20,NEW,Top Breakout (Engine A),2025-10-31,-
-2025-10-31,CUPID,Fast Moving Consumer Goods,HOLD,₹233.59,+54.81%,Maintained Buffer Rank,2025-07-31,-
-2025-10-31,CARTRADE,Consumer Services,HOLD,₹3019.50,+38.10%,Maintained Buffer Rank,2025-07-31,-
-2025-10-31,SHAILY,Consumer Durables,HOLD,₹2274.60,+1.91%,Maintained Buffer Rank,2025-08-29,-
-2025-10-31,JAYNECOIND,Capital Goods,HOLD,₹77.69,+15.44%,Maintained Buffer Rank,2025-09-30,-
-2025-10-31,TI,Fast Moving Consumer Goods,HOLD,₹528.10,+11.46%,Maintained Buffer Rank,2025-08-29,-
-2025-10-31,LAURUSLABS,Healthcare,HOLD,₹953.65,+9.07%,Maintained Buffer Rank,2025-07-31,-
-2025-10-31,AIIL,Financial Services,HOLD,₹2908.10,+22.23%,Maintained Buffer Rank,2025-05-30,-
-2025-10-31,PAYTM,Financial Services,HOLD,₹1303.20,+50.70%,Maintained Buffer Rank,2025-04-30,-
-2025-10-31,ABDL,Fast Moving Consumer Goods,ENTRY,₹662.05,NEW,Top Breakout (Engine B),2025-10-31,-
-2025-10-31,IXIGO,Consumer Services,ENTRY,₹269.65,NEW,Top Breakout (Engine B),2025-10-31,-
-2025-11-28,TI,Fast Moving Consumer Goods,EXIT,₹476.10,+0.49%,Fell below Buffer Rank,2025-08-29,2025-11-28
-2025-11-28,PAYTM,Financial Services,EXIT,₹1320.60,+52.71%,Fell below Buffer Rank,2025-04-30,2025-11-28
-2025-11-28,LLOYDSENT,Metals & Mining,EXIT,₹58.64,-14.46%,Failed Liquidity/Delivery/Price Filter,2025-10-31,2025-11-28
-2025-11-28,AIIL,Financial Services,EXIT,₹2706.50,+13.76%,Fell below Buffer Rank,2025-05-30,2025-11-28
-2025-11-28,LUMAXTECH,Automobile and Auto Components,HOLD,₹1536.30,+30.63%,Maintained Buffer Rank,2025-06-30,-
-2025-11-28,ASHAPURMIN,Metals & Mining,HOLD,₹685.80,+5.35%,Maintained Buffer Rank,2025-09-30,-
-2025-11-28,GABRIEL,Automobile and Auto Components,HOLD,₹1028.70,-0.82%,Maintained Buffer Rank,2025-07-31,-
-2025-11-28,IMFA,Metals & Mining,HOLD,₹1348.10,+12.10%,Maintained Buffer Rank,2025-10-31,-
-2025-11-28,FIEMIND,Automobile and Auto Components,HOLD,₹2265.30,+8.48%,Maintained Buffer Rank,2025-10-31,-
-2025-11-28,BLACKBUCK,Services,ENTRY,₹667.75,NEW,Top Breakout (Engine A),2025-11-28,-
-2025-11-28,INOXGREEN,Services,ENTRY,₹218.50,NEW,Top Breakout (Engine A),2025-11-28,-
-2025-11-28,NESCO,Services,ENTRY,₹1284.00,NEW,Top Breakout (Engine A),2025-11-28,-
-2025-11-28,HINDCOPPER,Metals & Mining,ENTRY,₹327.00,NEW,Top Breakout (Engine A),2025-11-28,-
-2025-11-28,CUPID,Fast Moving Consumer Goods,HOLD,₹329.25,+118.21%,Maintained Buffer Rank,2025-07-31,-
-2025-11-28,CARTRADE,Consumer Services,HOLD,₹3087.70,+41.22%,Maintained Buffer Rank,2025-07-31,-
-2025-11-28,APOLLO,Capital Goods,HOLD,₹263.20,-4.91%,Maintained Buffer Rank,2025-10-31,-
-2025-11-28,SHAILY,Consumer Durables,HOLD,₹2602.00,+16.58%,Maintained Buffer Rank,2025-08-29,-
-2025-11-28,ABDL,Fast Moving Consumer Goods,HOLD,₹653.80,-1.25%,Maintained Buffer Rank,2025-10-31,-
-2025-11-28,LAURUSLABS,Healthcare,HOLD,₹1031.35,+17.96%,Maintained Buffer Rank,2025-07-31,-
-2025-11-28,JAYNECOIND,Capital Goods,HOLD,₹71.60,+6.39%,Maintained Buffer Rank,2025-09-30,-
-2025-11-28,IXIGO,Consumer Services,HOLD,₹266.90,-1.02%,Maintained Buffer Rank,2025-10-31,-
-2025-11-28,TDPOWERSYS,Capital Goods,HOLD,₹776.95,+0.26%,Maintained Buffer Rank,2025-10-31,-
-2025-11-28,SYRMA,Capital Goods,HOLD,₹820.25,+0.79%,Maintained Buffer Rank,2025-10-31,-
-2025-12-31,ABDL,Fast Moving Consumer Goods,EXIT,₹613.55,-7.33%,Fell below Buffer Rank,2025-10-31,2025-12-31
-2025-12-31,CUPID,Fast Moving Consumer Goods,EXIT,₹518.10,+243.36%,Failed Liquidity/Delivery/Price Filter,2025-07-31,2025-12-31
-2025-12-31,SYRMA,Capital Goods,EXIT,₹733.15,-9.91%,Fell below Buffer Rank,2025-10-31,2025-12-31
-2025-12-31,INOXGREEN,Services,EXIT,₹210.35,-3.73%,Fell below Buffer Rank,2025-11-28,2025-12-31
-2025-12-31,BLACKBUCK,Services,EXIT,₹679.75,+1.80%,Fell below Buffer Rank,2025-11-28,2025-12-31
-2025-12-31,FIEMIND,Automobile and Auto Components,EXIT,₹2260.40,+8.25%,Fell below Buffer Rank,2025-10-31,2025-12-31
-2025-12-31,HINDCOPPER,Metals & Mining,EXIT,₹518.30,+58.50%,Failed Liquidity/Delivery/Price Filter,2025-11-28,2025-12-31
-2025-12-31,NESCO,Services,EXIT,₹1225.10,-4.59%,Failed Liquidity/Delivery/Price Filter,2025-11-28,2025-12-31
-2025-12-31,ASHAPURMIN,Metals & Mining,HOLD,₹878.65,+34.97%,Maintained Buffer Rank,2025-09-30,-
-2025-12-31,LUMAXTECH,Automobile and Auto Components,HOLD,₹1544.50,+31.32%,Maintained Buffer Rank,2025-06-30,-
-2025-12-31,IMFA,Metals & Mining,HOLD,₹1492.20,+24.08%,Maintained Buffer Rank,2025-10-31,-
-2025-12-31,GABRIEL,Automobile and Auto Components,HOLD,₹1009.80,-2.65%,Maintained Buffer Rank,2025-07-31,-
-2025-12-31,FORCEMOT,Automobile and Auto Components,ENTRY,₹20566.00,NEW,Top Breakout (Engine A),2025-12-31,-
-2025-12-31,LTF,Financial Services,ENTRY,₹315.95,NEW,Top Breakout (Engine A),2025-12-31,-
-2025-12-31,MUTHOOTFIN,Financial Services,ENTRY,₹3811.70,NEW,Top Breakout (Engine A),2025-12-31,-
-2025-12-31,ABCAPITAL,Financial Services,ENTRY,₹357.70,NEW,Top Breakout (Engine A),2025-12-31,-
-2025-12-31,NATIONALUM,Metals & Mining,ENTRY,₹314.30,NEW,Top Breakout (Engine A),2025-12-31,-
-2025-12-31,JAYNECOIND,Capital Goods,HOLD,₹87.82,+30.49%,Maintained Buffer Rank,2025-09-30,-
-2025-12-31,APOLLO,Capital Goods,HOLD,₹272.00,-1.73%,Maintained Buffer Rank,2025-10-31,-
-2025-12-31,LAURUSLABS,Healthcare,HOLD,₹1108.00,+26.72%,Maintained Buffer Rank,2025-07-31,-
-2025-12-31,CARTRADE,Consumer Services,HOLD,₹2826.20,+29.26%,Maintained Buffer Rank,2025-07-31,-
-2025-12-31,IXIGO,Consumer Services,HOLD,₹254.95,-5.45%,Maintained Buffer Rank,2025-10-31,-
-2025-12-31,TDPOWERSYS,Capital Goods,HOLD,₹702.05,-9.40%,Maintained Buffer Rank,2025-10-31,-
-2025-12-31,SHAILY,Consumer Durables,HOLD,₹2261.60,+1.33%,Maintained Buffer Rank,2025-08-29,-
-2025-12-31,THANGAMAYL,Consumer Durables,ENTRY,₹3222.10,NEW,Top Breakout (Engine B),2025-12-31,-
-2025-12-31,RBLBANK,Financial Services,ENTRY,₹315.80,NEW,Top Breakout (Engine B),2025-12-31,-
-2025-12-31,AIIL,Financial Services,ENTRY,₹3133.40,NEW,Top Breakout (Engine B),2025-12-31,-
-2026-01-30,THANGAMAYL,Consumer Durables,EXIT,₹3320.60,+3.06%,Failed Liquidity/Delivery/Price Filter,2025-12-31,2026-01-30
-2026-01-30,FORCEMOT,Automobile and Auto Components,EXIT,₹19195.00,-6.67%,Failed Liquidity/Delivery/Price Filter,2025-12-31,2026-01-30
-2026-01-30,ASHAPURMIN,Metals & Mining,EXIT,₹654.75,+0.58%,Fell below Buffer Rank,2025-09-30,2026-01-30
-2026-01-30,LAURUSLABS,Healthcare,EXIT,₹965.00,+10.37%,Fell below Buffer Rank,2025-07-31,2026-01-30
-2026-01-30,IXIGO,Consumer Services,EXIT,₹207.00,-23.23%,Failed Liquidity/Delivery/Price Filter,2025-10-31,2026-01-30
-2026-01-30,SHAILY,Consumer Durables,EXIT,₹1913.70,-14.26%,Failed Liquidity/Delivery/Price Filter,2025-08-29,2026-01-30
-2026-01-30,AIIL,Financial Services,EXIT,₹505.20,-83.88%,Failed Liquidity/Delivery/Price Filter,2025-12-31,2026-01-30
-2026-01-30,NATIONALUM,Metals & Mining,HOLD,₹385.45,+22.64%,Maintained Buffer Rank,2025-12-31,-
-2026-01-30,LUMAXTECH,Automobile and Auto Components,HOLD,₹1348.10,+14.62%,Maintained Buffer Rank,2025-06-30,-
-2026-01-30,LTF,Financial Services,HOLD,₹286.35,-9.37%,Maintained Buffer Rank,2025-12-31,-
-2026-01-30,GABRIEL,Automobile and Auto Components,HOLD,₹933.40,-10.01%,Maintained Buffer Rank,2025-07-31,-
-2026-01-30,IMFA,Metals & Mining,HOLD,₹1165.80,-3.06%,Maintained Buffer Rank,2025-10-31,-
-2026-01-30,SHRIRAMFIN,Financial Services,ENTRY,₹1020.00,NEW,Top Breakout (Engine A),2026-01-30,-
-2026-01-30,UJJIVANSFB,Financial Services,ENTRY,₹65.37,NEW,Top Breakout (Engine A),2026-01-30,-
-2026-01-30,VEDL,Metals & Mining,ENTRY,₹681.55,NEW,Top Breakout (Engine A),2026-01-30,-
-2026-01-30,JKTYRE,Automobile and Auto Components,ENTRY,₹519.70,NEW,Top Breakout (Engine A),2026-01-30,-
-2026-01-30,JAYNECOIND,Capital Goods,HOLD,₹73.26,+8.86%,Maintained Buffer Rank,2025-09-30,-
-2026-01-30,TDPOWERSYS,Capital Goods,HOLD,₹729.50,-5.86%,Maintained Buffer Rank,2025-10-31,-
-2026-01-30,APOLLO,Capital Goods,HOLD,₹260.75,-5.80%,Maintained Buffer Rank,2025-10-31,-
-2026-01-30,ABCAPITAL,Financial Services,HOLD,₹339.80,-5.00%,Maintained Buffer Rank,2025-12-31,-
-2026-01-30,CARTRADE,Consumer Services,HOLD,₹2649.30,+21.17%,Maintained Buffer Rank,2025-07-31,-
-2026-01-30,MUTHOOTFIN,Financial Services,HOLD,₹3829.60,+0.47%,Maintained Buffer Rank,2025-12-31,-
-2026-01-30,RBLBANK,Financial Services,HOLD,₹298.75,-5.40%,Maintained Buffer Rank,2025-12-31,-
-2026-01-30,CUB,Financial Services,ENTRY,₹301.75,NEW,Top Breakout (Engine B),2026-01-30,-
-2026-01-30,INDIANB,Financial Services,ENTRY,₹911.70,NEW,Top Breakout (Engine B),2026-01-30,-
-2026-01-30,DCBBANK,Financial Services,ENTRY,₹199.67,NEW,Top Breakout (Engine B),2026-01-30,-
-2026-02-27,MUTHOOTFIN,Financial Services,EXIT,₹3353.50,-12.02%,Fell below Buffer Rank,2025-12-31,2026-02-27
-2026-02-27,APOLLO,Capital Goods,EXIT,₹237.80,-14.09%,Failed Liquidity/Delivery/Price Filter,2025-10-31,2026-02-27
-2026-02-27,GABRIEL,Automobile and Auto Components,EXIT,₹998.80,-3.71%,Fell below Buffer Rank,2025-07-31,2026-02-27
-2026-02-27,CARTRADE,Consumer Services,EXIT,₹1801.00,-17.63%,Failed Liquidity/Delivery/Price Filter,2025-07-31,2026-02-27
-2026-02-27,LUMAXTECH,Automobile and Auto Components,HOLD,₹1757.40,+49.43%,Maintained Buffer Rank,2025-06-30,-
-2026-02-27,TDPOWERSYS,Capital Goods,HOLD,₹903.30,+16.57%,Maintained Buffer Rank,2025-10-31,-
-2026-02-27,NATIONALUM,Metals & Mining,HOLD,₹354.60,+12.82%,Maintained Buffer Rank,2025-12-31,-
-2026-02-27,IMFA,Metals & Mining,HOLD,₹1265.10,+5.20%,Maintained Buffer Rank,2025-10-31,-
-2026-02-27,VEDL,Metals & Mining,HOLD,₹718.40,+5.41%,Maintained Buffer Rank,2026-01-30,-
-2026-02-27,GVT&D,Capital Goods,ENTRY,₹3850.20,NEW,Top Breakout (Engine A),2026-02-27,-
-2026-02-27,SANSERA,Automobile and Auto Components,ENTRY,₹2342.20,NEW,Top Breakout (Engine A),2026-02-27,-
-2026-02-27,KIRLOSENG,Capital Goods,ENTRY,₹1393.20,NEW,Top Breakout (Engine A),2026-02-27,-
-2026-02-27,BHARATFORG,Automobile and Auto Components,ENTRY,₹1911.20,NEW,Top Breakout (Engine A),2026-02-27,-
-2026-02-27,SHRIRAMFIN,Financial Services,HOLD,₹1079.40,+5.82%,Maintained Buffer Rank,2026-01-30,-
-2026-02-27,JAYNECOIND,Capital Goods,HOLD,₹76.80,+14.12%,Maintained Buffer Rank,2025-09-30,-
-2026-02-27,ABCAPITAL,Financial Services,HOLD,₹344.45,-3.70%,Maintained Buffer Rank,2025-12-31,-
-2026-02-27,INDIANB,Financial Services,HOLD,₹990.50,+8.64%,Maintained Buffer Rank,2026-01-30,-
-2026-02-27,LTF,Financial Services,HOLD,₹283.95,-10.13%,Maintained Buffer Rank,2025-12-31,-
-2026-02-27,JKTYRE,Automobile and Auto Components,HOLD,₹501.10,-3.58%,Maintained Buffer Rank,2026-01-30,-
-2026-02-27,RBLBANK,Financial Services,HOLD,₹319.75,+1.25%,Maintained Buffer Rank,2025-12-31,-
-2026-02-27,DCBBANK,Financial Services,HOLD,₹185.56,-7.07%,Maintained Buffer Rank,2026-01-30,-
-2026-02-27,CUB,Financial Services,HOLD,₹283.05,-6.20%,Maintained Buffer Rank,2026-01-30,-
-2026-02-27,UJJIVANSFB,Financial Services,HOLD,₹58.06,-11.18%,Maintained Buffer Rank,2026-01-30,-
-2026-03-30,SANSERA,Automobile and Auto Components,EXIT,₹2074.50,-11.43%,Systematic Market Crash (1W SMA < 200 EMA),2026-02-27,2026-03-30
-2026-03-30,KIRLOSENG,Capital Goods,EXIT,₹1328.90,-4.62%,Systematic Market Crash (1W SMA < 200 EMA),2026-02-27,2026-03-30
-2026-03-30,TDPOWERSYS,Capital Goods,EXIT,₹851.35,+9.87%,Systematic Market Crash (1W SMA < 200 EMA),2025-10-31,2026-03-30
-2026-03-30,JKTYRE,Automobile and Auto Components,EXIT,₹380.90,-26.71%,Systematic Market Crash (1W SMA < 200 EMA),2026-01-30,2026-03-30
-2026-03-30,SHRIRAMFIN,Financial Services,EXIT,₹872.10,-14.50%,Systematic Market Crash (1W SMA < 200 EMA),2026-01-30,2026-03-30
-2026-03-30,INDIANB,Financial Services,EXIT,₹845.70,-7.24%,Systematic Market Crash (1W SMA < 200 EMA),2026-01-30,2026-03-30
-2026-03-30,NATIONALUM,Metals & Mining,EXIT,₹386.10,+22.84%,Systematic Market Crash (1W SMA < 200 EMA),2025-12-31,2026-03-30
-2026-03-30,UJJIVANSFB,Financial Services,EXIT,₹50.51,-22.73%,Systematic Market Crash (1W SMA < 200 EMA),2026-01-30,2026-03-30
-2026-03-30,CUB,Financial Services,EXIT,₹239.85,-20.51%,Systematic Market Crash (1W SMA < 200 EMA),2026-01-30,2026-03-30
-2026-03-30,IMFA,Metals & Mining,EXIT,₹1202.50,-0.01%,Systematic Market Crash (1W SMA < 200 EMA),2025-10-31,2026-03-30
-2026-03-30,BHARATFORG,Automobile and Auto Components,EXIT,₹1674.60,-12.38%,Systematic Market Crash (1W SMA < 200 EMA),2026-02-27,2026-03-30
-2026-03-30,DCBBANK,Financial Services,EXIT,₹158.33,-20.70%,Systematic Market Crash (1W SMA < 200 EMA),2026-01-30,2026-03-30
-2026-03-30,GVT&D,Capital Goods,EXIT,₹3640.40,-5.45%,Systematic Market Crash (1W SMA < 200 EMA),2026-02-27,2026-03-30
-2026-03-30,JAYNECOIND,Capital Goods,EXIT,₹71.55,+6.32%,Systematic Market Crash (1W SMA < 200 EMA),2025-09-30,2026-03-30
-2026-03-30,LTF,Financial Services,EXIT,₹240.20,-23.98%,Systematic Market Crash (1W SMA < 200 EMA),2025-12-31,2026-03-30
-2026-03-30,LUMAXTECH,Automobile and Auto Components,EXIT,₹1522.20,+29.43%,Systematic Market Crash (1W SMA < 200 EMA),2025-06-30,2026-03-30
-2026-03-30,RBLBANK,Financial Services,EXIT,₹289.75,-8.25%,Systematic Market Crash (1W SMA < 200 EMA),2025-12-31,2026-03-30
-2026-03-30,VEDL,Metals & Mining,EXIT,₹654.80,-3.92%,Systematic Market Crash (1W SMA < 200 EMA),2026-01-30,2026-03-30
-2026-03-30,ABCAPITAL,Financial Services,EXIT,₹292.25,-18.30%,Systematic Market Crash (1W SMA < 200 EMA),2025-12-31,2026-03-30
+DATE,SYMBOL,SECTOR,ACTION,PRICE,SCORE,PNL,JUSTIFICATION,ENTRY_DATE,EXIT_DATE
+2024-02-29,JAIBALAJI,Metals & Mining,ENTRY,₹1282.55,4507.0,NEW,Top 20 Absolute Breakout,2024-02-29,-
+2024-02-29,CUPID,Fast Moving Consumer Goods,ENTRY,₹2701.25,1573.5,NEW,Top 20 Absolute Breakout,2024-02-29,-
+2024-02-29,IRFC,Financial Services,ENTRY,₹146.75,1260.9,NEW,Top 20 Absolute Breakout,2024-02-29,-
+2024-02-29,ELECTCAST,Capital Goods,ENTRY,₹159.90,928.0,NEW,Top 20 Absolute Breakout,2024-02-29,-
+2024-02-29,BSE,Financial Services,ENTRY,₹2366.85,889.3,NEW,Top 20 Absolute Breakout,2024-02-29,-
+2024-02-29,SUZLON,Capital Goods,ENTRY,₹45.25,876.4,NEW,Top 20 Absolute Breakout,2024-02-29,-
+2024-02-29,WEBELSOLAR,Capital Goods,ENTRY,₹391.60,842.7,NEW,Top 20 Absolute Breakout,2024-02-29,-
+2024-02-29,INOXWIND,Capital Goods,ENTRY,₹602.80,813.4,NEW,Top 20 Absolute Breakout,2024-02-29,-
+2024-02-29,HSCL,Chemicals,ENTRY,₹368.30,769.9,NEW,Top 20 Absolute Breakout,2024-02-29,-
+2024-02-29,IRCON,Construction,ENTRY,₹229.15,729.6,NEW,Top 20 Absolute Breakout,2024-02-29,-
+2024-02-29,NEULANDLAB,Healthcare,ENTRY,₹7161.95,718.4,NEW,Top 20 Absolute Breakout,2024-02-29,-
+2024-02-29,SJVN,Power,ENTRY,₹121.15,709.5,NEW,Top 20 Absolute Breakout,2024-02-29,-
+2024-02-29,ZENTEC,Capital Goods,ENTRY,₹865.85,706.2,NEW,Top 20 Absolute Breakout,2024-02-29,-
+2024-02-29,ANANDRATHI,Financial Services,ENTRY,₹3656.80,697.3,NEW,Top 20 Absolute Breakout,2024-02-29,-
+2024-02-29,NBCC,Construction,ENTRY,₹135.25,683.4,NEW,Top 20 Absolute Breakout,2024-02-29,-
+2024-02-29,ARVIND,Textiles,ENTRY,₹280.00,673.2,NEW,Top 20 Absolute Breakout,2024-02-29,-
+2024-02-29,CHENNPETRO,Oil Gas & Consumable Fuels,ENTRY,₹884.05,664.6,NEW,Top 20 Absolute Breakout,2024-02-29,-
+2024-02-29,TEXRAIL,Capital Goods,ENTRY,₹190.35,662.1,NEW,Top 20 Absolute Breakout,2024-02-29,-
+2024-02-29,HUDCO,Financial Services,ENTRY,₹191.15,660.1,NEW,Top 20 Absolute Breakout,2024-02-29,-
+2024-02-29,RAILTEL,Telecommunication,ENTRY,₹448.95,649.2,NEW,Top 20 Absolute Breakout,2024-02-29,-
+2024-03-28,RAILTEL,Telecommunication,EXIT,₹363.75,,-18.98%,Failed EMA51 / 52W High / Liquidity Rules,2024-02-29,2024-03-28
+2024-03-28,TEXRAIL,Capital Goods,EXIT,₹164.80,,-13.42%,Failed EMA51 / 52W High / Liquidity Rules,2024-02-29,2024-03-28
+2024-03-28,NBCC,Construction,EXIT,₹118.90,,-12.09%,Failed EMA51 / 52W High / Liquidity Rules,2024-02-29,2024-03-28
+2024-03-28,JAIBALAJI,Metals & Mining,EXIT,₹931.25,,-27.39%,Failed EMA51 / 52W High / Liquidity Rules,2024-02-29,2024-03-28
+2024-03-28,SUZLON,Capital Goods,EXIT,₹40.40,,-10.72%,Failed EMA51 / 52W High / Liquidity Rules,2024-02-29,2024-03-28
+2024-03-28,ARVIND,Textiles,EXIT,₹270.45,,-3.41%,Failed EMA51 / 52W High / Liquidity Rules,2024-02-29,2024-03-28
+2024-03-28,HSCL,Chemicals,EXIT,₹302.30,,-17.92%,Failed EMA51 / 52W High / Liquidity Rules,2024-02-29,2024-03-28
+2024-03-28,CUPID,Fast Moving Consumer Goods,HOLD,₹2423.15,2281.6,-10.30%,Maintained Top 40 Buffer,2024-02-29,-
+2024-03-28,INOXWIND,Capital Goods,HOLD,₹521.60,1359.6,-13.47%,Maintained Top 40 Buffer,2024-02-29,-
+2024-03-28,IRFC,Financial Services,HOLD,₹142.35,1071.1,-3.00%,Maintained Top 40 Buffer,2024-02-29,-
+2024-03-28,ELECTCAST,Capital Goods,HOLD,₹178.20,1012.2,+11.44%,Maintained Top 40 Buffer,2024-02-29,-
+2024-03-28,WEBELSOLAR,Capital Goods,HOLD,₹485.30,952.2,+23.93%,Maintained Top 40 Buffer,2024-02-29,-
+2024-03-28,ANANDRATHI,Financial Services,HOLD,₹3694.35,908.7,+1.03%,Maintained Top 40 Buffer,2024-02-29,-
+2024-03-28,BSE,Financial Services,HOLD,₹2515.90,892.9,+6.30%,Maintained Top 40 Buffer,2024-02-29,-
+2024-03-28,HUDCO,Financial Services,HOLD,₹187.25,830.4,-2.04%,Maintained Top 40 Buffer,2024-02-29,-
+2024-03-28,IRCON,Construction,HOLD,₹219.65,732.6,-4.15%,Maintained Top 40 Buffer,2024-02-29,-
+2024-03-28,NEULANDLAB,Healthcare,HOLD,₹6322.15,717.4,-11.73%,Maintained Top 40 Buffer,2024-02-29,-
+2024-03-28,CHENNPETRO,Oil Gas & Consumable Fuels,HOLD,₹906.80,706.7,+2.57%,Maintained Top 40 Buffer,2024-02-29,-
+2024-03-28,SJVN,Power,HOLD,₹121.40,636.8,+0.21%,Maintained Top 40 Buffer,2024-02-29,-
+2024-03-28,ZENTEC,Capital Goods,HOLD,₹956.50,497.9,+10.47%,Maintained Top 40 Buffer,2024-02-29,-
+2024-03-28,OLECTRA,Automobile and Auto Components,ENTRY,₹1888.55,796.8,NEW,Top 20 Absolute Breakout,2024-03-28,-
+2024-03-28,RECLTD,Financial Services,ENTRY,₹451.00,680.6,NEW,Top 20 Absolute Breakout,2024-03-28,-
+2024-03-28,SKIPPER,Capital Goods,ENTRY,₹323.40,614.3,NEW,Top 20 Absolute Breakout,2024-03-28,-
+2024-03-28,WOCKPHARMA,Healthcare,ENTRY,₹585.70,594.7,NEW,Top 20 Absolute Breakout,2024-03-28,-
+2024-03-28,SCHNEIDER,Capital Goods,ENTRY,₹741.05,561.6,NEW,Top 20 Absolute Breakout,2024-03-28,-
+2024-03-28,KALYANKJIL,Consumer Durables,ENTRY,₹427.80,555.6,NEW,Top 20 Absolute Breakout,2024-03-28,-
+2024-03-28,ADANIGREEN,Power,ENTRY,₹1835.15,542.3,NEW,Top 20 Absolute Breakout,2024-03-28,-
+2024-04-30,ADANIGREEN,Power,EXIT,₹1797.65,,-2.04%,Failed EMA51 / 52W High / Liquidity Rules,2024-03-28,2024-04-30
+2024-04-30,OLECTRA,Automobile and Auto Components,EXIT,₹1726.70,,-8.57%,Failed EMA51 / 52W High / Liquidity Rules,2024-03-28,2024-04-30
+2024-04-30,CUPID,Fast Moving Consumer Goods,EXIT,₹108.35,,-95.99%,Failed EMA51 / 52W High / Liquidity Rules,2024-02-29,2024-04-30
+2024-04-30,WEBELSOLAR,Capital Goods,HOLD,₹681.05,1269.2,+73.91%,Maintained Top 40 Buffer,2024-02-29,-
+2024-04-30,ELECTCAST,Capital Goods,HOLD,₹192.00,1038.8,+20.08%,Maintained Top 40 Buffer,2024-02-29,-
+2024-04-30,BSE,Financial Services,HOLD,₹2790.15,1031.4,+17.88%,Maintained Top 40 Buffer,2024-02-29,-
+2024-04-30,INOXWIND,Capital Goods,HOLD,₹627.60,1003.1,+4.11%,Maintained Top 40 Buffer,2024-02-29,-
+2024-04-30,IRFC,Financial Services,HOLD,₹157.25,950.0,+7.16%,Maintained Top 40 Buffer,2024-02-29,-
+2024-04-30,SCHNEIDER,Capital Goods,HOLD,₹807.40,828.8,+8.95%,Maintained Top 40 Buffer,2024-03-28,-
+2024-04-30,ANANDRATHI,Financial Services,HOLD,₹3998.25,811.0,+9.34%,Maintained Top 40 Buffer,2024-02-29,-
+2024-04-30,HUDCO,Financial Services,HOLD,₹224.50,786.1,+17.45%,Maintained Top 40 Buffer,2024-02-29,-
+2024-04-30,IRCON,Construction,HOLD,₹250.55,686.3,+9.34%,Maintained Top 40 Buffer,2024-02-29,-
+2024-04-30,SJVN,Power,HOLD,₹134.40,666.4,+10.94%,Maintained Top 40 Buffer,2024-02-29,-
+2024-04-30,NEULANDLAB,Healthcare,HOLD,₹7593.45,646.0,+6.02%,Maintained Top 40 Buffer,2024-02-29,-
+2024-04-30,RECLTD,Financial Services,HOLD,₹507.15,625.0,+12.45%,Maintained Top 40 Buffer,2024-03-28,-
+2024-04-30,WOCKPHARMA,Healthcare,HOLD,₹566.45,596.4,-3.29%,Maintained Top 40 Buffer,2024-03-28,-
+2024-04-30,CHENNPETRO,Oil Gas & Consumable Fuels,HOLD,₹1022.85,593.7,+15.70%,Maintained Top 40 Buffer,2024-02-29,-
+2024-04-30,KALYANKJIL,Consumer Durables,HOLD,₹414.10,589.6,-3.20%,Maintained Top 40 Buffer,2024-03-28,-
+2024-04-30,SKIPPER,Capital Goods,HOLD,₹357.70,472.4,+10.61%,Maintained Top 40 Buffer,2024-03-28,-
+2024-04-30,ZENTEC,Capital Goods,HOLD,₹1110.45,448.9,+28.25%,Maintained Top 40 Buffer,2024-02-29,-
+2024-04-30,JAIBALAJI,Metals & Mining,ENTRY,₹1027.15,3926.1,NEW,Top 20 Absolute Breakout,2024-04-30,-
+2024-04-30,SUZLON,Capital Goods,ENTRY,₹41.60,813.5,NEW,Top 20 Absolute Breakout,2024-04-30,-
+2024-04-30,MRPL,Oil Gas & Consumable Fuels,ENTRY,₹250.15,678.6,NEW,Top 20 Absolute Breakout,2024-04-30,-
+2024-05-31,MRPL,Oil Gas & Consumable Fuels,EXIT,₹203.15,,-18.79%,Failed EMA51 / 52W High / Liquidity Rules,2024-04-30,2024-05-31
+2024-05-31,SKIPPER,Capital Goods,EXIT,₹297.95,,-7.87%,Failed EMA51 / 52W High / Liquidity Rules,2024-03-28,2024-05-31
+2024-05-31,KALYANKJIL,Consumer Durables,EXIT,₹388.45,,-9.20%,Failed EMA51 / 52W High / Liquidity Rules,2024-03-28,2024-05-31
+2024-05-31,INOXWIND,Capital Goods,EXIT,₹148.95,,-75.29%,Failed EMA51 / 52W High / Liquidity Rules,2024-02-29,2024-05-31
+2024-05-31,NEULANDLAB,Healthcare,EXIT,₹6042.50,,-15.63%,Failed EMA51 / 52W High / Liquidity Rules,2024-02-29,2024-05-31
+2024-05-31,ELECTCAST,Capital Goods,EXIT,₹160.90,,+0.63%,Failed EMA51 / 52W High / Liquidity Rules,2024-02-29,2024-05-31
+2024-05-31,SCHNEIDER,Capital Goods,EXIT,₹685.45,,-7.50%,Failed EMA51 / 52W High / Liquidity Rules,2024-03-28,2024-05-31
+2024-05-31,JAIBALAJI,Metals & Mining,EXIT,₹867.30,,-15.56%,Failed EMA51 / 52W High / Liquidity Rules,2024-04-30,2024-05-31
+2024-05-31,WOCKPHARMA,Healthcare,EXIT,₹529.35,,-9.62%,Failed EMA51 / 52W High / Liquidity Rules,2024-03-28,2024-05-31
+2024-05-31,CHENNPETRO,Oil Gas & Consumable Fuels,EXIT,₹917.65,,+3.80%,Failed EMA51 / 52W High / Liquidity Rules,2024-02-29,2024-05-31
+2024-05-31,WEBELSOLAR,Capital Goods,EXIT,₹556.00,,+41.98%,Failed EMA51 / 52W High / Liquidity Rules,2024-02-29,2024-05-31
+2024-05-31,BSE,Financial Services,HOLD,₹2693.85,1108.3,+13.82%,Maintained Top 40 Buffer,2024-02-29,-
+2024-05-31,IRFC,Financial Services,HOLD,₹177.80,1001.5,+21.16%,Maintained Top 40 Buffer,2024-02-29,-
+2024-05-31,HUDCO,Financial Services,HOLD,₹273.80,950.3,+43.24%,Maintained Top 40 Buffer,2024-02-29,-
+2024-05-31,SUZLON,Capital Goods,HOLD,₹47.65,879.8,+14.54%,Maintained Top 40 Buffer,2024-04-30,-
+2024-05-31,ANANDRATHI,Financial Services,HOLD,₹4195.40,852.8,+14.73%,Maintained Top 40 Buffer,2024-02-29,-
+2024-05-31,RECLTD,Financial Services,HOLD,₹537.75,796.4,+19.24%,Maintained Top 40 Buffer,2024-03-28,-
+2024-05-31,SJVN,Power,HOLD,₹139.70,728.1,+15.31%,Maintained Top 40 Buffer,2024-02-29,-
+2024-05-31,IRCON,Construction,HOLD,₹270.80,626.7,+18.18%,Maintained Top 40 Buffer,2024-02-29,-
+2024-05-31,ZENTEC,Capital Goods,HOLD,₹965.30,586.2,+11.49%,Maintained Top 40 Buffer,2024-02-29,-
+2024-05-31,IFCI,Financial Services,ENTRY,₹58.10,871.6,NEW,Top 20 Absolute Breakout,2024-05-31,-
+2024-05-31,SHAKTIPUMP,Capital Goods,ENTRY,₹2482.95,839.7,NEW,Top 20 Absolute Breakout,2024-05-31,-
+2024-05-31,SOBHA,Realty,ENTRY,₹1899.80,767.9,NEW,Top 20 Absolute Breakout,2024-05-31,-
+2024-05-31,MOTILALOFS,Financial Services,ENTRY,₹2219.70,766.6,NEW,Top 20 Absolute Breakout,2024-05-31,-
+2024-05-31,HINDCOPPER,Metals & Mining,ENTRY,₹355.90,765.7,NEW,Top 20 Absolute Breakout,2024-05-31,-
+2024-05-31,VOLTAMP,Capital Goods,ENTRY,₹11258.30,718.3,NEW,Top 20 Absolute Breakout,2024-05-31,-
+2024-05-31,BHEL,Capital Goods,ENTRY,₹298.90,716.4,NEW,Top 20 Absolute Breakout,2024-05-31,-
+2024-05-31,GMRP&UI,Power,ENTRY,₹65.90,694.2,NEW,Top 20 Absolute Breakout,2024-05-31,-
+2024-05-31,NBCC,Construction,ENTRY,₹142.40,648.6,NEW,Top 20 Absolute Breakout,2024-05-31,-
+2024-05-31,JWL,Capital Goods,ENTRY,₹602.20,637.1,NEW,Top 20 Absolute Breakout,2024-05-31,-
+2024-05-31,JPPOWER,Power,ENTRY,₹19.25,635.0,NEW,Top 20 Absolute Breakout,2024-05-31,-
+2024-06-28,ZENTEC,Capital Goods,EXIT,₹1175.05,,+35.71%,Fell below Top 40 Buffer Rank,2024-02-29,2024-06-28
+2024-06-28,RECLTD,Financial Services,EXIT,₹525.40,,+16.50%,Failed EMA51 / 52W High / Liquidity Rules,2024-03-28,2024-06-28
+2024-06-28,ANANDRATHI,Financial Services,EXIT,₹3907.85,,+6.87%,Failed EMA51 / 52W High / Liquidity Rules,2024-02-29,2024-06-28
+2024-06-28,HINDCOPPER,Metals & Mining,EXIT,₹318.70,,-10.45%,Failed EMA51 / 52W High / Liquidity Rules,2024-05-31,2024-06-28
+2024-06-28,MOTILALOFS,Financial Services,EXIT,₹614.55,,-72.31%,Failed EMA51 / 52W High / Liquidity Rules,2024-05-31,2024-06-28
+2024-06-28,BSE,Financial Services,EXIT,₹2582.55,,+9.11%,Failed EMA51 / 52W High / Liquidity Rules,2024-02-29,2024-06-28
+2024-06-28,SJVN,Power,EXIT,₹131.63,,+8.65%,Failed EMA51 / 52W High / Liquidity Rules,2024-02-29,2024-06-28
+2024-06-28,IRFC,Financial Services,HOLD,₹173.81,1016.3,+18.44%,Maintained Top 40 Buffer,2024-02-29,-
+2024-06-28,IFCI,Financial Services,HOLD,₹61.58,975.4,+5.99%,Maintained Top 40 Buffer,2024-05-31,-
+2024-06-28,HUDCO,Financial Services,HOLD,₹281.20,949.5,+47.11%,Maintained Top 40 Buffer,2024-02-29,-
+2024-06-28,JWL,Capital Goods,HOLD,₹689.25,862.5,+14.46%,Maintained Top 40 Buffer,2024-05-31,-
+2024-06-28,SHAKTIPUMP,Capital Goods,HOLD,₹3664.70,831.2,+47.59%,Maintained Top 40 Buffer,2024-05-31,-
+2024-06-28,SUZLON,Capital Goods,HOLD,₹52.86,820.2,+27.07%,Maintained Top 40 Buffer,2024-04-30,-
+2024-06-28,BHEL,Capital Goods,HOLD,₹300.85,650.1,+0.65%,Maintained Top 40 Buffer,2024-05-31,-
+2024-06-28,SOBHA,Realty,HOLD,₹1956.65,640.6,+2.99%,Maintained Top 40 Buffer,2024-05-31,-
+2024-06-28,NBCC,Construction,HOLD,₹156.96,623.4,+10.22%,Maintained Top 40 Buffer,2024-05-31,-
+2024-06-28,VOLTAMP,Capital Goods,HOLD,₹11003.80,587.9,-2.26%,Maintained Top 40 Buffer,2024-05-31,-
+2024-06-28,GMRP&UI,Power,HOLD,₹83.89,577.5,+27.30%,Maintained Top 40 Buffer,2024-05-31,-
+2024-06-28,IRCON,Construction,HOLD,₹269.65,529.3,+17.67%,Maintained Top 40 Buffer,2024-02-29,-
+2024-06-28,JPPOWER,Power,HOLD,₹19.60,527.1,+1.82%,Maintained Top 40 Buffer,2024-05-31,-
+2024-06-28,FORCEMOT,Automobile and Auto Components,ENTRY,₹8965.40,1162.3,NEW,Top 20 Absolute Breakout,2024-06-28,-
+2024-06-28,RTNPOWER,Power,ENTRY,₹17.82,1030.1,NEW,Top 20 Absolute Breakout,2024-06-28,-
+2024-06-28,MAZDOCK,Capital Goods,ENTRY,₹4281.45,779.3,NEW,Top 20 Absolute Breakout,2024-06-28,-
+2024-06-28,SCHNEIDER,Capital Goods,ENTRY,₹865.30,718.9,NEW,Top 20 Absolute Breakout,2024-06-28,-
+2024-06-28,ELECTCAST,Capital Goods,ENTRY,₹173.44,626.4,NEW,Top 20 Absolute Breakout,2024-06-28,-
+2024-06-28,TEXRAIL,Capital Goods,ENTRY,₹248.40,586.1,NEW,Top 20 Absolute Breakout,2024-06-28,-
+2024-06-28,RVNL,Construction,ENTRY,₹416.60,575.0,NEW,Top 20 Absolute Breakout,2024-06-28,-
+2024-07-31,JWL,Capital Goods,EXIT,₹609.30,,+1.18%,Failed EMA51 / 52W High / Liquidity Rules,2024-05-31,2024-07-31
+2024-07-31,SCHNEIDER,Capital Goods,EXIT,₹803.15,,-7.18%,Failed EMA51 / 52W High / Liquidity Rules,2024-06-28,2024-07-31
+2024-07-31,SOBHA,Realty,EXIT,₹1800.20,,-5.24%,Failed EMA51 / 52W High / Liquidity Rules,2024-05-31,2024-07-31
+2024-07-31,FORCEMOT,Automobile and Auto Components,HOLD,₹9244.75,1431.7,+3.12%,Maintained Top 40 Buffer,2024-06-28,-
+2024-07-31,SHAKTIPUMP,Capital Goods,HOLD,₹4276.95,1393.5,+72.25%,Maintained Top 40 Buffer,2024-05-31,-
+2024-07-31,IRFC,Financial Services,HOLD,₹193.65,915.7,+31.96%,Maintained Top 40 Buffer,2024-02-29,-
+2024-07-31,IFCI,Financial Services,HOLD,₹87.33,911.2,+50.31%,Maintained Top 40 Buffer,2024-05-31,-
+2024-07-31,HUDCO,Financial Services,HOLD,₹312.25,900.2,+63.35%,Maintained Top 40 Buffer,2024-02-29,-
+2024-07-31,GMRP&UI,Power,HOLD,₹97.94,837.2,+48.62%,Maintained Top 40 Buffer,2024-05-31,-
+2024-07-31,RTNPOWER,Power,HOLD,₹17.70,767.2,-0.67%,Maintained Top 40 Buffer,2024-06-28,-
+2024-07-31,NBCC,Construction,HOLD,₹181.21,666.7,+27.25%,Maintained Top 40 Buffer,2024-05-31,-
+2024-07-31,MAZDOCK,Capital Goods,HOLD,₹5243.50,612.3,+22.47%,Maintained Top 40 Buffer,2024-06-28,-
+2024-07-31,RVNL,Construction,HOLD,₹601.50,602.7,+44.38%,Maintained Top 40 Buffer,2024-06-28,-
+2024-07-31,SUZLON,Capital Goods,HOLD,₹69.38,599.6,+66.78%,Maintained Top 40 Buffer,2024-04-30,-
+2024-07-31,BHEL,Capital Goods,HOLD,₹315.25,561.9,+5.47%,Maintained Top 40 Buffer,2024-05-31,-
+2024-07-31,TEXRAIL,Capital Goods,HOLD,₹268.66,532.6,+8.16%,Maintained Top 40 Buffer,2024-06-28,-
+2024-07-31,ELECTCAST,Capital Goods,HOLD,₹216.51,512.6,+24.83%,Maintained Top 40 Buffer,2024-06-28,-
+2024-07-31,JPPOWER,Power,HOLD,₹19.85,494.3,+3.12%,Maintained Top 40 Buffer,2024-05-31,-
+2024-07-31,IRCON,Construction,HOLD,₹288.75,490.7,+26.01%,Maintained Top 40 Buffer,2024-02-29,-
+2024-07-31,VOLTAMP,Capital Goods,HOLD,₹13506.70,483.3,+19.97%,Maintained Top 40 Buffer,2024-05-31,-
+2024-07-31,TECHNOE,Construction,ENTRY,₹1706.80,774.0,NEW,Top 20 Absolute Breakout,2024-07-31,-
+2024-07-31,GRSE,Capital Goods,ENTRY,₹2405.55,762.5,NEW,Top 20 Absolute Breakout,2024-07-31,-
+2024-07-31,KIRLOSBROS,Capital Goods,ENTRY,₹2437.00,699.8,NEW,Top 20 Absolute Breakout,2024-07-31,-
+2024-08-30,MAZDOCK,Capital Goods,EXIT,₹4241.45,,-0.93%,Failed EMA51 / 52W High / Liquidity Rules,2024-06-28,2024-08-30
+2024-08-30,IRCON,Construction,EXIT,₹261.10,,+13.94%,Failed EMA51 / 52W High / Liquidity Rules,2024-02-29,2024-08-30
+2024-08-30,IRFC,Financial Services,EXIT,₹178.62,,+21.72%,Failed EMA51 / 52W High / Liquidity Rules,2024-02-29,2024-08-30
+2024-08-30,JPPOWER,Power,EXIT,₹17.92,,-6.91%,Failed EMA51 / 52W High / Liquidity Rules,2024-05-31,2024-08-30
+2024-08-30,TEXRAIL,Capital Goods,EXIT,₹243.00,,-2.17%,Failed EMA51 / 52W High / Liquidity Rules,2024-06-28,2024-08-30
+2024-08-30,GRSE,Capital Goods,EXIT,₹1811.00,,-24.72%,Failed EMA51 / 52W High / Liquidity Rules,2024-07-31,2024-08-30
+2024-08-30,FORCEMOT,Automobile and Auto Components,EXIT,₹8329.40,,-7.09%,Failed EMA51 / 52W High / Liquidity Rules,2024-06-28,2024-08-30
+2024-08-30,HUDCO,Financial Services,EXIT,₹280.65,,+46.82%,Failed EMA51 / 52W High / Liquidity Rules,2024-02-29,2024-08-30
+2024-08-30,BHEL,Capital Goods,EXIT,₹290.55,,-2.79%,Failed EMA51 / 52W High / Liquidity Rules,2024-05-31,2024-08-30
+2024-08-30,KIRLOSBROS,Capital Goods,EXIT,₹1805.60,,-25.91%,Failed EMA51 / 52W High / Liquidity Rules,2024-07-31,2024-08-30
+2024-08-30,SHAKTIPUMP,Capital Goods,HOLD,₹4471.65,1387.9,+80.09%,Maintained Top 40 Buffer,2024-05-31,-
+2024-08-30,IFCI,Financial Services,HOLD,₹74.93,1257.2,+28.97%,Maintained Top 40 Buffer,2024-05-31,-
+2024-08-30,GMRP&UI,Power,HOLD,₹137.91,889.8,+109.27%,Maintained Top 40 Buffer,2024-05-31,-
+2024-08-30,RVNL,Construction,HOLD,₹607.40,781.6,+45.80%,Maintained Top 40 Buffer,2024-06-28,-
+2024-08-30,NBCC,Construction,HOLD,₹186.37,747.6,+30.88%,Maintained Top 40 Buffer,2024-05-31,-
+2024-08-30,TECHNOE,Construction,HOLD,₹1635.25,655.1,-4.19%,Maintained Top 40 Buffer,2024-07-31,-
+2024-08-30,ELECTCAST,Capital Goods,HOLD,₹214.20,610.6,+23.50%,Maintained Top 40 Buffer,2024-06-28,-
+2024-08-30,RTNPOWER,Power,HOLD,₹16.20,590.4,-9.09%,Maintained Top 40 Buffer,2024-06-28,-
+2024-08-30,SUZLON,Capital Goods,HOLD,₹75.84,576.4,+82.31%,Maintained Top 40 Buffer,2024-04-30,-
+2024-08-30,VOLTAMP,Capital Goods,HOLD,₹14104.45,467.7,+25.28%,Maintained Top 40 Buffer,2024-05-31,-
+2024-08-30,SKYGOLD,Consumer Durables,ENTRY,₹2606.85,1397.7,NEW,Top 20 Absolute Breakout,2024-08-30,-
+2024-08-30,WEBELSOLAR,Capital Goods,ENTRY,₹948.30,1389.7,NEW,Top 20 Absolute Breakout,2024-08-30,-
+2024-08-30,WOCKPHARMA,Healthcare,ENTRY,₹1050.60,664.6,NEW,Top 20 Absolute Breakout,2024-08-30,-
+2024-08-30,TRENT,Consumer Services,ENTRY,₹7158.75,562.6,NEW,Top 20 Absolute Breakout,2024-08-30,-
+2024-08-30,ANANDRATHI,Financial Services,ENTRY,₹3813.80,548.9,NEW,Top 20 Absolute Breakout,2024-08-30,-
+2024-08-30,KALYANKJIL,Consumer Durables,ENTRY,₹615.20,526.1,NEW,Top 20 Absolute Breakout,2024-08-30,-
+2024-08-30,PRESTIGE,Realty,ENTRY,₹1813.15,521.3,NEW,Top 20 Absolute Breakout,2024-08-30,-
+2024-08-30,BSE,Financial Services,ENTRY,₹2832.65,514.2,NEW,Top 20 Absolute Breakout,2024-08-30,-
+2024-08-30,MMTC,Services,ENTRY,₹100.94,498.0,NEW,Top 20 Absolute Breakout,2024-08-30,-
+2024-08-30,TORNTPOWER,Power,ENTRY,₹1743.50,495.4,NEW,Top 20 Absolute Breakout,2024-08-30,-
+2024-09-30,RVNL,Construction,EXIT,₹531.45,,+27.57%,Failed EMA51 / 52W High / Liquidity Rules,2024-06-28,2024-09-30
+2024-09-30,MMTC,Services,EXIT,₹89.59,,-11.24%,Failed EMA51 / 52W High / Liquidity Rules,2024-08-30,2024-09-30
+2024-09-30,RTNPOWER,Power,EXIT,₹15.30,,-14.14%,Failed EMA51 / 52W High / Liquidity Rules,2024-06-28,2024-09-30
+2024-09-30,ANANDRATHI,Financial Services,EXIT,₹3925.35,,+2.92%,Fell below Top 40 Buffer Rank,2024-08-30,2024-09-30
+2024-09-30,IFCI,Financial Services,EXIT,₹66.10,,+13.77%,Failed EMA51 / 52W High / Liquidity Rules,2024-05-31,2024-09-30
+2024-09-30,SKYGOLD,Consumer Durables,EXIT,₹2694.35,,+3.36%,Failed EMA51 / 52W High / Liquidity Rules,2024-08-30,2024-09-30
+2024-09-30,VOLTAMP,Capital Goods,EXIT,₹13179.20,,+17.06%,Failed EMA51 / 52W High / Liquidity Rules,2024-05-31,2024-09-30
+2024-09-30,WEBELSOLAR,Capital Goods,HOLD,₹1090.85,1477.2,+15.03%,Maintained Top 40 Buffer,2024-08-30,-
+2024-09-30,SHAKTIPUMP,Capital Goods,HOLD,₹4270.65,1266.4,+72.00%,Maintained Top 40 Buffer,2024-05-31,-
+2024-09-30,GMRP&UI,Power,HOLD,₹159.70,1030.7,+142.34%,Maintained Top 40 Buffer,2024-05-31,-
+2024-09-30,WOCKPHARMA,Healthcare,HOLD,₹978.35,784.7,-6.88%,Maintained Top 40 Buffer,2024-08-30,-
+2024-09-30,SUZLON,Capital Goods,HOLD,₹80.05,596.4,+92.43%,Maintained Top 40 Buffer,2024-04-30,-
+2024-09-30,TECHNOE,Construction,HOLD,₹1600.45,595.4,-6.23%,Maintained Top 40 Buffer,2024-07-31,-
+2024-09-30,TRENT,Consumer Services,HOLD,₹7574.65,590.3,+5.81%,Maintained Top 40 Buffer,2024-08-30,-
+2024-09-30,NBCC,Construction,HOLD,₹179.30,560.1,+25.91%,Maintained Top 40 Buffer,2024-05-31,-
+2024-09-30,ELECTCAST,Capital Goods,HOLD,₹211.46,530.6,+21.92%,Maintained Top 40 Buffer,2024-06-28,-
+2024-09-30,PRESTIGE,Realty,HOLD,₹1845.25,489.8,+1.77%,Maintained Top 40 Buffer,2024-08-30,-
+2024-09-30,BSE,Financial Services,HOLD,₹3684.65,454.3,+30.08%,Maintained Top 40 Buffer,2024-08-30,-
+2024-09-30,KALYANKJIL,Consumer Durables,HOLD,₹730.25,410.2,+18.70%,Maintained Top 40 Buffer,2024-08-30,-
+2024-09-30,TORNTPOWER,Power,HOLD,₹1878.00,381.6,+7.71%,Maintained Top 40 Buffer,2024-08-30,-
+2024-09-30,PCJEWELLER,Consumer Durables,ENTRY,₹178.17,710.0,NEW,Top 20 Absolute Breakout,2024-09-30,-
+2024-09-30,JAIBALAJI,Metals & Mining,ENTRY,₹1049.80,598.6,NEW,Top 20 Absolute Breakout,2024-09-30,-
+2024-09-30,GRAVITA,Metals & Mining,ENTRY,₹2453.05,553.6,NEW,Top 20 Absolute Breakout,2024-09-30,-
+2024-09-30,GODFRYPHLP,Fast Moving Consumer Goods,ENTRY,₹6977.60,537.7,NEW,Top 20 Absolute Breakout,2024-09-30,-
+2024-09-30,NEULANDLAB,Healthcare,ENTRY,₹12386.40,533.4,NEW,Top 20 Absolute Breakout,2024-09-30,-
+2024-09-30,STAR,Healthcare,ENTRY,₹1399.00,508.4,NEW,Top 20 Absolute Breakout,2024-09-30,-
+2024-09-30,MCX,Financial Services,ENTRY,₹5660.30,504.0,NEW,Top 20 Absolute Breakout,2024-09-30,-
+2024-10-31,TORNTPOWER,Power,EXIT,₹1821.75,,+4.49%,Failed EMA51 / 52W High / Liquidity Rules,2024-08-30,2024-10-31
+2024-10-31,KALYANKJIL,Consumer Durables,EXIT,₹657.15,,+6.82%,Failed EMA51 / 52W High / Liquidity Rules,2024-08-30,2024-10-31
+2024-10-31,TECHNOE,Construction,EXIT,₹1564.45,,-8.34%,Failed EMA51 / 52W High / Liquidity Rules,2024-07-31,2024-10-31
+2024-10-31,ELECTCAST,Capital Goods,EXIT,₹164.76,,-5.00%,Failed EMA51 / 52W High / Liquidity Rules,2024-06-28,2024-10-31
+2024-10-31,GMRP&UI,Power,EXIT,₹117.78,,+78.73%,Failed EMA51 / 52W High / Liquidity Rules,2024-05-31,2024-10-31
+2024-10-31,TRENT,Consumer Services,EXIT,₹7128.35,,-0.42%,Failed EMA51 / 52W High / Liquidity Rules,2024-08-30,2024-10-31
+2024-10-31,SUZLON,Capital Goods,EXIT,₹66.95,,+60.94%,Failed EMA51 / 52W High / Liquidity Rules,2024-04-30,2024-10-31
+2024-10-31,GRAVITA,Metals & Mining,EXIT,₹2119.80,,-13.59%,Failed EMA51 / 52W High / Liquidity Rules,2024-09-30,2024-10-31
+2024-10-31,NBCC,Construction,EXIT,₹97.19,,-31.75%,Failed EMA51 / 52W High / Liquidity Rules,2024-05-31,2024-10-31
+2024-10-31,PRESTIGE,Realty,EXIT,₹1636.45,,-9.75%,Failed EMA51 / 52W High / Liquidity Rules,2024-08-30,2024-10-31
+2024-10-31,WEBELSOLAR,Capital Goods,HOLD,₹1421.75,1443.8,+49.93%,Maintained Top 40 Buffer,2024-08-30,-
+2024-10-31,PCJEWELLER,Consumer Durables,HOLD,₹156.31,1292.0,-12.27%,Maintained Top 40 Buffer,2024-09-30,-
+2024-10-31,SHAKTIPUMP,Capital Goods,HOLD,₹4494.15,1094.0,+81.00%,Maintained Top 40 Buffer,2024-05-31,-
+2024-10-31,WOCKPHARMA,Healthcare,HOLD,₹1208.35,717.5,+15.02%,Maintained Top 40 Buffer,2024-08-30,-
+2024-10-31,GODFRYPHLP,Fast Moving Consumer Goods,HOLD,₹6625.15,584.9,-5.05%,Maintained Top 40 Buffer,2024-09-30,-
+2024-10-31,NEULANDLAB,Healthcare,HOLD,₹14606.60,583.8,+17.92%,Maintained Top 40 Buffer,2024-09-30,-
+2024-10-31,MCX,Financial Services,HOLD,₹6515.90,527.6,+15.12%,Maintained Top 40 Buffer,2024-09-30,-
+2024-10-31,BSE,Financial Services,HOLD,₹4465.60,498.5,+57.65%,Maintained Top 40 Buffer,2024-08-30,-
+2024-10-31,STAR,Healthcare,HOLD,₹1555.50,440.3,+11.19%,Maintained Top 40 Buffer,2024-09-30,-
+2024-10-31,JAIBALAJI,Metals & Mining,HOLD,₹1087.65,340.3,+3.61%,Maintained Top 40 Buffer,2024-09-30,-
+2024-10-31,SKYGOLD,Consumer Durables,ENTRY,₹3358.50,1836.6,NEW,Top 20 Absolute Breakout,2024-10-31,-
+2024-10-31,ANANTRAJ,Realty,ENTRY,₹740.80,615.9,NEW,Top 20 Absolute Breakout,2024-10-31,-
+2024-10-31,POWERINDIA,Capital Goods,ENTRY,₹13819.00,584.8,NEW,Top 20 Absolute Breakout,2024-10-31,-
+2024-10-31,WABAG,Utilities,ENTRY,₹1777.95,563.7,NEW,Top 20 Absolute Breakout,2024-10-31,-
+2024-10-31,GRWRHITECH,Capital Goods,ENTRY,₹4086.20,554.1,NEW,Top 20 Absolute Breakout,2024-10-31,-
+2024-10-31,KITEX,Textiles,ENTRY,₹584.10,553.6,NEW,Top 20 Absolute Breakout,2024-10-31,-
+2024-10-31,DIXON,Consumer Durables,ENTRY,₹14061.60,480.3,NEW,Top 20 Absolute Breakout,2024-10-31,-
+2024-10-31,NETWEB,Information Technology,ENTRY,₹2697.80,475.6,NEW,Top 20 Absolute Breakout,2024-10-31,-
+2024-10-31,MARKSANS,Healthcare,ENTRY,₹289.65,470.9,NEW,Top 20 Absolute Breakout,2024-10-31,-
+2024-10-31,JUBLPHARMA,Healthcare,ENTRY,₹1211.75,450.6,NEW,Top 20 Absolute Breakout,2024-10-31,-
+2024-11-29,ANANTRAJ,Realty,EXIT,₹673.45,,-9.09%,Failed EMA51 / 52W High / Liquidity Rules,2024-10-31,2024-11-29
+2024-11-29,GODFRYPHLP,Fast Moving Consumer Goods,EXIT,₹5673.15,,-18.69%,Failed EMA51 / 52W High / Liquidity Rules,2024-09-30,2024-11-29
+2024-11-29,SHAKTIPUMP,Capital Goods,EXIT,₹780.30,,-68.57%,Failed EMA51 / 52W High / Liquidity Rules,2024-05-31,2024-11-29
+2024-11-29,JAIBALAJI,Metals & Mining,EXIT,₹908.50,,-13.46%,Failed EMA51 / 52W High / Liquidity Rules,2024-09-30,2024-11-29
+2024-11-29,POWERINDIA,Capital Goods,EXIT,₹11978.55,,-13.32%,Failed EMA51 / 52W High / Liquidity Rules,2024-10-31,2024-11-29
+2024-11-29,WEBELSOLAR,Capital Goods,HOLD,₹1268.75,1331.3,+33.79%,Maintained Top 40 Buffer,2024-08-30,-
+2024-11-29,PCJEWELLER,Consumer Durables,HOLD,₹163.78,989.1,-8.08%,Maintained Top 40 Buffer,2024-09-30,-
+2024-11-29,SKYGOLD,Consumer Durables,HOLD,₹3854.45,891.1,+14.77%,Maintained Top 40 Buffer,2024-10-31,-
+2024-11-29,WOCKPHARMA,Healthcare,HOLD,₹1404.25,791.9,+33.66%,Maintained Top 40 Buffer,2024-08-30,-
+2024-11-29,NEULANDLAB,Healthcare,HOLD,₹16709.30,580.4,+34.90%,Maintained Top 40 Buffer,2024-09-30,-
+2024-11-29,WABAG,Utilities,HOLD,₹1794.90,570.3,+0.95%,Maintained Top 40 Buffer,2024-10-31,-
+2024-11-29,KITEX,Textiles,HOLD,₹742.45,475.6,+27.11%,Maintained Top 40 Buffer,2024-10-31,-
+2024-11-29,STAR,Healthcare,HOLD,₹1635.35,470.6,+16.89%,Maintained Top 40 Buffer,2024-09-30,-
+2024-11-29,MCX,Financial Services,HOLD,₹6185.35,456.2,+9.28%,Maintained Top 40 Buffer,2024-09-30,-
+2024-11-29,GRWRHITECH,Capital Goods,HOLD,₹4937.05,421.9,+20.82%,Maintained Top 40 Buffer,2024-10-31,-
+2024-11-29,NETWEB,Information Technology,HOLD,₹2750.15,420.6,+1.94%,Maintained Top 40 Buffer,2024-10-31,-
+2024-11-29,DIXON,Consumer Durables,HOLD,₹15807.40,417.6,+12.42%,Maintained Top 40 Buffer,2024-10-31,-
+2024-11-29,JUBLPHARMA,Healthcare,HOLD,₹1234.25,415.7,+1.86%,Maintained Top 40 Buffer,2024-10-31,-
+2024-11-29,BSE,Financial Services,HOLD,₹4670.75,394.2,+64.89%,Maintained Top 40 Buffer,2024-08-30,-
+2024-11-29,MARKSANS,Healthcare,HOLD,₹342.75,372.3,+18.33%,Maintained Top 40 Buffer,2024-10-31,-
+2024-11-29,OFSS,Information Technology,ENTRY,₹11696.45,407.3,NEW,Top 20 Absolute Breakout,2024-11-29,-
+2024-11-29,PPLPHARMA,Healthcare,ENTRY,₹268.75,380.1,NEW,Top 20 Absolute Breakout,2024-11-29,-
+2024-11-29,VMART,Consumer Services,ENTRY,₹3954.00,378.6,NEW,Top 20 Absolute Breakout,2024-11-29,-
+2024-11-29,KIRLPNU,Capital Goods,ENTRY,₹1768.95,362.8,NEW,Top 20 Absolute Breakout,2024-11-29,-
+2024-11-29,GOKULAGRO,Fast Moving Consumer Goods,ENTRY,₹338.80,361.8,NEW,Top 20 Absolute Breakout,2024-11-29,-
+2024-12-31,NETWEB,Information Technology,EXIT,₹2725.65,,+1.03%,Failed EMA51 / 52W High / Liquidity Rules,2024-10-31,2024-12-31
+2024-12-31,VMART,Consumer Services,EXIT,₹3936.35,,-0.45%,Failed EMA51 / 52W High / Liquidity Rules,2024-11-29,2024-12-31
+2024-12-31,MARKSANS,Healthcare,EXIT,₹296.65,,+2.42%,Failed EMA51 / 52W High / Liquidity Rules,2024-10-31,2024-12-31
+2024-12-31,STAR,Healthcare,EXIT,₹659.40,,-52.87%,Failed EMA51 / 52W High / Liquidity Rules,2024-09-30,2024-12-31
+2024-12-31,NEULANDLAB,Healthcare,EXIT,₹13723.80,,+10.80%,Failed EMA51 / 52W High / Liquidity Rules,2024-09-30,2024-12-31
+2024-12-31,KITEX,Textiles,EXIT,₹667.20,,+14.23%,Failed EMA51 / 52W High / Liquidity Rules,2024-10-31,2024-12-31
+2024-12-31,WABAG,Utilities,EXIT,₹1643.10,,-7.58%,Failed EMA51 / 52W High / Liquidity Rules,2024-10-31,2024-12-31
+2024-12-31,KIRLPNU,Capital Goods,EXIT,₹1537.00,,-13.11%,Failed EMA51 / 52W High / Liquidity Rules,2024-11-29,2024-12-31
+2024-12-31,SKYGOLD,Consumer Durables,EXIT,₹391.60,,-88.34%,Failed EMA51 / 52W High / Liquidity Rules,2024-10-31,2024-12-31
+2024-12-31,PCJEWELLER,Consumer Durables,EXIT,₹15.87,,-91.09%,Failed EMA51 / 52W High / Liquidity Rules,2024-09-30,2024-12-31
+2024-12-31,JUBLPHARMA,Healthcare,EXIT,₹1105.20,,-8.79%,Failed EMA51 / 52W High / Liquidity Rules,2024-10-31,2024-12-31
+2024-12-31,MCX,Financial Services,EXIT,₹6234.10,,+10.14%,Failed EMA51 / 52W High / Liquidity Rules,2024-09-30,2024-12-31
+2024-12-31,GOKULAGRO,Fast Moving Consumer Goods,EXIT,₹342.70,,+1.15%,Failed EMA51 / 52W High / Liquidity Rules,2024-11-29,2024-12-31
+2024-12-31,WEBELSOLAR,Capital Goods,HOLD,₹1656.85,1200.4,+74.72%,Maintained Top 40 Buffer,2024-08-30,-
+2024-12-31,WOCKPHARMA,Healthcare,HOLD,₹1416.85,795.1,+34.86%,Maintained Top 40 Buffer,2024-08-30,-
+2024-12-31,GRWRHITECH,Capital Goods,HOLD,₹5007.95,681.8,+22.56%,Maintained Top 40 Buffer,2024-10-31,-
+2024-12-31,DIXON,Consumer Durables,HOLD,₹17936.30,455.2,+27.56%,Maintained Top 40 Buffer,2024-10-31,-
+2024-12-31,OFSS,Information Technology,HOLD,₹12789.45,427.8,+9.34%,Maintained Top 40 Buffer,2024-11-29,-
+2024-12-31,PPLPHARMA,Healthcare,HOLD,₹266.25,330.5,-0.93%,Maintained Top 40 Buffer,2024-11-29,-
+2024-12-31,BSE,Financial Services,HOLD,₹5325.40,324.3,+88.00%,Maintained Top 40 Buffer,2024-08-30,-
+2024-12-31,SUPRIYA,Healthcare,ENTRY,₹739.80,539.5,NEW,Top 20 Absolute Breakout,2024-12-31,-
+2024-12-31,JSLL,Consumer Services,ENTRY,₹2130.25,450.7,NEW,Top 20 Absolute Breakout,2024-12-31,-
+2024-12-31,BBOX,Information Technology,ENTRY,₹648.75,412.8,NEW,Top 20 Absolute Breakout,2024-12-31,-
+2024-12-31,ANANTRAJ,Realty,ENTRY,₹855.35,408.3,NEW,Top 20 Absolute Breakout,2024-12-31,-
+2024-12-31,ZENTEC,Capital Goods,ENTRY,₹2445.65,405.4,NEW,Top 20 Absolute Breakout,2024-12-31,-
+2024-12-31,TIMETECHNO,Capital Goods,ENTRY,₹493.60,375.9,NEW,Top 20 Absolute Breakout,2024-12-31,-
+2024-12-31,TRENT,Consumer Services,ENTRY,₹7123.35,362.8,NEW,Top 20 Absolute Breakout,2024-12-31,-
+2024-12-31,KAYNES,Capital Goods,ENTRY,₹7417.30,361.9,NEW,Top 20 Absolute Breakout,2024-12-31,-
+2024-12-31,FSL,Services,ENTRY,₹376.00,327.6,NEW,Top 20 Absolute Breakout,2024-12-31,-
+2024-12-31,POLICYBZR,Financial Services,ENTRY,₹2108.85,321.6,NEW,Top 20 Absolute Breakout,2024-12-31,-
+2024-12-31,POWERINDIA,Capital Goods,ENTRY,₹14412.20,321.6,NEW,Top 20 Absolute Breakout,2024-12-31,-
+2024-12-31,KALYANKJIL,Consumer Durables,ENTRY,₹766.25,318.4,NEW,Top 20 Absolute Breakout,2024-12-31,-
+2024-12-31,KFINTECH,Financial Services,ENTRY,₹1537.25,303.6,NEW,Top 20 Absolute Breakout,2024-12-31,-
+2025-01-31,TIMETECHNO,Capital Goods,EXIT,₹400.55,,-18.85%,Failed EMA51 / 52W High / Liquidity Rules,2024-12-31,2025-01-31
+2025-01-31,KALYANKJIL,Consumer Durables,EXIT,₹503.10,,-34.34%,Failed EMA51 / 52W High / Liquidity Rules,2024-12-31,2025-01-31
+2025-01-31,ZENTEC,Capital Goods,EXIT,₹1741.10,,-28.81%,Failed EMA51 / 52W High / Liquidity Rules,2024-12-31,2025-01-31
+2025-01-31,PPLPHARMA,Healthcare,EXIT,₹232.90,,-13.34%,Failed EMA51 / 52W High / Liquidity Rules,2024-11-29,2025-01-31
+2025-01-31,BBOX,Information Technology,EXIT,₹515.20,,-20.59%,Failed EMA51 / 52W High / Liquidity Rules,2024-12-31,2025-01-31
+2025-01-31,WEBELSOLAR,Capital Goods,EXIT,₹1346.90,,+42.03%,Failed EMA51 / 52W High / Liquidity Rules,2024-08-30,2025-01-31
+2025-01-31,POLICYBZR,Financial Services,EXIT,₹1726.80,,-18.12%,Failed EMA51 / 52W High / Liquidity Rules,2024-12-31,2025-01-31
+2025-01-31,GRWRHITECH,Capital Goods,EXIT,₹3631.65,,-11.12%,Failed EMA51 / 52W High / Liquidity Rules,2024-10-31,2025-01-31
+2025-01-31,KAYNES,Capital Goods,EXIT,₹4792.35,,-35.39%,Failed EMA51 / 52W High / Liquidity Rules,2024-12-31,2025-01-31
+2025-01-31,OFSS,Information Technology,EXIT,₹9122.05,,-22.01%,Failed EMA51 / 52W High / Liquidity Rules,2024-11-29,2025-01-31
+2025-01-31,KFINTECH,Financial Services,EXIT,₹1090.25,,-29.08%,Failed EMA51 / 52W High / Liquidity Rules,2024-12-31,2025-01-31
+2025-01-31,DIXON,Consumer Durables,EXIT,₹14985.95,,+6.57%,Failed EMA51 / 52W High / Liquidity Rules,2024-10-31,2025-01-31
+2025-01-31,TRENT,Consumer Services,EXIT,₹5753.20,,-19.23%,Failed EMA51 / 52W High / Liquidity Rules,2024-12-31,2025-01-31
+2025-01-31,ANANTRAJ,Realty,EXIT,₹598.30,,-30.05%,Failed EMA51 / 52W High / Liquidity Rules,2024-12-31,2025-01-31
+2025-01-31,POWERINDIA,Capital Goods,EXIT,₹12863.55,,-10.75%,Failed EMA51 / 52W High / Liquidity Rules,2024-12-31,2025-01-31
+2025-01-31,FSL,Services,EXIT,₹335.15,,-10.86%,Failed EMA51 / 52W High / Liquidity Rules,2024-12-31,2025-01-31
+2025-01-31,JSLL,Consumer Services,EXIT,₹1825.80,,-14.29%,Failed EMA51 / 52W High / Liquidity Rules,2024-12-31,2025-01-31
+2025-01-31,WOCKPHARMA,Healthcare,HOLD,₹1416.90,564.8,+34.87%,Maintained Top 40 Buffer,2024-08-30,-
+2025-01-31,BSE,Financial Services,HOLD,₹5305.95,402.1,+87.31%,Maintained Top 40 Buffer,2024-08-30,-
+2025-01-31,SUPRIYA,Healthcare,HOLD,₹720.10,390.6,-2.66%,Maintained Top 40 Buffer,2024-12-31,-
+2025-01-31,V2RETAIL,Consumer Services,ENTRY,₹1858.05,993.3,NEW,Top 20 Absolute Breakout,2025-01-31,-
+2025-01-31,SHAILY,Consumer Durables,ENTRY,₹1537.85,733.3,NEW,Top 20 Absolute Breakout,2025-01-31,-
+2025-01-31,CARTRADE,Consumer Services,ENTRY,₹1651.40,345.8,NEW,Top 20 Absolute Breakout,2025-01-31,-
+2025-01-31,LLOYDSME,Metals & Mining,ENTRY,₹1239.10,319.1,NEW,Top 20 Absolute Breakout,2025-01-31,-
+2025-01-31,SARDAEN,Metals & Mining,ENTRY,₹473.20,288.9,NEW,Top 20 Absolute Breakout,2025-01-31,-
+2025-01-31,GREAVESCOT,Capital Goods,ENTRY,₹265.95,258.2,NEW,Top 20 Absolute Breakout,2025-01-31,-
+2025-01-31,PTCIL,Capital Goods,ENTRY,₹14203.45,232.7,NEW,Top 20 Absolute Breakout,2025-01-31,-
+2025-01-31,WELENT,Construction,ENTRY,₹603.75,232.3,NEW,Top 20 Absolute Breakout,2025-01-31,-
+2025-01-31,M&M,Automobile and Auto Components,ENTRY,₹2989.85,192.5,NEW,Top 20 Absolute Breakout,2025-01-31,-
+2025-01-31,PARADEEP,Chemicals,ENTRY,₹112.81,168.6,NEW,Top 20 Absolute Breakout,2025-01-31,-
+2025-01-31,BLUEJET,Healthcare,ENTRY,₹750.45,158.1,NEW,Top 20 Absolute Breakout,2025-01-31,-
+2025-01-31,PGIL,Textiles,ENTRY,₹1414.00,149.4,NEW,Top 20 Absolute Breakout,2025-01-31,-
+2025-01-31,AVANTIFEED,Fast Moving Consumer Goods,ENTRY,₹707.85,149.4,NEW,Top 20 Absolute Breakout,2025-01-31,-
+2025-01-31,BAJAJHLDNG,Financial Services,ENTRY,₹11559.70,134.9,NEW,Top 20 Absolute Breakout,2025-01-31,-
+2025-01-31,MUTHOOTFIN,Financial Services,ENTRY,₹2258.80,131.2,NEW,Top 20 Absolute Breakout,2025-01-31,-
+2025-01-31,BHARTIARTL,Telecommunication,ENTRY,₹1626.30,128.7,NEW,Top 20 Absolute Breakout,2025-01-31,-
+2025-01-31,BEL,Capital Goods,ENTRY,₹292.65,126.4,NEW,Top 20 Absolute Breakout,2025-01-31,-
+2025-02-28,PTCIL,Capital Goods,EXIT,₹10204.80,,-28.15%,Failed EMA51 / 52W High / Liquidity Rules,2025-01-31,2025-02-28
+2025-02-28,PGIL,Textiles,EXIT,₹1342.05,,-5.09%,Failed EMA51 / 52W High / Liquidity Rules,2025-01-31,2025-02-28
+2025-02-28,BHARTIARTL,Telecommunication,EXIT,₹1570.20,,-3.45%,Failed EMA51 / 52W High / Liquidity Rules,2025-01-31,2025-02-28
+2025-02-28,M&M,Automobile and Auto Components,EXIT,₹2585.10,,-13.54%,Failed EMA51 / 52W High / Liquidity Rules,2025-01-31,2025-02-28
+2025-02-28,MUTHOOTFIN,Financial Services,EXIT,₹2132.80,,-5.58%,Failed EMA51 / 52W High / Liquidity Rules,2025-01-31,2025-02-28
+2025-02-28,SUPRIYA,Healthcare,EXIT,₹597.40,,-19.25%,Failed EMA51 / 52W High / Liquidity Rules,2024-12-31,2025-02-28
+2025-02-28,SARDAEN,Metals & Mining,EXIT,₹453.55,,-4.15%,Failed EMA51 / 52W High / Liquidity Rules,2025-01-31,2025-02-28
+2025-02-28,V2RETAIL,Consumer Services,EXIT,₹1575.85,,-15.19%,Failed EMA51 / 52W High / Liquidity Rules,2025-01-31,2025-02-28
+2025-02-28,WOCKPHARMA,Healthcare,EXIT,₹1155.50,,+9.98%,Failed EMA51 / 52W High / Liquidity Rules,2024-08-30,2025-02-28
+2025-02-28,PARADEEP,Chemicals,EXIT,₹86.89,,-22.98%,Failed EMA51 / 52W High / Liquidity Rules,2025-01-31,2025-02-28
+2025-02-28,WELENT,Construction,EXIT,₹417.40,,-30.87%,Failed EMA51 / 52W High / Liquidity Rules,2025-01-31,2025-02-28
+2025-02-28,BEL,Capital Goods,EXIT,₹246.25,,-15.86%,Failed EMA51 / 52W High / Liquidity Rules,2025-01-31,2025-02-28
+2025-02-28,GREAVESCOT,Capital Goods,EXIT,₹228.65,,-14.03%,Failed EMA51 / 52W High / Liquidity Rules,2025-01-31,2025-02-28
+2025-02-28,LLOYDSME,Metals & Mining,EXIT,₹1021.10,,-17.59%,Failed EMA51 / 52W High / Liquidity Rules,2025-01-31,2025-02-28
+2025-02-28,BSE,Financial Services,EXIT,₹4633.70,,+63.58%,Failed EMA51 / 52W High / Liquidity Rules,2024-08-30,2025-02-28
+2025-02-28,SHAILY,Consumer Durables,HOLD,₹1518.60,738.8,-1.25%,Maintained Top 40 Buffer,2025-01-31,-
+2025-02-28,CARTRADE,Consumer Services,HOLD,₹1528.55,317.6,-7.44%,Maintained Top 40 Buffer,2025-01-31,-
+2025-02-28,BLUEJET,Healthcare,HOLD,₹754.00,195.2,+0.47%,Maintained Top 40 Buffer,2025-01-31,-
+2025-02-28,BAJAJHLDNG,Financial Services,HOLD,₹11574.35,99.5,+0.13%,Maintained Top 40 Buffer,2025-01-31,-
+2025-02-28,AVANTIFEED,Fast Moving Consumer Goods,HOLD,₹692.65,73.6,-2.15%,Maintained Top 40 Buffer,2025-01-31,-
+2025-02-28,HCG,Healthcare,ENTRY,₹501.65,117.0,NEW,Top 20 Absolute Breakout,2025-02-28,-
+2025-02-28,INDIGO,Services,ENTRY,₹4477.30,90.9,NEW,Top 20 Absolute Breakout,2025-02-28,-
+2025-02-28,CHAMBLFERT,Chemicals,ENTRY,₹533.70,73.9,NEW,Top 20 Absolute Breakout,2025-02-28,-
+2025-02-28,KSCL,Fast Moving Consumer Goods,ENTRY,₹1000.95,55.5,NEW,Top 20 Absolute Breakout,2025-02-28,-
+2025-02-28,SUNDARMFIN,Financial Services,ENTRY,₹4537.75,46.0,NEW,Top 20 Absolute Breakout,2025-02-28,-
+2025-02-28,ANANDRATHI,Financial Services,ENTRY,₹4001.05,44.3,NEW,Top 20 Absolute Breakout,2025-02-28,-
+2025-02-28,SRF,Chemicals,ENTRY,₹2795.40,40.9,NEW,Top 20 Absolute Breakout,2025-02-28,-
+2025-02-28,HDFCBANK,Financial Services,ENTRY,₹1732.40,38.8,NEW,Top 20 Absolute Breakout,2025-02-28,-
+2025-02-28,BAJAJFINSV,Financial Services,ENTRY,₹1872.30,35.3,NEW,Top 20 Absolute Breakout,2025-02-28,-
+2025-02-28,BAJFINANCE,Financial Services,ENTRY,₹8530.30,33.2,NEW,Top 20 Absolute Breakout,2025-02-28,-
+2025-02-28,REDINGTON,Services,ENTRY,₹224.32,31.9,NEW,Top 20 Absolute Breakout,2025-02-28,-
+2025-02-28,MANAPPURAM,Financial Services,ENTRY,₹200.96,30.2,NEW,Top 20 Absolute Breakout,2025-02-28,-
+2025-02-28,KOTAKBANK,Financial Services,ENTRY,₹1902.95,22.7,NEW,Top 20 Absolute Breakout,2025-02-28,-
+2025-02-28,INDIASHLTR,Financial Services,ENTRY,₹727.00,14.9,NEW,Top 20 Absolute Breakout,2025-02-28,-
+2025-02-28,SBICARD,Financial Services,ENTRY,₹838.80,14.5,NEW,Top 20 Absolute Breakout,2025-02-28,-
+2025-03-28,KOTAKBANK,Financial Services,EXIT,₹2171.20,,+14.10%,Fell below Top 40 Buffer Rank,2025-02-28,2025-03-28
+2025-03-28,BAJAJFINSV,Financial Services,EXIT,₹2007.35,,+7.21%,Fell below Top 40 Buffer Rank,2025-02-28,2025-03-28
+2025-03-28,ANANDRATHI,Financial Services,EXIT,₹1912.20,,-52.21%,Failed EMA51 / 52W High / Liquidity Rules,2025-02-28,2025-03-28
+2025-03-28,SRF,Chemicals,EXIT,₹2939.15,,+5.14%,Fell below Top 40 Buffer Rank,2025-02-28,2025-03-28
+2025-03-28,INDIASHLTR,Financial Services,EXIT,₹827.90,,+13.88%,Fell below Top 40 Buffer Rank,2025-02-28,2025-03-28
+2025-03-28,SUNDARMFIN,Financial Services,EXIT,₹4574.45,,+0.81%,Failed EMA51 / 52W High / Liquidity Rules,2025-02-28,2025-03-28
+2025-03-28,SBICARD,Financial Services,EXIT,₹881.10,,+5.04%,Fell below Top 40 Buffer Rank,2025-02-28,2025-03-28
+2025-03-28,REDINGTON,Services,EXIT,₹242.95,,+8.31%,Fell below Top 40 Buffer Rank,2025-02-28,2025-03-28
+2025-03-28,MANAPPURAM,Financial Services,EXIT,₹232.75,,+15.82%,Fell below Top 40 Buffer Rank,2025-02-28,2025-03-28
+2025-03-28,HDFCBANK,Financial Services,EXIT,₹1828.20,,+5.53%,Fell below Top 40 Buffer Rank,2025-02-28,2025-03-28
+2025-03-28,SHAILY,Consumer Durables,HOLD,₹1827.35,440.3,+18.82%,Maintained Top 40 Buffer,2025-01-31,-
+2025-03-28,BLUEJET,Healthcare,HOLD,₹884.85,311.0,+17.91%,Maintained Top 40 Buffer,2025-01-31,-
+2025-03-28,CARTRADE,Consumer Services,HOLD,₹1644.95,298.5,-0.39%,Maintained Top 40 Buffer,2025-01-31,-
+2025-03-28,CHAMBLFERT,Chemicals,HOLD,₹625.50,115.3,+17.20%,Maintained Top 40 Buffer,2025-02-28,-
+2025-03-28,AVANTIFEED,Fast Moving Consumer Goods,HOLD,₹913.65,105.2,+29.07%,Maintained Top 40 Buffer,2025-01-31,-
+2025-03-28,HCG,Healthcare,HOLD,₹542.10,104.5,+8.06%,Maintained Top 40 Buffer,2025-02-28,-
+2025-03-28,KSCL,Fast Moving Consumer Goods,HOLD,₹1263.15,97.2,+26.20%,Maintained Top 40 Buffer,2025-02-28,-
+2025-03-28,BAJAJHLDNG,Financial Services,HOLD,₹12473.05,81.3,+7.90%,Maintained Top 40 Buffer,2025-01-31,-
+2025-03-28,INDIGO,Services,HOLD,₹5115.35,77.5,+14.25%,Maintained Top 40 Buffer,2025-02-28,-
+2025-03-28,BAJFINANCE,Financial Services,HOLD,₹8945.60,74.7,+4.87%,Maintained Top 40 Buffer,2025-02-28,-
+2025-03-28,BSE,Financial Services,ENTRY,₹5479.80,382.8,NEW,Top 20 Absolute Breakout,2025-03-28,-
+2025-03-28,SARDAEN,Metals & Mining,ENTRY,₹513.90,260.9,NEW,Top 20 Absolute Breakout,2025-03-28,-
+2025-03-28,WOCKPHARMA,Healthcare,ENTRY,₹1424.40,240.8,NEW,Top 20 Absolute Breakout,2025-03-28,-
+2025-03-28,LLOYDSME,Metals & Mining,ENTRY,₹1287.25,235.5,NEW,Top 20 Absolute Breakout,2025-03-28,-
+2025-03-28,GODFRYPHLP,Fast Moving Consumer Goods,ENTRY,₹6769.20,224.0,NEW,Top 20 Absolute Breakout,2025-03-28,-
+2025-03-28,SUPRIYA,Healthcare,ENTRY,₹734.15,173.2,NEW,Top 20 Absolute Breakout,2025-03-28,-
+2025-03-28,LTFOODS,Fast Moving Consumer Goods,ENTRY,₹381.00,164.5,NEW,Top 20 Absolute Breakout,2025-03-28,-
+2025-03-28,CHOICEIN,Financial Services,ENTRY,₹501.85,149.1,NEW,Top 20 Absolute Breakout,2025-03-28,-
+2025-03-28,AMBER,Consumer Durables,ENTRY,₹7210.85,138.8,NEW,Top 20 Absolute Breakout,2025-03-28,-
+2025-03-28,MUTHOOTFIN,Financial Services,ENTRY,₹2382.90,136.1,NEW,Top 20 Absolute Breakout,2025-03-28,-
+2025-04-30,LTFOODS,Fast Moving Consumer Goods,EXIT,₹346.55,,-9.04%,Failed EMA51 / 52W High / Liquidity Rules,2025-03-28,2025-04-30
+2025-04-30,MUTHOOTFIN,Financial Services,EXIT,₹2169.90,,-8.94%,Failed EMA51 / 52W High / Liquidity Rules,2025-03-28,2025-04-30
+2025-04-30,LLOYDSME,Metals & Mining,EXIT,₹1203.20,,-6.53%,Failed EMA51 / 52W High / Liquidity Rules,2025-03-28,2025-04-30
+2025-04-30,SUPRIYA,Healthcare,EXIT,₹645.15,,-12.12%,Failed EMA51 / 52W High / Liquidity Rules,2025-03-28,2025-04-30
+2025-04-30,SARDAEN,Metals & Mining,EXIT,₹452.00,,-12.05%,Failed EMA51 / 52W High / Liquidity Rules,2025-03-28,2025-04-30
+2025-04-30,BLUEJET,Healthcare,EXIT,₹711.15,,-5.24%,Failed EMA51 / 52W High / Liquidity Rules,2025-01-31,2025-04-30
+2025-04-30,WOCKPHARMA,Healthcare,EXIT,₹1296.70,,-8.97%,Failed EMA51 / 52W High / Liquidity Rules,2025-03-28,2025-04-30
+2025-04-30,BAJFINANCE,Financial Services,EXIT,₹8634.50,,+1.22%,Failed EMA51 / 52W High / Liquidity Rules,2025-02-28,2025-04-30
+2025-04-30,AMBER,Consumer Durables,EXIT,₹6155.50,,-14.64%,Failed EMA51 / 52W High / Liquidity Rules,2025-03-28,2025-04-30
+2025-04-30,SHAILY,Consumer Durables,EXIT,₹1530.00,,-0.51%,Failed EMA51 / 52W High / Liquidity Rules,2025-01-31,2025-04-30
+2025-04-30,CARTRADE,Consumer Services,HOLD,₹1704.30,384.1,+3.20%,Maintained Top 40 Buffer,2025-01-31,-
+2025-04-30,BSE,Financial Services,HOLD,₹6359.00,271.2,+16.04%,Maintained Top 40 Buffer,2025-03-28,-
+2025-04-30,KSCL,Fast Moving Consumer Goods,HOLD,₹1434.80,225.0,+43.34%,Maintained Top 40 Buffer,2025-02-28,-
+2025-04-30,CHOICEIN,Financial Services,HOLD,₹610.20,200.9,+21.59%,Maintained Top 40 Buffer,2025-03-28,-
+2025-04-30,AVANTIFEED,Fast Moving Consumer Goods,HOLD,₹874.05,195.1,+23.48%,Maintained Top 40 Buffer,2025-01-31,-
+2025-04-30,CHAMBLFERT,Chemicals,HOLD,₹692.65,188.3,+29.78%,Maintained Top 40 Buffer,2025-02-28,-
+2025-04-30,GODFRYPHLP,Fast Moving Consumer Goods,HOLD,₹8116.00,185.5,+19.90%,Maintained Top 40 Buffer,2025-03-28,-
+2025-04-30,HCG,Healthcare,HOLD,₹562.45,135.6,+12.12%,Maintained Top 40 Buffer,2025-02-28,-
+2025-04-30,BAJAJHLDNG,Financial Services,HOLD,₹11973.00,120.8,+3.58%,Maintained Top 40 Buffer,2025-01-31,-
+2025-04-30,INDIGO,Services,HOLD,₹5249.50,112.8,+17.25%,Maintained Top 40 Buffer,2025-02-28,-
+2025-04-30,MANORAMA,Fast Moving Consumer Goods,ENTRY,₹1274.70,485.9,NEW,Top 20 Absolute Breakout,2025-04-30,-
+2025-04-30,DEEPAKFERT,Chemicals,ENTRY,₹1279.90,267.0,NEW,Top 20 Absolute Breakout,2025-04-30,-
+2025-04-30,PAYTM,Financial Services,ENTRY,₹864.75,201.6,NEW,Top 20 Absolute Breakout,2025-04-30,-
+2025-04-30,COROMANDEL,Chemicals,ENTRY,₹2214.20,193.7,NEW,Top 20 Absolute Breakout,2025-04-30,-
+2025-04-30,DIXON,Consumer Durables,ENTRY,₹16452.00,174.8,NEW,Top 20 Absolute Breakout,2025-04-30,-
+2025-04-30,POWERINDIA,Capital Goods,ENTRY,₹14529.00,170.2,NEW,Top 20 Absolute Breakout,2025-04-30,-
+2025-04-30,GABRIEL,Automobile and Auto Components,ENTRY,₹541.50,161.3,NEW,Top 20 Absolute Breakout,2025-04-30,-
+2025-04-30,ORIENTCEM,Construction Materials,ENTRY,₹349.70,158.4,NEW,Top 20 Absolute Breakout,2025-04-30,-
+2025-04-30,AVALON,Capital Goods,ENTRY,₹861.10,153.4,NEW,Top 20 Absolute Breakout,2025-04-30,-
+2025-04-30,FSL,Services,ENTRY,₹340.70,153.4,NEW,Top 20 Absolute Breakout,2025-04-30,-
+2025-05-30,AVANTIFEED,Fast Moving Consumer Goods,EXIT,₹844.00,,+19.23%,Failed EMA51 / 52W High / Liquidity Rules,2025-01-31,2025-05-30
+2025-05-30,INDIGO,Services,EXIT,₹5330.00,,+19.04%,Fell below Top 40 Buffer Rank,2025-02-28,2025-05-30
+2025-05-30,CHAMBLFERT,Chemicals,EXIT,₹551.00,,+3.24%,Failed EMA51 / 52W High / Liquidity Rules,2025-02-28,2025-05-30
+2025-05-30,HCG,Healthcare,EXIT,₹542.40,,+8.12%,Failed EMA51 / 52W High / Liquidity Rules,2025-02-28,2025-05-30
+2025-05-30,DIXON,Consumer Durables,EXIT,₹14692.00,,-10.70%,Failed EMA51 / 52W High / Liquidity Rules,2025-04-30,2025-05-30
+2025-05-30,CARTRADE,Consumer Services,EXIT,₹1553.00,,-5.96%,Failed EMA51 / 52W High / Liquidity Rules,2025-01-31,2025-05-30
+2025-05-30,BSE,Financial Services,EXIT,₹2674.00,,-51.20%,Failed EMA51 / 52W High / Liquidity Rules,2025-03-28,2025-05-30
+2025-05-30,GODFRYPHLP,Fast Moving Consumer Goods,HOLD,₹8702.50,338.6,+28.56%,Maintained Top 40 Buffer,2025-03-28,-
+2025-05-30,DEEPAKFERT,Chemicals,HOLD,₹1483.70,276.4,+15.92%,Maintained Top 40 Buffer,2025-04-30,-
+2025-05-30,PAYTM,Financial Services,HOLD,₹890.45,268.0,+2.97%,Maintained Top 40 Buffer,2025-04-30,-
+2025-05-30,MANORAMA,Fast Moving Consumer Goods,HOLD,₹1460.70,254.4,+14.59%,Maintained Top 40 Buffer,2025-04-30,-
+2025-05-30,KSCL,Fast Moving Consumer Goods,HOLD,₹1440.80,247.2,+43.94%,Maintained Top 40 Buffer,2025-02-28,-
+2025-05-30,COROMANDEL,Chemicals,HOLD,₹2289.40,240.7,+3.40%,Maintained Top 40 Buffer,2025-04-30,-
+2025-05-30,CHOICEIN,Financial Services,HOLD,₹701.55,196.1,+39.79%,Maintained Top 40 Buffer,2025-03-28,-
+2025-05-30,AVALON,Capital Goods,HOLD,₹859.90,184.6,-0.14%,Maintained Top 40 Buffer,2025-04-30,-
+2025-05-30,POWERINDIA,Capital Goods,HOLD,₹19298.00,165.6,+32.82%,Maintained Top 40 Buffer,2025-04-30,-
+2025-05-30,ORIENTCEM,Construction Materials,HOLD,₹350.30,146.1,+0.17%,Maintained Top 40 Buffer,2025-04-30,-
+2025-05-30,GABRIEL,Automobile and Auto Components,HOLD,₹658.55,132.9,+21.62%,Maintained Top 40 Buffer,2025-04-30,-
+2025-05-30,FSL,Services,HOLD,₹371.45,131.9,+9.03%,Maintained Top 40 Buffer,2025-04-30,-
+2025-05-30,BAJAJHLDNG,Financial Services,HOLD,₹13414.00,112.8,+16.04%,Maintained Top 40 Buffer,2025-01-31,-
+2025-05-30,SHAILY,Consumer Durables,ENTRY,₹2016.80,359.9,NEW,Top 20 Absolute Breakout,2025-05-30,-
+2025-05-30,WOCKPHARMA,Healthcare,ENTRY,₹1465.30,277.0,NEW,Top 20 Absolute Breakout,2025-05-30,-
+2025-05-30,PARADEEP,Chemicals,ENTRY,₹172.28,270.4,NEW,Top 20 Absolute Breakout,2025-05-30,-
+2025-05-30,BLUEJET,Healthcare,ENTRY,₹904.80,224.6,NEW,Top 20 Absolute Breakout,2025-05-30,-
+2025-05-30,GRSE,Capital Goods,ENTRY,₹3003.20,219.3,NEW,Top 20 Absolute Breakout,2025-05-30,-
+2025-05-30,PARAS,Capital Goods,ENTRY,₹1605.70,205.4,NEW,Top 20 Absolute Breakout,2025-05-30,-
+2025-05-30,BHARTIHEXA,Telecommunication,ENTRY,₹1830.70,180.2,NEW,Top 20 Absolute Breakout,2025-05-30,-
+2025-06-30,BAJAJHLDNG,Financial Services,EXIT,₹14379.00,,+24.39%,Fell below Top 40 Buffer Rank,2025-01-31,2025-06-30
+2025-06-30,ORIENTCEM,Construction Materials,EXIT,₹242.05,,-30.78%,Failed EMA51 / 52W High / Liquidity Rules,2025-04-30,2025-06-30
+2025-06-30,KSCL,Fast Moving Consumer Goods,EXIT,₹1178.40,,+17.73%,Failed EMA51 / 52W High / Liquidity Rules,2025-02-28,2025-06-30
+2025-06-30,AVALON,Capital Goods,EXIT,₹843.40,,-2.06%,Fell below Top 40 Buffer Rank,2025-04-30,2025-06-30
+2025-06-30,SHAILY,Consumer Durables,EXIT,₹1663.50,,-17.52%,Failed EMA51 / 52W High / Liquidity Rules,2025-05-30,2025-06-30
+2025-06-30,PARADEEP,Chemicals,HOLD,₹159.98,362.7,-7.14%,Maintained Top 40 Buffer,2025-05-30,-
+2025-06-30,DEEPAKFERT,Chemicals,HOLD,₹1707.40,354.9,+33.40%,Maintained Top 40 Buffer,2025-04-30,-
+2025-06-30,MANORAMA,Fast Moving Consumer Goods,HOLD,₹1460.60,353.5,+14.58%,Maintained Top 40 Buffer,2025-04-30,-
+2025-06-30,BLUEJET,Healthcare,HOLD,₹877.75,349.5,-2.99%,Maintained Top 40 Buffer,2025-05-30,-
+2025-06-30,WOCKPHARMA,Healthcare,HOLD,₹1714.00,342.3,+16.97%,Maintained Top 40 Buffer,2025-05-30,-
+2025-06-30,GRSE,Capital Goods,HOLD,₹3015.20,329.4,+0.40%,Maintained Top 40 Buffer,2025-05-30,-
+2025-06-30,PAYTM,Financial Services,HOLD,₹924.00,299.6,+6.85%,Maintained Top 40 Buffer,2025-04-30,-
+2025-06-30,GODFRYPHLP,Fast Moving Consumer Goods,HOLD,₹8976.50,296.2,+32.61%,Maintained Top 40 Buffer,2025-03-28,-
+2025-06-30,PARAS,Capital Goods,HOLD,₹1597.50,270.2,-0.51%,Maintained Top 40 Buffer,2025-05-30,-
+2025-06-30,CHOICEIN,Financial Services,HOLD,₹701.00,241.4,+39.68%,Maintained Top 40 Buffer,2025-03-28,-
+2025-06-30,POWERINDIA,Capital Goods,HOLD,₹20007.00,213.7,+37.70%,Maintained Top 40 Buffer,2025-04-30,-
+2025-06-30,BHARTIHEXA,Telecommunication,HOLD,₹1952.70,203.7,+6.66%,Maintained Top 40 Buffer,2025-05-30,-
+2025-06-30,COROMANDEL,Chemicals,HOLD,₹2505.20,199.1,+13.14%,Maintained Top 40 Buffer,2025-04-30,-
+2025-06-30,GABRIEL,Automobile and Auto Components,HOLD,₹702.30,192.9,+29.70%,Maintained Top 40 Buffer,2025-04-30,-
+2025-06-30,FSL,Services,HOLD,₹374.65,181.6,+9.96%,Maintained Top 40 Buffer,2025-04-30,-
+2025-06-30,AIIL,Financial Services,ENTRY,₹2630.70,420.5,NEW,Top 20 Absolute Breakout,2025-06-30,-
+2025-06-30,INDIAGLYCO,Fast Moving Consumer Goods,ENTRY,₹2063.10,340.8,NEW,Top 20 Absolute Breakout,2025-06-30,-
+2025-06-30,AXISCADES,Capital Goods,ENTRY,₹1480.90,332.1,NEW,Top 20 Absolute Breakout,2025-06-30,-
+2025-06-30,RPOWER,Power,ENTRY,₹70.29,308.1,NEW,Top 20 Absolute Breakout,2025-06-30,-
+2025-06-30,PGIL,Textiles,ENTRY,₹1497.40,278.2,NEW,Top 20 Absolute Breakout,2025-06-30,-
+2025-07-31,INDIAGLYCO,Fast Moving Consumer Goods,EXIT,₹1712.20,,-17.01%,Failed EMA51 / 52W High / Liquidity Rules,2025-06-30,2025-07-31
+2025-07-31,COROMANDEL,Chemicals,EXIT,₹2691.40,,+21.55%,Fell below Top 40 Buffer Rank,2025-04-30,2025-07-31
+2025-07-31,GRSE,Capital Goods,EXIT,₹2611.90,,-13.03%,Failed EMA51 / 52W High / Liquidity Rules,2025-05-30,2025-07-31
+2025-07-31,PARAS,Capital Goods,EXIT,₹661.70,,-58.79%,Failed EMA51 / 52W High / Liquidity Rules,2025-05-30,2025-07-31
+2025-07-31,BLUEJET,Healthcare,EXIT,₹805.95,,-10.93%,Failed EMA51 / 52W High / Liquidity Rules,2025-05-30,2025-07-31
+2025-07-31,RPOWER,Power,EXIT,₹52.73,,-24.98%,Failed EMA51 / 52W High / Liquidity Rules,2025-06-30,2025-07-31
+2025-07-31,FSL,Services,EXIT,₹341.70,,+0.29%,Failed EMA51 / 52W High / Liquidity Rules,2025-04-30,2025-07-31
+2025-07-31,AXISCADES,Capital Goods,HOLD,₹1325.40,440.7,-10.50%,Maintained Top 40 Buffer,2025-06-30,-
+2025-07-31,DEEPAKFERT,Chemicals,HOLD,₹1598.80,345.9,+24.92%,Maintained Top 40 Buffer,2025-04-30,-
+2025-07-31,WOCKPHARMA,Healthcare,HOLD,₹1667.50,336.1,+13.80%,Maintained Top 40 Buffer,2025-05-30,-
+2025-07-31,GABRIEL,Automobile and Auto Components,HOLD,₹1037.25,307.4,+91.55%,Maintained Top 40 Buffer,2025-04-30,-
+2025-07-31,AIIL,Financial Services,HOLD,₹2776.20,282.6,+5.53%,Maintained Top 40 Buffer,2025-06-30,-
+2025-07-31,GODFRYPHLP,Fast Moving Consumer Goods,HOLD,₹9110.50,267.5,+34.59%,Maintained Top 40 Buffer,2025-03-28,-
+2025-07-31,MANORAMA,Fast Moving Consumer Goods,HOLD,₹1521.70,261.1,+19.38%,Maintained Top 40 Buffer,2025-04-30,-
+2025-07-31,PAYTM,Financial Services,HOLD,₹1089.35,244.1,+25.97%,Maintained Top 40 Buffer,2025-04-30,-
+2025-07-31,PARADEEP,Chemicals,HOLD,₹215.44,217.5,+25.05%,Maintained Top 40 Buffer,2025-05-30,-
+2025-07-31,PGIL,Textiles,HOLD,₹1487.30,216.0,-0.67%,Maintained Top 40 Buffer,2025-06-30,-
+2025-07-31,CHOICEIN,Financial Services,HOLD,₹762.20,186.5,+51.88%,Maintained Top 40 Buffer,2025-03-28,-
+2025-07-31,POWERINDIA,Capital Goods,HOLD,₹20095.00,151.9,+38.31%,Maintained Top 40 Buffer,2025-04-30,-
+2025-07-31,BHARTIHEXA,Telecommunication,HOLD,₹1847.70,147.1,+0.93%,Maintained Top 40 Buffer,2025-05-30,-
+2025-07-31,LUMAXTECH,Automobile and Auto Components,ENTRY,₹1101.90,251.8,NEW,Top 20 Absolute Breakout,2025-07-31,-
+2025-07-31,LLOYDSME,Metals & Mining,ENTRY,₹1504.70,247.9,NEW,Top 20 Absolute Breakout,2025-07-31,-
+2025-07-31,FORCEMOT,Automobile and Auto Components,ENTRY,₹16944.00,243.3,NEW,Top 20 Absolute Breakout,2025-07-31,-
+2025-07-31,CARTRADE,Consumer Services,ENTRY,₹2186.50,241.0,NEW,Top 20 Absolute Breakout,2025-07-31,-
+2025-07-31,JMFINANCIL,Financial Services,ENTRY,₹157.83,210.5,NEW,Top 20 Absolute Breakout,2025-07-31,-
+2025-07-31,LTFOODS,Fast Moving Consumer Goods,ENTRY,₹486.45,207.0,NEW,Top 20 Absolute Breakout,2025-07-31,-
+2025-07-31,MAHSCOOTER,Financial Services,ENTRY,₹16054.00,203.9,NEW,Top 20 Absolute Breakout,2025-07-31,-
+2025-08-29,MANORAMA,Fast Moving Consumer Goods,EXIT,₹1355.30,,+6.32%,Failed EMA51 / 52W High / Liquidity Rules,2025-04-30,2025-08-29
+2025-08-29,AXISCADES,Capital Goods,EXIT,₹1245.80,,-15.88%,Failed EMA51 / 52W High / Liquidity Rules,2025-06-30,2025-08-29
+2025-08-29,LTFOODS,Fast Moving Consumer Goods,EXIT,₹421.35,,-13.38%,Failed EMA51 / 52W High / Liquidity Rules,2025-07-31,2025-08-29
+2025-08-29,PGIL,Textiles,EXIT,₹1233.50,,-17.62%,Failed EMA51 / 52W High / Liquidity Rules,2025-06-30,2025-08-29
+2025-08-29,BHARTIHEXA,Telecommunication,EXIT,₹1774.00,,-3.10%,Failed EMA51 / 52W High / Liquidity Rules,2025-05-30,2025-08-29
+2025-08-29,LLOYDSME,Metals & Mining,EXIT,₹1288.80,,-14.35%,Failed EMA51 / 52W High / Liquidity Rules,2025-07-31,2025-08-29
+2025-08-29,WOCKPHARMA,Healthcare,EXIT,₹1427.50,,-2.58%,Failed EMA51 / 52W High / Liquidity Rules,2025-05-30,2025-08-29
+2025-08-29,POWERINDIA,Capital Goods,EXIT,₹19110.00,,+31.53%,Failed EMA51 / 52W High / Liquidity Rules,2025-04-30,2025-08-29
+2025-08-29,DEEPAKFERT,Chemicals,EXIT,₹1387.80,,+8.43%,Failed EMA51 / 52W High / Liquidity Rules,2025-04-30,2025-08-29
+2025-08-29,AIIL,Financial Services,HOLD,₹3232.90,408.4,+22.89%,Maintained Top 40 Buffer,2025-06-30,-
+2025-08-29,FORCEMOT,Automobile and Auto Components,HOLD,₹19477.00,403.5,+14.95%,Maintained Top 40 Buffer,2025-07-31,-
+2025-08-29,PARADEEP,Chemicals,HOLD,₹217.42,383.8,+26.20%,Maintained Top 40 Buffer,2025-05-30,-
+2025-08-29,GABRIEL,Automobile and Auto Components,HOLD,₹1152.40,359.5,+112.82%,Maintained Top 40 Buffer,2025-04-30,-
+2025-08-29,GODFRYPHLP,Fast Moving Consumer Goods,HOLD,₹11003.50,334.5,+62.55%,Maintained Top 40 Buffer,2025-03-28,-
+2025-08-29,CARTRADE,Consumer Services,HOLD,₹2398.00,320.0,+9.67%,Maintained Top 40 Buffer,2025-07-31,-
+2025-08-29,PAYTM,Financial Services,HOLD,₹1207.00,296.7,+39.58%,Maintained Top 40 Buffer,2025-04-30,-
+2025-08-29,LUMAXTECH,Automobile and Auto Components,HOLD,₹1174.70,269.6,+6.61%,Maintained Top 40 Buffer,2025-07-31,-
+2025-08-29,CHOICEIN,Financial Services,HOLD,₹796.00,221.4,+58.61%,Maintained Top 40 Buffer,2025-03-28,-
+2025-08-29,MAHSCOOTER,Financial Services,HOLD,₹15876.00,191.3,-1.11%,Maintained Top 40 Buffer,2025-07-31,-
+2025-08-29,JMFINANCIL,Financial Services,HOLD,₹177.48,171.7,+12.45%,Maintained Top 40 Buffer,2025-07-31,-
+2025-08-29,SHARDACROP,Chemicals,ENTRY,₹949.10,304.3,NEW,Top 20 Absolute Breakout,2025-08-29,-
+2025-08-29,CUPID,Fast Moving Consumer Goods,ENTRY,₹172.29,276.8,NEW,Top 20 Absolute Breakout,2025-08-29,-
+2025-08-29,LAURUSLABS,Healthcare,ENTRY,₹856.90,274.2,NEW,Top 20 Absolute Breakout,2025-08-29,-
+2025-08-29,TI,Fast Moving Consumer Goods,ENTRY,₹473.80,249.3,NEW,Top 20 Absolute Breakout,2025-08-29,-
+2025-08-29,SHAILY,Consumer Durables,ENTRY,₹2232.00,189.3,NEW,Top 20 Absolute Breakout,2025-08-29,-
+2025-08-29,ASTERDM,Healthcare,ENTRY,₹601.05,186.0,NEW,Top 20 Absolute Breakout,2025-08-29,-
+2025-08-29,FORTIS,Healthcare,ENTRY,₹911.50,185.9,NEW,Top 20 Absolute Breakout,2025-08-29,-
+2025-08-29,THYROCARE,Healthcare,ENTRY,₹1265.30,185.9,NEW,Top 20 Absolute Breakout,2025-08-29,-
+2025-08-29,ERIS,Healthcare,ENTRY,₹1800.20,185.5,NEW,Top 20 Absolute Breakout,2025-08-29,-
+2025-09-30,PAYTM,Financial Services,EXIT,₹1123.80,,+29.96%,Failed EMA51 / 52W High / Liquidity Rules,2025-04-30,2025-09-30
+2025-09-30,SHARDACROP,Chemicals,EXIT,₹821.80,,-13.41%,Failed EMA51 / 52W High / Liquidity Rules,2025-08-29,2025-09-30
+2025-09-30,FORCEMOT,Automobile and Auto Components,EXIT,₹16795.00,,-0.88%,Failed EMA51 / 52W High / Liquidity Rules,2025-07-31,2025-09-30
+2025-09-30,LAURUSLABS,Healthcare,EXIT,₹841.80,,-1.76%,Failed EMA51 / 52W High / Liquidity Rules,2025-08-29,2025-09-30
+2025-09-30,TI,Fast Moving Consumer Goods,EXIT,₹448.55,,-5.33%,Failed EMA51 / 52W High / Liquidity Rules,2025-08-29,2025-09-30
+2025-09-30,GODFRYPHLP,Fast Moving Consumer Goods,EXIT,₹3384.00,,-50.01%,Failed EMA51 / 52W High / Liquidity Rules,2025-03-28,2025-09-30
+2025-09-30,THYROCARE,Healthcare,EXIT,₹1160.60,,-8.27%,Failed EMA51 / 52W High / Liquidity Rules,2025-08-29,2025-09-30
+2025-09-30,CHOICEIN,Financial Services,EXIT,₹767.50,,+52.93%,Failed EMA51 / 52W High / Liquidity Rules,2025-03-28,2025-09-30
+2025-09-30,JMFINANCIL,Financial Services,EXIT,₹159.70,,+1.18%,Failed EMA51 / 52W High / Liquidity Rules,2025-07-31,2025-09-30
+2025-09-30,ERIS,Healthcare,EXIT,₹1585.90,,-11.90%,Failed EMA51 / 52W High / Liquidity Rules,2025-08-29,2025-09-30
+2025-09-30,PARADEEP,Chemicals,HOLD,₹196.02,486.7,+13.78%,Maintained Top 40 Buffer,2025-05-30,-
+2025-09-30,CARTRADE,Consumer Services,HOLD,₹2450.10,434.9,+12.06%,Maintained Top 40 Buffer,2025-07-31,-
+2025-09-30,GABRIEL,Automobile and Auto Components,HOLD,₹1181.40,410.0,+118.17%,Maintained Top 40 Buffer,2025-04-30,-
+2025-09-30,LUMAXTECH,Automobile and Auto Components,HOLD,₹1249.80,386.2,+13.42%,Maintained Top 40 Buffer,2025-07-31,-
+2025-09-30,CUPID,Fast Moving Consumer Goods,HOLD,₹214.96,345.3,+24.77%,Maintained Top 40 Buffer,2025-08-29,-
+2025-09-30,SHAILY,Consumer Durables,HOLD,₹2176.90,295.6,-2.47%,Maintained Top 40 Buffer,2025-08-29,-
+2025-09-30,AIIL,Financial Services,HOLD,₹3082.20,277.9,+17.16%,Maintained Top 40 Buffer,2025-06-30,-
+2025-09-30,MAHSCOOTER,Financial Services,HOLD,₹17248.00,213.6,+7.44%,Maintained Top 40 Buffer,2025-07-31,-
+2025-09-30,FORTIS,Healthcare,HOLD,₹969.80,194.9,+6.40%,Maintained Top 40 Buffer,2025-08-29,-
+2025-09-30,ASTERDM,Healthcare,HOLD,₹626.95,148.4,+4.31%,Maintained Top 40 Buffer,2025-08-29,-
+2025-09-30,APOLLO,Capital Goods,ENTRY,₹326.10,438.5,NEW,Top 20 Absolute Breakout,2025-09-30,-
+2025-09-30,IXIGO,Consumer Services,ENTRY,₹265.20,271.1,NEW,Top 20 Absolute Breakout,2025-09-30,-
+2025-09-30,AXISCADES,Capital Goods,ENTRY,₹1594.00,268.4,NEW,Top 20 Absolute Breakout,2025-09-30,-
+2025-09-30,SYRMA,Capital Goods,ENTRY,₹767.40,228.4,NEW,Top 20 Absolute Breakout,2025-09-30,-
+2025-09-30,GALLANTT,Capital Goods,ENTRY,₹655.35,202.4,NEW,Top 20 Absolute Breakout,2025-09-30,-
+2025-09-30,AMBER,Consumer Durables,ENTRY,₹8089.00,186.4,NEW,Top 20 Absolute Breakout,2025-09-30,-
+2025-09-30,ABDL,Fast Moving Consumer Goods,ENTRY,₹507.70,172.6,NEW,Top 20 Absolute Breakout,2025-09-30,-
+2025-09-30,ASHAPURMIN,Metals & Mining,ENTRY,₹651.00,170.9,NEW,Top 20 Absolute Breakout,2025-09-30,-
+2025-09-30,MFSL,Financial Services,ENTRY,₹1575.90,160.9,NEW,Top 20 Absolute Breakout,2025-09-30,-
+2025-09-30,AVALON,Capital Goods,ENTRY,₹1009.15,158.3,NEW,Top 20 Absolute Breakout,2025-09-30,-
+2025-10-31,MAHSCOOTER,Financial Services,EXIT,₹15108.00,,-5.89%,Failed EMA51 / 52W High / Liquidity Rules,2025-07-31,2025-10-31
+2025-10-31,GALLANTT,Capital Goods,EXIT,₹524.00,,-20.04%,Failed EMA51 / 52W High / Liquidity Rules,2025-09-30,2025-10-31
+2025-10-31,APOLLO,Capital Goods,EXIT,₹276.80,,-15.12%,Failed EMA51 / 52W High / Liquidity Rules,2025-09-30,2025-10-31
+2025-10-31,AIIL,Financial Services,EXIT,₹2908.10,,+10.54%,Failed EMA51 / 52W High / Liquidity Rules,2025-06-30,2025-10-31
+2025-10-31,PARADEEP,Chemicals,EXIT,₹166.40,,-3.41%,Failed EMA51 / 52W High / Liquidity Rules,2025-05-30,2025-10-31
+2025-10-31,LUMAXTECH,Automobile and Auto Components,EXIT,₹1127.70,,+2.34%,Failed EMA51 / 52W High / Liquidity Rules,2025-07-31,2025-10-31
+2025-10-31,MFSL,Financial Services,EXIT,₹1546.50,,-1.87%,Failed EMA51 / 52W High / Liquidity Rules,2025-09-30,2025-10-31
+2025-10-31,IXIGO,Consumer Services,EXIT,₹269.65,,+1.68%,Failed EMA51 / 52W High / Liquidity Rules,2025-09-30,2025-10-31
+2025-10-31,CUPID,Fast Moving Consumer Goods,HOLD,₹233.59,537.6,+35.58%,Maintained Top 40 Buffer,2025-08-29,-
+2025-10-31,AXISCADES,Capital Goods,HOLD,₹1601.10,425.7,+0.45%,Maintained Top 40 Buffer,2025-09-30,-
+2025-10-31,GABRIEL,Automobile and Auto Components,HOLD,₹1273.90,348.0,+135.25%,Maintained Top 40 Buffer,2025-04-30,-
+2025-10-31,CARTRADE,Consumer Services,HOLD,₹3019.50,347.7,+38.10%,Maintained Top 40 Buffer,2025-07-31,-
+2025-10-31,ASHAPURMIN,Metals & Mining,HOLD,₹664.50,307.3,+2.07%,Maintained Top 40 Buffer,2025-09-30,-
+2025-10-31,SHAILY,Consumer Durables,HOLD,₹2274.60,239.4,+1.91%,Maintained Top 40 Buffer,2025-08-29,-
+2025-10-31,SYRMA,Capital Goods,HOLD,₹813.80,210.4,+6.05%,Maintained Top 40 Buffer,2025-09-30,-
+2025-10-31,FORTIS,Healthcare,HOLD,₹1023.05,170.4,+12.24%,Maintained Top 40 Buffer,2025-08-29,-
+2025-10-31,AMBER,Consumer Durables,HOLD,₹8036.50,156.0,-0.65%,Maintained Top 40 Buffer,2025-09-30,-
+2025-10-31,AVALON,Capital Goods,HOLD,₹1190.70,154.2,+17.99%,Maintained Top 40 Buffer,2025-09-30,-
+2025-10-31,ABDL,Fast Moving Consumer Goods,HOLD,₹662.05,143.9,+30.40%,Maintained Top 40 Buffer,2025-09-30,-
+2025-10-31,ASTERDM,Healthcare,HOLD,₹678.05,136.2,+12.81%,Maintained Top 40 Buffer,2025-08-29,-
+2025-10-31,FORCEMOT,Automobile and Auto Components,ENTRY,₹17654.00,365.0,NEW,Top 20 Absolute Breakout,2025-10-31,-
+2025-10-31,GMDCLTD,Metals & Mining,ENTRY,₹594.30,253.6,NEW,Top 20 Absolute Breakout,2025-10-31,-
+2025-10-31,NETWEB,Information Technology,ENTRY,₹4037.80,216.5,NEW,Top 20 Absolute Breakout,2025-10-31,-
+2025-10-31,IMFA,Metals & Mining,ENTRY,₹1202.60,211.5,NEW,Top 20 Absolute Breakout,2025-10-31,-
+2025-10-31,LAURUSLABS,Healthcare,ENTRY,₹953.65,194.3,NEW,Top 20 Absolute Breakout,2025-10-31,-
+2025-10-31,JAYNECOIND,Capital Goods,ENTRY,₹77.69,187.8,NEW,Top 20 Absolute Breakout,2025-10-31,-
+2025-10-31,CHOICEIN,Financial Services,ENTRY,₹836.60,183.1,NEW,Top 20 Absolute Breakout,2025-10-31,-
+2025-10-31,TI,Fast Moving Consumer Goods,ENTRY,₹528.10,180.0,NEW,Top 20 Absolute Breakout,2025-10-31,-
+2025-11-28,FORTIS,Healthcare,EXIT,₹919.10,,+0.83%,Failed EMA51 / 52W High / Liquidity Rules,2025-08-29,2025-11-28
+2025-11-28,NETWEB,Information Technology,EXIT,₹3291.40,,-18.49%,Failed EMA51 / 52W High / Liquidity Rules,2025-10-31,2025-11-28
+2025-11-28,ASTERDM,Healthcare,EXIT,₹665.45,,+10.71%,Failed EMA51 / 52W High / Liquidity Rules,2025-08-29,2025-11-28
+2025-11-28,AXISCADES,Capital Goods,EXIT,₹1417.20,,-11.09%,Failed EMA51 / 52W High / Liquidity Rules,2025-09-30,2025-11-28
+2025-11-28,TI,Fast Moving Consumer Goods,EXIT,₹476.10,,-9.85%,Failed EMA51 / 52W High / Liquidity Rules,2025-10-31,2025-11-28
+2025-11-28,GABRIEL,Automobile and Auto Components,EXIT,₹1028.70,,+89.97%,Failed EMA51 / 52W High / Liquidity Rules,2025-04-30,2025-11-28
+2025-11-28,AVALON,Capital Goods,EXIT,₹968.70,,-4.01%,Failed EMA51 / 52W High / Liquidity Rules,2025-09-30,2025-11-28
+2025-11-28,AMBER,Consumer Durables,EXIT,₹7181.00,,-11.23%,Failed EMA51 / 52W High / Liquidity Rules,2025-09-30,2025-11-28
+2025-11-28,GMDCLTD,Metals & Mining,EXIT,₹539.30,,-9.25%,Failed EMA51 / 52W High / Liquidity Rules,2025-10-31,2025-11-28
+2025-11-28,CUPID,Fast Moving Consumer Goods,HOLD,₹329.25,659.0,+91.10%,Maintained Top 40 Buffer,2025-08-29,-
+2025-11-28,CARTRADE,Consumer Services,HOLD,₹3087.70,472.3,+41.22%,Maintained Top 40 Buffer,2025-07-31,-
+2025-11-28,SHAILY,Consumer Durables,HOLD,₹2602.00,429.7,+16.58%,Maintained Top 40 Buffer,2025-08-29,-
+2025-11-28,FORCEMOT,Automobile and Auto Components,HOLD,₹17818.00,396.0,+0.93%,Maintained Top 40 Buffer,2025-10-31,-
+2025-11-28,ASHAPURMIN,Metals & Mining,HOLD,₹685.80,336.1,+5.35%,Maintained Top 40 Buffer,2025-09-30,-
+2025-11-28,ABDL,Fast Moving Consumer Goods,HOLD,₹653.80,334.6,+28.78%,Maintained Top 40 Buffer,2025-09-30,-
+2025-11-28,LAURUSLABS,Healthcare,HOLD,₹1031.35,284.6,+8.15%,Maintained Top 40 Buffer,2025-10-31,-
+2025-11-28,SYRMA,Capital Goods,HOLD,₹820.25,282.1,+6.89%,Maintained Top 40 Buffer,2025-09-30,-
+2025-11-28,IMFA,Metals & Mining,HOLD,₹1348.10,247.8,+12.10%,Maintained Top 40 Buffer,2025-10-31,-
+2025-11-28,JAYNECOIND,Capital Goods,HOLD,₹71.60,243.7,-7.84%,Maintained Top 40 Buffer,2025-10-31,-
+2025-11-28,CHOICEIN,Financial Services,HOLD,₹806.45,180.6,-3.60%,Maintained Top 40 Buffer,2025-10-31,-
+2025-11-28,LUMAXTECH,Automobile and Auto Components,ENTRY,₹1536.30,361.4,NEW,Top 20 Absolute Breakout,2025-11-28,-
+2025-11-28,RBLBANK,Financial Services,ENTRY,₹312.40,246.4,NEW,Top 20 Absolute Breakout,2025-11-28,-
+2025-11-28,PAYTM,Financial Services,ENTRY,₹1320.60,231.8,NEW,Top 20 Absolute Breakout,2025-11-28,-
+2025-11-28,LTF,Financial Services,ENTRY,₹312.35,225.8,NEW,Top 20 Absolute Breakout,2025-11-28,-
+2025-11-28,HCG,Healthcare,ENTRY,₹730.35,218.1,NEW,Top 20 Absolute Breakout,2025-11-28,-
+2025-11-28,MANAPPURAM,Financial Services,ENTRY,₹284.95,215.7,NEW,Top 20 Absolute Breakout,2025-11-28,-
+2025-11-28,ECLERX,Services,ENTRY,₹4550.70,204.6,NEW,Top 20 Absolute Breakout,2025-11-28,-
+2025-11-28,TDPOWERSYS,Capital Goods,ENTRY,₹776.95,189.7,NEW,Top 20 Absolute Breakout,2025-11-28,-
+2025-11-28,INDIANB,Financial Services,ENTRY,₹870.25,187.2,NEW,Top 20 Absolute Breakout,2025-11-28,-
+2025-12-31,ECLERX,Services,EXIT,₹4695.30,,+3.18%,Fell below Top 40 Buffer Rank,2025-11-28,2025-12-31
+2025-12-31,HCG,Healthcare,EXIT,₹662.00,,-9.36%,Failed EMA51 / 52W High / Liquidity Rules,2025-11-28,2025-12-31
+2025-12-31,TDPOWERSYS,Capital Goods,EXIT,₹702.05,,-9.64%,Failed EMA51 / 52W High / Liquidity Rules,2025-11-28,2025-12-31
+2025-12-31,CHOICEIN,Financial Services,EXIT,₹836.45,,-0.02%,Fell below Top 40 Buffer Rank,2025-10-31,2025-12-31
+2025-12-31,SYRMA,Capital Goods,EXIT,₹733.15,,-4.46%,Failed EMA51 / 52W High / Liquidity Rules,2025-09-30,2025-12-31
+2025-12-31,SHAILY,Consumer Durables,EXIT,₹2261.60,,+1.33%,Failed EMA51 / 52W High / Liquidity Rules,2025-08-29,2025-12-31
+2025-12-31,CUPID,Fast Moving Consumer Goods,HOLD,₹518.10,859.5,+200.71%,Maintained Top 40 Buffer,2025-08-29,-
+2025-12-31,LUMAXTECH,Automobile and Auto Components,HOLD,₹1544.50,490.9,+0.53%,Maintained Top 40 Buffer,2025-11-28,-
+2025-12-31,ASHAPURMIN,Metals & Mining,HOLD,₹878.65,418.1,+34.97%,Maintained Top 40 Buffer,2025-09-30,-
+2025-12-31,CARTRADE,Consumer Services,HOLD,₹2826.20,371.2,+29.26%,Maintained Top 40 Buffer,2025-07-31,-
+2025-12-31,FORCEMOT,Automobile and Auto Components,HOLD,₹20566.00,368.0,+16.49%,Maintained Top 40 Buffer,2025-10-31,-
+2025-12-31,LTF,Financial Services,HOLD,₹315.95,319.2,+1.15%,Maintained Top 40 Buffer,2025-11-28,-
+2025-12-31,IMFA,Metals & Mining,HOLD,₹1492.20,259.3,+24.08%,Maintained Top 40 Buffer,2025-10-31,-
+2025-12-31,LAURUSLABS,Healthcare,HOLD,₹1108.00,255.8,+16.19%,Maintained Top 40 Buffer,2025-10-31,-
+2025-12-31,ABDL,Fast Moving Consumer Goods,HOLD,₹613.55,249.6,+20.85%,Maintained Top 40 Buffer,2025-09-30,-
+2025-12-31,RBLBANK,Financial Services,HOLD,₹315.80,232.0,+1.09%,Maintained Top 40 Buffer,2025-11-28,-
+2025-12-31,JAYNECOIND,Capital Goods,HOLD,₹87.82,217.4,+13.04%,Maintained Top 40 Buffer,2025-10-31,-
+2025-12-31,MANAPPURAM,Financial Services,HOLD,₹308.55,194.5,+8.28%,Maintained Top 40 Buffer,2025-11-28,-
+2025-12-31,PAYTM,Financial Services,HOLD,₹1298.90,160.0,-1.64%,Maintained Top 40 Buffer,2025-11-28,-
+2025-12-31,INDIANB,Financial Services,HOLD,₹837.25,158.1,-3.79%,Maintained Top 40 Buffer,2025-11-28,-
+2025-12-31,BLACKBUCK,Services,ENTRY,₹679.75,358.2,NEW,Top 20 Absolute Breakout,2025-12-31,-
+2025-12-31,MUTHOOTFIN,Financial Services,ENTRY,₹3811.70,266.5,NEW,Top 20 Absolute Breakout,2025-12-31,-
+2025-12-31,ABCAPITAL,Financial Services,ENTRY,₹357.70,233.9,NEW,Top 20 Absolute Breakout,2025-12-31,-
+2025-12-31,V2RETAIL,Consumer Services,ENTRY,₹2447.80,226.8,NEW,Top 20 Absolute Breakout,2025-12-31,-
+2025-12-31,THANGAMAYL,Consumer Durables,ENTRY,₹3222.10,210.6,NEW,Top 20 Absolute Breakout,2025-12-31,-
+2025-12-31,MCX,Financial Services,ENTRY,₹11136.00,188.5,NEW,Top 20 Absolute Breakout,2025-12-31,-
+2026-01-30,PAYTM,Financial Services,EXIT,₹1137.50,,-13.86%,Failed EMA51 / 52W High / Liquidity Rules,2025-11-28,2026-01-30
+2026-01-30,IMFA,Metals & Mining,EXIT,₹1165.80,,-3.06%,Failed EMA51 / 52W High / Liquidity Rules,2025-10-31,2026-01-30
+2026-01-30,JAYNECOIND,Capital Goods,EXIT,₹73.26,,-5.70%,Failed EMA51 / 52W High / Liquidity Rules,2025-10-31,2026-01-30
+2026-01-30,LUMAXTECH,Automobile and Auto Components,EXIT,₹1348.10,,-12.25%,Failed EMA51 / 52W High / Liquidity Rules,2025-11-28,2026-01-30
+2026-01-30,LAURUSLABS,Healthcare,EXIT,₹965.00,,+1.19%,Failed EMA51 / 52W High / Liquidity Rules,2025-10-31,2026-01-30
+2026-01-30,BLACKBUCK,Services,EXIT,₹560.05,,-17.61%,Failed EMA51 / 52W High / Liquidity Rules,2025-12-31,2026-01-30
+2026-01-30,ASHAPURMIN,Metals & Mining,EXIT,₹654.75,,+0.58%,Failed EMA51 / 52W High / Liquidity Rules,2025-09-30,2026-01-30
+2026-01-30,LTF,Financial Services,EXIT,₹286.35,,-8.32%,Failed EMA51 / 52W High / Liquidity Rules,2025-11-28,2026-01-30
+2026-01-30,V2RETAIL,Consumer Services,EXIT,₹1995.60,,-18.47%,Failed EMA51 / 52W High / Liquidity Rules,2025-12-31,2026-01-30
+2026-01-30,ABCAPITAL,Financial Services,EXIT,₹339.80,,-5.00%,Failed EMA51 / 52W High / Liquidity Rules,2025-12-31,2026-01-30
+2026-01-30,CARTRADE,Consumer Services,EXIT,₹2649.30,,+21.17%,Failed EMA51 / 52W High / Liquidity Rules,2025-07-31,2026-01-30
+2026-01-30,MANAPPURAM,Financial Services,EXIT,₹284.65,,-0.11%,Failed EMA51 / 52W High / Liquidity Rules,2025-11-28,2026-01-30
+2026-01-30,MCX,Financial Services,EXIT,₹2528.00,,-77.30%,Failed EMA51 / 52W High / Liquidity Rules,2025-12-31,2026-01-30
+2026-01-30,ABDL,Fast Moving Consumer Goods,EXIT,₹486.15,,-4.24%,Failed EMA51 / 52W High / Liquidity Rules,2025-09-30,2026-01-30
+2026-01-30,RBLBANK,Financial Services,EXIT,₹298.75,,-4.37%,Failed EMA51 / 52W High / Liquidity Rules,2025-11-28,2026-01-30
+2026-01-30,THANGAMAYL,Consumer Durables,EXIT,₹3320.60,,+3.06%,Failed EMA51 / 52W High / Liquidity Rules,2025-12-31,2026-01-30
+2026-01-30,CUPID,Fast Moving Consumer Goods,EXIT,₹401.00,,+132.75%,Failed EMA51 / 52W High / Liquidity Rules,2025-08-29,2026-01-30
+2026-01-30,FORCEMOT,Automobile and Auto Components,HOLD,₹19195.00,434.4,+8.73%,Maintained Top 40 Buffer,2025-10-31,-
+2026-01-30,MUTHOOTFIN,Financial Services,HOLD,₹3829.60,215.3,+0.47%,Maintained Top 40 Buffer,2025-12-31,-
+2026-01-30,INDIANB,Financial Services,HOLD,₹911.70,130.0,+4.76%,Maintained Top 40 Buffer,2025-11-28,-
+2026-01-30,HINDCOPPER,Metals & Mining,ENTRY,₹685.90,286.7,NEW,Top 20 Absolute Breakout,2026-01-30,-
+2026-01-30,PFOCUS,Media Entertainment & Publication,ENTRY,₹225.63,236.7,NEW,Top 20 Absolute Breakout,2026-01-30,-
+2026-01-30,GMDCLTD,Metals & Mining,ENTRY,₹577.75,210.0,NEW,Top 20 Absolute Breakout,2026-01-30,-
+2026-01-30,NAVINFLUOR,Chemicals,ENTRY,₹6099.00,197.3,NEW,Top 20 Absolute Breakout,2026-01-30,-
+2026-01-30,IDEA,Telecommunication,ENTRY,₹11.17,186.3,NEW,Top 20 Absolute Breakout,2026-01-30,-
+2026-01-30,AUBANK,Financial Services,ENTRY,₹982.35,186.0,NEW,Top 20 Absolute Breakout,2026-01-30,-
+2026-01-30,CUB,Financial Services,ENTRY,₹301.75,185.3,NEW,Top 20 Absolute Breakout,2026-01-30,-
+2026-01-30,NATIONALUM,Metals & Mining,ENTRY,₹385.45,157.0,NEW,Top 20 Absolute Breakout,2026-01-30,-
+2026-01-30,M&MFIN,Financial Services,ENTRY,₹375.55,153.3,NEW,Top 20 Absolute Breakout,2026-01-30,-
+2026-01-30,TDPOWERSYS,Capital Goods,ENTRY,₹729.50,151.8,NEW,Top 20 Absolute Breakout,2026-01-30,-
+2026-01-30,GVT&D,Capital Goods,ENTRY,₹3230.30,132.5,NEW,Top 20 Absolute Breakout,2026-01-30,-
+2026-01-30,MTARTECH,Capital Goods,ENTRY,₹2931.50,129.2,NEW,Top 20 Absolute Breakout,2026-01-30,-
+2026-01-30,TVSMOTOR,Automobile and Auto Components,ENTRY,₹3677.40,128.0,NEW,Top 20 Absolute Breakout,2026-01-30,-
+2026-01-30,UJJIVANSFB,Financial Services,ENTRY,₹65.37,115.6,NEW,Top 20 Absolute Breakout,2026-01-30,-
+2026-01-30,PTCIL,Capital Goods,ENTRY,₹18058.00,112.7,NEW,Top 20 Absolute Breakout,2026-01-30,-
+2026-01-30,HINDZINC,Metals & Mining,ENTRY,₹628.50,108.2,NEW,Top 20 Absolute Breakout,2026-01-30,-
+2026-01-30,HINDALCO,Metals & Mining,ENTRY,₹962.60,105.6,NEW,Top 20 Absolute Breakout,2026-01-30,-
+2026-02-27,PTCIL,Capital Goods,EXIT,₹17936.00,,-0.68%,Fell below Top 40 Buffer Rank,2026-01-30,2026-02-27
+2026-02-27,MUTHOOTFIN,Financial Services,EXIT,₹3353.50,,-12.02%,Failed EMA51 / 52W High / Liquidity Rules,2025-12-31,2026-02-27
+2026-02-27,AUBANK,Financial Services,EXIT,₹958.35,,-2.44%,Failed EMA51 / 52W High / Liquidity Rules,2026-01-30,2026-02-27
+2026-02-27,UJJIVANSFB,Financial Services,EXIT,₹58.06,,-11.18%,Failed EMA51 / 52W High / Liquidity Rules,2026-01-30,2026-02-27
+2026-02-27,HINDCOPPER,Metals & Mining,EXIT,₹566.30,,-17.44%,Failed EMA51 / 52W High / Liquidity Rules,2026-01-30,2026-02-27
+2026-02-27,IDEA,Telecommunication,EXIT,₹10.59,,-5.19%,Failed EMA51 / 52W High / Liquidity Rules,2026-01-30,2026-02-27
+2026-02-27,FORCEMOT,Automobile and Auto Components,HOLD,₹24341.00,362.8,+37.88%,Maintained Top 40 Buffer,2025-10-31,-
+2026-02-27,NATIONALUM,Metals & Mining,HOLD,₹354.60,337.9,-8.00%,Maintained Top 40 Buffer,2026-01-30,-
+2026-02-27,GMDCLTD,Metals & Mining,HOLD,₹569.40,230.6,-1.45%,Maintained Top 40 Buffer,2026-01-30,-
+2026-02-27,PFOCUS,Media Entertainment & Publication,HOLD,₹254.83,223.3,+12.94%,Maintained Top 40 Buffer,2026-01-30,-
+2026-02-27,MTARTECH,Capital Goods,HOLD,₹3806.80,208.2,+29.86%,Maintained Top 40 Buffer,2026-01-30,-
+2026-02-27,INDIANB,Financial Services,HOLD,₹990.50,188.9,+13.82%,Maintained Top 40 Buffer,2025-11-28,-
+2026-02-27,TDPOWERSYS,Capital Goods,HOLD,₹903.30,186.5,+23.82%,Maintained Top 40 Buffer,2026-01-30,-
+2026-02-27,HINDALCO,Metals & Mining,HOLD,₹924.70,180.7,-3.94%,Maintained Top 40 Buffer,2026-01-30,-
+2026-02-27,CUB,Financial Services,HOLD,₹283.05,177.2,-6.20%,Maintained Top 40 Buffer,2026-01-30,-
+2026-02-27,GVT&D,Capital Goods,HOLD,₹3850.20,175.8,+19.19%,Maintained Top 40 Buffer,2026-01-30,-
+2026-02-27,HINDZINC,Metals & Mining,HOLD,₹603.80,173.1,-3.93%,Maintained Top 40 Buffer,2026-01-30,-
+2026-02-27,TVSMOTOR,Automobile and Auto Components,HOLD,₹3869.70,150.7,+5.23%,Maintained Top 40 Buffer,2026-01-30,-
+2026-02-27,NAVINFLUOR,Chemicals,HOLD,₹6256.50,141.0,+2.58%,Maintained Top 40 Buffer,2026-01-30,-
+2026-02-27,M&MFIN,Financial Services,HOLD,₹374.30,129.9,-0.33%,Maintained Top 40 Buffer,2026-01-30,-
+2026-02-27,LUMAXTECH,Automobile and Auto Components,ENTRY,₹1757.40,309.8,NEW,Top 20 Absolute Breakout,2026-02-27,-
+2026-02-27,THANGAMAYL,Consumer Durables,ENTRY,₹3959.20,296.8,NEW,Top 20 Absolute Breakout,2026-02-27,-
+2026-02-27,SHRIRAMFIN,Financial Services,ENTRY,₹1079.40,259.2,NEW,Top 20 Absolute Breakout,2026-02-27,-
+2026-02-27,VEDL,Metals & Mining,ENTRY,₹718.40,210.4,NEW,Top 20 Absolute Breakout,2026-02-27,-
+2026-02-27,DCBBANK,Financial Services,ENTRY,₹185.56,193.8,NEW,Top 20 Absolute Breakout,2026-02-27,-
+2026-02-27,SOUTHBANK,Financial Services,ENTRY,₹41.15,192.0,NEW,Top 20 Absolute Breakout,2026-02-27,-
+2026-03-30,DCBBANK,Financial Services,EXIT,₹158.33,,-14.67%,Failed EMA51 / 52W High / Liquidity Rules,2026-02-27,2026-03-30
+2026-03-30,CUB,Financial Services,EXIT,₹239.85,,-20.51%,Failed EMA51 / 52W High / Liquidity Rules,2026-01-30,2026-03-30
+2026-03-30,HINDALCO,Metals & Mining,EXIT,₹884.45,,-8.12%,Failed EMA51 / 52W High / Liquidity Rules,2026-01-30,2026-03-30
+2026-03-30,NAVINFLUOR,Chemicals,EXIT,₹6162.50,,+1.04%,Failed EMA51 / 52W High / Liquidity Rules,2026-01-30,2026-03-30
+2026-03-30,FORCEMOT,Automobile and Auto Components,EXIT,₹19405.00,,+9.92%,Failed EMA51 / 52W High / Liquidity Rules,2025-10-31,2026-03-30
+2026-03-30,HINDZINC,Metals & Mining,EXIT,₹502.15,,-20.10%,Failed EMA51 / 52W High / Liquidity Rules,2026-01-30,2026-03-30
+2026-03-30,VEDL,Metals & Mining,EXIT,₹654.80,,-8.85%,Failed EMA51 / 52W High / Liquidity Rules,2026-02-27,2026-03-30
+2026-03-30,SHRIRAMFIN,Financial Services,EXIT,₹872.10,,-19.21%,Failed EMA51 / 52W High / Liquidity Rules,2026-02-27,2026-03-30
+2026-03-30,INDIANB,Financial Services,EXIT,₹845.70,,-2.82%,Failed EMA51 / 52W High / Liquidity Rules,2025-11-28,2026-03-30
+2026-03-30,LUMAXTECH,Automobile and Auto Components,EXIT,₹1522.20,,-13.38%,Failed EMA51 / 52W High / Liquidity Rules,2026-02-27,2026-03-30
+2026-03-30,SOUTHBANK,Financial Services,EXIT,₹34.22,,-16.84%,Failed EMA51 / 52W High / Liquidity Rules,2026-02-27,2026-03-30
+2026-03-30,M&MFIN,Financial Services,EXIT,₹286.10,,-23.82%,Failed EMA51 / 52W High / Liquidity Rules,2026-01-30,2026-03-30
+2026-03-30,THANGAMAYL,Consumer Durables,EXIT,₹3425.90,,-13.47%,Failed EMA51 / 52W High / Liquidity Rules,2026-02-27,2026-03-30
+2026-03-30,TVSMOTOR,Automobile and Auto Components,EXIT,₹3363.80,,-8.53%,Failed EMA51 / 52W High / Liquidity Rules,2026-01-30,2026-03-30
+2026-03-30,MTARTECH,Capital Goods,HOLD,₹3467.70,526.0,+18.29%,Maintained Top 40 Buffer,2026-01-30,-
+2026-03-30,PFOCUS,Media Entertainment & Publication,HOLD,₹329.35,414.6,+45.97%,Maintained Top 40 Buffer,2026-01-30,-
+2026-03-30,TDPOWERSYS,Capital Goods,HOLD,₹851.35,413.4,+16.70%,Maintained Top 40 Buffer,2026-01-30,-
+2026-03-30,GVT&D,Capital Goods,HOLD,₹3640.40,364.7,+12.70%,Maintained Top 40 Buffer,2026-01-30,-
+2026-03-30,NATIONALUM,Metals & Mining,HOLD,₹386.10,288.6,+0.17%,Maintained Top 40 Buffer,2026-01-30,-
+2026-03-30,GMDCLTD,Metals & Mining,HOLD,₹566.15,261.9,-2.01%,Maintained Top 40 Buffer,2026-01-30,-
+2026-03-30,AVANTIFEED,Fast Moving Consumer Goods,ENTRY,₹1176.00,322.8,NEW,Top 20 Absolute Breakout,2026-03-30,-
+2026-03-30,POWERINDIA,Capital Goods,ENTRY,₹24235.00,285.6,NEW,Top 20 Absolute Breakout,2026-03-30,-
+2026-03-30,SANSERA,Automobile and Auto Components,ENTRY,₹2074.50,281.2,NEW,Top 20 Absolute Breakout,2026-03-30,-
+2026-03-30,AXISCADES,Capital Goods,ENTRY,₹1514.40,259.9,NEW,Top 20 Absolute Breakout,2026-03-30,-
+2026-03-30,DATAPATTNS,Capital Goods,ENTRY,₹3035.30,223.0,NEW,Top 20 Absolute Breakout,2026-03-30,-
+2026-03-30,CHENNPETRO,Oil Gas & Consumable Fuels,ENTRY,₹967.35,217.9,NEW,Top 20 Absolute Breakout,2026-03-30,-
+2026-03-30,PRIVISCL,Chemicals,ENTRY,₹2897.80,203.0,NEW,Top 20 Absolute Breakout,2026-03-30,-
+2026-03-30,STLTECH,Telecommunication,ENTRY,₹176.36,176.2,NEW,Top 20 Absolute Breakout,2026-03-30,-
+2026-03-30,CCL,Fast Moving Consumer Goods,ENTRY,₹1041.20,166.0,NEW,Top 20 Absolute Breakout,2026-03-30,-
+2026-03-30,HEG,Capital Goods,ENTRY,₹542.40,159.5,NEW,Top 20 Absolute Breakout,2026-03-30,-
+2026-03-30,APARINDS,Capital Goods,ENTRY,₹9881.00,156.0,NEW,Top 20 Absolute Breakout,2026-03-30,-
+2026-03-30,SHRIPISTON,Automobile and Auto Components,ENTRY,₹3016.50,144.3,NEW,Top 20 Absolute Breakout,2026-03-30,-
+2026-03-30,GESHIP,Services,ENTRY,₹1414.70,137.6,NEW,Top 20 Absolute Breakout,2026-03-30,-
+2026-03-30,ASTERDM,Healthcare,ENTRY,₹670.00,123.4,NEW,Top 20 Absolute Breakout,2026-03-30,-
+2026-04-30,ASTERDM,Healthcare,EXIT,₹701.05,,+4.63%,Fell below Top 40 Buffer Rank,2026-03-30,2026-04-30
+2026-04-30,HEG,Capital Goods,EXIT,₹596.05,,+9.89%,Fell below Top 40 Buffer Rank,2026-03-30,2026-04-30
+2026-04-30,AXISCADES,Capital Goods,EXIT,₹2008.50,,+32.63%,Fell below Top 40 Buffer Rank,2026-03-30,2026-04-30
+2026-04-30,PFOCUS,Media Entertainment & Publication,HOLD,₹309.95,527.3,+37.37%,Maintained Top 40 Buffer,2026-01-30,-
+2026-04-30,MTARTECH,Capital Goods,HOLD,₹6457.10,450.1,+120.27%,Maintained Top 40 Buffer,2026-01-30,-
+2026-04-30,GVT&D,Capital Goods,HOLD,₹4466.20,321.4,+38.26%,Maintained Top 40 Buffer,2026-01-30,-
+2026-04-30,TDPOWERSYS,Capital Goods,HOLD,₹1152.70,316.5,+58.01%,Maintained Top 40 Buffer,2026-01-30,-
+2026-04-30,STLTECH,Telecommunication,HOLD,₹294.80,279.4,+67.16%,Maintained Top 40 Buffer,2026-03-30,-
+2026-04-30,NATIONALUM,Metals & Mining,HOLD,₹399.30,274.0,+3.59%,Maintained Top 40 Buffer,2026-01-30,-
+2026-04-30,POWERINDIA,Capital Goods,HOLD,₹33550.00,247.7,+38.44%,Maintained Top 40 Buffer,2026-03-30,-
+2026-04-30,GMDCLTD,Metals & Mining,HOLD,₹736.15,230.2,+27.42%,Maintained Top 40 Buffer,2026-01-30,-
+2026-04-30,PRIVISCL,Chemicals,HOLD,₹3360.10,205.4,+15.95%,Maintained Top 40 Buffer,2026-03-30,-
+2026-04-30,SANSERA,Automobile and Auto Components,HOLD,₹2513.60,201.8,+21.17%,Maintained Top 40 Buffer,2026-03-30,-
+2026-04-30,CCL,Fast Moving Consumer Goods,HOLD,₹1135.10,200.0,+9.02%,Maintained Top 40 Buffer,2026-03-30,-
+2026-04-30,APARINDS,Capital Goods,HOLD,₹12331.00,187.4,+24.80%,Maintained Top 40 Buffer,2026-03-30,-
+2026-04-30,DATAPATTNS,Capital Goods,HOLD,₹4081.70,179.9,+34.47%,Maintained Top 40 Buffer,2026-03-30,-
+2026-04-30,CHENNPETRO,Oil Gas & Consumable Fuels,HOLD,₹1128.35,161.7,+16.64%,Maintained Top 40 Buffer,2026-03-30,-
+2026-04-30,SHRIPISTON,Automobile and Auto Components,HOLD,₹3491.10,145.0,+15.73%,Maintained Top 40 Buffer,2026-03-30,-
+2026-04-30,GESHIP,Services,HOLD,₹1576.80,139.3,+11.46%,Maintained Top 40 Buffer,2026-03-30,-
+2026-04-30,AVANTIFEED,Fast Moving Consumer Goods,HOLD,₹1380.70,137.2,+17.41%,Maintained Top 40 Buffer,2026-03-30,-
+2026-04-30,QPOWER,Capital Goods,ENTRY,₹1380.00,270.9,NEW,Top 20 Absolute Breakout,2026-04-30,-
+2026-04-30,JAYNECOIND,Capital Goods,ENTRY,₹110.79,264.0,NEW,Top 20 Absolute Breakout,2026-04-30,-
+2026-04-30,THANGAMAYL,Consumer Durables,ENTRY,₹3955.80,240.9,NEW,Top 20 Absolute Breakout,2026-04-30,-
+2026-05-18,AVANTIFEED,Fast Moving Consumer Goods,EXIT,₹1257.10,,+6.90%,Failed EMA51 / 52W High / Liquidity Rules,2026-03-30,2026-05-18
+2026-05-18,GMDCLTD,Metals & Mining,EXIT,₹632.80,,+9.53%,Failed EMA51 / 52W High / Liquidity Rules,2026-01-30,2026-05-18
+2026-05-18,PFOCUS,Media Entertainment & Publication,EXIT,₹235.35,,+4.31%,Failed EMA51 / 52W High / Liquidity Rules,2026-01-30,2026-05-18
+2026-05-18,CHENNPETRO,Oil Gas & Consumable Fuels,EXIT,₹987.90,,+2.12%,Failed EMA51 / 52W High / Liquidity Rules,2026-03-30,2026-05-18
+2026-05-18,PRIVISCL,Chemicals,EXIT,₹3095.60,,+6.83%,Failed EMA51 / 52W High / Liquidity Rules,2026-03-30,2026-05-18
+2026-05-18,QPOWER,Capital Goods,EXIT,₹1052.90,,-23.70%,Failed EMA51 / 52W High / Liquidity Rules,2026-04-30,2026-05-18
+2026-05-18,THANGAMAYL,Consumer Durables,EXIT,₹3546.90,,-10.34%,Failed EMA51 / 52W High / Liquidity Rules,2026-04-30,2026-05-18
+2026-05-18,MTARTECH,Capital Goods,HOLD,₹7110.50,700.1,+142.56%,Maintained Top 40 Buffer,2026-01-30,-
+2026-05-18,STLTECH,Telecommunication,HOLD,₹421.90,554.3,+139.23%,Maintained Top 40 Buffer,2026-03-30,-
+2026-05-18,JAYNECOIND,Capital Goods,HOLD,₹104.79,452.3,-5.42%,Maintained Top 40 Buffer,2026-04-30,-
+2026-05-18,NATIONALUM,Metals & Mining,HOLD,₹400.45,442.3,+3.89%,Maintained Top 40 Buffer,2026-01-30,-
+2026-05-18,GVT&D,Capital Goods,HOLD,₹4426.80,414.1,+37.04%,Maintained Top 40 Buffer,2026-01-30,-
+2026-05-18,TDPOWERSYS,Capital Goods,HOLD,₹1328.00,357.3,+82.04%,Maintained Top 40 Buffer,2026-01-30,-
+2026-05-18,POWERINDIA,Capital Goods,HOLD,₹32800.00,325.0,+35.34%,Maintained Top 40 Buffer,2026-03-30,-
+2026-05-18,SANSERA,Automobile and Auto Components,HOLD,₹2392.50,307.4,+15.33%,Maintained Top 40 Buffer,2026-03-30,-
+2026-05-18,APARINDS,Capital Goods,HOLD,₹12154.00,272.2,+23.00%,Maintained Top 40 Buffer,2026-03-30,-
+2026-05-18,DATAPATTNS,Capital Goods,HOLD,₹3752.20,240.8,+23.62%,Maintained Top 40 Buffer,2026-03-30,-
+2026-05-18,SHRIPISTON,Automobile and Auto Components,HOLD,₹3363.00,227.1,+11.49%,Maintained Top 40 Buffer,2026-03-30,-
+2026-05-18,CCL,Fast Moving Consumer Goods,HOLD,₹1090.40,216.7,+4.73%,Maintained Top 40 Buffer,2026-03-30,-
+2026-05-18,GESHIP,Services,HOLD,₹1696.50,137.5,+19.92%,Maintained Top 40 Buffer,2026-03-30,-
+2026-05-18,IMFA,Metals & Mining,ENTRY,₹1450.60,340.6,NEW,Top 20 Absolute Breakout,2026-05-18,-
+2026-05-18,KIRLOSENG,Capital Goods,ENTRY,₹1700.00,330.3,NEW,Top 20 Absolute Breakout,2026-05-18,-
+2026-05-18,NETWEB,Information Technology,ENTRY,₹3806.10,279.8,NEW,Top 20 Absolute Breakout,2026-05-18,-
+2026-05-18,SYRMA,Capital Goods,ENTRY,₹969.95,252.6,NEW,Top 20 Absolute Breakout,2026-05-18,-
+2026-05-18,ANANDRATHI,Financial Services,ENTRY,₹3575.70,226.7,NEW,Top 20 Absolute Breakout,2026-05-18,-
+2026-05-18,LAURUSLABS,Healthcare,ENTRY,₹1327.30,225.0,NEW,Top 20 Absolute Breakout,2026-05-18,-
+2026-05-18,BHARATFORG,Automobile and Auto Components,ENTRY,₹1891.00,217.6,NEW,Top 20 Absolute Breakout,2026-05-18,-
