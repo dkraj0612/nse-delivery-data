@@ -96,7 +96,9 @@ def run_dual_engine_backtest(df, regime_df):
     rebalance_df['FORWARD_1M_RET'] = (rebalance_df['NEXT_MONTH_CLOSE'] / rebalance_df['CLOSE_PRICE']) - 1
     
     rebalance_df['ACCUMULATION_MULT'] = rebalance_df['DELIV_PER_20MA'] / 50.0
-    rebalance_df['MASTER_SCORE'] = rebalance_df['PRICE_MOMENTUM'] * rebalance_df['ACCUMULATION_MULT']
+    
+    # MULTIPLY BY 100 FOR CLEANER READABILITY ON DASHBOARD
+    rebalance_df['MASTER_SCORE'] = (rebalance_df['PRICE_MOMENTUM'] * rebalance_df['ACCUMULATION_MULT']) * 100
     
     rebalance_df = pd.merge(rebalance_df, regime_df, on='DATE', how='left')
     rebalance_df['REGIME_GREEN'] = rebalance_df['REGIME_GREEN'].fillna(True)
@@ -146,14 +148,13 @@ def run_dual_engine_backtest(df, regime_df):
                 'PRICE': f"₹{row['CLOSE_PRICE']:.2f}"
             })
             
-       if not final_portfolio.empty:
-            # FIX: Filter out artificial -40%+ drops caused by unadjusted stock splits in Bhavcopy
+        if not final_portfolio.empty:
+            # FIX: Filter out artificial drops (<-35%) caused by unadjusted stock splits
             returns = final_portfolio['FORWARD_1M_RET']
             clean_returns = returns[(returns >= -0.35) & (returns <= 1.0)] 
             
-            # Calculate the true average without the artificial split data
             avg_raw_return = clean_returns.mean() if not clean_returns.empty else 0
-            net_monthly_return = avg_raw_return - 0.002
+            net_monthly_return = avg_raw_return - 0.002 # Accounting for slippage
             monthly_records.append({'DATE': current_date, 'NET_RETURN': net_monthly_return, 'REGIME': 'BULL (EQUITY)'})
 
     # Strategy Summary Metrics
@@ -329,13 +330,9 @@ def run_dual_engine_backtest(df, regime_df):
                     const data = snapshots.filter(item => item.DATE === selectedDate);
                     const currentIndex = select.selectedIndex;
                     
-                    // Button logic (Index 0 is the newest date, Index Length-1 is oldest)
-                    // Older means we go deeper into the index
                     prevBtn.disabled = (currentIndex === select.options.length - 1);
-                    // Newer means we move closer to 0
                     nextBtn.disabled = (currentIndex === 0);
                     
-                    // Update PnL & CAGR metrics
                     const pnl = perfData[selectedDate] ? perfData[selectedDate].MONTHLY_PNL : '0.00%';
                     const runningCagr = perfData[selectedDate] ? perfData[selectedDate].CAGR_STR : '0.00%';
                     
@@ -345,7 +342,6 @@ def run_dual_engine_backtest(df, regime_df):
                     
                     document.getElementById('cagr-running').innerHTML = runningCagr;
                     
-                    // Update Table body
                     const tbody = document.querySelector('#portfolioTable tbody');
                     tbody.innerHTML = '';
                     
@@ -367,7 +363,6 @@ def run_dual_engine_backtest(df, regime_df):
                     }}
                 }}
                 
-                // Event Listeners for Dropdown and Buttons
                 select.addEventListener('change', updateView);
                 
                 prevBtn.addEventListener('click', () => {{
