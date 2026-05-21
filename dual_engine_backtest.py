@@ -146,8 +146,13 @@ def run_dual_engine_backtest(df, regime_df):
                 'PRICE': f"₹{row['CLOSE_PRICE']:.2f}"
             })
             
-        if not final_portfolio.empty:
-            avg_raw_return = final_portfolio['FORWARD_1M_RET'].mean()
+                if not final_portfolio.empty:
+            # FIX: Filter out artificial -40%+ drops caused by unadjusted stock splits in Bhavcopy
+            returns = final_portfolio['FORWARD_1M_RET']
+            clean_returns = returns[(returns >= -0.35) & (returns <= 1.0)] 
+            
+            # Calculate the true average without the artificial split data
+            avg_raw_return = clean_returns.mean() if not clean_returns.empty else 0
             net_monthly_return = avg_raw_return - 0.002
             monthly_records.append({'DATE': current_date, 'NET_RETURN': net_monthly_return, 'REGIME': 'BULL (EQUITY)'})
 
