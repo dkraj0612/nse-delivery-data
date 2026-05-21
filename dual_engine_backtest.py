@@ -146,7 +146,7 @@ def run_dual_engine_backtest(df, regime_df):
                 'PRICE': f"₹{row['CLOSE_PRICE']:.2f}"
             })
             
-                if not final_portfolio.empty:
+       if not final_portfolio.empty:
             # FIX: Filter out artificial -40%+ drops caused by unadjusted stock splits in Bhavcopy
             returns = final_portfolio['FORWARD_1M_RET']
             clean_returns = returns[(returns >= -0.35) & (returns <= 1.0)] 
