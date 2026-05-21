@@ -5,7 +5,7 @@ dual_engine_backtest.py
 2. Cleans dirty NSE CSV headers and merges with sector map.
 3. Corporate Action Filter: Detects and excludes stock splits.
 4. Allocates 50% capital to Top Sectors, 50% to Lone Wolves.
-5. Logs all trades to a CSV and a structured, searchable HTML Data Table.
+5. Logs portfolio snapshots to an Interactive HTML Dashboard with pagination.
 6. Uses Gemini AI to audit the final portfolio and generate an HTML dashboard.
 7. Includes Bulletproof Retry Loop for Gemini API 503 server errors.
 """
@@ -13,6 +13,7 @@ import os
 import glob
 import re
 import time
+import json
 import pandas as pd
 import numpy as np
 import yfinance as yf
@@ -67,6 +68,8 @@ def load_data(folder_path, sector_map_path):
     master_df['DELIV_PER'] = master_df['DELIV_PER'].fillna(0)
     master_df = master_df.dropna(subset=['DATE', 'CLOSE_PRICE'])
     
+    master_df = master_df.drop_duplicates(subset=['SYMBOL', 'DATE'], keep='first')
+    
     master_df = pd.merge(master_df, sector_map, on='SYMBOL', how='left')
     return master_df.sort_values(by=['SYMBOL', 'DATE']).reset_index(drop=True)
 
@@ -109,27 +112,15 @@ def run_dual_engine_backtest(df, regime_df):
     ].copy()
 
     dates = sorted(valid_pool['DATE'].unique())
-    monthly_records = []
     
-    history_records = []
-    prev_portfolio_df = pd.DataFrame()
+    monthly_records = []
+    portfolio_snapshots = []
     
     for current_date in dates:
         candidates = valid_pool[valid_pool['DATE'] == current_date].copy()
         regime_status = candidates['REGIME_GREEN'].iloc[0] if not candidates.empty else False
         
         if not regime_status:
-            if not prev_portfolio_df.empty:
-                for _, row in prev_portfolio_df.iterrows():
-                    history_records.append({
-                        'DATE': current_date.strftime('%Y-%m-%d'),
-                        'SYMBOL': row['SYMBOL'],
-                        'ACTION': 'EXIT',
-                        'ENGINE': row.get('SOURCE_ENGINE', 'Unknown'),
-                        'PRICE': f"₹{row['CLOSE_PRICE']:.2f}",
-                        'JUSTIFICATION': 'Systemic Crash: Nifty 50 dropped below 200-day EMA.'
-                    })
-            prev_portfolio_df = pd.DataFrame()
             monthly_records.append({'DATE': current_date, 'NET_RETURN': 0.004, 'REGIME': 'BEAR (CASH)'})
             continue
 
@@ -146,128 +137,255 @@ def run_dual_engine_backtest(df, regime_df):
         
         final_portfolio = pd.concat([engine_a, engine_b])
         
-        current_symbols = set(final_portfolio['SYMBOL'])
-        prev_symbols = set(prev_portfolio_df['SYMBOL']) if not prev_portfolio_df.empty else set()
-        
-        exits = prev_symbols - current_symbols
-        for sym in exits:
-            justification = "Rank Decay: Momentum dropped below top 10." if sym in candidates['SYMBOL'].values else "Filter Failure: Lost momentum, liquidity, or split detected."
-            history_records.append({
-                'DATE': current_date.strftime('%Y-%m-%d'),
-                'SYMBOL': sym,
-                'ACTION': 'EXIT',
-                'ENGINE': 'N/A',
-                'PRICE': 'N/A',
-                'JUSTIFICATION': justification
-            })
-            
         for _, row in final_portfolio.iterrows():
-            sym = row['SYMBOL']
-            action = 'HOLD' if sym in prev_symbols else 'ENTRY'
-            justification = f"Top Breakout Picked by {row['SOURCE_ENGINE']}" if action == 'ENTRY' else "Maintained Top 10 Rank"
-            
-            history_records.append({
+            portfolio_snapshots.append({
                 'DATE': current_date.strftime('%Y-%m-%d'),
-                'SYMBOL': sym,
-                'ACTION': action,
+                'SYMBOL': row['SYMBOL'],
+                'SECTOR': row['SECTOR'],
                 'ENGINE': row['SOURCE_ENGINE'],
-                'PRICE': f"₹{row['CLOSE_PRICE']:.2f}",
-                'JUSTIFICATION': justification
+                'PRICE': f"₹{row['CLOSE_PRICE']:.2f}"
             })
             
-        prev_portfolio_df = final_portfolio.copy()
-        
         if not final_portfolio.empty:
             avg_raw_return = final_portfolio['FORWARD_1M_RET'].mean()
             net_monthly_return = avg_raw_return - 0.002
             monthly_records.append({'DATE': current_date, 'NET_RETURN': net_monthly_return, 'REGIME': 'BULL (EQUITY)'})
 
-    # Save to CSV and generate STRUCTURED HTML Table
-    if history_records:
-        history_df = pd.DataFrame(history_records)
-        history_df.to_csv("backtest_portfolio_history.csv", index=False)
+    # Strategy Summary Metrics
+    perf_df = pd.DataFrame(monthly_records).dropna()
+    perf_dict = {}
+    
+    total_months = 0
+    cagr = 0.0
+    max_dd = 0.0
+    total_return = 0.0
+    win_rate = 0.0
+    
+    if not perf_df.empty:
+        perf_df['EQUITY_CURVE'] = (1 + perf_df['NET_RETURN']).cumprod()
+        perf_df['CUM_MONTHS'] = range(1, len(perf_df) + 1)
+        perf_df['CAGR'] = ((perf_df['EQUITY_CURVE'] ** (12 / perf_df['CUM_MONTHS'])) - 1) * 100
         
-        # We tell Pandas to assign an ID so Javascript can control it
-        html_table = history_df.to_html(index=False, border=0, table_id="historyTable", classes="display")
+        perf_df['MONTHLY_PNL'] = (perf_df['NET_RETURN'] * 100).round(2).astype(str) + '%'
+        perf_df['CAGR_STR'] = perf_df['CAGR'].round(2).astype(str) + '%'
+        perf_df['DATE_STR'] = perf_df['DATE'].dt.strftime('%Y-%m-%d')
+        
+        perf_dict = perf_df.set_index('DATE_STR')[['MONTHLY_PNL', 'CAGR_STR']].to_dict('index')
+
+        total_months = len(perf_df)
+        cagr = perf_df['CAGR'].iloc[-1]
+        perf_df['PEAK'] = perf_df['EQUITY_CURVE'].cummax()
+        perf_df['DRAWDOWN'] = (perf_df['EQUITY_CURVE'] - perf_df['PEAK']) / perf_df['PEAK']
+        max_dd = perf_df['DRAWDOWN'].min() * 100
+        total_return = (perf_df['EQUITY_CURVE'].iloc[-1] - 1) * 100
+        
+        winning_months = perf_df[perf_df['NET_RETURN'] > 0].shape[0]
+        win_rate = (winning_months / total_months) * 100
+        
+        print("\n" + "="*50)
+        print("🚀 FINAL STRATEGY SUMMARY")
+        print("="*50)
+        print(f"Total Return        : {total_return:.2f}%")
+        print(f"Realized CAGR       : {cagr:.2f}%")
+        print(f"Maximum Drawdown    : {max_dd:.2f}%")
+        print(f"Win Rate            : {win_rate:.2f}%")
+        print("="*50)
+
+    # Generate the Ultimate Dashboard HTML
+    if portfolio_snapshots:
+        pd.DataFrame(portfolio_snapshots).to_csv("backtest_portfolio_history.csv", index=False)
+        snapshots_json = json.dumps(portfolio_snapshots)
+        perf_json = json.dumps(perf_dict)
         
         history_html = f"""
         <!DOCTYPE html>
         <html>
         <head>
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Quant Fund - Backtest Ledger</title>
-            <!-- DataTables CSS for structured UI -->
-            <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+            <title>Quant Fund - Backtest Viewer</title>
             <style>
-                body {{ background-color: #121212; color: #e0e0e0; font-family: -apple-system, sans-serif; padding: 20px; }}
-                h2 {{ color: #ffffff; margin-bottom: 20px; }}
-                .btn {{ display: inline-block; padding: 10px 15px; background-color: #333; color: #fff; text-decoration: none; border-radius: 5px; margin-bottom: 20px; }}
+                body {{ background-color: #121212; color: #e0e0e0; font-family: -apple-system, sans-serif; padding: 15px; margin: 0; }}
+                h2 {{ color: #ffffff; font-size: 20px; text-align: center; margin-bottom: 20px; }}
+                .top-bar {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }}
+                .btn {{ padding: 8px 12px; background-color: #333; color: #fff; text-decoration: none; border-radius: 5px; font-size: 14px; border: none; cursor: pointer; }}
+                .btn:hover {{ background-color: #444; }}
+                .btn:disabled {{ opacity: 0.5; cursor: not-allowed; }}
                 
-                /* Dark Mode fixes for the table */
-                .dataTables_wrapper {{ background: #1e1e1e; padding: 15px; border-radius: 8px; }}
-                table.dataTable tbody tr {{ background-color: #1e1e1e; color: #e0e0e0; }}
-                table.dataTable tbody tr:hover {{ background-color: #2a2a2a; }}
-                table.dataTable thead th {{ border-bottom: 1px solid #444; color: #bb86fc; }}
-                .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_paginate {{ color: #e0e0e0 !important; margin-bottom: 15px; }}
-                .dataTables_wrapper input, .dataTables_wrapper select {{ background-color: #333; color: #fff; border: 1px solid #555; border-radius: 4px; padding: 4px; }}
+                /* Final Report Dashboard Grid */
+                .summary-dashboard {{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 25px; background: #1a1a1a; padding: 15px; border-radius: 8px; border: 1px solid #333; }}
+                .summary-dashboard .full-width {{ grid-column: span 2; background: #222; border: 1px solid #bb86fc; }}
+                .metric-box {{ background: #252525; padding: 12px; border-radius: 6px; text-align: center; }}
+                .metric-box h4 {{ margin: 0 0 5px 0; font-size: 11px; color: #aaa; text-transform: uppercase; letter-spacing: 0.5px; }}
+                .metric-box p {{ margin: 0; font-size: 18px; font-weight: bold; color: #fff; }}
+                .metric-box .highlight {{ color: #bb86fc; font-size: 24px; }}
                 
-                /* Color Badges for Actions */
-                .badge-entry {{ background-color: #2e7d32; color: white; padding: 5px 10px; border-radius: 4px; font-weight: bold; font-size: 12px; }}
-                .badge-exit {{ background-color: #c62828; color: white; padding: 5px 10px; border-radius: 4px; font-weight: bold; font-size: 12px; }}
-                .badge-hold {{ background-color: #555555; color: white; padding: 5px 10px; border-radius: 4px; font-weight: bold; font-size: 12px; }}
+                /* Navigation Controls */
+                .nav-controls {{ display: flex; justify-content: space-between; align-items: center; background: #1e1e1e; padding: 10px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #333; }}
+                select {{ flex-grow: 1; margin: 0 10px; padding: 10px; background: #2a2a2a; color: white; border: 1px solid #444; border-radius: 6px; font-size: 16px; font-weight: bold; text-align: center; appearance: none; }}
+                
+                .metrics-grid {{ display: flex; justify-content: space-between; gap: 10px; margin-bottom: 15px; }}
+                .metric-card {{ background: #1e1e1e; padding: 12px; border-radius: 8px; width: 48%; text-align: center; border: 1px solid #333; }}
+                .metric-title {{ font-size: 11px; color: #888; text-transform: uppercase; margin-bottom: 5px; }}
+                .metric-value {{ font-size: 20px; font-weight: bold; color: #bb86fc; }}
+                .pnl-value {{ font-size: 20px; font-weight: bold; }}
+                
+                .table-container {{ background: #1e1e1e; border-radius: 8px; overflow-x: auto; border: 1px solid #333; }}
+                table {{ width: 100%; border-collapse: collapse; font-size: 13px; }}
+                th, td {{ padding: 10px; text-align: left; border-bottom: 1px solid #2a2a2a; }}
+                th {{ background-color: #2a2a2a; color: #bb86fc; font-weight: 600; text-transform: uppercase; font-size: 11px; }}
+                tr:hover {{ background-color: #252525; }}
             </style>
         </head>
         <body>
-            <a href="index.html" class="btn">⬅ Back to Live Dashboard</a>
-            <a href="backtest_portfolio_history.csv" class="btn" style="background-color: #1e88e5;">⬇️ Download Raw CSV</a>
-            <h2>Master Backtest Ledger</h2>
+            <div class="top-bar">
+                <a href="index.html" class="btn">⬅ Live View</a>
+                <a href="backtest_portfolio_history.csv" class="btn" style="background-color: #1e88e5;">⬇️ CSV</a>
+            </div>
             
-            {html_table}
+            <h2>Performance Dashboard</h2>
+            
+            <!-- Strategy Summary Dashboard -->
+            <div class="summary-dashboard">
+                <div class="metric-box full-width">
+                    <h4>Total Strategy Return</h4>
+                    <p class="highlight">{total_return:.2f}%</p>
+                </div>
+                <div class="metric-box">
+                    <h4>CAGR</h4>
+                    <p style="color: #4caf50;">{cagr:.2f}%</p>
+                </div>
+                <div class="metric-box">
+                    <h4>Max Drawdown</h4>
+                    <p style="color: #ff5252;">{max_dd:.2f}%</p>
+                </div>
+                <div class="metric-box">
+                    <h4>Win Rate</h4>
+                    <p>{win_rate:.1f}%</p>
+                </div>
+                <div class="metric-box">
+                    <h4>Months Active</h4>
+                    <p>{total_months}</p>
+                </div>
+            </div>
 
-            <!-- Inject jQuery and DataTables JavaScript -->
-            <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-            <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+            <!-- Month Navigation Controls -->
+            <div class="nav-controls">
+                <button id="prevBtn" class="btn">Older ⬅</button>
+                <select id="dateSelect"></select>
+                <button id="nextBtn" class="btn">➡ Newer</button>
+            </div>
+            
+            <!-- Dynamic PnL and CAGR Banner -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-title">Month PnL</div>
+                    <div id="monthPnl" class="pnl-value">-</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Running CAGR</div>
+                    <div id="cagr-running" class="metric-value">-</div>
+                </div>
+            </div>
+            
+            <!-- 20 Stock Table -->
+            <div class="table-container">
+                <table id="portfolioTable">
+                    <thead>
+                        <tr>
+                            <th>Ticker</th>
+                            <th>Sector</th>
+                            <th>Engine</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
             <script>
-                $(document).ready(function() {{
-                    $('#historyTable').DataTable({{
-                        "pageLength": 50,
-                        "order": [[ 0, "desc" ]], // Auto-sort Date by Newest First
-                        "createdRow": function(row, data, dataIndex) {{
-                            // Apply Color Badges to the Action column (Index 2)
-                            var action = data[2]; 
-                            if (action === 'ENTRY') {{
-                                $('td:eq(2)', row).html('<span class="badge-entry">ENTRY</span>');
-                            }} else if (action === 'EXIT') {{
-                                $('td:eq(2)', row).html('<span class="badge-exit">EXIT</span>');
-                            }} else if (action === 'HOLD') {{
-                                $('td:eq(2)', row).html('<span class="badge-hold">HOLD</span>');
-                            }}
-                        }}
-                    }});
+                const snapshots = {snapshots_json};
+                const perfData = {perf_json};
+                
+                // Get unique dates and populate the dropdown
+                const dates = [...new Set(snapshots.map(item => item.DATE))].sort().reverse();
+                const select = document.getElementById('dateSelect');
+                const prevBtn = document.getElementById('prevBtn');
+                const nextBtn = document.getElementById('nextBtn');
+                
+                dates.forEach(date => {{
+                    let opt = document.createElement('option');
+                    opt.value = date;
+                    opt.innerHTML = date;
+                    select.appendChild(opt);
                 }});
+                
+                function updateView() {{
+                    const selectedDate = select.value;
+                    const data = snapshots.filter(item => item.DATE === selectedDate);
+                    const currentIndex = select.selectedIndex;
+                    
+                    // Button logic (Index 0 is the newest date, Index Length-1 is oldest)
+                    // Older means we go deeper into the index
+                    prevBtn.disabled = (currentIndex === select.options.length - 1);
+                    // Newer means we move closer to 0
+                    nextBtn.disabled = (currentIndex === 0);
+                    
+                    // Update PnL & CAGR metrics
+                    const pnl = perfData[selectedDate] ? perfData[selectedDate].MONTHLY_PNL : '0.00%';
+                    const runningCagr = perfData[selectedDate] ? perfData[selectedDate].CAGR_STR : '0.00%';
+                    
+                    const pnlElement = document.getElementById('monthPnl');
+                    pnlElement.innerHTML = pnl;
+                    pnlElement.style.color = pnl.includes('-') ? '#ff5252' : '#4caf50';
+                    
+                    document.getElementById('cagr-running').innerHTML = runningCagr;
+                    
+                    // Update Table body
+                    const tbody = document.querySelector('#portfolioTable tbody');
+                    tbody.innerHTML = '';
+                    
+                    data.forEach(row => {{
+                        let tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td><strong>${{row.SYMBOL}}</strong></td>
+                            <td style="color:#aaa;">${{row.SECTOR.substring(0, 15)}}</td>
+                            <td>${{row.ENGINE.replace('Engine A', 'A').replace('Engine B', 'B')}}</td>
+                            <td>${{row.PRICE}}</td>
+                        `;
+                        tbody.appendChild(tr);
+                    }});
+                    
+                    if (data.length === 0) {{
+                        let tr = document.createElement('tr');
+                        tr.innerHTML = `<td colspan="4" style="text-align:center; color:#ff5252; padding: 20px;">BEAR MARKET: 100% Cash Regime</td>`;
+                        tbody.appendChild(tr);
+                    }}
+                }}
+                
+                // Event Listeners for Dropdown and Buttons
+                select.addEventListener('change', updateView);
+                
+                prevBtn.addEventListener('click', () => {{
+                    if (select.selectedIndex < select.options.length - 1) {{
+                        select.selectedIndex++;
+                        updateView();
+                    }}
+                }});
+                
+                nextBtn.addEventListener('click', () => {{
+                    if (select.selectedIndex > 0) {{
+                        select.selectedIndex--;
+                        updateView();
+                    }}
+                }});
+                
+                if(dates.length > 0) updateView();
             </script>
         </body>
         </html>
         """
         with open("history.html", "w", encoding="utf-8") as f:
             f.write(history_html)
-
-    perf_df = pd.DataFrame(monthly_records).dropna()
-    if not perf_df.empty:
-        perf_df['EQUITY_CURVE'] = (1 + perf_df['NET_RETURN']).cumprod()
-        total_months = len(perf_df)
-        cagr = ((perf_df['EQUITY_CURVE'].iloc[-1] ** (12 / total_months)) - 1) * 100
-        perf_df['PEAK'] = perf_df['EQUITY_CURVE'].cummax()
-        perf_df['DRAWDOWN'] = (perf_df['EQUITY_CURVE'] - perf_df['PEAK']) / perf_df['PEAK']
-        max_dd = perf_df['DRAWDOWN'].min() * 100
-        
-        print("\n" + "="*50)
-        print("🚀 ADJUSTED DUAL-ENGINE STRATEGY RESULTS")
-        print("="*50)
-        print(f"Months Tested       : {total_months}")
-        print(f"Realized CAGR       : {cagr:.2f}%")
-        print(f"Maximum Drawdown    : {max_dd:.2f}%")
-        print("="*50)
         
     return valid_pool 
 
@@ -345,7 +463,7 @@ def audit_portfolio_with_gemini(valid_pool):
 ```""", '\n[HTML Saved to File]', text_output, flags=re.DOTALL)
                 
             print("\n" + text_output)
-            break # Success, exit the retry loop
+            break 
             
         except Exception as e:
             if '503' in str(e) and attempt < max_retries - 1:
