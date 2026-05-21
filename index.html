@@ -1,10 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quant Fund Risk Audit Dashboard - 2026-05-18</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #121212;
+            --surface-color: #1E1E1E;
+            --text-color: #E0E0E0;
+            --accent-color: #BB86FC; /* Purple accent */
+            --primary-color: #03DAC6; /* Teal secondary for highlights */
+            --danger-color: #CF6679; /* Red for warnings */
+            --success-color: #66BB6A; /* Green for positive PnL */
+            --border-color: #333333;
+            --shadow-color: rgba(0, 0, 0, 0.4);
+        }
 
-    <!DOCTYPE html><html><head><title>Dashboard</title>
-    <style>body{background:#121212; color:#fff; font-family:sans-serif; text-align:center; padding:50px;} 
-    a{color:#bb86fc; text-decoration:none; font-size:20px; border:1px solid #bb86fc; padding:10px 20px; border-radius:5px;}</style>
-    </head><body>
-    <h2>Live Portfolio Snapshot Unavailable</h2>
-    <p style="color:#aaa; margin-bottom:30px;">The AI audit failed or the API key is missing. Historical data is still intact.</p>
-    <a href="history.html">View Detailed Trade Ledger ➔</a>
-    </body></html>
-    
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--surface-color);
+            padding: 25px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            gap: 15px; /* Space between items when wrapped */
+        }
+
+        header h1 {
+            color: var(--accent-color);
+            margin: 0;
+            font-size: 1.8em;
+            font-weight: 700;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 10px var(--shadow-color);
+            font-size: 0.95em;
+        }
+
+        .btn:hover {
+            background-color: #D3A7FF; /* Lighter accent */
+            transform: translateY(-2px);
+        }
+
+        section {
+            background-color: var(--surface-color);
+            margin: 20px 0;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px var(--shadow-color);
+        }
+
+        section h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            font-size: 1.6em;
+            font-weight: 600;
+        }
+
+        .audit-results p {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+
+        .audit-results ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .audit-results li {
+            background-color: #2A1A1A; /* Darker red for flagged items */
+            border: 1px solid var(--danger-color);
+            border-left: 5px solid var(--danger-color);
+            margin-bottom: 15px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-family: 'Roboto Mono', monospace;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .audit-results li strong {
+            color: var(--danger-color);
+            font-size: 1.1em;
+        }
+
+        .portfolio-grid table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9em;
+        }
+
+        .portfolio-grid th, .portfolio-grid td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .portfolio-grid th {
+            background-color: #2A2A2A;
+            color: var(--accent-color);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .portfolio-grid tbody tr:hover {
+            background-color: #282828;
+        }
+
+        .portfolio-grid tbody tr:nth-child(even) {
+            background-color: #212121;
+        }
+
+        .pnl-positive {
+            color: var(--success-color);
+            font-weight: 600;
+        }
+
+        .pnl-negative {
+            color: var(--danger-color);
+            font-weight: 600;
+        }
+
+        .pnl-new {
+            color: var(--text-color); /* Neutral for NEW */
+            font-weight: 400;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            header h1 {
+                font-size: 1.5em;
+                margin-bottom: 15px;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+                padding: 10px 20px;
+            }
+
+            section {
+                padding: 20px;
+                margin: 15px 0;
+            }
+
+            section h2 {
+                font-size: 1.4em;
+                padding-bottom: 10px;
+                margin-bottom: 20px;
+            }
+
+            .portfolio-grid {
+                overflow-x: auto; /* Enable horizontal scrolling for tables */
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .portfolio-grid table {
+                min-width: 600px; /* Ensure table isn't too narrow */
+            }
+
+            .portfolio-grid th, .portfolio-grid td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Indian Quant Fund - Momentum Portfolio Risk Audit</h1>
+            <a href="history.html" class="btn">View Detailed Trade Ledger</a>
+        </header>
+
+        <section class="audit-results">
+            <h2>Forensic Risk Audit: Severe Red Flags (as of 2026-05-18)</h2>
+            <p><strong>Strict Point-in-Time Evaluation:</strong> Based ONLY on data available prior to each stock's respective Entry Date.</p>
+            <ul>
+                <li>
+                    <strong>SYMBOL: VEDL</strong> (Vedanta Limited) - Entry Date: 2026-05-18<br>
+                    <strong>Red Flag Type:</strong> Chronic Corporate Governance Deficiencies, Excessive Group Debt & Complex Structure, Regulatory and Environmental Scrutiny.<br>
+                    <strong>Details:</strong> Vedanta Limited and its parent, Vedanta Resources, have a persistent and well-documented history of significant corporate governance concerns, high leverage at the parent level, complex group structure, and frequent related-party transactions. Prior to 2026-05-18, these issues included failed delisting attempts, concerns about cash upstreaming to service parent debt, and ongoing scrutiny over management decisions impacting minority shareholders. The inherent financial stress within the broader Vedanta group poses a substantial risk of contagion and adverse capital allocation decisions for VEDL.
+                </li>
+                <li>
+                    <strong>SYMBOL: STLTECH</strong> (Sterlite Technologies Ltd.) - Entry Date: 2026-03-30<br>
+                    <strong>Red Flag Type:</strong> Derivative Group Association Risk (Contagion from Parent Group Issues).<br>
+                    <strong>Details:</strong> While STLTECH may operate with relative independence, it is a part of the broader Vedanta Group. As of its entry date, the governance and financial concerns surrounding the parent company (Vedanta Resources/VEDL) were well-known. This association creates a derivative risk stemming from potential reputational damage, financial contagion, and the possibility of adverse capital allocation decisions driven by group-level priorities rather than standalone business interests. Such group affiliations warrant heightened scrutiny.
+                </li>
+                <!-- No other stocks triggered severe red flags based on historical (pre-entry date) publicly available information concerning SEBI warnings, corporate governance issues, or auditor resignations -->
+            </ul>
+        </section>
+
+        <section class="portfolio-grid">
+            <h2>Live Portfolio Grid (as of 2026-05-18)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ticker</th>
+                        <th>Sector</th>
+                        <th>Price</th>
+                        <th>Entry Date</th>
+                        <th>PnL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>CUPID</td><td>Fast Moving Consumer Goods</td><td>₹120.84</td><td>2026-04-30</td><td class="pnl-positive">+1.05%</td></tr>
+                    <tr><td>STLTECH</td><td>Telecommunication</td><td>₹421.90</td><td>2026-03-30</td><td class="pnl-positive">+139.23%</td></tr>
+                    <tr><td>MTARTECH</td><td>Capital Goods</td><td>₹7110.50</td><td>2026-01-30</td><td class="pnl-positive">+142.56%</td></tr>
+                    <tr><td>NATIONALUM</td><td>Metals & Mining</td><td>₹400.45</td><td>2026-01-30</td><td class="pnl-positive">+3.89%</td></tr>
+                    <tr><td>MCX</td><td>Financial Services</td><td>₹3348.40</td><td>2026-04-30</td><td class="pnl-positive">+12.68%</td></tr>
+                    <tr><td>GVT&D</td><td>Capital Goods</td><td>₹4426.80</td><td>2026-01-30</td><td class="pnl-positive">+37.04%</td></tr>
+                    <tr><td>TDPOWERSYS</td><td>Capital Goods</td><td>₹1328.00</td><td>2026-01-30</td><td class="pnl-positive">+82.04%</td></tr>
+                    <tr><td>POWERINDIA</td><td>Capital Goods</td><td>₹32800.00</td><td>2026-03-30</td><td class="pnl-positive">+35.34%</td></tr>
+                    <tr><td>SANSERA</td><td>Automobile and Auto Components</td><td>₹2392.50</td><td>2026-03-30</td><td class="pnl-positive">+15.33%</td></tr>
+                    <tr><td>APARINDS</td><td>Capital Goods</td><td>₹12154.00</td><td>2026-03-30</td><td class="pnl-positive">+23.00%</td></tr>
+                    <tr><td>DATAPATTNS</td><td>Capital Goods</td><td>₹3752.20</td><td>2026-03-30</td><td class="pnl-positive">+23.62%</td></tr>
+                    <tr><td>SHRIPISTON</td><td>Automobile and Auto Components</td><td>₹3363.00</td><td>2026-03-30</td><td class="pnl-positive">+11.49%</td></tr>
+                    <tr><td>CCL</td><td>Fast Moving Consumer Goods</td><td>₹1090.40</td><td>2026-03-30</td><td class="pnl-positive">+4.73%</td></tr>
+                    <tr><td>JAYNECOIND</td><td>Capital Goods</td><td>₹104.79</td><td>2026-05-18</td><td class="pnl-new">NEW</td></tr>
+                    <tr><td>IMFA</td><td>Metals & Mining</td><td>₹1450.60</td><td>2026-05-18</td><td class="pnl-new">NEW</td></tr>
+                    <tr><td>KIRLOSENG</td><td>Capital Goods</td><td>₹1700.00</td><td>2026-05-18</td><td class="pnl-new">NEW</td></tr>
+                    <tr><td>NETWEB</td><td>Information Technology</td><td>₹3806.10</td><td>2026-05-18</td><td class="pnl-new">NEW</td></tr>
+                    <tr><td>VEDL</td><td>Metals & Mining</td><td>₹327.00</td><td>2026-05-18</td><td class="pnl-new">NEW</td></tr>
+                    <tr><td>SYRMA</td><td>Capital Goods</td><td>₹969.95</td><td>2026-05-18</td><td class="pnl-new">NEW</td></tr>
+                    <tr><td>ANANDRATHI</td><td>Financial Services</td><td>₹3575.70</td><td>2026-05-18</td><td class="pnl-new">NEW</td></tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</body>
+</html>
