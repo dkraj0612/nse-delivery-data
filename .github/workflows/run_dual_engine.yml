@@ -1,12 +1,12 @@
 name: Momentum AI Backtest & Audit
 
 on:
-  workflow_dispatch: # Allows you to trigger it manually from the Actions tab
+  workflow_dispatch: 
   schedule:
-    - cron: '0 0 1 * *' # Optional: Runs automatically on the 1st of every month
+    - cron: '0 0 1 * *' 
 
 permissions:
-  contents: write # CRITICAL: Allows the Action to push the files back to your repo
+  contents: write 
 
 jobs:
   run-audit:
@@ -29,20 +29,15 @@ jobs:
       - name: Run Forensic Backtest & Audit
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PYTHONUNBUFFERED: 1 # Forces instant log printing to the console
         run: |
           python dual_engine_backtest.py
 
       - name: Commit and push changes
-        if: always() # CRITICAL: Forces GitHub to save your progress even on failure/timeout/cancel
+        if: always() # Forces saving even if you manually cancel it
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          
-          # Add the newly generated tracking and web files
           git add index.html history.html audit_progress.json backtest_portfolio_history.csv
-          
-          # Commit the changes. The [skip ci] prevents an infinite loop of actions triggering actions.
           git commit -m "Automated update: AI Audit Ledger & State [skip ci]" || echo "No changes to commit"
-          
-          # Push the files to your repository so your GitHub Pages URL updates instantly
           git push
