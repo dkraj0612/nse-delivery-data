@@ -1,13 +1,13 @@
 """
 dual_engine_backtest.py
 =======================
-1. Fetches Nifty 50 from Yahoo Finance.
+1. Fetches Nifty 50. Uses 5-Day SMA vs 200-Day EMA Circuit Breaker.
 2. Cleans dirty NSE CSV headers and merges with sector map.
 3. Corporate Action Filter: Detects and excludes stock splits.
 4. Allocates 50% capital to Top Sectors, 50% to Lone Wolves.
 5. Scores based PURELY on Price Momentum.
 6. Institutional Buffer Rank Rebalancing.
-7. Logs detailed Trade Ledger (Entry/Hold/Exit, PnL, Justification) to HTML.
+7. Logs detailed Trade Ledger (Entry/Hold/Exit, CUMULATIVE PnL, Entry/Exit Dates, Justification) to HTML.
 8. BULLETPROOF Dashboard Generator (prevents cp: cannot stat errors).
 """
 import os
@@ -28,7 +28,8 @@ def fetch_nifty_regime():
         nifty.columns = nifty.columns.get_level_values(0)
         
     nifty['NIFTY_EMA_200'] = nifty['Close'].ewm(span=200, adjust=False).mean()
-    nifty['REGIME_GREEN'] = nifty['Close'] > nifty['NIFTY_EMA_200']
+    nifty['NIFTY_5D_SMA'] = nifty['Close'].rolling(window=5).mean()
+    nifty['REGIME_GREEN'] = nifty['NIFTY_5D_SMA'] >= nifty['NIFTY_EMA_200']
     
     nifty = nifty.reset_index()
     nifty['DATE'] = pd.to_datetime(nifty['Date']).dt.tz_localize(None)
@@ -118,7 +119,11 @@ def run_dual_engine_backtest(df, regime_df):
     portfolio_snapshots = []
     prev_portfolio_df = pd.DataFrame()
     
+    entry_prices = {}
+    entry_dates = {} # NEW: Track exact entry dates
+    
     for current_date in dates:
+        curr_date_str = current_date.strftime('%Y-%m-%d')
         day_data_full = rebalance_df[rebalance_df['DATE'] == current_date]
         if day_data_full.empty: continue
             
@@ -127,34 +132,41 @@ def run_dual_engine_backtest(df, regime_df):
         candidates = valid_pool[valid_pool['DATE'] == current_date].copy()
         
         prev_symbols = set(prev_portfolio_df['SYMBOL']) if not prev_portfolio_df.empty else set()
-        prev_prices = prev_portfolio_df.set_index('SYMBOL')['CLOSE_PRICE'].to_dict() if not prev_portfolio_df.empty else {}
         
+        # MARKET CRASH: Liquidate everything
         if not regime_status or candidates.empty:
-            justification = "Systematic Market Crash" if not regime_status else "No Stocks Passed Filter"
+            justification = "Systematic Market Crash (1-Week Avg < 200 EMA)" if not regime_status else "No Stocks Passed Filter"
             for sym in prev_symbols:
-                prev_price = prev_prices.get(sym, 0)
+                entry_price = entry_prices.get(sym, 0)
+                sym_entry_date = entry_dates.get(sym, "Unknown")
                 curr_price = day_prices.get(sym)
-                if curr_price is not None and prev_price > 0:
-                    pnl_str = f"{((curr_price / prev_price) - 1)*100:+.2f}%"
+                
+                if curr_price is not None and entry_price > 0:
+                    pnl_str = f"{((curr_price / entry_price) - 1)*100:+.2f}%"
                     curr_price_str = f"₹{curr_price:.2f}"
                 else:
                     pnl_str = "-"
                     curr_price_str = "N/A"
                     
                 portfolio_snapshots.append({
-                    'DATE': current_date.strftime('%Y-%m-%d'),
+                    'DATE': curr_date_str,
                     'SYMBOL': sym,
                     'SECTOR': prev_portfolio_df[prev_portfolio_df['SYMBOL'] == sym]['SECTOR'].values[0],
                     'ACTION': 'EXIT',
                     'PRICE': curr_price_str,
                     'PNL': pnl_str,
-                    'JUSTIFICATION': justification
+                    'JUSTIFICATION': justification,
+                    'ENTRY_DATE': sym_entry_date,
+                    'EXIT_DATE': curr_date_str
                 })
                 
+            entry_prices.clear()
+            entry_dates.clear()
             monthly_records.append({'DATE': current_date, 'NET_RETURN': 0.004, 'REGIME': 'BEAR (CASH)'})
             prev_portfolio_df = pd.DataFrame() 
             continue
 
+        # NORMAL REBALANCE
         sector_mom = candidates.groupby('SECTOR')['PRICE_MOMENTUM'].mean().reset_index()
         top_3_sectors = sector_mom.sort_values(by='PRICE_MOMENTUM', ascending=False).head(3)['SECTOR'].tolist()
         
@@ -172,12 +184,15 @@ def run_dual_engine_backtest(df, regime_df):
         final_portfolio = pd.concat([engine_a, engine_b])
         current_symbols = set(final_portfolio['SYMBOL'])
         
+        # LOG EXITS
         exits = prev_symbols - current_symbols
         for sym in exits:
-            prev_price = prev_prices.get(sym, 0)
+            entry_price = entry_prices.get(sym, 0)
+            sym_entry_date = entry_dates.get(sym, "Unknown")
             curr_price = day_prices.get(sym)
-            if curr_price is not None and prev_price > 0:
-                pnl_str = f"{((curr_price / prev_price) - 1)*100:+.2f}%"
+            
+            if curr_price is not None and entry_price > 0:
+                pnl_str = f"{((curr_price / entry_price) - 1)*100:+.2f}%"
                 curr_price_str = f"₹{curr_price:.2f}"
             else:
                 pnl_str = "-"
@@ -185,36 +200,49 @@ def run_dual_engine_backtest(df, regime_df):
                 
             justification = "Fell below Buffer Rank" if sym in candidates['SYMBOL'].values else "Failed Liquidity/Delivery/Price Filter"
             portfolio_snapshots.append({
-                'DATE': current_date.strftime('%Y-%m-%d'),
+                'DATE': curr_date_str,
                 'SYMBOL': sym,
                 'SECTOR': prev_portfolio_df[prev_portfolio_df['SYMBOL'] == sym]['SECTOR'].values[0],
                 'ACTION': 'EXIT',
                 'PRICE': curr_price_str,
                 'PNL': pnl_str,
-                'JUSTIFICATION': justification
+                'JUSTIFICATION': justification,
+                'ENTRY_DATE': sym_entry_date,
+                'EXIT_DATE': curr_date_str
             })
             
+            if sym in entry_prices: del entry_prices[sym]
+            if sym in entry_dates: del entry_dates[sym]
+            
+        # LOG ENTRIES & HOLDS
         for _, row in final_portfolio.iterrows():
             sym = row['SYMBOL']
             curr_price = row['CLOSE_PRICE']
+            
             if sym in prev_symbols:
                 action = 'HOLD'
-                prev_price = prev_prices.get(sym, curr_price)
-                pnl_str = f"{((curr_price / prev_price) - 1)*100:+.2f}%" if prev_price > 0 else "-"
+                entry_price = entry_prices.get(sym, curr_price)
+                sym_entry_date = entry_dates.get(sym, curr_date_str)
+                pnl_str = f"{((curr_price / entry_price) - 1)*100:+.2f}%" if entry_price > 0 else "-"
                 justification = "Maintained Buffer Rank"
             else:
                 action = 'ENTRY'
+                entry_prices[sym] = curr_price
+                entry_dates[sym] = curr_date_str
+                sym_entry_date = curr_date_str
                 pnl_str = "NEW"
                 justification = f"Top Breakout ({row['SOURCE_ENGINE']})"
                 
             portfolio_snapshots.append({
-                'DATE': current_date.strftime('%Y-%m-%d'),
+                'DATE': curr_date_str,
                 'SYMBOL': sym,
                 'SECTOR': row['SECTOR'],
                 'ACTION': action,
                 'PRICE': f"₹{curr_price:.2f}",
                 'PNL': pnl_str,
-                'JUSTIFICATION': justification
+                'JUSTIFICATION': justification,
+                'ENTRY_DATE': sym_entry_date,
+                'EXIT_DATE': "-"
             })
             
         if not final_portfolio.empty:
@@ -234,10 +262,11 @@ def run_dual_engine_backtest(df, regime_df):
         perf_df['EQUITY_CURVE'] = (1 + perf_df['NET_RETURN']).cumprod()
         perf_df['CUM_MONTHS'] = range(1, len(perf_df) + 1)
         perf_df['CAGR'] = ((perf_df['EQUITY_CURVE'] ** (12 / perf_df['CUM_MONTHS'])) - 1) * 100
-        perf_df['MONTHLY_PNL'] = (perf_df['NET_RETURN'] * 100).round(2).astype(str) + '%'
+        
+        perf_df['CUM_PNL'] = ((perf_df['EQUITY_CURVE'] - 1) * 100).round(2).astype(str) + '%'
         perf_df['CAGR_STR'] = perf_df['CAGR'].round(2).astype(str) + '%'
         perf_df['DATE_STR'] = perf_df['DATE'].dt.strftime('%Y-%m-%d')
-        perf_dict = perf_df.set_index('DATE_STR')[['MONTHLY_PNL', 'CAGR_STR']].to_dict('index')
+        perf_dict = perf_df.set_index('DATE_STR')[['CUM_PNL', 'CAGR_STR']].to_dict('index')
 
         total_months = len(perf_df)
         cagr = perf_df['CAGR'].iloc[-1]
@@ -248,10 +277,12 @@ def run_dual_engine_backtest(df, regime_df):
         win_rate = (perf_df[perf_df['NET_RETURN'] > 0].shape[0] / total_months) * 100
         
         print("\n" + "="*50)
-        print("🚀 FINAL STRATEGY SUMMARY (LEDGER INTEGRATED)")
+        print("🚀 FINAL STRATEGY SUMMARY")
         print("="*50)
+        print(f"Total Return        : {total_return:.2f}%")
         print(f"Realized CAGR       : {cagr:.2f}%")
         print(f"Maximum Drawdown    : {max_dd:.2f}%")
+        print(f"Win Rate            : {win_rate:.2f}%")
         print("="*50)
 
     pd.DataFrame(portfolio_snapshots).to_csv("backtest_portfolio_history.csv", index=False)
@@ -292,10 +323,11 @@ def run_dual_engine_backtest(df, regime_df):
             th {{ background-color: #2a2a2a; color: #bb86fc; font-weight: 600; text-transform: uppercase; font-size: 10px; }}
             tr:hover {{ background-color: #252525; }}
             
-            .badge {{ padding: 3px 6px; border-radius: 4px; font-weight: bold; font-size: 10px; }}
+            .badge {{ padding: 3px 6px; border-radius: 4px; font-weight: bold; font-size: 10px; display: inline-block; margin-bottom: 3px; }}
             .badge-entry {{ background: #1b5e20; color: #a5d6a7; }}
             .badge-hold {{ background: #37474f; color: #b0bec5; }}
             .badge-exit {{ background: #b71c1c; color: #ef9a9a; }}
+            .date-meta {{ font-size: 9px; color: #888; line-height: 1.2; }}
         </style>
     </head>
     <body>
@@ -337,8 +369,8 @@ def run_dual_engine_backtest(df, regime_df):
         
         <div class="metrics-grid">
             <div class="metric-card">
-                <div class="metric-title">Portfolio Month PnL</div>
-                <div id="monthPnl" class="pnl-value">-</div>
+                <div class="metric-title">Portfolio Cumulative Growth</div>
+                <div id="cumPnl" class="pnl-value">-</div>
             </div>
             <div class="metric-card">
                 <div class="metric-title">Running CAGR</div>
@@ -351,8 +383,8 @@ def run_dual_engine_backtest(df, regime_df):
                 <thead>
                     <tr>
                         <th>Asset</th>
-                        <th>Action</th>
-                        <th>Stock PnL</th>
+                        <th>Action & Dates</th>
+                        <th>Cumulative PnL</th>
                         <th>Reasoning</th>
                     </tr>
                 </thead>
@@ -386,10 +418,10 @@ def run_dual_engine_backtest(df, regime_df):
                 prevBtn.disabled = (currentIndex === select.options.length - 1);
                 nextBtn.disabled = (currentIndex === 0);
                 
-                const pnl = perfData[selectedDate] ? perfData[selectedDate].MONTHLY_PNL : '0.00%';
+                const pnl = perfData[selectedDate] ? perfData[selectedDate].CUM_PNL : '0.00%';
                 const runningCagr = perfData[selectedDate] ? perfData[selectedDate].CAGR_STR : '0.00%';
                 
-                const pnlElement = document.getElementById('monthPnl');
+                const pnlElement = document.getElementById('cumPnl');
                 pnlElement.innerHTML = pnl;
                 pnlElement.style.color = pnl.includes('-') ? '#ff5252' : '#4caf50';
                 document.getElementById('cagr-running').innerHTML = runningCagr;
@@ -404,12 +436,23 @@ def run_dual_engine_backtest(df, regime_df):
                         let badgeClass = row.ACTION === 'ENTRY' ? 'badge-entry' : (row.ACTION === 'EXIT' ? 'badge-exit' : 'badge-hold');
                         let pnlColor = row.PNL.includes('+') ? '#4caf50' : (row.PNL.includes('-') ? '#ff5252' : '#aaa');
                         
+                        // Date formatting logic
+                        let datesHtml = "";
+                        if (row.ACTION === 'ENTRY' || row.ACTION === 'HOLD') {{
+                            datesHtml = `<div class="date-meta">In: ${{row.ENTRY_DATE}}</div>`;
+                        }} else if (row.ACTION === 'EXIT') {{
+                            datesHtml = `<div class="date-meta">In: ${{row.ENTRY_DATE}}<br>Out: ${{row.EXIT_DATE}}</div>`;
+                        }}
+                        
                         tr.innerHTML = `
                             <td>
                                 <div style="font-weight:bold; font-size:13px; color:#fff;">${{row.SYMBOL}}</div>
                                 <div style="font-size:10px; color:#aaa; max-width:90px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${{row.SECTOR}}</div>
                             </td>
-                            <td><span class="badge ${{badgeClass}}">${{row.ACTION}}</span></td>
+                            <td>
+                                <span class="badge ${{badgeClass}}">${{row.ACTION}}</span>
+                                ${{datesHtml}}
+                            </td>
                             <td>
                                 <div style="font-weight:bold; color:${{pnlColor}}">${{row.PNL}}</div>
                                 <div style="font-size:10px; color:#aaa;">${{row.PRICE}}</div>
@@ -444,7 +487,6 @@ def run_dual_engine_backtest(df, regime_df):
     return valid_pool 
 
 def audit_portfolio_with_gemini(valid_pool):
-    # Absolute fallback HTML generation to prevent cp error in GitHub Actions
     fallback_html = """
     <!DOCTYPE html><html><head><title>Dashboard</title>
     <style>body{background:#121212; color:#fff; font-family:sans-serif; text-align:center; padding:50px;} 
@@ -501,12 +543,10 @@ def audit_portfolio_with_gemini(valid_pool):
         try:
             response = client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
             
-            # Extract HTML
-            html_match = re.search(r"""```html\s*(.*?)\s*
-```""", response.text, re.DOTALL)
+            html_match = re.search(r"""
+```html\s*(.*?)\s*```""", response.text, re.DOTALL)
             html_content = html_match.group(1) if html_match else response.text
             
-            # Ensure it is at least basic HTML if regex fails
             if "<html" not in html_content.lower():
                 html_content = f"<html><body><pre>{response.text}</pre><br><a href='history.html'>View History</a></body></html>"
                 
