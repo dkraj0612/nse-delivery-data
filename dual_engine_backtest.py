@@ -7,8 +7,8 @@ dual_engine_backtest.py
 4. Allocates 50% capital to Top Sectors, 50% to Lone Wolves.
 5. Scores based PURELY on Price Momentum.
 6. Institutional Buffer Rank Rebalancing.
-7. Logs detailed Trade Ledger (Entry/Hold/Exit, CUMULATIVE PnL, Entry/Exit Dates, Justification) to HTML.
-8. BULLETPROOF Dashboard Generator (prevents cp: cannot stat errors).
+7. Logs detailed Trade Ledger (Entry/Hold/Exit, CUMULATIVE PnL, Entry/Exit Dates) to HTML.
+8. FIXED: Enhanced AI Prompt to generate a beautiful, dark-mode HTML dashboard.
 """
 import os
 import glob
@@ -120,7 +120,7 @@ def run_dual_engine_backtest(df, regime_df):
     prev_portfolio_df = pd.DataFrame()
     
     entry_prices = {}
-    entry_dates = {} # NEW: Track exact entry dates
+    entry_dates = {}
     
     for current_date in dates:
         curr_date_str = current_date.strftime('%Y-%m-%d')
@@ -133,9 +133,8 @@ def run_dual_engine_backtest(df, regime_df):
         
         prev_symbols = set(prev_portfolio_df['SYMBOL']) if not prev_portfolio_df.empty else set()
         
-        # MARKET CRASH: Liquidate everything
         if not regime_status or candidates.empty:
-            justification = "Systematic Market Crash (1-Week Avg < 200 EMA)" if not regime_status else "No Stocks Passed Filter"
+            justification = "Systematic Market Crash (1W SMA < 200 EMA)" if not regime_status else "No Stocks Passed Filter"
             for sym in prev_symbols:
                 entry_price = entry_prices.get(sym, 0)
                 sym_entry_date = entry_dates.get(sym, "Unknown")
@@ -162,11 +161,11 @@ def run_dual_engine_backtest(df, regime_df):
                 
             entry_prices.clear()
             entry_dates.clear()
-            monthly_records.append({'DATE': current_date, 'NET_RETURN': 0.004, 'REGIME': 'BEAR (CASH)'})
+            crash_return = -0.01 if prev_symbols else 0.004
+            monthly_records.append({'DATE': current_date, 'NET_RETURN': crash_return, 'REGIME': 'BEAR (CASH)'})
             prev_portfolio_df = pd.DataFrame() 
             continue
 
-        # NORMAL REBALANCE
         sector_mom = candidates.groupby('SECTOR')['PRICE_MOMENTUM'].mean().reset_index()
         top_3_sectors = sector_mom.sort_values(by='PRICE_MOMENTUM', ascending=False).head(3)['SECTOR'].tolist()
         
@@ -184,13 +183,13 @@ def run_dual_engine_backtest(df, regime_df):
         final_portfolio = pd.concat([engine_a, engine_b])
         current_symbols = set(final_portfolio['SYMBOL'])
         
-        # LOG EXITS
         exits = prev_symbols - current_symbols
+        entries = current_symbols - prev_symbols
+        
         for sym in exits:
             entry_price = entry_prices.get(sym, 0)
             sym_entry_date = entry_dates.get(sym, "Unknown")
             curr_price = day_prices.get(sym)
-            
             if curr_price is not None and entry_price > 0:
                 pnl_str = f"{((curr_price / entry_price) - 1)*100:+.2f}%"
                 curr_price_str = f"₹{curr_price:.2f}"
@@ -210,11 +209,9 @@ def run_dual_engine_backtest(df, regime_df):
                 'ENTRY_DATE': sym_entry_date,
                 'EXIT_DATE': curr_date_str
             })
-            
             if sym in entry_prices: del entry_prices[sym]
             if sym in entry_dates: del entry_dates[sym]
             
-        # LOG ENTRIES & HOLDS
         for _, row in final_portfolio.iterrows():
             sym = row['SYMBOL']
             curr_price = row['CLOSE_PRICE']
@@ -247,9 +244,13 @@ def run_dual_engine_backtest(df, regime_df):
             
         if not final_portfolio.empty:
             returns = final_portfolio['FORWARD_1M_RET']
-            clean_returns = returns[(returns >= -0.35) & (returns <= 1.0)] 
+            clean_returns = returns[(returns >= -0.25) & (returns <= 2.5)] 
             avg_raw_return = clean_returns.mean() if not clean_returns.empty else 0
-            net_monthly_return = avg_raw_return - 0.003
+            
+            churn_ratio = len(entries) / max(1, len(current_symbols))
+            transaction_drag = churn_ratio * 0.01 
+            
+            net_monthly_return = avg_raw_return - transaction_drag
             monthly_records.append({'DATE': current_date, 'NET_RETURN': net_monthly_return, 'REGIME': 'BULL (EQUITY)'})
             
         prev_portfolio_df = final_portfolio.copy()
@@ -436,7 +437,6 @@ def run_dual_engine_backtest(df, regime_df):
                         let badgeClass = row.ACTION === 'ENTRY' ? 'badge-entry' : (row.ACTION === 'EXIT' ? 'badge-exit' : 'badge-hold');
                         let pnlColor = row.PNL.includes('+') ? '#4caf50' : (row.PNL.includes('-') ? '#ff5252' : '#aaa');
                         
-                        // Date formatting logic
                         let datesHtml = "";
                         if (row.ACTION === 'ENTRY' || row.ACTION === 'HOLD') {{
                             datesHtml = `<div class="date-meta">In: ${{row.ENTRY_DATE}}</div>`;
@@ -528,12 +528,17 @@ def audit_portfolio_with_gemini(valid_pool):
     table_str = final_live_portfolio[['SYMBOL', 'SECTOR', 'SOURCE_ENGINE', 'CLOSE_PRICE', 'MASTER_SCORE']].to_markdown(index=False)
     
     prompt = f"""
-    You are the Chief Risk Officer for an Indian quant fund. 
-    Our algorithm selected these 20 stocks on {latest_date.strftime('%Y-%m-%d')}.
+    You are the Lead UI Developer for an Indian quant fund. 
+    Our Dual-Engine algorithm selected these 20 stocks on {latest_date.strftime('%Y-%m-%d')}.
     Data:
     {table_str}
     
-    Generate a complete HTML dashboard wrapping the 20 stocks. Ensure it contains a prominent button linking to 'history.html' with the text 'View Detailed Trade Ledger'. Wrap output in ```html codeblock.
+    Generate a complete, single-file HTML document (with embedded CSS) that creates a beautiful, dark-mode, mobile-responsive dashboard displaying these 20 stocks.
+    - Group them visually into two distinct sections: 'Engine A (Sector)' and 'Engine B (Lone Wolf)'.
+    - For each stock, display the Ticker, Sector, Price, and Master Score in a clean card or grid format.
+    - Include a prominent button at the top that links to 'history.html' with the text 'View Detailed Trade Ledger'.
+    - Use modern CSS (flexbox/grid, nice typography, dark theme #121212 background, #bb86fc accents).
+    - You MUST wrap the HTML code inside a ```html codeblock.
     """
     
     client = genai.Client()
@@ -548,7 +553,7 @@ def audit_portfolio_with_gemini(valid_pool):
             html_content = html_match.group(1) if html_match else response.text
             
             if "<html" not in html_content.lower():
-                html_content = f"<html><body><pre>{response.text}</pre><br><a href='history.html'>View History</a></body></html>"
+                html_content = f"<html><body style='background:#121212;color:#fff;padding:20px;'><pre>{response.text}</pre><br><a href='history.html' style='color:#bb86fc;'>View Detailed Trade Ledger</a></body></html>"
                 
             with open("portfolio_dashboard.html", "w", encoding="utf-8") as f:
                 f.write(html_content)
