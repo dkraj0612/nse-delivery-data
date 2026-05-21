@@ -1,9 +1,8 @@
 """
-dual_engine_backtest.py - THE MASTER SYSTEM (ANTI-INFINITE-LOOP VERSION)
+dual_engine_backtest.py - ORIGINAL REAL-TIME LOOP
 ==========================================================
-1. BACKTEST ENGINE: Adjusts splits, calculates pure momentum, applies guardrails.
-2. AI TIME-MACHINE AUDITOR: Throttles API limits and caps retries at 5 to prevent hanging.
-3. GITHUB PUBLISHER: Generates 'index.html' and 'history.html'.
+Constructs the portfolio and IMMEDIATELY triggers the AI audit 
+for that specific date before moving to the next month.
 """
 import os
 import glob
@@ -61,14 +60,26 @@ def load_and_adjust_data(folder_path, sector_map_path):
     return pd.merge(master_df, sector_map, on='SYMBOL', how='left').reset_index(drop=True)
 
 # ==========================================
-# 2. PURE MOMENTUM BACKTEST ENGINE
+# 2. THE UNIFIED REAL-TIME LOOP (Math + AI)
 # ==========================================
-def run_pure_momentum_backtest(df):
-    print("Running Backtest Engine...")
+def run_realtime_construction_and_audit(df):
+    print("Initializing Unified Backtest and Real-Time AI Agent...")
+    
+    # Prepare API Client and load existing progress so we don't re-audit past months
+    api_key = os.environ.get("GEMINI_API_KEY")
+    client = genai.Client() if api_key else None
+    
+    progress_file = "audit_progress.json"
+    if os.path.exists(progress_file):
+        with open(progress_file, "r") as f:
+            audit_progress = json.load(f)
+    else:
+        audit_progress = {"results": {}}
+
+    # Momentum Calculations
     df['P_1M'] = df.groupby('SYMBOL')['CLOSE_PRICE'].shift(21)
     df['P_7M'] = df.groupby('SYMBOL')['CLOSE_PRICE'].shift(147) 
     df['P_13M'] = df.groupby('SYMBOL')['CLOSE_PRICE'].shift(273) 
-    
     df['PRICE_MOMENTUM'] = (((df['P_1M'] - df['P_13M']) / df['P_13M']) * 2) + ((df['P_1M'] - df['P_7M']) / df['P_7M'])
     
     df['EMA_51'] = df.groupby('SYMBOL')['CLOSE_PRICE'].transform(lambda x: x.ewm(span=51, adjust=False).mean())
@@ -78,8 +89,6 @@ def run_pure_momentum_backtest(df):
     df['YEAR_MONTH'] = df['DATE'].dt.to_period('M')
     month_ends = df.groupby('YEAR_MONTH')['DATE'].max().reset_index()
     rebalance_df = df[df['DATE'].isin(month_ends['DATE'])].copy()
-    rebalance_df['NEXT_MONTH_CLOSE'] = rebalance_df.groupby('SYMBOL')['CLOSE_PRICE'].shift(-1)
-    rebalance_df['FORWARD_1M_RET'] = (rebalance_df['NEXT_MONTH_CLOSE'] / rebalance_df['CLOSE_PRICE']) - 1
     rebalance_df['MASTER_SCORE'] = rebalance_df['PRICE_MOMENTUM'] * 100
     
     valid_pool = rebalance_df[
@@ -95,6 +104,9 @@ def run_pure_momentum_backtest(df):
     entry_prices = {}
     entry_dates = {}
     
+    # ---------------------------------------------------------
+    # MAIN LOOP: Construct -> Audit -> Save -> Next Month
+    # ---------------------------------------------------------
     for current_date in dates:
         curr_date_str = current_date.strftime('%Y-%m-%d')
         day_data = rebalance_df[rebalance_df['DATE'] == current_date]
@@ -104,6 +116,7 @@ def run_pure_momentum_backtest(df):
         candidates = valid_pool[valid_pool['DATE'] == current_date].copy()
         prev_symbols = set(prev_portfolio_df['SYMBOL']) if not prev_portfolio_df.empty else set()
         
+        # Guardrail failure logic
         if candidates.empty:
             for sym in prev_symbols:
                 portfolio_snapshots.append({
@@ -129,107 +142,79 @@ def run_pure_momentum_backtest(df):
             if sym in entry_prices: del entry_prices[sym]
             if sym in entry_dates: del entry_dates[sym]
             
+        current_month_holdings = []
         for _, row in final_portfolio.iterrows():
             sym, curr_price = row['SYMBOL'], row['CLOSE_PRICE']
             if sym not in prev_symbols:
                 entry_prices[sym], entry_dates[sym] = curr_price, curr_date_str
             pnl_str = f"{((curr_price/entry_prices[sym])-1)*100:+.2f}%" if entry_prices[sym] > 0 else "NEW"
-            portfolio_snapshots.append({
+            
+            record = {
                 'DATE': curr_date_str, 'SYMBOL': sym, 'SECTOR': row['SECTOR'],
                 'ACTION': 'HOLD' if sym in prev_symbols else 'ENTRY', 'PRICE': curr_price, 
                 'ENTRY_DATE': entry_dates[sym], 'PNL': pnl_str, 'JUSTIFICATION': "Top 20 Momentum"
-            })
+            }
+            portfolio_snapshots.append(record)
+            current_month_holdings.append(record)
             
         prev_portfolio_df = final_portfolio.copy()
 
-    pd.DataFrame(portfolio_snapshots).to_csv("backtest_portfolio_history.csv", index=False)
-    return pd.DataFrame(portfolio_snapshots)
-
-# ==========================================
-# 3. AI TIME-MACHINE AUDITOR (Auto-Throttled & Capped)
-# ==========================================
-def run_historical_ai_audit():
-    print("\nStarting Point-in-Time AI Forensic Audit...")
-    if not os.path.exists("backtest_portfolio_history.csv"):
-        print("Error: backtest_portfolio_history.csv not found.")
-        return {}
-        
-    df = pd.read_csv("backtest_portfolio_history.csv")
-    dates = sorted(df['DATE'].unique())
-    
-    progress_file = "audit_progress.json"
-    if os.path.exists(progress_file):
-        with open(progress_file, "r") as f:
-            progress = json.load(f)
-    else:
-        progress = {"results": {}}
-        
-    api_key = os.environ.get("GEMINI_API_KEY")
-    client = genai.Client() if api_key else None
-    
-    if not client:
-        print("No GEMINI_API_KEY found. Skipping AI Audit.")
-        return progress
-
-    for date in dates:
-        if date in progress["results"]:
-            continue # Skip already audited dates
+        # ========================================================
+        # REAL-TIME AI AUDIT (Triggers instantly after construction)
+        # ========================================================
+        if client and curr_date_str not in audit_progress["results"] and current_month_holdings:
+            print(f"[{curr_date_str}] Portfolio Constructed. Triggering Point-in-Time AI Audit...")
             
-        portfolio = df[(df['DATE'] == date) & (df['ACTION'].isin(['ENTRY', 'HOLD']))]
-        if portfolio.empty: continue
+            # Convert just this month's holdings into a DataFrame for the prompt
+            audit_df = pd.DataFrame(current_month_holdings)[['SYMBOL', 'SECTOR', 'PRICE', 'ENTRY_DATE']]
             
-        print(f"  -> Auditing Portfolio as it was on {date}...")
-        prompt = f"""
-        FORENSIC AUDIT DATE: {date}
-        
-        You are performing a STRICT point-in-time audit for {date}.
-        You are FORBIDDEN from using any data, news, price action, or SEBI filings that occurred AFTER {date}.
-        
-        Stocks:
-        {portfolio[['SYMBOL', 'SECTOR', 'PRICE', 'ENTRY_DATE']].to_markdown(index=False)}
-        
-        Analyze for severe historical governance red flags known ONLY up to {date}. 
-        Keep it brief. If clean, output: "✓ No major historical anomalies detected as of {date}."
-        """
-        
-        # SMART RETRY LOOP WITH MAX 5 ATTEMPTS (Prevents Infinite Hanging)
-        success = False
-        attempts = 0
-        max_attempts = 5
-        
-        while not success and attempts < max_attempts:
-            attempts += 1
-            try:
-                resp = client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
-                progress["results"][date] = resp.text
-                
-                # Save state to JSON immediately
-                with open(progress_file, "w") as f:
-                    json.dump(progress, f, indent=4)
-                
-                print(f"     [SUCCESS] Logged.")
-                time.sleep(5) # Throttle to avoid hitting limit
-                success = True
-                
-            except Exception as e:
-                error_str = str(e)
-                # Catch BOTH rate limits AND server overloads
-                if any(err in error_str for err in ["429", "RESOURCE_EXHAUSTED", "503", "UNAVAILABLE", "500", "502"]):
-                    print(f"     [API BUSY] Attempt {attempts}/{max_attempts}. Rate limit or server overload. Waiting 60 seconds...")
-                    time.sleep(60) 
-                else:
-                    print(f"     [FATAL ERROR] Unrecoverable error at {date}: {e}")
-                    break # Break the while loop if it's a code error
+            prompt = f"""
+            FORENSIC AUDIT DATE: {curr_date_str}
+            
+            You are an Equities Auditor. You are performing a STRICT point-in-time audit for {curr_date_str}.
+            You are FORBIDDEN from using any data, news, price action, or SEBI filings that occurred AFTER {curr_date_str}.
+            
+            Top 20 Portfolio Constructed on this date:
+            {audit_df.to_markdown(index=False)}
+            
+            Analyze for severe historical governance red flags known ONLY up to {curr_date_str}. 
+            Keep it brief. If clean, output: "✓ No major historical anomalies detected as of {curr_date_str}."
+            """
+            
+            # API Retry logic to survive limits
+            success = False
+            attempts = 0
+            while not success and attempts < 5:
+                attempts += 1
+                try:
+                    resp = client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
+                    audit_progress["results"][curr_date_str] = resp.text
                     
-        if not success:
-            print(f"     [SKIPPED] Could not audit {date} after {max_attempts} attempts due to Google API limits. Moving to next month.")
-            # It will leave this month blank in JSON and proceed so the action can finish!
-                
-    print("✅ AI Audit Complete.")
-    return progress
+                    with open(progress_file, "w") as f:
+                        json.dump(audit_progress, f, indent=4)
+                    
+                    print(f"  -> [SUCCESS] Audit logged for {curr_date_str}.")
+                    pd.DataFrame(portfolio_snapshots).to_csv("backtest_portfolio_history.csv", index=False)
+                    time.sleep(5) 
+                    success = True
+                    
+                except Exception as e:
+                    error_str = str(e)
+                    if any(err in error_str for err in ["429", "RESOURCE_EXHAUSTED", "503", "UNAVAILABLE"]):
+                        print(f"  -> [API BUSY] Attempt {attempts}/5. Waiting 60 seconds...")
+                        time.sleep(60) 
+                    else:
+                        print(f"  -> [FATAL ERROR] {e}")
+                        break 
+                        
+            if not success:
+                print(f"  -> [SKIPPED] Moving to next month due to persistent API limits.")
+
+    print("\nBacktest & Audit Sequence Complete.")
+    return audit_progress
 
 # ==========================================
-# 4. GITHUB PAGES HTML PUBLISHER
+# 3. GITHUB PAGES HTML PUBLISHER
 # ==========================================
 def generate_dashboards(audit_progress):
     print("Generating HTML Dashboards for GitHub Pages...")
@@ -299,13 +284,9 @@ if __name__ == "__main__":
     SECTOR_MAP = "./nifty500_sectors.csv" 
     
     try:
-        if not os.path.exists("backtest_portfolio_history.csv"):
-            raw_df = load_and_adjust_data(DATA_PATH, SECTOR_MAP)
-            run_pure_momentum_backtest(raw_df)
-        else:
-            print("Backtest data found. Skipping math engine...")
-            
-        audit_state = run_historical_ai_audit()
+        raw_df = load_and_adjust_data(DATA_PATH, SECTOR_MAP)
+        # This function now does the math AND the AI audit together in the same loop
+        audit_state = run_realtime_construction_and_audit(raw_df)
         generate_dashboards(audit_state)
         
     except Exception as e:
