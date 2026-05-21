@@ -2,7 +2,7 @@
 dual_engine_backtest.py - THE MASTER SYSTEM
 ==========================================================
 1. BACKTEST ENGINE: Adjusts splits, calculates pure momentum (12M*2 + 6M*1), applies guardrails.
-2. AI TIME-MACHINE AUDITOR: Auto-throttles to bypass 429 Rate Limits.
+2. AI TIME-MACHINE AUDITOR: Auto-throttles to bypass 429 and 503 API errors.
 3. GITHUB PUBLISHER: Generates 'index.html' and 'history.html'.
 """
 import os
@@ -33,6 +33,9 @@ def load_and_adjust_data(folder_path, sector_map_path):
         except Exception:
             continue
             
+    if not df_list:
+        raise ValueError("No CSV files found. Check your folder path.")
+        
     master_df = pd.concat(df_list, ignore_index=True)
     master_df['DATE'] = pd.to_datetime(master_df['DATE'], errors='coerce')
     master_df['CLOSE_PRICE'] = pd.to_numeric(master_df['CLOSE_PRICE'], errors='coerce')
@@ -41,6 +44,7 @@ def load_and_adjust_data(folder_path, sector_map_path):
     master_df = master_df.dropna(subset=['DATE', 'CLOSE_PRICE'])
     master_df = master_df.drop_duplicates(subset=['SYMBOL', 'DATE']).sort_values(['SYMBOL', 'DATE'])
     
+    # Split/Bonus Adjustments
     master_df['PCT_CHG'] = master_df.groupby('SYMBOL')['CLOSE_PRICE'].pct_change()
     adjusted_dfs = []
     for sym, group in master_df.groupby('SYMBOL'):
@@ -146,6 +150,10 @@ def run_pure_momentum_backtest(df):
 # ==========================================
 def run_historical_ai_audit():
     print("\nStarting Point-in-Time AI Forensic Audit...")
+    if not os.path.exists("backtest_portfolio_history.csv"):
+        print("Error: backtest_portfolio_history.csv not found.")
+        return {}
+        
     df = pd.read_csv("backtest_portfolio_history.csv")
     dates = sorted(df['DATE'].unique())
     
@@ -184,7 +192,7 @@ def run_historical_ai_audit():
         Keep it brief. If clean, output: "✓ No major historical anomalies detected as of {date}."
         """
         
-        # SMART RETRY LOOP (Handles 429 Quota Exhaustion Automatically)
+        # SMART RETRY LOOP (Handles 429 Quota and 503 Server Overload)
         success = False
         while not success:
             try:
@@ -201,12 +209,13 @@ def run_historical_ai_audit():
                 
             except Exception as e:
                 error_str = str(e)
-                if "429" in error_str or "RESOURCE_EXHAUSTED" in error_str:
-                    print(f"     [RATE LIMIT HIT] Google free tier limit reached. Waiting 60 seconds to refresh quota...")
-                    time.sleep(60) # Takes a full minute break and automatically tries this same date again
+                # Catch BOTH rate limits AND server overloads
+                if any(err in error_str for err in ["429", "RESOURCE_EXHAUSTED", "503", "UNAVAILABLE", "500", "502"]):
+                    print(f"     [API BUSY] Rate limit or server overload. Waiting 60 seconds to retry...")
+                    time.sleep(60) 
                 else:
                     print(f"     [FATAL ERROR] Unrecoverable error at {date}: {e}")
-                    return progress # Stop completely only if it's a non-rate-limit error
+                    return progress # Stop completely only if it's a structural code error
                 
     print("✅ AI Audit Complete.")
     return progress
