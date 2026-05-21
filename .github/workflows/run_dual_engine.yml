@@ -1,51 +1,48 @@
-name: Run Dual-Engine Portfolio & AI Audit
+name: Momentum AI Backtest & Audit
 
 on:
-  workflow_dispatch: 
+  workflow_dispatch: # Allows you to trigger it manually from the Actions tab
+  schedule:
+    - cron: '0 0 1 * *' # Optional: Runs automatically on the 1st of every month
 
-# This permission is required for the bot to publish the website
 permissions:
-  contents: write
+  contents: write # CRITICAL: Allows the Action to push the files back to your repo
 
 jobs:
-  execute-strategy:
+  run-audit:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Setup Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.10'
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
 
-    - name: Install Python Libraries
-      run: pip install pandas numpy yfinance tabulate requests google-genai
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas numpy google-genai
 
-    - name: Run Backtest and Gemini Audit
-      env:
-        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-      run: python dual_engine_backtest.py
+      - name: Run Forensic Backtest & Audit
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python dual_engine_backtest.py
 
-    - name: Upload Outputs as Artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: Portfolio-Outputs
-        path: |
-          portfolio_dashboard.html
-          history.html
-          backtest_portfolio_history.csv
-
-    - name: Prepare Dashboard for Web
-      run: |
-        mkdir public
-        cp portfolio_dashboard.html public/index.html
-        cp history.html public/history.html
-        cp backtest_portfolio_history.csv public/
-
-    - name: Publish to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./public
+      - name: Commit and push changes
+        if: always() # CRITICAL: Forces GitHub to save your progress even on failure/timeout/cancel
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          
+          # Add the newly generated tracking and web files
+          git add index.html history.html audit_progress.json backtest_portfolio_history.csv
+          
+          # Commit the changes. The [skip ci] prevents an infinite loop of actions triggering actions.
+          git commit -m "Automated update: AI Audit Ledger & State [skip ci]" || echo "No changes to commit"
+          
+          # Push the files to your repository so your GitHub Pages URL updates instantly
+          git push
