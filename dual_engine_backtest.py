@@ -413,6 +413,7 @@ def run_pure_momentum_backtest(df):
                 const currentIndex = select.selectedIndex;
                 prevBtn.disabled = (currentIndex === select.options.length - 1);
                 nextBtn.disabled = (currentIndex === 0);
+                
                 const pnl = perfData[selectedDate] ? perfData[selectedDate].CUM_PNL : '0.00%';
                 const runningCagr = perfData[selectedDate] ? perfData[selectedDate].CAGR_STR : '0.00%';
                 
