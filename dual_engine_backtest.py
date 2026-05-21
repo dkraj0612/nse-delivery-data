@@ -2,8 +2,8 @@
 dual_engine_backtest.py - THE MASTER SYSTEM
 ==========================================================
 1. BACKTEST ENGINE: Adjusts splits, calculates pure momentum (12M*2 + 6M*1), applies guardrails.
-2. AI TIME-MACHINE AUDITOR: Uses JSON to save progress month-by-month. Resumes automatically if timed out.
-3. GITHUB PUBLISHER: Generates 'index.html' (AI Audit Timeline) and 'history.html' (Trade Ledger).
+2. AI TIME-MACHINE AUDITOR: Auto-throttles to bypass 429 Rate Limits.
+3. GITHUB PUBLISHER: Generates 'index.html' and 'history.html'.
 """
 import os
 import glob
@@ -41,7 +41,6 @@ def load_and_adjust_data(folder_path, sector_map_path):
     master_df = master_df.dropna(subset=['DATE', 'CLOSE_PRICE'])
     master_df = master_df.drop_duplicates(subset=['SYMBOL', 'DATE']).sort_values(['SYMBOL', 'DATE'])
     
-    # Split/Bonus Adjustments
     master_df['PCT_CHG'] = master_df.groupby('SYMBOL')['CLOSE_PRICE'].pct_change()
     adjusted_dfs = []
     for sym, group in master_df.groupby('SYMBOL'):
@@ -88,7 +87,6 @@ def run_pure_momentum_backtest(df):
 
     dates = sorted(rebalance_df['DATE'].dropna().unique())
     portfolio_snapshots = []
-    monthly_records = []
     prev_portfolio_df = pd.DataFrame()
     entry_prices = {}
     entry_dates = {}
@@ -110,7 +108,6 @@ def run_pure_momentum_backtest(df):
                     'PNL': f"{((day_prices.get(sym, 0)/entry_prices.get(sym, 1))-1)*100:+.2f}%", 'JUSTIFICATION': "Failed Guardrails"
                 })
             entry_prices.clear(); entry_dates.clear()
-            monthly_records.append({'DATE': current_date, 'NET_RETURN': -0.01 if prev_symbols else 0.004})
             prev_portfolio_df = pd.DataFrame() 
             continue
 
@@ -139,24 +136,19 @@ def run_pure_momentum_backtest(df):
                 'ENTRY_DATE': entry_dates[sym], 'PNL': pnl_str, 'JUSTIFICATION': "Top 20 Momentum"
             })
             
-        if not final_portfolio.empty:
-            returns = final_portfolio['FORWARD_1M_RET']
-            avg_ret = returns[(returns >= -0.25) & (returns <= 2.5)].mean()
-            monthly_records.append({'DATE': current_date, 'NET_RETURN': avg_ret - ((len(current_symbols - prev_symbols)/max(1, len(current_symbols))) * 0.005)})
         prev_portfolio_df = final_portfolio.copy()
 
     pd.DataFrame(portfolio_snapshots).to_csv("backtest_portfolio_history.csv", index=False)
     return pd.DataFrame(portfolio_snapshots)
 
 # ==========================================
-# 3. AI TIME-MACHINE AUDITOR (Stateful via JSON)
+# 3. AI TIME-MACHINE AUDITOR (Auto-Throttled)
 # ==========================================
 def run_historical_ai_audit():
     print("\nStarting Point-in-Time AI Forensic Audit...")
     df = pd.read_csv("backtest_portfolio_history.csv")
     dates = sorted(df['DATE'].unique())
     
-    # This is the JSON state manager to prevent timeout losses
     progress_file = "audit_progress.json"
     if os.path.exists(progress_file):
         with open(progress_file, "r") as f:
@@ -173,12 +165,12 @@ def run_historical_ai_audit():
 
     for date in dates:
         if date in progress["results"]:
-            continue # Skip already audited dates (RESUME LOGIC)
+            continue # Skip already audited dates
             
         portfolio = df[(df['DATE'] == date) & (df['ACTION'].isin(['ENTRY', 'HOLD']))]
         if portfolio.empty: continue
             
-        print(f"  -> Auditing Portfolio exactly as it was on {date}...")
+        print(f"  -> Auditing Portfolio as it was on {date}...")
         prompt = f"""
         FORENSIC AUDIT DATE: {date}
         
@@ -192,7 +184,9 @@ def run_historical_ai_audit():
         Keep it brief. If clean, output: "✓ No major historical anomalies detected as of {date}."
         """
         
-        for attempt in range(5):
+        # SMART RETRY LOOP (Handles 429 Quota Exhaustion Automatically)
+        success = False
+        while not success:
             try:
                 resp = client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
                 progress["results"][date] = resp.text
@@ -201,13 +195,18 @@ def run_historical_ai_audit():
                 with open(progress_file, "w") as f:
                     json.dump(progress, f, indent=4)
                 
-                time.sleep(10) # API rate limit padding
-                break
+                print(f"     [SUCCESS] Logged.")
+                time.sleep(5) # Throttle to ~12 req/min to avoid hitting limit
+                success = True
+                
             except Exception as e:
-                if attempt == 4:
-                    print(f"Error at {date}: {e}. Stopping audit run. State saved.")
-                    return progress
-                time.sleep(30)
+                error_str = str(e)
+                if "429" in error_str or "RESOURCE_EXHAUSTED" in error_str:
+                    print(f"     [RATE LIMIT HIT] Google free tier limit reached. Waiting 60 seconds to refresh quota...")
+                    time.sleep(60) # Takes a full minute break and automatically tries this same date again
+                else:
+                    print(f"     [FATAL ERROR] Unrecoverable error at {date}: {e}")
+                    return progress # Stop completely only if it's a non-rate-limit error
                 
     print("✅ AI Audit Complete.")
     return progress
@@ -218,7 +217,6 @@ def run_historical_ai_audit():
 def generate_dashboards(audit_progress):
     print("Generating HTML Dashboards for GitHub Pages...")
     
-    # 1. Generate 'index.html' (The AI Audit Timeline)
     html_timeline = """
     <!DOCTYPE html>
     <html>
@@ -228,7 +226,7 @@ def generate_dashboards(audit_progress):
         <style>
             body { font-family: -apple-system, sans-serif; background: #121212; color: #e0e0e0; padding: 20px; }
             .header { text-align: center; margin-bottom: 30px; }
-            .btn { background: #bb86fc; color: #121212; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; }
+            .btn { background: #bb86fc; color: #121212; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;}
             .card { background: #1e1e1e; border-left: 4px solid #bb86fc; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
             .date { font-size: 18px; font-weight: bold; color: #fff; margin-bottom: 10px; }
             pre { white-space: pre-wrap; font-family: inherit; font-size: 14px; color: #ccc; }
@@ -251,7 +249,6 @@ def generate_dashboards(audit_progress):
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(html_timeline)
 
-    # 2. Generate 'history.html' (The Raw Trade Data)
     if os.path.exists("backtest_portfolio_history.csv"):
         df = pd.read_csv("backtest_portfolio_history.csv")
         table_html = df.to_html(index=False, classes='trade-table')
@@ -285,17 +282,13 @@ if __name__ == "__main__":
     SECTOR_MAP = "./nifty500_sectors.csv" 
     
     try:
-        # Step 1: Mathematical Engine (Only runs if CSV doesn't exist to save time on resume)
         if not os.path.exists("backtest_portfolio_history.csv"):
             raw_df = load_and_adjust_data(DATA_PATH, SECTOR_MAP)
             run_pure_momentum_backtest(raw_df)
         else:
             print("Backtest data found. Skipping math engine...")
             
-        # Step 2: The Time-Machine AI Audit (Uses JSON to save/resume progress)
         audit_state = run_historical_ai_audit()
-        
-        # Step 3: Build Web Files for GitHub
         generate_dashboards(audit_state)
         
     except Exception as e:
