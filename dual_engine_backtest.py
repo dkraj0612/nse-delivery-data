@@ -5,9 +5,10 @@ dual_engine_backtest.py - FULL PRODUCTION VERSION
 2. PURE MOMENTUM: (12M Return * 2) + (6M Return * 1) [1-Month Skip].
 3. SINGLE ENGINE: Top 20 absolute momentum stocks across Top 40 buffer.
 4. GUARDRAILS: > 51 EMA, Within 20% of 52W High, > 10Cr Avg Turnover.
-5. PERFORMANCE METRICS: Restored full CAGR, Max DD, and Win Rate calculations.
-6. FULL HTML LEDGER: Restored the beautiful, dynamic JS/CSS historical dashboard.
+5. PERFORMANCE METRICS: Full CAGR, Max DD, and Win Rate calculations.
+6. FULL HTML LEDGER: Beautiful, dynamic JS/CSS historical dashboard.
 7. AI FORENSIC AUDIT: Strict point-in-time analysis of entry signals.
+8. FIXED: Dynamic regex string construction to prevent copy-paste SyntaxErrors.
 """
 import os
 import glob
@@ -130,7 +131,6 @@ def run_pure_momentum_backtest(df):
         prev_symbols = set(prev_portfolio_df['SYMBOL']) if not prev_portfolio_df.empty else set()
         
         if candidates.empty:
-            # If nothing passes filters, sell all holdings
             for sym in prev_symbols:
                 entry_price = entry_prices.get(sym, 0)
                 sym_entry_date = entry_dates.get(sym, "Unknown")
@@ -160,17 +160,13 @@ def run_pure_momentum_backtest(df):
             prev_portfolio_df = pd.DataFrame() 
             continue
 
-        # SINGLE ENGINE: Absolute Top Momentum
         candidates = candidates.sort_values(by='MASTER_SCORE', ascending=False)
-        
-        # TARGET: 20 Stocks. BUFFER ZONE: Top 40.
         top_40 = candidates.head(40).copy()
         
         held_stocks = top_40[top_40['SYMBOL'].isin(prev_symbols)]
         new_stocks = top_40[~top_40['SYMBOL'].isin(prev_symbols)]
         
         final_portfolio = pd.concat([held_stocks, new_stocks]).head(20).copy()
-        
         current_symbols = set(final_portfolio['SYMBOL'])
         
         exits = prev_symbols - current_symbols
@@ -248,7 +244,6 @@ def run_pure_momentum_backtest(df):
             
         prev_portfolio_df = final_portfolio.copy()
 
-    # PERFORMANCE METRICS CALCULATION
     perf_df = pd.DataFrame(monthly_records).dropna()
     perf_dict = {}
     total_months = cagr = max_dd = total_return = win_rate = 0.0
@@ -280,7 +275,6 @@ def run_pure_momentum_backtest(df):
         print(f"Win Rate            : {win_rate:.2f}%")
         print("="*50)
 
-    # FULL HTML GENERATOR FOR TRADE LEDGER
     pd.DataFrame(portfolio_snapshots).to_csv("backtest_portfolio_history.csv", index=False)
     snapshots_json = json.dumps(portfolio_snapshots)
     perf_json = json.dumps(perf_dict)
@@ -511,15 +505,19 @@ def audit_portfolio_with_gemini(snapshots):
     - Section 1: The 'Forensic Risk Audit' results.
     - Section 2: The 'Live Portfolio Grid' displaying Ticker, Sector, Price, Entry Date, and PnL.
     - Use modern CSS (flexbox/grid, #121212 background, #bb86fc accents, clean typography).
-    - You MUST wrap the HTML code inside a ```html codeblock.
+    - You MUST wrap the HTML code inside a markdown html block (three backticks followed by html).
     """
     
     client = genai.Client()
+    
+    # Safely building the regex string so literal backticks are not in the python code
+    bkticks = "`" * 3
+    pattern = bkticks + r"html\s*(.*?)\s*" + bkticks
+
     for attempt in range(5):
         try:
             resp = client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
-            match = re.search(r"
-```html\s*(.*?)\s*```", resp.text, re.DOTALL)
+            match = re.search(pattern, resp.text, re.DOTALL)
             
             with open("portfolio_dashboard.html", "w", encoding="utf-8") as f:
                 if match:
