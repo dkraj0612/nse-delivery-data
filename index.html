@@ -1,124 +1,177 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Indian Quant Fund - Stock Selection Dashboard</title>
+    <title>CRO Dashboard: Quant Fund Stock Selection (2026-05-18)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 20px;
-            background-color: #f4f7f6;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8fafd; /* Light blue-gray background */
             color: #333;
+            line-height: 1.6;
         }
         .container {
             max-width: 1200px;
             margin: auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
         }
         h1 {
-            color: #2c3e50;
             text-align: center;
-            margin-bottom: 10px;
-        }
-        p.date {
-            text-align: center;
-            font-size: 1.1em;
-            color: #555;
+            font-size: 2.6em;
+            color: #0056b3; /* Darker blue for emphasis */
             margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #007bff; /* Vibrant blue underline */
         }
-        .button-container {
-            text-align: center;
-            margin-bottom: 30px;
+        h2 {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 8px;
         }
-        .button-container a {
-            display: inline-block;
-            background-color: #28a745; /* Green for action */
-            color: white;
-            padding: 12px 25px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 1.1em;
-            font-weight: bold;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        .cro-intro {
+            background-color: #eaf6fd; /* Lightest blue */
+            border-left: 6px solid #007bff;
+            padding: 20px 25px;
+            margin-bottom: 35px;
+            border-radius: 8px;
+            font-size: 1.05em;
+            line-height: 1.7;
+            color: #333;
         }
-        .button-container a:hover {
-            background-color: #218838;
-            transform: translateY(-2px);
+        .cro-intro p {
+            margin: 5px 0;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            margin-top: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            overflow: hidden; /* Ensures rounded corners */
         }
         th, td {
-            padding: 12px 15px;
+            padding: 14px 18px;
             text-align: left;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #eee;
         }
         th {
-            background-color: #4CAF50; /* Primary header color */
+            background-color: #007bff;
             color: white;
-            font-weight: bold;
-            position: sticky;
-            top: 0;
-            z-index: 1;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.95em;
         }
-        tr:nth-child(even) {
-            background-color: #f8f8f8;
+        tbody tr:nth-child(even) {
+            background-color: #f9fbfd; /* Subtle alternate row shading */
         }
-        tr:hover {
-            background-color: #f1f1f1;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        tbody tr:hover {
+            background-color: #e6f7ff; /* Hover effect */
+            transition: background-color 0.3s ease-in-out;
         }
-        td:nth-child(4), td:nth-child(5) { /* Right align prices and scores */
-            text-align: right;
-            font-family: 'Consolas', monospace; /* For numeric data */
+
+        /* Master Score Styling */
+        .score-positive-high { background-color: #e8f5e9; color: #2e7d32; font-weight: 500; } /* Strong green for high positive */
+        .score-positive-medium { background-color: #f0fdf0; color: #43a047; } /* Lighter green for medium positive */
+        .score-positive-low { background-color: #fdfefe; color: #616161; } /* Near neutral for low positive */
+        .score-negative { background-color: #ffebee; color: #c62828; font-weight: 500; } /* Light red for negative */
+        .score-outlier { 
+            background-color: #fff3e0; /* Light orange */
+            color: #e65100; /* Darker orange text */
+            font-weight: bold; 
+            border: 2px solid #ff9800; /* Orange border for emphasis */
         }
-        .source-engine-A {
-            color: #d9534f; /* Reddish for Engine A */
-            font-weight: bold;
+
+        /* Engine Source Styling */
+        .engine-A { background-color: #e3f2fd; color: #1976d2; font-weight: 500;} /* Blue tint for Engine A */
+        .engine-B { background-color: #fff3e0; color: #ff9800; font-weight: 500;} /* Orange tint for Engine B */
+
+        .risk-summary {
+            margin-top: 50px;
+            padding: 25px;
+            background-color: #fffde7; /* Light yellow background */
+            border-left: 6px solid #ffeb3b; /* Yellow border */
+            border-radius: 8px;
+            line-height: 1.7;
         }
-        .source-engine-B {
-            color: #0275d8; /* Bluish for Engine B */
-            font-weight: bold;
+        .risk-summary h3 {
+            color: #fbc02d; /* Dark yellow title */
+            border-bottom: 1px dashed #ffeb3b;
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-size: 1.4em;
         }
-        .master-score-positive {
-            color: #28a745; /* Green for positive scores */
-            font-weight: bold;
+        .risk-summary ul {
+            list-style-type: disc;
+            margin-left: 25px;
+            padding-left: 0;
         }
-        .master-score-negative {
-            color: #dc3545; /* Red for negative scores */
-            font-weight: bold;
+        .risk-summary li {
+            margin-bottom: 10px;
         }
-        footer {
+        .risk-summary strong {
+            color: #333;
+        }
+
+        .action-button-container {
             text-align: center;
-            margin-top: 40px;
+            margin-top: 50px;
+        }
+        .action-button {
+            background-color: #28a745; /* Green button */
+            color: white;
+            padding: 18px 35px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            display: inline-block;
+            font-weight: 500;
+        }
+        .action-button:hover {
+            background-color: #218838; /* Darker green on hover */
+            transform: translateY(-3px); /* Subtle lift effect */
+        }
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 25px;
+            border-top: 1px solid #eee;
+            color: #888;
             font-size: 0.9em;
-            color: #777;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Indian Quant Fund - Stock Selection Dashboard</h1>
-        <p class="date">Selected on: 2026-05-18</p>
-
-        <div class="button-container">
-            <a href="history.html">View Detailed Trade Ledger</a>
+        <h1>CRO Dashboard: Quant Fund Stock Selection</h1>
+        
+        <div class="cro-intro">
+            <p><strong>Date of Selection:</strong> 2026-05-18</p>
+            <p>As Chief Risk Officer, I've conducted an initial review of the 20 stock selections generated by our algorithms for today's trading. This dashboard provides a consolidated, risk-focused overview, highlighting key performance indicators, sector exposures, and any notable anomalies. It's imperative that we assess these selections thoroughly for potential risks and alignment with our fund's mandate before final deployment.</p>
         </div>
 
+        <h2>Selected Stocks Overview</h2>
         <table>
             <thead>
                 <tr>
                     <th>SYMBOL</th>
                     <th>SECTOR</th>
                     <th>SOURCE ENGINE</th>
-                    <th>CLOSE PRICE (₹)</th>
+                    <th>CLOSE PRICE (INR)</th>
                     <th>MASTER SCORE</th>
                 </tr>
             </thead>
@@ -126,141 +179,174 @@
                 <tr>
                     <td>APARINDS</td>
                     <td>Capital Goods</td>
-                    <td class="source-engine-A">Engine A (Sector)</td>
+                    <td class="engine-A">Engine A (Sector)</td>
                     <td>12154.00</td>
-                    <td class="master-score-positive">73.1475</td>
+                    <td class="score-positive-medium">73.15</td>
                 </tr>
                 <tr>
                     <td>HINDALCO</td>
                     <td>Metals & Mining</td>
-                    <td class="source-engine-A">Engine A (Sector)</td>
+                    <td class="engine-A">Engine A (Sector)</td>
                     <td>1053.10</td>
-                    <td class="master-score-positive">51.0185</td>
+                    <td class="score-positive-medium">51.02</td>
                 </tr>
                 <tr>
                     <td>ASHAPURMIN</td>
                     <td>Metals & Mining</td>
-                    <td class="source-engine-A">Engine A (Sector)</td>
+                    <td class="engine-A">Engine A (Sector)</td>
                     <td>640.30</td>
-                    <td class="master-score-positive">46.4400</td>
+                    <td class="score-positive-low">46.44</td>
                 </tr>
                 <tr>
                     <td>ABB</td>
                     <td>Capital Goods</td>
-                    <td class="source-engine-A">Engine A (Sector)</td>
+                    <td class="engine-A">Engine A (Sector)</td>
                     <td>6413.50</td>
-                    <td class="master-score-positive">23.1800</td>
+                    <td class="score-positive-low">23.18</td>
                 </tr>
                 <tr>
                     <td>AIAENG</td>
                     <td>Capital Goods</td>
-                    <td class="source-engine-A">Engine A (Sector)</td>
+                    <td class="engine-A">Engine A (Sector)</td>
                     <td>3883.30</td>
-                    <td class="master-score-positive">18.7945</td>
+                    <td class="score-positive-low">18.79</td>
                 </tr>
                 <tr>
                     <td>INDUSTOWER</td>
                     <td>Telecommunication</td>
-                    <td class="source-engine-A">Engine A (Sector)</td>
+                    <td class="engine-A">Engine A (Sector)</td>
                     <td>430.90</td>
-                    <td class="master-score-positive">9.5311</td>
+                    <td class="score-positive-low">9.53</td>
                 </tr>
                 <tr>
                     <td>BHARTIARTL</td>
                     <td>Telecommunication</td>
-                    <td class="source-engine-A">Engine A (Sector)</td>
+                    <td class="engine-A">Engine A (Sector)</td>
                     <td>1938.10</td>
-                    <td class="master-score-positive">0.4039</td>
+                    <td class="score-positive-low">0.40</td>
                 </tr>
                 <tr>
                     <td>GRAVITA</td>
                     <td>Metals & Mining</td>
-                    <td class="source-engine-A">Engine A (Sector)</td>
+                    <td class="engine-A">Engine A (Sector)</td>
                     <td>1625.30</td>
-                    <td class="master-score-negative">-8.0437</td>
+                    <td class="score-negative">-8.04</td>
                 </tr>
                 <tr>
                     <td>BHARTIHEXA</td>
                     <td>Telecommunication</td>
-                    <td class="source-engine-A">Engine A (Sector)</td>
+                    <td class="engine-A">Engine A (Sector)</td>
                     <td>1597.60</td>
-                    <td class="master-score-negative">-8.4481</td>
+                    <td class="score-negative">-8.45</td>
                 </tr>
                 <tr>
                     <td>STLTECH</td>
                     <td>Telecommunication</td>
-                    <td class="source-engine-B">Engine B (Lone Wolf)</td>
+                    <td class="engine-B">Engine B (Lone Wolf)</td>
                     <td>421.90</td>
-                    <td class="master-score-positive">425.8370</td>
+                    <td class="score-outlier">425.84</td>
                 </tr>
                 <tr>
                     <td>TDPOWERSYS</td>
                     <td>Capital Goods</td>
-                    <td class="source-engine-B">Engine B (Lone Wolf)</td>
+                    <td class="engine-B">Engine B (Lone Wolf)</td>
                     <td>1328.00</td>
-                    <td class="master-score-positive">151.0300</td>
+                    <td class="score-positive-high">151.03</td>
                 </tr>
                 <tr>
                     <td>HINDCOPPER</td>
                     <td>Metals & Mining</td>
-                    <td class="source-engine-B">Engine B (Lone Wolf)</td>
+                    <td class="engine-B">Engine B (Lone Wolf)</td>
                     <td>581.15</td>
-                    <td class="master-score-positive">127.5050</td>
+                    <td class="score-positive-high">127.51</td>
                 </tr>
                 <tr>
                     <td>ATHERENERG</td>
                     <td>Automobile and Auto Components</td>
-                    <td class="source-engine-B">Engine B (Lone Wolf)</td>
+                    <td class="engine-B">Engine B (Lone Wolf)</td>
                     <td>910.35</td>
-                    <td class="master-score-positive">124.3700</td>
+                    <td class="score-positive-high">124.37</td>
                 </tr>
                 <tr>
                     <td>KIRLOSENG</td>
                     <td>Capital Goods</td>
-                    <td class="source-engine-B">Engine B (Lone Wolf)</td>
+                    <td class="engine-B">Engine B (Lone Wolf)</td>
                     <td>1700.00</td>
-                    <td class="master-score-positive">115.9460</td>
+                    <td class="score-positive-high">115.95</td>
                 </tr>
                 <tr>
                     <td>QPOWER</td>
                     <td>Capital Goods</td>
-                    <td class="source-engine-B">Engine B (Lone Wolf)</td>
+                    <td class="engine-B">Engine B (Lone Wolf)</td>
                     <td>1052.90</td>
-                    <td class="master-score-positive">112.6440</td>
+                    <td class="score-positive-high">112.64</td>
                 </tr>
                 <tr>
                     <td>JAYNECOIND</td>
                     <td>Capital Goods</td>
-                    <td class="source-engine-B">Engine B (Lone Wolf)</td>
+                    <td class="engine-B">Engine B (Lone Wolf)</td>
                     <td>104.79</td>
-                    <td class="master-score-positive">109.5010</td>
+                    <td class="score-positive-high">109.50</td>
                 </tr>
                 <tr>
                     <td>BBOX</td>
                     <td>Information Technology</td>
-                    <td class="source-engine-B">Engine B (Lone Wolf)</td>
+                    <td class="engine-B">Engine B (Lone Wolf)</td>
                     <td>935.20</td>
-                    <td class="master-score-positive">106.2730</td>
+                    <td class="score-positive-high">106.27</td>
                 </tr>
                 <tr>
                     <td>NATIONALUM</td>
                     <td>Metals & Mining</td>
-                    <td class="source-engine-B">Engine B (Lone Wolf)</td>
+                    <td class="engine-B">Engine B (Lone Wolf)</td>
                     <td>400.45</td>
-                    <td class="master-score-positive">105.4620</td>
+                    <td class="score-positive-high">105.46</td>
                 </tr>
                 <tr>
                     <td>GVT&D</td>
                     <td>Capital Goods</td>
-                    <td class="source-engine-B">Engine B (Lone Wolf)</td>
+                    <td class="engine-B">Engine B (Lone Wolf)</td>
                     <td>4426.80</td>
-                    <td class="master-score-positive">105.3600</td>
+                    <td class="score-positive-high">105.36</td>
                 </tr>
             </tbody>
         </table>
-        <footer>
-            <p>&copy; 2026 Indian Quant Fund. All rights reserved.</p>
-        </footer>
+
+        <div class="risk-summary">
+            <h3>CRO Risk Observations & Commentary</h3>
+            <ul>
+                <li><strong>Sector Concentration:</strong> The current selection shows a significant concentration in <strong>Capital Goods (9 stocks), Metals & Mining (5 stocks), and Telecommunication (4 stocks)</strong>. This implies considerable exposure to sector-specific volatilities and macroeconomic factors influencing these industries. A review of existing portfolio allocations against these new selections is critical to manage overall diversification.</li>
+                <li><strong>Engine Performance & Risk Profiles:</strong>
+                    <ul>
+                        <li><strong>Engine A (Sector):</strong> Generated 9 picks with a wider range of scores, including two negative scores (GRAVITA, BHARTIHEXA). This engine appears to reflect sector-specific dynamics, potentially with a more balanced risk-reward profile, and includes lower conviction picks.</li>
+                        <li><strong>Engine B (Lone Wolf):</strong> Contributed 11 picks, all with significantly high positive scores (above 100). The "Lone Wolf" nature suggests potentially high-conviction or idiosyncratic signals. This engine appears to favor stocks with strong positive momentum or unique fundamental drivers.</li>
+                    </ul>
+                </li>
+                <li><strong>Master Score Outliers:</strong>
+                    <ul>
+                        <li>The extremely high score of <strong>425.84 for STLTECH (Engine B)</strong> stands out significantly. While it could indicate exceptional opportunity, it also presents a potential model anomaly or an extremely high-conviction bet. This warrants an immediate deep-dive into the underlying factors, data inputs, and model stability that led to such an elevated score.</li>
+                        <li>The negative scores for GRAVITA (-8.04) and BHARTIHEXA (-8.45) should be noted. Although included, these indicate low conviction from Engine A and suggest heightened scrutiny if they proceed to allocation.</li>
+                    </ul>
+                </li>
+                <li><strong>Price Range & Liquidity:</strong> The selected stocks cover a broad price spectrum (e.g., JAYNECOIND at ~104 INR to APARINDS at ~12154 INR). While diverse, we must ensure sufficient liquidity for all chosen instruments, especially for smaller-cap stocks, to manage execution risk effectively.</li>
+                <li><strong>Next Steps:</strong>
+                    <ul>
+                        <li><strong>Deep Dive on STLTECH:</strong> Urgent review of the "Lone Wolf" engine's output and inputs for STLTECH to understand the drivers of the extreme score.</li>
+                        <li><strong>Sector Exposure Analysis:</strong> Comprehensive analysis of the fund's overall exposure to Capital Goods, Metals & Mining, and Telecommunication post-selection.</li>
+                        <li><strong>Engine Methodology Review:</strong> A comparative review of Engine A and Engine B methodologies to understand their differing score distributions and risk assumptions.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="action-button-container">
+            <a href="history.html" class="action-button">View Detailed Trade Ledger</a>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2026 Indian Quant Fund. All rights reserved. Data as of 2026-05-18.</p>
+        </div>
     </div>
 </body>
 </html>
+```
