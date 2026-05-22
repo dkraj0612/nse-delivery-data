@@ -83,8 +83,7 @@ def run_pure_momentum_backtest(df):
     rebalance_df = df[df['DATE'].isin(month_ends['DATE'])].copy()
     rebalance_df['MASTER_SCORE'] = rebalance_df['PRICE_MOMENTUM'] * 100
     
-    # --- YOUR UPDATED GUARDRAILS ---
-    # To change the delivery percentage, change the "30.0" below to your desired number
+    # Guardrails: 51 EMA, 80% of 52W High, 1000L Turnover, 30% Delivery
     valid_pool = rebalance_df[
         (rebalance_df['CLOSE_PRICE'] >= rebalance_df['EMA_51']) & 
         (rebalance_df['CLOSE_PRICE'] >= (rebalance_df['52W_HIGH'] * 0.80)) & 
@@ -105,6 +104,8 @@ def run_pure_momentum_backtest(df):
         if day_data.empty: continue
             
         day_prices = day_data.set_index('SYMBOL')['CLOSE_PRICE'].to_dict()
+        day_deliv = day_data.set_index('SYMBOL')['AVG_DELIV_PER'].to_dict()
+        
         candidates = valid_pool[valid_pool['DATE'] == current_date].copy()
         prev_symbols = set(prev_portfolio_df['SYMBOL']) if not prev_portfolio_df.empty else set()
         
@@ -113,7 +114,9 @@ def run_pure_momentum_backtest(df):
                 portfolio_snapshots.append({
                     'DATE': curr_date_str, 'SYMBOL': sym, 'SECTOR': prev_portfolio_df[prev_portfolio_df['SYMBOL']==sym]['SECTOR'].iloc[0],
                     'ACTION': 'EXIT', 'PRICE': day_prices.get(sym, 0), 'ENTRY_DATE': entry_dates.get(sym, 'N/A'),
-                    'PNL': f"{((day_prices.get(sym, 0)/entry_prices.get(sym, 1))-1)*100:+.2f}%", 'JUSTIFICATION': "Failed Guardrails"
+                    'PNL': f"{((day_prices.get(sym, 0)/entry_prices.get(sym, 1))-1)*100:+.2f}%", 
+                    'DELIV_%': f"{day_deliv.get(sym, 0):.1f}%" if pd.notna(day_deliv.get(sym, 0)) else "N/A",
+                    'JUSTIFICATION': "Failed Guardrails"
                 })
             entry_prices.clear(); entry_dates.clear()
             prev_portfolio_df = pd.DataFrame() 
@@ -128,7 +131,9 @@ def run_pure_momentum_backtest(df):
             portfolio_snapshots.append({
                 'DATE': curr_date_str, 'SYMBOL': sym, 'SECTOR': prev_portfolio_df[prev_portfolio_df['SYMBOL']==sym]['SECTOR'].iloc[0],
                 'ACTION': 'EXIT', 'PRICE': day_prices.get(sym, 0), 'ENTRY_DATE': entry_dates.get(sym, 'N/A'),
-                'PNL': f"{((day_prices.get(sym, 0)/entry_prices.get(sym, 1))-1)*100:+.2f}%", 'JUSTIFICATION': "Fell below Buffer"
+                'PNL': f"{((day_prices.get(sym, 0)/entry_prices.get(sym, 1))-1)*100:+.2f}%", 
+                'DELIV_%': f"{day_deliv.get(sym, 0):.1f}%" if pd.notna(day_deliv.get(sym, 0)) else "N/A",
+                'JUSTIFICATION': "Fell below Buffer"
             })
             if sym in entry_prices: del entry_prices[sym]
             if sym in entry_dates: del entry_dates[sym]
@@ -142,7 +147,9 @@ def run_pure_momentum_backtest(df):
             portfolio_snapshots.append({
                 'DATE': curr_date_str, 'SYMBOL': sym, 'SECTOR': row['SECTOR'],
                 'ACTION': 'HOLD' if sym in prev_symbols else 'ENTRY', 'PRICE': curr_price, 
-                'ENTRY_DATE': entry_dates[sym], 'PNL': pnl_str, 'JUSTIFICATION': "Top 20 Momentum"
+                'ENTRY_DATE': entry_dates[sym], 'PNL': pnl_str, 
+                'DELIV_%': f"{row['AVG_DELIV_PER']:.1f}%", # ADDED HERE SO IT SAVES
+                'JUSTIFICATION': "Top 20 Momentum"
             })
             
         prev_portfolio_df = final_portfolio.copy()
@@ -173,7 +180,8 @@ def run_single_latest_audit(portfolio_df):
         print("No active positions on the latest date.")
         return audit_progress
         
-    audit_df = latest_portfolio[['SYMBOL', 'SECTOR', 'PRICE', 'ENTRY_DATE']]
+    # ADDED 'DELIV_%' SO THE AI SEES IT
+    audit_df = latest_portfolio[['SYMBOL', 'SECTOR', 'PRICE', 'DELIV_%', 'ENTRY_DATE']]
     
     prompt = f"""
     FORENSIC AUDIT DATE: {latest_date}
