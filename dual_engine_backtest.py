@@ -1,11 +1,11 @@
 """
-dual_engine_backtest.py - PMS COMMAND CENTER (VERIFIED ARCHITECTURE)
+dual_engine_backtest.py - PMS COMMAND CENTER (METRICS EXPANDED)
 ==========================================================
 Module 1: Data Engine (Local NSE BhavCopy & Index)
-Module 2: Strategy Engine (Risk-Adjusted Momentum, 0.5% Tax)
+Module 2: Strategy Engine (Risk-Adjusted Momentum, 0.5% Tax, > ₹20 Filter)
 Module 3: Internal Python Verifier (5 Strict PMS Asserts)
-Module 4: AI Heavy Lifter (Verifies & Justifies Entries/Exits/Holds)
-Module 5: Dual Publisher (Streamlit UI & Static HTML)
+Module 4: AI Heavy Lifter (Verifies & Justifies)
+Module 5: HTML Publisher (Interactive GitHub Pages Dashboard)
 """
 
 import os
@@ -14,15 +14,11 @@ import json
 import pandas as pd
 import numpy as np
 import concurrent.futures
-import plotly.express as px
-import streamlit as st
-from streamlit import runtime
 from google import genai
 
 # ==========================================
 # MODULE 1: LOCAL DATA ENGINE
 # ==========================================
-@st.cache_data(show_spinner=False)
 def load_and_adjust_data(folder_path="./HistoricalBhavCopy/NSE", sector_map_path="./nifty500_sectors.csv", index_path="./nifty500_index.csv"):
     print("Loading Local BhavCopy & Applying Corporate Action Adjustments...")
     
@@ -38,7 +34,6 @@ def load_and_adjust_data(folder_path="./HistoricalBhavCopy/NSE", sector_map_path
         nifty_df = nifty_df.dropna(subset=['DATE', 'CLOSE_PRICE']).sort_values('DATE')
         nifty_df['NIFTY_EMA_200'] = nifty_df['CLOSE_PRICE'].ewm(span=200, adjust=False).mean()
     else:
-        print("⚠️ Warning: nifty500_index.csv not found. Defaulting to perpetual Risk-ON regime.")
         nifty_df = pd.DataFrame(columns=['DATE', 'CLOSE_PRICE', 'NIFTY_EMA_200'])
 
     all_files = glob.glob(os.path.join(folder_path, "**/*.csv"), recursive=True)
@@ -114,6 +109,7 @@ def run_momentum_backtest(df, nifty_df, ema_param=100, deliv_param=30.0, turnove
     valid_pool = rebalance_df[
         (rebalance_df['CLOSE_PRICE'] >= rebalance_df['EMA_X']) & 
         (rebalance_df['CLOSE_PRICE'] >= (rebalance_df['52W_HIGH'] * 0.80)) & 
+        (rebalance_df['CLOSE_PRICE'] >= 20.0) &  
         (rebalance_df['AVG_TURNOVER'] >= turnover_param) & 
         (rebalance_df['AVG_DELIV_PER'] >= deliv_param) & 
         (rebalance_df['MASTER_SCORE'].notna())
@@ -231,29 +227,20 @@ def verify_backtest_integrity(df_snaps, df_equity):
     print("Running PMS 5-Point Algorithmic Integrity Check...")
     
     if df_equity.empty or df_snaps.empty:
-        print("Skipping verification - no trades executed.")
         return True
 
     try:
-        # Instruction 1: Capital Conservation (No leverage/bankruptcy)
-        assert df_equity['EQUITY'].min() >= 0, "FATAL: Portfolio equity dropped below zero. Invalid weighting."
-        
-        # Instruction 2: Turnover Boundaries
-        assert df_equity['CHURN'].max() <= 1.0, "FATAL: Monthly churn exceeded 100%. Friction tax calculation error."
+        assert df_equity['EQUITY'].min() >= 0, "FATAL: Portfolio equity dropped below zero."
+        assert df_equity['CHURN'].max() <= 1.0, "FATAL: Monthly churn exceeded 100%."
         assert df_equity['CHURN'].min() >= 0.0, "FATAL: Negative churn detected."
-        
-        # Instruction 3: Regime Compliance 
         max_positions = df_snaps.groupby('DATE')['SYMBOL'].count().max()
         assert max_positions <= 40, f"FATAL: Max position size breached. Counted {max_positions} active."
 
-        # Instruction 4: No Look-Ahead Bias
         df_entries = df_snaps[df_snaps['ACTION'].isin(['ENTRY', 'HOLD'])].copy()
         df_entries['DATE'] = pd.to_datetime(df_entries['DATE'])
         df_entries['ENTRY_DATE'] = pd.to_datetime(df_entries['ENTRY_DATE'])
-        assert (df_entries['ENTRY_DATE'] <= df_entries['DATE']).all(), "FATAL: Look-ahead bias. Entry date occurs after execution date."
-        
-        # Instruction 5: Data Continuity
-        assert not df_equity.isnull().values.any(), "FATAL: Missing values in the equity curve. Calculation break."
+        assert (df_entries['ENTRY_DATE'] <= df_entries['DATE']).all(), "FATAL: Look-ahead bias."
+        assert not df_equity.isnull().values.any(), "FATAL: Missing values in the equity curve."
         
         print("✅ Python PMS Verification Passed. Math is strictly reliable.")
         return True
@@ -262,7 +249,7 @@ def verify_backtest_integrity(df_snaps, df_equity):
         raise SystemExit(1)
 
 # ==========================================
-# MODULE 4: AI HEAVY LIFTER (PMS JUSTIFICATION)
+# MODULE 4: AI HEAVY LIFTER
 # ==========================================
 def ai_portfolio_verifier(df_snaps, df_equity):
     progress_file = "audit_progress.json"
@@ -274,35 +261,32 @@ def ai_portfolio_verifier(df_snaps, df_equity):
         
     api_key = os.environ.get("GEMINI_API_KEY")
     client = genai.Client() if api_key else None
-    if not client: return audit_progress
+    if not client or df_snaps.empty: return audit_progress
 
     latest_date = df_snaps['DATE'].max()
     if latest_date in audit_progress["results"]:
-        return audit_progress # Already audited
+        return audit_progress 
 
     print(f"\nTriggering AI Heavy Lifting for {latest_date} Portfolio Construction...")
     
     latest_transitions = df_snaps[df_snaps['DATE'] == latest_date].copy()
     latest_regime = df_equity.iloc[-1]['REGIME']
     
-    audit_df = latest_transitions[['ACTION', 'SYMBOL', 'SECTOR', 'SCORE', 'PNL']]
+    audit_df = latest_transitions[['ACTION', 'SYMBOL', 'SCORE', 'PNL']]
     
     prompt = f"""
-    DATE: {latest_date}
-    CURRENT MARKET REGIME: {latest_regime}
+    DATE: {latest_date} | MARKET REGIME: {latest_regime}
     
-    You are a Quantitative Portfolio Manager auditing the algorithmic momentum system. 
-    Below is the exact transition matrix executed on {latest_date}. The algorithm selects stocks based on Risk-Adjusted Momentum (SCORE), Technical Guardrails, and the Market Regime limit.
+    You are a Quantitative Portfolio Manager. Below is the transition matrix executed on {latest_date}.
     
     TRANSITIONS:
     {audit_df.to_markdown(index=False)}
     
-    Perform the "Heavy Lifting" verification. Provide a professional, concise PMS justification report explaining:
-    1. Why specific stocks were EXITED (e.g., momentum decay, risk-off regime trigger).
-    2. Why specific stocks were ENTERED (e.g., high risk-adjusted score).
+    Provide a professional PMS justification report explaining:
+    1. Why specific stocks were EXITED.
+    2. Why specific stocks were ENTERED.
     3. Why the HOLDS were maintained.
-    Do not hallucinate external news. Base your reasoning strictly on the SCOREs, PNL, and the {latest_regime} regime limit provided.
-    Output directly in a clean, professional format.
+    Base reasoning strictly on the SCOREs, PNL, and {latest_regime} regime limit. Keep it concise and professional.
     """
     
     try:
@@ -320,114 +304,270 @@ def ai_portfolio_verifier(df_snaps, df_equity):
     return audit_progress
 
 # ==========================================
-# MODULE 5: DUAL PUBLISHER
+# MODULE 5: HTML PUBLISHER (METRICS EXPANDED)
 # ==========================================
-def calculate_global_metrics(df_equity):
-    if df_equity.empty: return {"cagr": "0%", "max_dd": "0%", "sharpe": "0", "sortino": "0", "win_rate": "0%"}
+def generate_static_html(audit_progress, df_snaps, df_equity):
+    print("Generating Interactive HTML Dashboard...")
     
+    if df_equity.empty or df_snaps.empty:
+        print("No data to generate dashboard.")
+        return
+        
     initial_equity = 1000000.0
     final_equity = df_equity['EQUITY'].iloc[-1]
+    total_return_pct = ((final_equity / initial_equity) - 1) * 100
     
     start_date = pd.to_datetime(df_equity['DATE'].iloc[0])
     end_date = pd.to_datetime(df_equity['DATE'].iloc[-1])
     years = (end_date - start_date).days / 365.25
-    if years <= 0: years = 1 
     
-    cagr = (((final_equity / initial_equity) ** (1 / years)) - 1) * 100
+    if years < 1.0:
+        cagr_pct = total_return_pct
+    else:
+        cagr_pct = (((final_equity / initial_equity) ** (1 / years)) - 1) * 100
     
     df_equity['PEAK'] = df_equity['EQUITY'].cummax()
     df_equity['DRAWDOWN'] = (df_equity['EQUITY'] - df_equity['PEAK']) / df_equity['PEAK']
-    max_dd = df_equity['DRAWDOWN'].min() * 100
+    max_dd_pct = df_equity['DRAWDOWN'].min() * 100
     
     win_rate = (df_equity['MOM_RET'] > 0).mean() * 100
-    
     monthly_returns_decimal = df_equity['MOM_RET'] / 100
-    risk_free = 0.07 
+    ann_volatility_pct = monthly_returns_decimal.std() * np.sqrt(12) * 100
     
-    # Sharpe
-    sharpe = ((cagr / 100) - risk_free) / (monthly_returns_decimal.std() * np.sqrt(12)) if monthly_returns_decimal.std() > 0 else 0
+    risk_free_rate = 0.07 
+    if monthly_returns_decimal.std() > 0:
+        sharpe_ratio = ((cagr_pct / 100) - risk_free_rate) / (monthly_returns_decimal.std() * np.sqrt(12))
+    else:
+        sharpe_ratio = 0.0
+        
+    avg_churn_pct = df_equity['CHURN'].mean() * 100
     
-    # Sortino (Professional Downside Metric)
-    downside_returns = monthly_returns_decimal[monthly_returns_decimal < 0]
-    downside_vol = downside_returns.std() * np.sqrt(12)
-    sortino = ((cagr / 100) - risk_free) / downside_vol if downside_vol > 0 else 0
+    chart_dates = df_equity['DATE'].tolist()
+    chart_equity = df_equity['EQUITY'].tolist()
     
-    return {"cagr": f"{cagr:.2f}%", "max_dd": f"{max_dd:.2f}%", "sharpe": f"{sharpe:.2f}", "sortino": f"{sortino:.2f}", "win_rate": f"{win_rate:.1f}%"}
-
-def render_streamlit():
-    st.title("⚡ Momentum Alpha Command Center")
+    active_positions = df_snaps.copy()
+    dashboard_data = {}
+    unique_dates = sorted(active_positions['DATE'].unique(), reverse=True)
     
-    with st.sidebar:
-        st.header("⚙️ Strategy Parameters")
-        ema_param = st.number_input("Trend Filter (EMA)", value=100)
-        deliv_param = st.number_input("Min Delivery %", value=30.0)
-        turnover_param = st.number_input("Min Turnover (Lacs)", value=1000.0)
+    for date in unique_dates:
+        day_df = active_positions[active_positions['DATE'] == date].copy()
+        if day_df.empty: continue
         
-        st.header("🛡️ Sizing & Regime")
-        risk_on = st.slider("Risk-ON Capacity", 5, 40, 20)
-        risk_off = st.slider("Risk-OFF Capacity", 0, 40, 10)
-        friction = st.number_input("Friction Tax per Churn (%)", value=0.5, step=0.1) / 100
+        mom_ret_val = df_equity.loc[df_equity['DATE'] == date, 'MOM_RET'].values
+        mom_val = mom_ret_val[0] if len(mom_ret_val) > 0 and pd.notna(mom_ret_val[0]) else 0.0
         
-        if st.button("🔄 Run Backtest", type="primary"):
-            st.session_state['run'] = True
-
-    with st.spinner("Processing databases & Verifying Integrity..."):
-        raw_df, nifty_df = load_and_adjust_data()
-        df_snaps, df_equity = run_momentum_backtest(raw_df, nifty_df, ema_param, deliv_param, turnover_param, risk_on, risk_off, friction)
+        churn_val = df_equity.loc[df_equity['DATE'] == date, 'CHURN'].values
+        month_churn_val = (churn_val[0] * 100) if len(churn_val) > 0 and pd.notna(churn_val[0]) else 0.0
         
-        verify_backtest_integrity(df_snaps, df_equity)
-        audit_state = ai_portfolio_verifier(df_snaps, df_equity)
-
-    metrics = calculate_global_metrics(df_equity)
-    c1, c2, c3, c4, c5 = st.columns(5)
-    c1.metric("CAGR", metrics['cagr'])
-    c2.metric("Max Drawdown", metrics['max_dd'])
-    c3.metric("Sharpe Ratio", metrics['sharpe'])
-    c4.metric("Sortino Ratio", metrics['sortino'])
-    c5.metric("Win Rate", metrics['win_rate'])
+        regime_val = df_equity.loc[df_equity['DATE'] == date, 'REGIME'].values
+        regime_str = regime_val[0] if len(regime_val) > 0 else "Risk-ON"
+        
+        stocks_list = day_df[['SYMBOL', 'SECTOR', 'ACTION', 'ENTRY_DATE', 'PRICE', 'SCORE', 'DELIV_%', 'PNL']].to_dict('records')
+        ai_audit_text = audit_progress.get("results", {}).get(date, "Historical mathematical backtest completed. (AI Audit skipped to preserve API limits).")
+        
+        dashboard_data[date] = {
+            "portfolio_pnl": f"{mom_val:+.2f}%",
+            "month_churn": f"{month_churn_val:.1f}%",
+            "regime": regime_str,
+            "ai_audit": ai_audit_text,
+            "stocks": stocks_list
+        }
     
-    st.markdown("---")
-    fig = px.line(df_equity, x='DATE', y='EQUITY', title='Verified Equity Growth (₹)')
-    fig.update_layout(plot_bgcolor="rgba(0,0,0,0)", yaxis_title="Portfolio Value")
-    st.plotly_chart(fig, use_container_width=True)
-
-    if not df_snaps.empty:
-        latest_date = df_snaps['DATE'].max()
-        st.subheader(f"📋 Live Portfolio Construction: {latest_date}")
-        regime_status = df_equity.iloc[-1]['REGIME']
-        st.write(f"**Market Breadth Regime:** {regime_status}")
-        
-        latest_port = df_snaps[(df_snaps['DATE'] == latest_date) & (df_snaps['ACTION'].isin(['ENTRY', 'HOLD']))]
-        st.dataframe(latest_port[['SYMBOL', 'SECTOR', 'ACTION', 'ENTRY_DATE', 'PRICE', 'SCORE', 'DELIV_%', 'PNL']], use_container_width=True)
-        
-        if latest_date in audit_state.get("results", {}):
-            with st.expander("🤖 AI PMS Construction Verification", expanded=True):
-                st.write(audit_state["results"][latest_date])
-
-def generate_static_html(audit_progress, df_snaps, df_equity):
-    print("Generating Static Dashboard...")
-    df_snaps.to_csv("backtest_portfolio_history.csv", index=False)
-    metrics = calculate_global_metrics(df_equity)
+    page_data = {
+        "global": {
+            "total_ret": f"{total_return_pct:.2f}%",
+            "cagr": f"{cagr_pct:.2f}%",
+            "max_dd": f"{max_dd_pct:.2f}%",
+            "win_rate": f"{win_rate:.1f}%",
+            "volatility": f"{ann_volatility_pct:.2f}%",
+            "sharpe": f"{sharpe_ratio:.2f}",
+            "avg_churn": f"{avg_churn_pct:.1f}%",
+            "chart_dates": chart_dates,
+            "chart_equity": chart_equity
+        },
+        "monthly": dashboard_data
+    }
+    
+    json_payload = json.dumps(page_data)
     
     html_content = f"""
-    <!DOCTYPE html><html><head><title>Dashboard Rendered</title><style>body{{background:#121212;color:#fff;font-family:sans-serif;padding:40px;}}</style></head>
-    <body><h1>Static Pipeline Successful</h1><p>CAGR: {metrics['cagr']}</p><p>Sharpe: {metrics['sharpe']}</p>
-    <a href="backtest_portfolio_history.csv" style="color:#bb86fc;">Download Trade Ledger</a></body></html>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Momentum Alpha Command Center</title>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <style>
+            :root {{ --bg-primary: #0a0b10; --bg-secondary: #14151c; --accent: #3b82f6; --text-main: #f1f5f9; --text-muted: #94a3b8; --pos: #22c55e; --neg: #ef4444; --border: #1e293b; }}
+            body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg-primary); color: var(--text-main); margin: 0; display: flex; height: 100vh; overflow: hidden; }}
+            .sidebar {{ width: 280px; background: var(--bg-secondary); height: 100vh; overflow-y: auto; padding: 25px 20px; box-sizing: border-box; border-right: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px; }}
+            .sidebar h3 {{ color: var(--text-muted); margin-top: 0; margin-bottom: 15px; text-transform: uppercase; font-size: 12px; border-bottom: 1px solid var(--border); padding-bottom: 10px;}}
+            .btn-overview {{ background: rgba(59, 130, 246, 0.1); color: var(--accent); border: 1px solid var(--accent); padding: 14px 16px; cursor: pointer; text-align: left; border-radius: 8px; font-weight: 700; margin-bottom: 20px; }}
+            .month-btn {{ display: block; width: 100%; background: transparent; color: var(--text-muted); border: 1px solid transparent; padding: 12px 16px; cursor: pointer; text-align: left; border-radius: 8px; font-size: 14px; transition: all 0.2s; }}
+            .month-btn.active {{ background: #1e293b; color: #fff; border-left: 4px solid var(--accent); }}
+            .main-content {{ flex-grow: 1; padding: 40px; overflow-y: auto; box-sizing: border-box; }}
+            .header-row {{ display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 20px; margin-bottom: 30px; }}
+            h1 {{ margin: 0; font-size: 32px; }}
+            .nav-controls {{ display: flex; gap: 12px; }}
+            .nav-btn {{ background: var(--bg-secondary); color: var(--text-main); border: 1px solid var(--border); padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; display: none; }}
+            .nav-btn.show {{ display: flex; }}
+            .nav-btn:disabled {{ opacity: 0.3; cursor: not-allowed; }}
+            .metrics-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; margin-bottom: 40px; }}
+            .metric-card {{ background: var(--bg-secondary); padding: 24px; border-radius: 12px; border: 1px solid var(--border); }}
+            .metric-title {{ font-size: 13px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 12px; }}
+            .metric-value {{ font-size: 36px; font-weight: 800; }}
+            .chart-container {{ background: var(--bg-secondary); padding: 24px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 40px; height: 400px; }}
+            .audit-box {{ background: rgba(59, 130, 246, 0.05); padding: 24px; border-radius: 12px; margin-bottom: 40px; border: 1px solid rgba(59, 130, 246, 0.2); }}
+            pre {{ white-space: pre-wrap; font-size: 15px; color: var(--text-main); margin: 0; line-height: 1.6; }}
+            table {{ width: 100%; border-collapse: collapse; background: var(--bg-secondary); border-radius: 12px; overflow: hidden; }}
+            th, td {{ padding: 16px 20px; text-align: left; border-bottom: 1px solid var(--border); font-size: 14px; }}
+            th {{ background: #181a25; color: var(--text-muted); text-transform: uppercase; font-size: 12px; }}
+            .pos {{ color: var(--pos); }}
+            .neg {{ color: var(--neg); }}
+            .hidden {{ display: none !important; }}
+            .badge-hold {{ background: rgba(255,255,255,0.1); color: #fff; padding: 3px 8px; border-radius: 8px; font-size: 11px; }}
+            .badge-entry {{ background: rgba(34, 197, 94, 0.2); color: var(--pos); padding: 3px 8px; border-radius: 8px; font-size: 11px; }}
+            .badge-exit {{ background: rgba(239, 68, 68, 0.2); color: var(--neg); padding: 3px 8px; border-radius: 8px; font-size: 11px; }}
+        </style>
+    </head>
+    <body>
+        <div class="sidebar" id="sidebar">
+            <button class="btn-overview" onclick="showOverview()">📊 Global Overview</button>
+            <h3>Monthly Timeline</h3>
+        </div>
+        
+        <div class="main-content">
+            <div class="header-row">
+                <h1 id="page-title">Performance Overview</h1>
+                <div class="nav-controls" id="nav-controls">
+                    <button class="nav-btn" id="prev-btn" onclick="goPrev()">⬅ Older</button>
+                    <button class="nav-btn" id="next-btn" onclick="goNext()">Newer ➡</button>
+                </div>
+            </div>
+            
+            <div id="overview-view">
+                <div class="metrics-grid">
+                    <div class="metric-card"><div class="metric-title">Total Return</div><div class="metric-value pos" id="g-total">--</div></div>
+                    <div class="metric-card"><div class="metric-title">CAGR</div><div class="metric-value pos" id="g-cagr">--</div></div>
+                    <div class="metric-card"><div class="metric-title">Max Drawdown</div><div class="metric-value neg" id="g-dd">--</div></div>
+                    <div class="metric-card"><div class="metric-title">Sharpe Ratio</div><div class="metric-value" id="g-sharpe" style="color: #c084fc;">--</div></div>
+                    <div class="metric-card"><div class="metric-title">Avg Monthly Churn</div><div class="metric-value" id="g-churn">--</div></div>
+                </div>
+                <div class="chart-container"><canvas id="equityChart"></canvas></div>
+            </div>
+
+            <div id="monthly-view" class="hidden">
+                <div class="metrics-grid">
+                    <div class="metric-card"><div class="metric-title">Market Regime Limit</div><div class="metric-value" id="port-regime">--</div></div>
+                    <div class="metric-card"><div class="metric-title">Month-Over-Month Return</div><div class="metric-value" id="port-pnl">--</div></div>
+                    <div class="metric-card"><div class="metric-title">Monthly Churn</div><div class="metric-value" id="port-churn">--</div></div>
+                </div>
+                <div class="audit-box">
+                    <div class="metric-title" style="color: var(--accent);">AI Heavy-Lifting Verification Report</div>
+                    <pre id="ai-audit">Loading...</pre>
+                </div>
+                <div class="metric-title" style="margin-bottom: 16px;">Transition Matrix</div>
+                <table>
+                    <thead><tr><th>Action</th><th>Symbol</th><th>Entry Date</th><th>Exit Date</th><th>Score</th><th>Deliv %</th><th>Cum. PNL</th></tr></thead>
+                    <tbody id="table-body"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <script>
+            const fullData = {json_payload};
+            const global = fullData.global;
+            const monthly = fullData.monthly;
+            const dates = Object.keys(monthly); 
+            let currentIndex = 0; let myChart = null;
+
+            function showOverview() {{
+                document.getElementById('overview-view').classList.remove('hidden');
+                document.getElementById('monthly-view').classList.add('hidden');
+                document.getElementById('page-title').innerText = "Performance Overview";
+                document.getElementById('prev-btn').classList.remove('show'); document.getElementById('next-btn').classList.remove('show');
+                document.querySelectorAll('.month-btn').forEach(btn => btn.classList.remove('active'));
+
+                document.getElementById('g-total').innerText = global.total_ret;
+                document.getElementById('g-cagr').innerText = global.cagr;
+                document.getElementById('g-dd').innerText = global.max_dd;
+                document.getElementById('g-sharpe').innerText = global.sharpe;
+                document.getElementById('g-churn').innerText = global.avg_churn;
+
+                if(myChart) myChart.destroy();
+                const ctx = document.getElementById('equityChart').getContext('2d');
+                myChart = new Chart(ctx, {{
+                    type: 'line', data: {{ labels: global.chart_dates, datasets: [{{ label: 'Equity Growth', data: global.chart_equity, borderColor: '#3b82f6', borderWidth: 2, pointRadius: 0 }}] }},
+                    options: {{ responsive: true, maintainAspectRatio: false, plugins: {{ legend: {{ display: false }} }}, scales: {{ x: {{ grid: {{ display: false }} }} }} }}
+                }});
+            }}
+            
+            function showMonth(date) {{
+                currentIndex = dates.indexOf(date);
+                document.getElementById('overview-view').classList.add('hidden');
+                document.getElementById('monthly-view').classList.remove('hidden');
+                document.getElementById('page-title').innerText = "Snapshot: " + date;
+                document.getElementById('prev-btn').classList.add('show'); document.getElementById('next-btn').classList.add('show');
+                document.getElementById('prev-btn').disabled = (currentIndex >= dates.length - 1);
+                document.getElementById('next-btn').disabled = (currentIndex <= 0);
+                document.querySelectorAll('.month-btn').forEach(btn => btn.classList.remove('active'));
+                const activeBtn = document.getElementById('btn-' + date); if(activeBtn) activeBtn.classList.add('active');
+
+                const data = monthly[date];
+                document.getElementById('port-pnl').innerText = data.portfolio_pnl;
+                document.getElementById('port-pnl').className = "metric-value " + (data.portfolio_pnl.includes('-') ? 'neg' : 'pos');
+                document.getElementById('port-regime').innerText = data.regime;
+                document.getElementById('port-churn').innerText = data.month_churn;
+                document.getElementById('ai-audit').innerText = data.ai_audit;
+
+                let rowsHtml = '';
+                data.stocks.forEach(stock => {{
+                    let badgeClass = stock.ACTION === 'ENTRY' ? 'badge-entry' : (stock.ACTION === 'EXIT' ? 'badge-exit' : 'badge-hold');
+                    let exitDate = stock.ACTION === 'EXIT' ? date : 'Active';
+                    let pnlDisplay = stock.PNL;
+                    let pnlClass = stock.PNL === 'NEW' ? '' : (stock.PNL.includes('-') ? 'neg' : 'pos');
+
+                    rowsHtml += `<tr>
+                        <td><span class="${{badgeClass}}">${{stock.ACTION}}</span></td>
+                        <td style="font-weight: 700; color: #fff;">${{stock.SYMBOL}}</td>
+                        <td>${{stock.ENTRY_DATE}}</td>
+                        <td>${{exitDate}}</td>
+                        <td>${{parseFloat(stock.SCORE).toFixed(2)}}</td>
+                        <td>${{stock['DELIV_%']}}</td>
+                        <td class="${{pnlClass}}" style="font-weight: 700;">${{pnlDisplay}}</td>
+                    </tr>`;
+                }});
+                document.getElementById('table-body').innerHTML = rowsHtml;
+            }}
+
+            function goPrev() {{ if (currentIndex < dates.length - 1) showMonth(dates[currentIndex + 1]); }}
+            function goNext() {{ if (currentIndex > 0) showMonth(dates[currentIndex - 1]); }}
+
+            const sidebar = document.getElementById('sidebar');
+            dates.forEach(date => {{
+                const btn = document.createElement('button'); btn.className = 'month-btn'; btn.id = 'btn-' + date; btn.innerText = date; btn.onclick = () => showMonth(date);
+                sidebar.appendChild(btn);
+            }});
+
+            showOverview();
+        </script>
+    </body>
+    </html>
     """
+    df_snaps.to_csv("backtest_portfolio_history.csv", index=False)
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(html_content)
+    print("✅ Dashboard complete. Check index.html!")
 
 # ==========================================
 # EXECUTION ROUTER
 # ==========================================
 if __name__ == "__main__":
-    if runtime.exists():
-        render_streamlit()
-    else:
-        print("🚀 Running in Bare Python Mode (GitHub Actions).")
-        raw_df, nifty_df = load_and_adjust_data()
-        df_snaps, df_equity = run_momentum_backtest(raw_df, nifty_df)
-        verify_backtest_integrity(df_snaps, df_equity)
-        audit_state = ai_portfolio_verifier(df_snaps, df_equity)
-        generate_static_html(audit_state, df_snaps, df_equity)
-        print("✅ Pipeline Complete.")
+    print("🚀 Running PMS Command Center Pipeline.")
+    raw_df, nifty_df = load_and_adjust_data()
+    df_snaps, df_equity = run_momentum_backtest(raw_df, nifty_df)
+    verify_backtest_integrity(df_snaps, df_equity)
+    audit_state = ai_portfolio_verifier(df_snaps, df_equity)
+    generate_static_html(audit_state, df_snaps, df_equity)
+    print("🏁 Pipeline Successfully Terminated.")
