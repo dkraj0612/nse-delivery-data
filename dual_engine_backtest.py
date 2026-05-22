@@ -1,9 +1,9 @@
 """
-dual_engine_backtest.py - FAST AI (LATEST MONTH ONLY) WITH DASHBOARD PRESERVATION
+dual_engine_backtest.py - INTERACTIVE DASHBOARD EDITION
 ==========================================================
 1. BACKTEST ENGINE: Fast math for 100 EMA, 30% Delivery.
-2. AI AUDITOR: Audits ONLY the latest month, but PRESERVES the historical dashboard.
-3. GITHUB PUBLISHER: Generates 'index.html' and 'history.html'.
+2. AI AUDITOR: Audits ONLY the latest month, saving to JSON history.
+3. GITHUB PUBLISHER: Generates an interactive, clickable HTML dashboard.
 """
 import os
 import glob
@@ -164,7 +164,6 @@ def run_pure_momentum_backtest(df):
 def run_single_latest_audit(portfolio_df):
     print("\nTriggering Single AI Audit for the Latest Portfolio...")
     
-    # 1. LOAD THE EXISTING DASHBOARD HISTORY SO IT DOES NOT GET DELETED
     progress_file = "audit_progress.json"
     if os.path.exists(progress_file):
         with open(progress_file, "r") as f:
@@ -182,7 +181,6 @@ def run_single_latest_audit(portfolio_df):
         print("No GEMINI_API_KEY found. Skipping AI Audit.")
         return audit_progress
 
-    # 2. ISOLATE ONLY THE LATEST MONTH
     latest_date = portfolio_df['DATE'].max()
     latest_portfolio = portfolio_df[(portfolio_df['DATE'] == latest_date) & (portfolio_df['ACTION'].isin(['ENTRY', 'HOLD']))]
     
@@ -205,7 +203,6 @@ def run_single_latest_audit(portfolio_df):
     Keep it brief. If clean, output: "✓ No major historical anomalies detected as of {latest_date}."
     """
     
-    # 3. RUN THE AI AND APPEND TO THE DASHBOARD HISTORY
     try:
         with concurrent.futures.ThreadPoolExecutor() as executor:
             future = executor.submit(client.models.generate_content, model='gemini-2.5-flash', contents=prompt)
@@ -223,70 +220,179 @@ def run_single_latest_audit(portfolio_df):
     return audit_progress
 
 # ==========================================
-# 4. GITHUB PAGES HTML PUBLISHER
+# 4. GITHUB PAGES INTERACTIVE DASHBOARD PUBLISHER
 # ==========================================
-def generate_dashboards(audit_progress):
-    print("Generating HTML Dashboards for GitHub Pages...")
+def generate_dashboards(audit_progress, df_snaps):
+    print("Generating Interactive HTML Dashboard...")
     
-    html_timeline = """
+    # 1. Prepare Data for the Dashboard
+    active_positions = df_snaps[df_snaps['ACTION'].isin(['ENTRY', 'HOLD'])].copy()
+    
+    def pnl_to_float(pnl_str):
+        if str(pnl_str) == "NEW" or pd.isna(pnl_str): return 0.0
+        try:
+            return float(str(pnl_str).replace('%', '').replace('+', ''))
+        except:
+            return 0.0
+
+    active_positions['PNL_FLOAT'] = active_positions['PNL'].apply(pnl_to_float)
+    
+    dashboard_data = {}
+    unique_dates = sorted(active_positions['DATE'].unique(), reverse=True)
+    
+    for date in unique_dates:
+        day_df = active_positions[active_positions['DATE'] == date].copy()
+        if day_df.empty: continue
+        
+        # Calculate Equal-Weight Cumulative Portfolio Open PNL
+        avg_pnl = day_df['PNL_FLOAT'].mean()
+        port_pnl_str = f"{avg_pnl:+.2f}%"
+        
+        stocks_list = day_df[['SYMBOL', 'SECTOR', 'ENTRY_DATE', 'PRICE', 'DELIV_%', 'PNL']].to_dict('records')
+        ai_audit_text = audit_progress.get("results", {}).get(date, "Historical mathematical backtest completed. (AI Audit skipped to preserve rate limits).")
+        
+        dashboard_data[date] = {
+            "portfolio_pnl": port_pnl_str,
+            "ai_audit": ai_audit_text,
+            "stocks": stocks_list
+        }
+    
+    # 2. Inject Data into HTML Template
+    json_payload = json.dumps(dashboard_data)
+    
+    html_content = f"""
     <!DOCTYPE html>
-    <html>
+    <html lang="en">
     <head>
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>AI Forensic Timeline</title>
+        <title>Momentum AI Portfolio Dashboard</title>
         <style>
-            body { font-family: -apple-system, sans-serif; background: #121212; color: #e0e0e0; padding: 20px; }
-            .header { text-align: center; margin-bottom: 30px; }
-            .btn { background: #bb86fc; color: #121212; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;}
-            .card { background: #1e1e1e; border-left: 4px solid #bb86fc; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
-            .date { font-size: 18px; font-weight: bold; color: #fff; margin-bottom: 10px; }
-            pre { white-space: pre-wrap; font-family: inherit; font-size: 14px; color: #ccc; }
+            body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #121212; color: #e0e0e0; margin: 0; display: flex; height: 100vh; overflow: hidden; }}
+            .sidebar {{ width: 250px; background: #1e1e1e; height: 100vh; overflow-y: auto; padding: 20px; box-sizing: border-box; border-right: 1px solid #333; }}
+            .sidebar h3 {{ color: #bb86fc; margin-top: 0; text-transform: uppercase; font-size: 14px; letter-spacing: 1px;}}
+            .month-btn {{ display: block; width: 100%; background: transparent; color: #aaa; border: 1px solid #333; padding: 12px; margin-bottom: 8px; cursor: pointer; text-align: left; border-radius: 6px; font-size: 14px; transition: all 0.2s; }}
+            .month-btn:hover {{ background: #2a2a2a; color: #fff; }}
+            .month-btn.active {{ background: #bb86fc; color: #121212; font-weight: bold; border-color: #bb86fc; }}
+            .main-content {{ flex-grow: 1; padding: 40px; overflow-y: auto; box-sizing: border-box; background: #121212; }}
+            h1 {{ margin-top: 0; color: #fff; font-size: 28px; border-bottom: 2px solid #333; padding-bottom: 15px; margin-bottom: 30px; }}
+            .cards-container {{ display: flex; gap: 20px; margin-bottom: 30px; flex-wrap: wrap; }}
+            .metric-card {{ background: #1e1e1e; padding: 20px; border-radius: 8px; border-left: 4px solid #bb86fc; flex: 1; min-width: 250px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }}
+            .metric-title {{ font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }}
+            .metric-value {{ font-size: 36px; font-weight: bold; }}
+            .pos-pnl {{ color: #4caf50; }}
+            .neg-pnl {{ color: #ff5252; }}
+            .audit-box {{ background: #1e1e1e; padding: 20px; border-radius: 8px; margin-bottom: 30px; border: 1px solid #333; }}
+            pre {{ white-space: pre-wrap; font-family: inherit; font-size: 15px; color: #ccc; margin: 0; line-height: 1.5; }}
+            table {{ width: 100%; border-collapse: collapse; background: #1e1e1e; border-radius: 8px; overflow: hidden; }}
+            th, td {{ padding: 15px; text-align: left; border-bottom: 1px solid #2a2a2a; font-size: 14px; }}
+            th {{ background: #2a2a2a; color: #bb86fc; font-weight: 600; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; }}
+            tr:last-child td {{ border-bottom: none; }}
+            tr:hover {{ background: #252525; }}
+            .new-badge {{ background: #bb86fc; color: #121212; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: bold; }}
         </style>
     </head>
     <body>
-        <div class="header">
-            <h1>Momentum AI Audit Timeline</h1>
-            <a href="history.html" class="btn">View Detailed Trade Ledger</a>
+        <div class="sidebar" id="sidebar">
+            <h3>Timeline</h3>
+            </div>
+        
+        <div class="main-content">
+            <h1 id="month-title">Loading...</h1>
+            
+            <div class="cards-container">
+                <div class="metric-card">
+                    <div class="metric-title">Cumulative Open Portfolio Return</div>
+                    <div class="metric-value" id="port-pnl">--</div>
+                </div>
+            </div>
+
+            <div class="audit-box">
+                <div class="metric-title">AI Forensic Governance Audit</div>
+                <pre id="ai-audit">Loading...</pre>
+            </div>
+
+            <div class="metric-title" style="margin-bottom: 15px;">Active Holdings for Month</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Sector</th>
+                        <th>Entry Date</th>
+                        <th>Current Price</th>
+                        <th>Deliv %</th>
+                        <th>Cumulative PNL</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    </tbody>
+            </table>
         </div>
-        <div style="max-width: 800px; margin: auto;">
+
+        <script>
+            const data = {json_payload};
+            const dates = Object.keys(data);
+            
+            function renderMonth(date) {{
+                document.querySelectorAll('.month-btn').forEach(btn => btn.classList.remove('active'));
+                document.getElementById('btn-' + date).classList.add('active');
+
+                const monthData = data[date];
+                document.getElementById('month-title').innerText = "Portfolio Snapshot: " + date;
+                
+                const pnlElement = document.getElementById('port-pnl');
+                pnlElement.innerText = monthData.portfolio_pnl;
+                pnlElement.className = "metric-value " + (monthData.portfolio_pnl.includes('-') ? 'neg-pnl' : 'pos-pnl');
+                
+                document.getElementById('ai-audit').innerText = monthData.ai_audit;
+
+                let rowsHtml = '';
+                monthData.stocks.forEach(stock => {{
+                    let pnlDisplay = stock.PNL;
+                    let pnlClass = '';
+                    
+                    if (stock.PNL === 'NEW') {{
+                        pnlDisplay = '<span class="new-badge">NEW</span>';
+                    }} else if (stock.PNL.includes('-')) {{
+                        pnlClass = 'neg-pnl';
+                    }} else {{
+                        pnlClass = 'pos-pnl';
+                    }}
+
+                    rowsHtml += `<tr>
+                        <td style="font-weight: bold; color: #fff;">${{stock.SYMBOL}}</td>
+                        <td style="color: #aaa;">${{stock.SECTOR}}</td>
+                        <td>${{stock.ENTRY_DATE}}</td>
+                        <td>₹${{parseFloat(stock.PRICE).toFixed(2)}}</td>
+                        <td>${{stock['DELIV_%']}}</td>
+                        <td class="${{pnlClass}}" style="font-weight: bold;">${{pnlDisplay}}</td>
+                    </tr>`;
+                }});
+                document.getElementById('table-body').innerHTML = rowsHtml;
+            }}
+
+            const sidebar = document.getElementById('sidebar');
+            dates.forEach(date => {{
+                const btn = document.createElement('button');
+                btn.className = 'month-btn';
+                btn.id = 'btn-' + date;
+                btn.innerText = date;
+                btn.onclick = () => renderMonth(date);
+                sidebar.appendChild(btn);
+            }});
+
+            if (dates.length > 0) {{
+                renderMonth(dates[0]);
+            }}
+        </script>
+    </body>
+    </html>
     """
     
-    for date in sorted(audit_progress.get("results", {}).keys(), reverse=True):
-        report = audit_progress["results"][date]
-        b_color = "#ff5252" if "warning" in report.lower() or "anomaly" in report.lower() else "#4caf50"
-        html_timeline += f"<div class='card' style='border-left-color: {b_color};'><div class='date'>{date}</div><pre>{report}</pre></div>"
-        
-    html_timeline += "</div></body></html>"
     with open("index.html", "w", encoding="utf-8") as f:
-        f.write(html_timeline)
-
-    if os.path.exists("backtest_portfolio_history.csv"):
-        df = pd.read_csv("backtest_portfolio_history.csv")
-        table_html = df.to_html(index=False, classes='trade-table')
+        f.write(html_content)
         
-        html_history = f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>Trade Ledger</title>
-            <style>
-                body {{ background: #121212; color: #fff; font-family: sans-serif; padding: 20px; }}
-                a {{ color: #bb86fc; text-decoration: none; font-size: 18px; margin-bottom: 20px; display: inline-block; }}
-                .trade-table {{ width: 100%; border-collapse: collapse; font-size: 12px; text-align: left; }}
-                th, td {{ padding: 8px; border-bottom: 1px solid #333; }}
-                th {{ background: #1e1e1e; color: #bb86fc; }}
-                tr:hover {{ background: #1a1a1a; }}
-            </style>
-        </head>
-        <body>
-            <a href="index.html">⬅ Back to AI Audit</a>
-            <h2>Complete Historical Trade Ledger</h2>
-            {table_html}
-        </body>
-        </html>
-        """
-        with open("history.html", "w", encoding="utf-8") as f:
-            f.write(html_history)
+    print("Dashboard complete. Check index.html!")
 
 if __name__ == "__main__":
     DATA_PATH = "./HistoricalBhavCopy/NSE"
@@ -298,7 +404,8 @@ if __name__ == "__main__":
         
         audit_state = run_single_latest_audit(portfolio_history_df)
         
-        generate_dashboards(audit_state)
+        # WE NOW PASS BOTH THE DATA AND THE AI AUDIT TO THE GENERATOR
+        generate_dashboards(audit_state, portfolio_history_df)
         print("\nProcess Complete.")
         
     except Exception as e:
