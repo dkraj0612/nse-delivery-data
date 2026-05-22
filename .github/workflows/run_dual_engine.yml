@@ -24,15 +24,14 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pandas numpy yfinance plotly streamlit google-genai
+          pip install pandas numpy plotly streamlit google-genai
 
-      - name: Run Engine
+      - name: Run Quantitative Engine
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           PYTHONUNBUFFERED: 1 
         run: |
-          # Note: In a Streamlit architecture, this action is mostly for testing if the script compiles.
-          # To view the actual interactive UI, deploy the repo via Streamlit Community Cloud.
+          # Runs in "Bare Python Mode" to generate the static HTML dashboard & CSVs
           python dual_engine_backtest.py
 
       - name: Commit and push changes
@@ -40,6 +39,6 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add -A
-          git commit -m "Automated update: Architecture dependencies" || echo "No changes to commit"
+          git add index.html history.html backtest_portfolio_history.csv audit_progress.json || echo "No files generated"
+          git commit -m "Automated AI Audit & Portfolio Update" || echo "No changes to commit"
           git push
