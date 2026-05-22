@@ -1,14 +1,17 @@
 """
-dual_engine_backtest.py - SINGLE AUDIT WITH DELIVERY PERCENTAGE & 100 EMA
+dual_engine_backtest.py - FAST AI (LATEST MONTH ONLY) WITH DASHBOARD PRESERVATION
 ==========================================================
-1. BACKTEST ENGINE: Adjusts splits, calculates momentum, applies 100 EMA, 52W High, Turnover, and Delivery % guardrails.
-2. AI AUDITOR: Makes ONE single API call for the latest portfolio to guarantee speed.
+1. BACKTEST ENGINE: Fast math for 100 EMA, 30% Delivery.
+2. AI AUDITOR: Audits ONLY the latest month, but PRESERVES the historical dashboard.
 3. GITHUB PUBLISHER: Generates 'index.html' and 'history.html'.
 """
 import os
 import glob
+import json
+import time
 import pandas as pd
 import numpy as np
+import concurrent.futures
 from google import genai
 
 # ==========================================
@@ -39,7 +42,6 @@ def load_and_adjust_data(folder_path, sector_map_path):
     master_df['CLOSE_PRICE'] = pd.to_numeric(master_df['CLOSE_PRICE'], errors='coerce')
     master_df['TURNOVER_LACS'] = pd.to_numeric(master_df['TURNOVER_LACS'], errors='coerce')
     
-    # Clean delivery percentage (handle any weird string formats like '45.5%')
     master_df['DELIV_PER'] = master_df['DELIV_PER'].astype(str).str.replace('%', '', regex=False)
     master_df['DELIV_PER'] = pd.to_numeric(master_df['DELIV_PER'], errors='coerce')
     
@@ -71,11 +73,9 @@ def run_pure_momentum_backtest(df):
     df['P_13M'] = df.groupby('SYMBOL')['CLOSE_PRICE'].shift(273) 
     df['PRICE_MOMENTUM'] = (((df['P_1M'] - df['P_13M']) / df['P_13M']) * 2) + ((df['P_1M'] - df['P_7M']) / df['P_7M'])
     
-    # CHANGED TO 100 EMA
     df['EMA_100'] = df.groupby('SYMBOL')['CLOSE_PRICE'].transform(lambda x: x.ewm(span=100, adjust=False).mean())
     df['52W_HIGH'] = df.groupby('SYMBOL')['CLOSE_PRICE'].transform(lambda x: x.rolling(252).max())
     
-    # 20-Day Rolling Averages for Volume/Conviction Guardrails
     df['AVG_TURNOVER'] = df.groupby('SYMBOL')['TURNOVER_LACS'].transform(lambda x: x.rolling(20).mean())
     df['AVG_DELIV_PER'] = df.groupby('SYMBOL')['DELIV_PER'].transform(lambda x: x.rolling(20).mean())
     
@@ -84,7 +84,6 @@ def run_pure_momentum_backtest(df):
     rebalance_df = df[df['DATE'].isin(month_ends['DATE'])].copy()
     rebalance_df['MASTER_SCORE'] = rebalance_df['PRICE_MOMENTUM'] * 100
     
-    # Guardrails: 100 EMA, 80% of 52W High, 1000L Turnover, 30% Delivery
     valid_pool = rebalance_df[
         (rebalance_df['CLOSE_PRICE'] >= rebalance_df['EMA_100']) & 
         (rebalance_df['CLOSE_PRICE'] >= (rebalance_df['52W_HIGH'] * 0.80)) & 
@@ -160,12 +159,22 @@ def run_pure_momentum_backtest(df):
     return df_snaps
 
 # ==========================================
-# 3. SINGLE AI AUDIT (LATEST PORTFOLIO ONLY)
+# 3. FAST AI AUDIT (LATEST DATA ONLY, SAVES HISTORY)
 # ==========================================
 def run_single_latest_audit(portfolio_df):
     print("\nTriggering Single AI Audit for the Latest Portfolio...")
-    audit_progress = {"results": {}}
     
+    # 1. LOAD THE EXISTING DASHBOARD HISTORY SO IT DOES NOT GET DELETED
+    progress_file = "audit_progress.json"
+    if os.path.exists(progress_file):
+        with open(progress_file, "r") as f:
+            try:
+                audit_progress = json.load(f)
+            except json.JSONDecodeError:
+                audit_progress = {"results": {}}
+    else:
+        audit_progress = {"results": {}}
+        
     api_key = os.environ.get("GEMINI_API_KEY")
     client = genai.Client() if api_key else None
     
@@ -173,7 +182,7 @@ def run_single_latest_audit(portfolio_df):
         print("No GEMINI_API_KEY found. Skipping AI Audit.")
         return audit_progress
 
-    # Get the single most recent date in the backtest
+    # 2. ISOLATE ONLY THE LATEST MONTH
     latest_date = portfolio_df['DATE'].max()
     latest_portfolio = portfolio_df[(portfolio_df['DATE'] == latest_date) & (portfolio_df['ACTION'].isin(['ENTRY', 'HOLD']))]
     
@@ -196,13 +205,20 @@ def run_single_latest_audit(portfolio_df):
     Keep it brief. If clean, output: "✓ No major historical anomalies detected as of {latest_date}."
     """
     
+    # 3. RUN THE AI AND APPEND TO THE DASHBOARD HISTORY
     try:
-        resp = client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            future = executor.submit(client.models.generate_content, model='gemini-2.5-flash', contents=prompt)
+            resp = future.result(timeout=30) 
+            
         audit_progress["results"][latest_date] = resp.text
-        print(f"  -> [SUCCESS] Audit logged for {latest_date}.")
+        
+        with open(progress_file, "w") as f:
+            json.dump(audit_progress, f, indent=4)
+            
+        print(f"  -> [SUCCESS] Audit logged for {latest_date}. Dashboard preserved.")
     except Exception as e:
         print(f"  -> [FATAL ERROR] API Failed: {e}")
-        audit_progress["results"][latest_date] = f"Audit failed: {e}"
 
     return audit_progress
 
