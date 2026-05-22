@@ -29,15 +29,16 @@ jobs:
       - name: Run Forensic Backtest & Audit
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          PYTHONUNBUFFERED: 1 # Forces instant log printing to the console
+          PYTHONUNBUFFERED: 1 
         run: |
           python dual_engine_backtest.py
 
       - name: Commit and push changes
-        if: always() # Forces saving even if you manually cancel it
+        if: always() 
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add index.html history.html audit_progress.json backtest_portfolio_history.csv
-          git commit -m "Automated update: AI Audit Ledger & State [skip ci]" || echo "No changes to commit"
+          git add index.html history.html backtest_portfolio_history.csv
+          # REMOVED [skip ci] so GitHub Pages actually updates!
+          git commit -m "Automated update: AI Audit Ledger & State" || echo "No changes to commit"
           git push
