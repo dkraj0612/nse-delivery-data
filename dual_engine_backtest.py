@@ -1,9 +1,9 @@
 """
-dual_engine_backtest.py - INTERACTIVE DASHBOARD EDITION
+dual_engine_backtest.py - PREMIUM UI EDITION
 ==========================================================
 1. BACKTEST ENGINE: Fast math for 100 EMA, 30% Delivery.
 2. AI AUDITOR: Audits ONLY the latest month, saving to JSON history.
-3. GITHUB PUBLISHER: Generates an interactive, clickable HTML dashboard.
+3. GITHUB PUBLISHER: Generates a premium interactive HTML dashboard with pagination.
 """
 import os
 import glob
@@ -220,12 +220,11 @@ def run_single_latest_audit(portfolio_df):
     return audit_progress
 
 # ==========================================
-# 4. GITHUB PAGES INTERACTIVE DASHBOARD PUBLISHER
+# 4. PREMIUM UI DASHBOARD PUBLISHER
 # ==========================================
 def generate_dashboards(audit_progress, df_snaps):
     print("Generating Interactive HTML Dashboard...")
     
-    # 1. Prepare Data for the Dashboard
     active_positions = df_snaps[df_snaps['ACTION'].isin(['ENTRY', 'HOLD'])].copy()
     
     def pnl_to_float(pnl_str):
@@ -244,7 +243,6 @@ def generate_dashboards(audit_progress, df_snaps):
         day_df = active_positions[active_positions['DATE'] == date].copy()
         if day_df.empty: continue
         
-        # Calculate Equal-Weight Cumulative Portfolio Open PNL
         avg_pnl = day_df['PNL_FLOAT'].mean()
         port_pnl_str = f"{avg_pnl:+.2f}%"
         
@@ -257,7 +255,6 @@ def generate_dashboards(audit_progress, df_snaps):
             "stocks": stocks_list
         }
     
-    # 2. Inject Data into HTML Template
     json_payload = json.dumps(dashboard_data)
     
     html_content = f"""
@@ -268,28 +265,59 @@ def generate_dashboards(audit_progress, df_snaps):
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Momentum AI Portfolio Dashboard</title>
         <style>
-            body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #121212; color: #e0e0e0; margin: 0; display: flex; height: 100vh; overflow: hidden; }}
-            .sidebar {{ width: 250px; background: #1e1e1e; height: 100vh; overflow-y: auto; padding: 20px; box-sizing: border-box; border-right: 1px solid #333; }}
-            .sidebar h3 {{ color: #bb86fc; margin-top: 0; text-transform: uppercase; font-size: 14px; letter-spacing: 1px;}}
-            .month-btn {{ display: block; width: 100%; background: transparent; color: #aaa; border: 1px solid #333; padding: 12px; margin-bottom: 8px; cursor: pointer; text-align: left; border-radius: 6px; font-size: 14px; transition: all 0.2s; }}
-            .month-btn:hover {{ background: #2a2a2a; color: #fff; }}
-            .month-btn.active {{ background: #bb86fc; color: #121212; font-weight: bold; border-color: #bb86fc; }}
-            .main-content {{ flex-grow: 1; padding: 40px; overflow-y: auto; box-sizing: border-box; background: #121212; }}
-            h1 {{ margin-top: 0; color: #fff; font-size: 28px; border-bottom: 2px solid #333; padding-bottom: 15px; margin-bottom: 30px; }}
-            .cards-container {{ display: flex; gap: 20px; margin-bottom: 30px; flex-wrap: wrap; }}
-            .metric-card {{ background: #1e1e1e; padding: 20px; border-radius: 8px; border-left: 4px solid #bb86fc; flex: 1; min-width: 250px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }}
-            .metric-title {{ font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }}
-            .metric-value {{ font-size: 36px; font-weight: bold; }}
-            .pos-pnl {{ color: #4caf50; }}
-            .neg-pnl {{ color: #ff5252; }}
-            .audit-box {{ background: #1e1e1e; padding: 20px; border-radius: 8px; margin-bottom: 30px; border: 1px solid #333; }}
-            pre {{ white-space: pre-wrap; font-family: inherit; font-size: 15px; color: #ccc; margin: 0; line-height: 1.5; }}
-            table {{ width: 100%; border-collapse: collapse; background: #1e1e1e; border-radius: 8px; overflow: hidden; }}
-            th, td {{ padding: 15px; text-align: left; border-bottom: 1px solid #2a2a2a; font-size: 14px; }}
-            th {{ background: #2a2a2a; color: #bb86fc; font-weight: 600; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; }}
+            :root {{
+                --bg-primary: #0d0e12;
+                --bg-secondary: #1a1c23;
+                --accent: #bb86fc;
+                --accent-hover: #9a67ea;
+                --text-main: #ffffff;
+                --text-muted: #a0a4b8;
+                --pos: #4ade80;
+                --neg: #f87171;
+                --border: #2d303e;
+            }}
+            body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: var(--bg-primary); color: var(--text-main); margin: 0; display: flex; height: 100vh; overflow: hidden; }}
+            
+            /* Sidebar styling */
+            .sidebar {{ width: 260px; background: var(--bg-secondary); height: 100vh; overflow-y: auto; padding: 25px 20px; box-sizing: border-box; border-right: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px; }}
+            .sidebar h3 {{ color: var(--text-muted); margin-top: 0; margin-bottom: 15px; text-transform: uppercase; font-size: 13px; letter-spacing: 1.5px; font-weight: 600;}}
+            .month-btn {{ display: block; width: 100%; background: transparent; color: var(--text-muted); border: 1px solid transparent; padding: 12px 16px; cursor: pointer; text-align: left; border-radius: 8px; font-size: 14px; font-weight: 500; transition: all 0.2s ease; }}
+            .month-btn:hover {{ background: rgba(187, 134, 252, 0.1); color: var(--accent); }}
+            .month-btn.active {{ background: var(--accent); color: #000; font-weight: 700; box-shadow: 0 4px 12px rgba(187, 134, 252, 0.3); }}
+            
+            /* Main content area */
+            .main-content {{ flex-grow: 1; padding: 40px; overflow-y: auto; box-sizing: border-box; }}
+            
+            /* Header & Navigation Buttons */
+            .header-row {{ display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 20px; margin-bottom: 30px; }}
+            h1 {{ margin: 0; font-size: 28px; font-weight: 700; }}
+            .nav-controls {{ display: flex; gap: 12px; }}
+            .nav-btn {{ background: var(--bg-secondary); color: var(--text-main); border: 1px solid var(--border); padding: 10px 18px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 14px; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }}
+            .nav-btn:hover:not(:disabled) {{ background: var(--accent); color: #000; border-color: var(--accent); }}
+            .nav-btn:disabled {{ opacity: 0.4; cursor: not-allowed; }}
+
+            /* Cards */
+            .cards-container {{ display: flex; gap: 24px; margin-bottom: 30px; }}
+            .metric-card {{ background: var(--bg-secondary); padding: 24px; border-radius: 12px; border-top: 4px solid var(--accent); flex: 1; min-width: 250px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }}
+            .metric-title {{ font-size: 13px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; font-weight: 600; }}
+            .metric-value {{ font-size: 42px; font-weight: 800; letter-spacing: -1px; }}
+            
+            /* AI Audit Box */
+            .audit-box {{ background: rgba(187, 134, 252, 0.05); padding: 24px; border-radius: 12px; margin-bottom: 40px; border: 1px solid rgba(187, 134, 252, 0.2); }}
+            pre {{ white-space: pre-wrap; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 15px; color: var(--text-main); margin: 0; line-height: 1.6; }}
+            
+            /* Table */
+            table {{ width: 100%; border-collapse: collapse; background: var(--bg-secondary); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }}
+            th, td {{ padding: 16px 20px; text-align: left; border-bottom: 1px solid var(--border); font-size: 14px; }}
+            th {{ background: rgba(0,0,0,0.2); color: var(--text-muted); font-weight: 600; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; }}
             tr:last-child td {{ border-bottom: none; }}
-            tr:hover {{ background: #252525; }}
-            .new-badge {{ background: #bb86fc; color: #121212; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: bold; }}
+            tr:hover {{ background: rgba(255,255,255,0.03); }}
+            
+            /* Utilities */
+            .pos-pnl {{ color: var(--pos); }}
+            .neg-pnl {{ color: var(--neg); }}
+            .new-badge {{ background: rgba(187, 134, 252, 0.2); color: var(--accent); border: 1px solid var(--accent); padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; }}
+            .symbol-text {{ font-weight: 700; color: #fff; letter-spacing: 0.5px; }}
         </style>
     </head>
     <body>
@@ -298,7 +326,13 @@ def generate_dashboards(audit_progress, df_snaps):
             </div>
         
         <div class="main-content">
-            <h1 id="month-title">Loading...</h1>
+            <div class="header-row">
+                <h1 id="month-title">Loading...</h1>
+                <div class="nav-controls">
+                    <button class="nav-btn" id="prev-btn" onclick="goPrev()">⬅ Older</button>
+                    <button class="nav-btn" id="next-btn" onclick="goNext()">Newer ➡</button>
+                </div>
+            </div>
             
             <div class="cards-container">
                 <div class="metric-card">
@@ -308,11 +342,11 @@ def generate_dashboards(audit_progress, df_snaps):
             </div>
 
             <div class="audit-box">
-                <div class="metric-title">AI Forensic Governance Audit</div>
+                <div class="metric-title" style="color: var(--accent);">AI Forensic Governance Audit</div>
                 <pre id="ai-audit">Loading...</pre>
             </div>
 
-            <div class="metric-title" style="margin-bottom: 15px;">Active Holdings for Month</div>
+            <div class="metric-title" style="margin-bottom: 16px;">Active Holdings for Month</div>
             <table>
                 <thead>
                     <tr>
@@ -331,28 +365,37 @@ def generate_dashboards(audit_progress, df_snaps):
 
         <script>
             const data = {json_payload};
-            const dates = Object.keys(data);
+            const dates = Object.keys(data); // These are reverse chronological (Newest first)
+            let currentIndex = 0;
             
             function renderMonth(date) {{
+                currentIndex = dates.indexOf(date);
+                
+                // Update Sidebar
                 document.querySelectorAll('.month-btn').forEach(btn => btn.classList.remove('active'));
-                document.getElementById('btn-' + date).classList.add('active');
+                const activeBtn = document.getElementById('btn-' + date);
+                if(activeBtn) activeBtn.classList.add('active');
 
+                // Update Header
                 const monthData = data[date];
                 document.getElementById('month-title').innerText = "Portfolio Snapshot: " + date;
                 
+                // Update PNL Card
                 const pnlElement = document.getElementById('port-pnl');
                 pnlElement.innerText = monthData.portfolio_pnl;
                 pnlElement.className = "metric-value " + (monthData.portfolio_pnl.includes('-') ? 'neg-pnl' : 'pos-pnl');
                 
+                // Update Audit
                 document.getElementById('ai-audit').innerText = monthData.ai_audit;
 
+                // Update Table
                 let rowsHtml = '';
                 monthData.stocks.forEach(stock => {{
                     let pnlDisplay = stock.PNL;
                     let pnlClass = '';
                     
                     if (stock.PNL === 'NEW') {{
-                        pnlDisplay = '<span class="new-badge">NEW</span>';
+                        pnlDisplay = '<span class="new-badge">NEW ENTRY</span>';
                     }} else if (stock.PNL.includes('-')) {{
                         pnlClass = 'neg-pnl';
                     }} else {{
@@ -360,15 +403,34 @@ def generate_dashboards(audit_progress, df_snaps):
                     }}
 
                     rowsHtml += `<tr>
-                        <td style="font-weight: bold; color: #fff;">${{stock.SYMBOL}}</td>
-                        <td style="color: #aaa;">${{stock.SECTOR}}</td>
+                        <td class="symbol-text">${{stock.SYMBOL}}</td>
+                        <td style="color: var(--text-muted);">${{stock.SECTOR}}</td>
                         <td>${{stock.ENTRY_DATE}}</td>
                         <td>₹${{parseFloat(stock.PRICE).toFixed(2)}}</td>
                         <td>${{stock['DELIV_%']}}</td>
-                        <td class="${{pnlClass}}" style="font-weight: bold;">${{pnlDisplay}}</td>
+                        <td class="${{pnlClass}}" style="font-weight: 700;">${{pnlDisplay}}</td>
                     </tr>`;
                 }});
                 document.getElementById('table-body').innerHTML = rowsHtml;
+                
+                // Update Navigation Button States
+                // Since dates are newest -> oldest:
+                // Prev (Older) means higher index
+                // Next (Newer) means lower index
+                document.getElementById('prev-btn').disabled = (currentIndex >= dates.length - 1);
+                document.getElementById('next-btn').disabled = (currentIndex <= 0);
+            }}
+
+            function goPrev() {{
+                if (currentIndex < dates.length - 1) {{
+                    renderMonth(dates[currentIndex + 1]);
+                }}
+            }}
+
+            function goNext() {{
+                if (currentIndex > 0) {{
+                    renderMonth(dates[currentIndex - 1]);
+                }}
             }}
 
             const sidebar = document.getElementById('sidebar');
@@ -404,7 +466,6 @@ if __name__ == "__main__":
         
         audit_state = run_single_latest_audit(portfolio_history_df)
         
-        # WE NOW PASS BOTH THE DATA AND THE AI AUDIT TO THE GENERATOR
         generate_dashboards(audit_state, portfolio_history_df)
         print("\nProcess Complete.")
         
