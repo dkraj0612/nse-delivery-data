@@ -1,7 +1,7 @@
 """
-dual_engine_backtest.py - SINGLE AUDIT VERSION
+dual_engine_backtest.py - SINGLE AUDIT WITH DELIVERY PERCENTAGE
 ==========================================================
-1. BACKTEST ENGINE: Adjusts splits, calculates momentum, applies guardrails for 5 years.
+1. BACKTEST ENGINE: Adjusts splits, calculates momentum, applies EMA, 52W High, Turnover, and Delivery % guardrails.
 2. AI AUDITOR: Makes ONE single API call for the latest portfolio to guarantee speed.
 3. GITHUB PUBLISHER: Generates 'index.html' and 'history.html'.
 """
@@ -39,6 +39,10 @@ def load_and_adjust_data(folder_path, sector_map_path):
     master_df['CLOSE_PRICE'] = pd.to_numeric(master_df['CLOSE_PRICE'], errors='coerce')
     master_df['TURNOVER_LACS'] = pd.to_numeric(master_df['TURNOVER_LACS'], errors='coerce')
     
+    # Clean delivery percentage (handle any weird string formats like '45.5%')
+    master_df['DELIV_PER'] = master_df['DELIV_PER'].astype(str).str.replace('%', '', regex=False)
+    master_df['DELIV_PER'] = pd.to_numeric(master_df['DELIV_PER'], errors='coerce')
+    
     master_df = master_df.dropna(subset=['DATE', 'CLOSE_PRICE'])
     master_df = master_df.drop_duplicates(subset=['SYMBOL', 'DATE']).sort_values(['SYMBOL', 'DATE'])
     
@@ -69,17 +73,23 @@ def run_pure_momentum_backtest(df):
     
     df['EMA_51'] = df.groupby('SYMBOL')['CLOSE_PRICE'].transform(lambda x: x.ewm(span=51, adjust=False).mean())
     df['52W_HIGH'] = df.groupby('SYMBOL')['CLOSE_PRICE'].transform(lambda x: x.rolling(252).max())
+    
+    # 20-Day Rolling Averages for Volume/Conviction Guardrails
     df['AVG_TURNOVER'] = df.groupby('SYMBOL')['TURNOVER_LACS'].transform(lambda x: x.rolling(20).mean())
+    df['AVG_DELIV_PER'] = df.groupby('SYMBOL')['DELIV_PER'].transform(lambda x: x.rolling(20).mean())
     
     df['YEAR_MONTH'] = df['DATE'].dt.to_period('M')
     month_ends = df.groupby('YEAR_MONTH')['DATE'].max().reset_index()
     rebalance_df = df[df['DATE'].isin(month_ends['DATE'])].copy()
     rebalance_df['MASTER_SCORE'] = rebalance_df['PRICE_MOMENTUM'] * 100
     
+    # --- YOUR UPDATED GUARDRAILS ---
+    # To change the delivery percentage, change the "30.0" below to your desired number
     valid_pool = rebalance_df[
         (rebalance_df['CLOSE_PRICE'] >= rebalance_df['EMA_51']) & 
         (rebalance_df['CLOSE_PRICE'] >= (rebalance_df['52W_HIGH'] * 0.80)) & 
         (rebalance_df['AVG_TURNOVER'] >= 1000.0) & 
+        (rebalance_df['AVG_DELIV_PER'] >= 30.0) & 
         (rebalance_df['MASTER_SCORE'].notna())
     ].copy()
 
@@ -262,7 +272,6 @@ if __name__ == "__main__":
         raw_df = load_and_adjust_data(DATA_PATH, SECTOR_MAP)
         portfolio_history_df = run_pure_momentum_backtest(raw_df)
         
-        # Make ONLY ONE API call for the very last date
         audit_state = run_single_latest_audit(portfolio_history_df)
         
         generate_dashboards(audit_state)
