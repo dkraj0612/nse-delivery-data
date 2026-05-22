@@ -1,7 +1,7 @@
 """
-dual_engine_backtest.py - SINGLE AUDIT WITH DELIVERY PERCENTAGE
+dual_engine_backtest.py - SINGLE AUDIT WITH DELIVERY PERCENTAGE & 100 EMA
 ==========================================================
-1. BACKTEST ENGINE: Adjusts splits, calculates momentum, applies EMA, 52W High, Turnover, and Delivery % guardrails.
+1. BACKTEST ENGINE: Adjusts splits, calculates momentum, applies 100 EMA, 52W High, Turnover, and Delivery % guardrails.
 2. AI AUDITOR: Makes ONE single API call for the latest portfolio to guarantee speed.
 3. GITHUB PUBLISHER: Generates 'index.html' and 'history.html'.
 """
@@ -71,7 +71,8 @@ def run_pure_momentum_backtest(df):
     df['P_13M'] = df.groupby('SYMBOL')['CLOSE_PRICE'].shift(273) 
     df['PRICE_MOMENTUM'] = (((df['P_1M'] - df['P_13M']) / df['P_13M']) * 2) + ((df['P_1M'] - df['P_7M']) / df['P_7M'])
     
-    df['EMA_51'] = df.groupby('SYMBOL')['CLOSE_PRICE'].transform(lambda x: x.ewm(span=51, adjust=False).mean())
+    # CHANGED TO 100 EMA
+    df['EMA_100'] = df.groupby('SYMBOL')['CLOSE_PRICE'].transform(lambda x: x.ewm(span=100, adjust=False).mean())
     df['52W_HIGH'] = df.groupby('SYMBOL')['CLOSE_PRICE'].transform(lambda x: x.rolling(252).max())
     
     # 20-Day Rolling Averages for Volume/Conviction Guardrails
@@ -83,9 +84,9 @@ def run_pure_momentum_backtest(df):
     rebalance_df = df[df['DATE'].isin(month_ends['DATE'])].copy()
     rebalance_df['MASTER_SCORE'] = rebalance_df['PRICE_MOMENTUM'] * 100
     
-    # Guardrails: 51 EMA, 80% of 52W High, 1000L Turnover, 30% Delivery
+    # Guardrails: 100 EMA, 80% of 52W High, 1000L Turnover, 30% Delivery
     valid_pool = rebalance_df[
-        (rebalance_df['CLOSE_PRICE'] >= rebalance_df['EMA_51']) & 
+        (rebalance_df['CLOSE_PRICE'] >= rebalance_df['EMA_100']) & 
         (rebalance_df['CLOSE_PRICE'] >= (rebalance_df['52W_HIGH'] * 0.80)) & 
         (rebalance_df['AVG_TURNOVER'] >= 1000.0) & 
         (rebalance_df['AVG_DELIV_PER'] >= 30.0) & 
@@ -148,7 +149,7 @@ def run_pure_momentum_backtest(df):
                 'DATE': curr_date_str, 'SYMBOL': sym, 'SECTOR': row['SECTOR'],
                 'ACTION': 'HOLD' if sym in prev_symbols else 'ENTRY', 'PRICE': curr_price, 
                 'ENTRY_DATE': entry_dates[sym], 'PNL': pnl_str, 
-                'DELIV_%': f"{row['AVG_DELIV_PER']:.1f}%", # ADDED HERE SO IT SAVES
+                'DELIV_%': f"{row['AVG_DELIV_PER']:.1f}%",
                 'JUSTIFICATION': "Top 20 Momentum"
             })
             
@@ -180,7 +181,6 @@ def run_single_latest_audit(portfolio_df):
         print("No active positions on the latest date.")
         return audit_progress
         
-    # ADDED 'DELIV_%' SO THE AI SEES IT
     audit_df = latest_portfolio[['SYMBOL', 'SECTOR', 'PRICE', 'DELIV_%', 'ENTRY_DATE']]
     
     prompt = f"""
