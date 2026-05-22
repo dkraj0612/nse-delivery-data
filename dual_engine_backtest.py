@@ -1,16 +1,14 @@
 """
-dual_engine_backtest.py - REAL-TIME LOOP WITH STRICT NETWORK CUTOFF
+dual_engine_backtest.py - SINGLE AUDIT VERSION
 ==========================================================
-Constructs the portfolio, triggers the AI audit, and cuts off
-the API connection if it hangs for more than 30 seconds.
+1. BACKTEST ENGINE: Adjusts splits, calculates momentum, applies guardrails for 5 years.
+2. AI AUDITOR: Makes ONE single API call for the latest portfolio to guarantee speed.
+3. GITHUB PUBLISHER: Generates 'index.html' and 'history.html'.
 """
 import os
 import glob
-import json
-import time
 import pandas as pd
 import numpy as np
-import concurrent.futures
 from google import genai
 
 # ==========================================
@@ -60,21 +58,10 @@ def load_and_adjust_data(folder_path, sector_map_path):
     return pd.merge(master_df, sector_map, on='SYMBOL', how='left').reset_index(drop=True)
 
 # ==========================================
-# 2. THE UNIFIED REAL-TIME LOOP (Math + AI)
+# 2. PURE MOMENTUM BACKTEST ENGINE
 # ==========================================
-def run_realtime_construction_and_audit(df):
-    print("Initializing Unified Backtest and Real-Time AI Agent...")
-    
-    api_key = os.environ.get("GEMINI_API_KEY")
-    client = genai.Client() if api_key else None
-    
-    progress_file = "audit_progress.json"
-    if os.path.exists(progress_file):
-        with open(progress_file, "r") as f:
-            audit_progress = json.load(f)
-    else:
-        audit_progress = {"results": {}}
-
+def run_pure_momentum_backtest(df):
+    print("Running Mathematical Backtest Engine...")
     df['P_1M'] = df.groupby('SYMBOL')['CLOSE_PRICE'].shift(21)
     df['P_7M'] = df.groupby('SYMBOL')['CLOSE_PRICE'].shift(147) 
     df['P_13M'] = df.groupby('SYMBOL')['CLOSE_PRICE'].shift(273) 
@@ -136,84 +123,73 @@ def run_realtime_construction_and_audit(df):
             if sym in entry_prices: del entry_prices[sym]
             if sym in entry_dates: del entry_dates[sym]
             
-        current_month_holdings = []
         for _, row in final_portfolio.iterrows():
             sym, curr_price = row['SYMBOL'], row['CLOSE_PRICE']
             if sym not in prev_symbols:
                 entry_prices[sym], entry_dates[sym] = curr_price, curr_date_str
             pnl_str = f"{((curr_price/entry_prices[sym])-1)*100:+.2f}%" if entry_prices[sym] > 0 else "NEW"
             
-            record = {
+            portfolio_snapshots.append({
                 'DATE': curr_date_str, 'SYMBOL': sym, 'SECTOR': row['SECTOR'],
                 'ACTION': 'HOLD' if sym in prev_symbols else 'ENTRY', 'PRICE': curr_price, 
                 'ENTRY_DATE': entry_dates[sym], 'PNL': pnl_str, 'JUSTIFICATION': "Top 20 Momentum"
-            }
-            portfolio_snapshots.append(record)
-            current_month_holdings.append(record)
+            })
             
         prev_portfolio_df = final_portfolio.copy()
 
-        # ========================================================
-        # REAL-TIME AI AUDIT WITH STRICT 30-SECOND CUTOFF
-        # ========================================================
-        if client and curr_date_str not in audit_progress["results"] and current_month_holdings:
-            print(f"[{curr_date_str}] Portfolio Constructed. Triggering Point-in-Time AI Audit...")
-            
-            audit_df = pd.DataFrame(current_month_holdings)[['SYMBOL', 'SECTOR', 'PRICE', 'ENTRY_DATE']]
-            
-            prompt = f"""
-            FORENSIC AUDIT DATE: {curr_date_str}
-            
-            You are an Equities Auditor. You are performing a STRICT point-in-time audit for {curr_date_str}.
-            You are FORBIDDEN from using any data, news, price action, or SEBI filings that occurred AFTER {curr_date_str}.
-            
-            Top 20 Portfolio Constructed on this date:
-            {audit_df.to_markdown(index=False)}
-            
-            Analyze for severe historical governance red flags known ONLY up to {curr_date_str}. 
-            Keep it brief. If clean, output: "✓ No major historical anomalies detected as of {curr_date_str}."
-            """
-            
-            success = False
-            attempts = 0
-            while not success and attempts < 5:
-                attempts += 1
-                try:
-                    # Enforce a strict 30-second timeout to prevent silent network hangs
-                    with concurrent.futures.ThreadPoolExecutor() as executor:
-                        future = executor.submit(client.models.generate_content, model='gemini-2.5-flash', contents=prompt)
-                        resp = future.result(timeout=30) 
-                        
-                    audit_progress["results"][curr_date_str] = resp.text
-                    
-                    with open(progress_file, "w") as f:
-                        json.dump(audit_progress, f, indent=4)
-                    
-                    print(f"  -> [SUCCESS] Audit logged for {curr_date_str}.")
-                    pd.DataFrame(portfolio_snapshots).to_csv("backtest_portfolio_history.csv", index=False)
-                    time.sleep(5) 
-                    success = True
-                    
-                except concurrent.futures.TimeoutError:
-                    print(f"  -> [NETWORK TIMEOUT] Google API silently hung. Attempt {attempts}/5. Retrying...")
-                    time.sleep(10)
-                except Exception as e:
-                    error_str = str(e)
-                    if any(err in error_str for err in ["429", "RESOURCE_EXHAUSTED", "503", "UNAVAILABLE", "500", "502"]):
-                        print(f"  -> [API BUSY] Attempt {attempts}/5. Waiting 60 seconds...")
-                        time.sleep(60) 
-                    else:
-                        print(f"  -> [FATAL ERROR] {e}")
-                        break 
-                        
-            if not success:
-                print(f"  -> [SKIPPED] Moving to next month due to persistent API limits.")
+    df_snaps = pd.DataFrame(portfolio_snapshots)
+    df_snaps.to_csv("backtest_portfolio_history.csv", index=False)
+    return df_snaps
 
-    print("\nBacktest & Audit Sequence Complete.")
+# ==========================================
+# 3. SINGLE AI AUDIT (LATEST PORTFOLIO ONLY)
+# ==========================================
+def run_single_latest_audit(portfolio_df):
+    print("\nTriggering Single AI Audit for the Latest Portfolio...")
+    audit_progress = {"results": {}}
+    
+    api_key = os.environ.get("GEMINI_API_KEY")
+    client = genai.Client() if api_key else None
+    
+    if not client:
+        print("No GEMINI_API_KEY found. Skipping AI Audit.")
+        return audit_progress
+
+    # Get the single most recent date in the backtest
+    latest_date = portfolio_df['DATE'].max()
+    latest_portfolio = portfolio_df[(portfolio_df['DATE'] == latest_date) & (portfolio_df['ACTION'].isin(['ENTRY', 'HOLD']))]
+    
+    if latest_portfolio.empty:
+        print("No active positions on the latest date.")
+        return audit_progress
+        
+    audit_df = latest_portfolio[['SYMBOL', 'SECTOR', 'PRICE', 'ENTRY_DATE']]
+    
+    prompt = f"""
+    FORENSIC AUDIT DATE: {latest_date}
+    
+    You are an Equities Auditor. You are performing a STRICT point-in-time audit for {latest_date}.
+    You are FORBIDDEN from using any data, news, price action, or SEBI filings that occurred AFTER {latest_date}.
+    
+    Top 20 Portfolio Constructed on this date:
+    {audit_df.to_markdown(index=False)}
+    
+    Analyze for severe historical governance red flags known ONLY up to {latest_date}. 
+    Keep it brief. If clean, output: "✓ No major historical anomalies detected as of {latest_date}."
+    """
+    
+    try:
+        resp = client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
+        audit_progress["results"][latest_date] = resp.text
+        print(f"  -> [SUCCESS] Audit logged for {latest_date}.")
+    except Exception as e:
+        print(f"  -> [FATAL ERROR] API Failed: {e}")
+        audit_progress["results"][latest_date] = f"Audit failed: {e}"
+
     return audit_progress
 
 # ==========================================
-# 3. GITHUB PAGES HTML PUBLISHER
+# 4. GITHUB PAGES HTML PUBLISHER
 # ==========================================
 def generate_dashboards(audit_progress):
     print("Generating HTML Dashboards for GitHub Pages...")
@@ -284,8 +260,13 @@ if __name__ == "__main__":
     
     try:
         raw_df = load_and_adjust_data(DATA_PATH, SECTOR_MAP)
-        audit_state = run_realtime_construction_and_audit(raw_df)
+        portfolio_history_df = run_pure_momentum_backtest(raw_df)
+        
+        # Make ONLY ONE API call for the very last date
+        audit_state = run_single_latest_audit(portfolio_history_df)
+        
         generate_dashboards(audit_state)
+        print("\nProcess Complete.")
         
     except Exception as e:
         print(f"Execution failed: {e}")
