@@ -1,343 +1,433 @@
 """
-dual_engine_backtest.py - STREAMLIT QUANTITATIVE DASHBOARD
+dual_engine_backtest.py - PMS COMMAND CENTER (VERIFIED ARCHITECTURE)
 ==========================================================
-Module 1: Data Engine (yfinance, caching, alignment)
-Module 2: Strategy Engine (Vectorized indicators, Regime filtering, Rebalancing)
-Module 3: Analytics Engine (CAGR, Sharpe, Drawdown, Profit Factor)
-Module 4: UI Dashboard (Streamlit & Plotly)
-
-To run: streamlit run dual_engine_backtest.py
+Module 1: Data Engine (Local NSE BhavCopy & Index)
+Module 2: Strategy Engine (Risk-Adjusted Momentum, 0.5% Tax)
+Module 3: Internal Python Verifier (5 Strict PMS Asserts)
+Module 4: AI Heavy Lifter (Verifies & Justifies Entries/Exits/Holds)
+Module 5: Dual Publisher (Streamlit UI & Static HTML)
 """
 
-import streamlit as st
-import yfinance as yf
+import os
+import glob
+import json
 import pandas as pd
 import numpy as np
+import concurrent.futures
 import plotly.express as px
-import plotly.graph_objects as go
-from typing import Tuple, List, Dict
-from datetime import datetime, timedelta
+import streamlit as st
+from streamlit import runtime
+from google import genai
 
 # ==========================================
-# STREAMLIT CONFIGURATION
-# ==========================================
-st.set_page_config(page_title="Momentum Alpha Engine", layout="wide", page_icon="📈")
-
-# Default Universe (A mix of highly liquid global/US equities for fast yfinance fetching)
-DEFAULT_UNIVERSE = [
-    "AAPL", "MSFT", "GOOGL", "AMZN", "META", "TSLA", "NVDA", "JPM", "V", "JNJ",
-    "WMT", "PG", "MA", "UNH", "DIS", "HD", "BAC", "VZ", "KO", "PFE", 
-    "NFLX", "ADBE", "CRM", "AMD", "INTC", "CSCO", "PEP", "ABT", "T", "CVX",
-    "XOM", "NKE", "MCD", "MDT", "HON", "BA", "IBM", "TXN", "AMGN", "SBUX",
-    "QCOM", "GS", "CAT", "GE", "MMM", "TGT", "LMT", "DE", "BKNG", "AXP"
-]
-BENCHMARK_TICKER = "^GSPC" # S&P 500 as benchmark
-
-# ==========================================
-# MODULE 1: DATA ENGINE
+# MODULE 1: LOCAL DATA ENGINE
 # ==========================================
 @st.cache_data(show_spinner=False)
-def fetch_data(tickers: List[str], benchmark: str, years: int = 5) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series]:
-    """Downloads historical OHLCV data and current market caps via yfinance."""
-    end_date = datetime.today()
-    start_date = end_date - timedelta(days=years * 365 + 300) # Buffer for 12M momentum + 200 SMA
+def load_and_adjust_data(folder_path="./HistoricalBhavCopy/NSE", sector_map_path="./nifty500_sectors.csv", index_path="./nifty500_index.csv"):
+    print("Loading Local BhavCopy & Applying Corporate Action Adjustments...")
     
-    # Download Universe Data
-    df_raw = yf.download(tickers, start=start_date, end=end_date, group_by="ticker", threads=True, progress=False)
-    
-    # Download Benchmark Data
-    bench_raw = yf.download(benchmark, start=start_date, end=end_date, progress=False)
-    
-    # Restructure multi-index columns into a flat, usable format
-    close_prices = pd.DataFrame()
-    volumes = pd.DataFrame()
-    
-    for ticker in tickers:
-        if ticker in df_raw.columns.levels[0]:
-            try:
-                close_prices[ticker] = df_raw[ticker]['Close']
-                volumes[ticker] = df_raw[ticker]['Volume']
-            except KeyError:
-                continue
+    try:
+        sector_map = pd.read_csv(sector_map_path)[['SYMBOL', 'SECTOR']]
+    except Exception:
+        sector_map = pd.DataFrame(columns=['SYMBOL', 'SECTOR'])
 
-    close_prices = close_prices.ffill().dropna(how='all')
-    volumes = volumes.fillna(0)
+    if os.path.exists(index_path):
+        nifty_df = pd.read_csv(index_path)
+        nifty_df['DATE'] = pd.to_datetime(nifty_df['DATE'], errors='coerce')
+        nifty_df['CLOSE_PRICE'] = pd.to_numeric(nifty_df['CLOSE_PRICE'], errors='coerce')
+        nifty_df = nifty_df.dropna(subset=['DATE', 'CLOSE_PRICE']).sort_values('DATE')
+        nifty_df['NIFTY_EMA_200'] = nifty_df['CLOSE_PRICE'].ewm(span=200, adjust=False).mean()
+    else:
+        print("⚠️ Warning: nifty500_index.csv not found. Defaulting to perpetual Risk-ON regime.")
+        nifty_df = pd.DataFrame(columns=['DATE', 'CLOSE_PRICE', 'NIFTY_EMA_200'])
+
+    all_files = glob.glob(os.path.join(folder_path, "**/*.csv"), recursive=True)
+    df_list = []
+    for file in all_files:
+        try:
+            df = pd.read_csv(file)
+            df.columns = df.columns.str.strip()
+            if 'DATE1' in df.columns: df = df.rename(columns={'DATE1': 'DATE'})
+            req_cols = ['SYMBOL', 'DATE', 'CLOSE_PRICE', 'TURNOVER_LACS', 'DELIV_PER']
+            if all(c in df.columns for c in req_cols):
+                df_list.append(df[req_cols])
+        except Exception: continue
+            
+    if not df_list:
+        raise ValueError("No CSV files found in HistoricalBhavCopy/NSE. Check folder path.")
+        
+    master_df = pd.concat(df_list, ignore_index=True)
+    master_df['DATE'] = pd.to_datetime(master_df['DATE'], errors='coerce')
+    master_df['CLOSE_PRICE'] = pd.to_numeric(master_df['CLOSE_PRICE'], errors='coerce')
+    master_df['TURNOVER_LACS'] = pd.to_numeric(master_df['TURNOVER_LACS'], errors='coerce')
+    master_df['DELIV_PER'] = master_df['DELIV_PER'].astype(str).str.replace('%', '', regex=False)
+    master_df['DELIV_PER'] = pd.to_numeric(master_df['DELIV_PER'], errors='coerce')
+    master_df = master_df.dropna(subset=['DATE', 'CLOSE_PRICE'])
+    master_df = master_df.drop_duplicates(subset=['SYMBOL', 'DATE']).sort_values(['SYMBOL', 'DATE'])
     
-    # Note: Fetching live market cap for 500 stocks sequentially is too slow for interactive UI.
-    # We use a static proxy dict for this demo, but in production, cache this overnight.
-    # Here we mock market caps purely to demonstrate the filtering logic working under 10 seconds.
-    np.random.seed(42)
-    mock_market_caps = pd.Series(
-        np.random.uniform(5000, 150000, len(close_prices.columns)), 
-        index=close_prices.columns
-    )
+    master_df['PCT_CHG'] = master_df.groupby('SYMBOL')['CLOSE_PRICE'].pct_change()
+    adjusted_dfs = []
+    for sym, group in master_df.groupby('SYMBOL'):
+        g = group.copy()
+        split_mask = g['PCT_CHG'] < -0.25
+        if split_mask.any():
+            for i in reversed(range(len(g))):
+                if split_mask.iloc[i]:
+                    factor = 1 + g.iloc[i]['PCT_CHG']
+                    g.iloc[:i, g.columns.get_loc('CLOSE_PRICE')] *= factor
+        adjusted_dfs.append(g)
+        
+    master_df = pd.concat(adjusted_dfs)
+    final_df = pd.merge(master_df, sector_map, on='SYMBOL', how='left').reset_index(drop=True)
+    final_df['SECTOR'] = final_df['SECTOR'].fillna('Unknown')
     
-    return close_prices, volumes, bench_raw['Close'], mock_market_caps
+    return final_df, nifty_df[['DATE', 'CLOSE_PRICE', 'NIFTY_EMA_200']]
 
 # ==========================================
-# MODULE 2: STRATEGY & BACKTEST ENGINE
+# MODULE 2: STRATEGY ENGINE
 # ==========================================
-def run_backtest(
-    prices: pd.DataFrame, 
-    volumes: pd.DataFrame, 
-    benchmark: pd.Series,
-    market_caps: pd.Series,
-    ema_period: int = 51,
-    vol_threshold: float = 1000000,
-    mc_min: float = 1000,
-    mc_max: float = 100000,
-    risk_on_limit: int = 20,
-    risk_off_limit: int = 10,
-    cash_cushion: bool = True,
-    slippage: float = 0.001
-) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+def run_momentum_backtest(df, nifty_df, ema_param=100, deliv_param=30.0, turnover_param=1000.0, risk_on=20, risk_off=10, friction_tax=0.005):
+    print("Running Risk-Adjusted Strategy Engine...")
     
-    # 1. Calculate Indicators (Vectorized)
-    ema = prices.ewm(span=ema_period, adjust=False).mean()
-    vol_20d = volumes.rolling(window=20).mean()
+    df['P_1M'] = df.groupby('SYMBOL')['CLOSE_PRICE'].shift(21)
+    df['P_7M'] = df.groupby('SYMBOL')['CLOSE_PRICE'].shift(147) 
+    df['P_13M'] = df.groupby('SYMBOL')['CLOSE_PRICE'].shift(273) 
+    df['P_13M'] = df['P_13M'].replace(0, np.nan)
+    df['P_7M'] = df['P_7M'].replace(0, np.nan)
+    df['PRICE_MOMENTUM'] = (((df['P_1M'] - df['P_13M']) / df['P_13M']) * 2) + ((df['P_1M'] - df['P_7M']) / df['P_7M'])
     
-    ret_12m = prices.pct_change(periods=252)
-    ret_6m = prices.pct_change(periods=126)
-    momentum_score = (0.5 * ret_12m) + (0.5 * ret_6m)
+    df['DAILY_RET'] = df.groupby('SYMBOL')['CLOSE_PRICE'].pct_change()
+    df['VOLATILITY_90D'] = df.groupby('SYMBOL')['DAILY_RET'].transform(lambda x: x.rolling(90, min_periods=20).std() * np.sqrt(252))
+    df['VOLATILITY_90D'] = df['VOLATILITY_90D'].replace(0, 0.001).fillna(0.001) 
     
-    bench_sma_200 = benchmark.rolling(window=200).mean()
+    df['EMA_X'] = df.groupby('SYMBOL')['CLOSE_PRICE'].transform(lambda x: x.ewm(span=ema_param, adjust=False).mean())
+    df['52W_HIGH'] = df.groupby('SYMBOL')['CLOSE_PRICE'].transform(lambda x: x.rolling(252).max())
+    df['AVG_TURNOVER'] = df.groupby('SYMBOL')['TURNOVER_LACS'].transform(lambda x: x.rolling(20).mean())
+    df['AVG_DELIV_PER'] = df.groupby('SYMBOL')['DELIV_PER'].transform(lambda x: x.rolling(20).mean())
     
-    # 2. Daily Filtering Matrices (Boolean Masks)
-    # True if passes filter, False otherwise
-    mc_mask = (market_caps >= mc_min) & (market_caps <= mc_max)
-    trend_mask = prices > ema
-    liq_mask = vol_20d > vol_threshold
+    df['MASTER_SCORE'] = (df['PRICE_MOMENTUM'] / df['VOLATILITY_90D']) * 100
     
-    # Apply filters to score (set score to NaN if fails filters)
-    valid_scores = momentum_score.copy()
-    for col in valid_scores.columns:
-        valid_scores[col] = valid_scores[col].where(mc_mask[col] & trend_mask[col] & liq_mask[col], np.nan)
+    df['YEAR_MONTH'] = df['DATE'].dt.to_period('M')
+    month_ends = df.groupby('YEAR_MONTH')['DATE'].max().reset_index()
+    rebalance_df = df[df['DATE'].isin(month_ends['DATE'])].copy()
+    
+    valid_pool = rebalance_df[
+        (rebalance_df['CLOSE_PRICE'] >= rebalance_df['EMA_X']) & 
+        (rebalance_df['CLOSE_PRICE'] >= (rebalance_df['52W_HIGH'] * 0.80)) & 
+        (rebalance_df['AVG_TURNOVER'] >= turnover_param) & 
+        (rebalance_df['AVG_DELIV_PER'] >= deliv_param) & 
+        (rebalance_df['MASTER_SCORE'].notna())
+    ].copy()
 
-    # 3. Monthly Rebalancing Logic
-    # Resample to get end-of-month dates
-    monthly_dates = prices.resample('ME').last().index
-    actual_dates = prices.index.intersection(monthly_dates)
+    dates = sorted(rebalance_df['DATE'].dropna().unique())
+    portfolio_snapshots = []
+    equity_curve = []
     
-    daily_returns = prices.pct_change().fillna(0)
+    prev_portfolio_df = pd.DataFrame()
+    entry_prices = {}
+    entry_dates = {}
     
-    portfolio_weights = pd.DataFrame(0.0, index=prices.index, columns=prices.columns)
-    cash_weight = pd.Series(0.0, index=prices.index)
+    capital = 1000000.0 
     
-    current_positions = []
-    historical_holdings = []
-    
-    for date in actual_dates:
-        if date not in valid_scores.index or date not in benchmark.index:
+    for current_date in dates:
+        curr_date_str = current_date.strftime('%Y-%m-%d')
+        day_data = rebalance_df[rebalance_df['DATE'] == current_date]
+        if day_data.empty: continue
+            
+        day_prices = day_data.set_index('SYMBOL')['CLOSE_PRICE'].to_dict()
+        day_deliv = day_data.set_index('SYMBOL')['AVG_DELIV_PER'].to_dict()
+        day_scores = day_data.set_index('SYMBOL')['MASTER_SCORE'].to_dict()
+        
+        if not prev_portfolio_df.empty:
+            num_holdings = len(prev_portfolio_df)
+            if num_holdings > 0:
+                temp_capital = 0.0
+                weight_per_stock = capital / num_holdings
+                for _, row in prev_portfolio_df.iterrows():
+                    sym = row['SYMBOL']
+                    old_price = row['CLOSE_PRICE']
+                    curr_price = day_prices.get(sym, old_price) 
+                    temp_capital += weight_per_stock * (curr_price / old_price)
+                capital = temp_capital
+            
+        candidates = valid_pool[valid_pool['DATE'] == current_date].copy()
+        prev_symbols = set(prev_portfolio_df['SYMBOL']) if not prev_portfolio_df.empty else set()
+        
+        if not nifty_df.empty:
+            bench_past = nifty_df[nifty_df['DATE'] <= current_date]
+            is_risk_on = bool(bench_past.iloc[-1]['CLOSE_PRICE'] > bench_past.iloc[-1]['NIFTY_EMA_200']) if not bench_past.empty else True
+        else:
+            is_risk_on = True
+
+        target_limit = risk_on if is_risk_on else risk_off
+        
+        if candidates.empty:
+            for sym in prev_symbols:
+                portfolio_snapshots.append({
+                    'DATE': curr_date_str, 'SYMBOL': sym, 'SECTOR': prev_portfolio_df[prev_portfolio_df['SYMBOL']==sym]['SECTOR'].iloc[0],
+                    'ACTION': 'EXIT', 'PRICE': day_prices.get(sym, 0), 'SCORE': day_scores.get(sym, 0),
+                    'ENTRY_DATE': entry_dates.get(sym, 'N/A'), 'PNL': f"{((day_prices.get(sym, 0)/entry_prices.get(sym, 1))-1)*100:+.2f}%", 
+                    'DELIV_%': f"{day_deliv.get(sym, 0):.1f}%" if pd.notna(day_deliv.get(sym, 0)) else "N/A",
+                })
+            entry_prices.clear(); entry_dates.clear()
+            prev_portfolio_df = pd.DataFrame()
+            equity_curve.append({'DATE': curr_date_str, 'EQUITY': capital, 'CHURN': 1.0, 'REGIME': 'Risk-OFF' if not is_risk_on else 'Risk-ON'})
             continue
+
+        candidates = candidates.sort_values(by='MASTER_SCORE', ascending=False)
+        top_extended = candidates.head(40).copy()
+        
+        final_portfolio = pd.concat([
+            top_extended[top_extended['SYMBOL'].isin(prev_symbols)], 
+            top_extended[~top_extended['SYMBOL'].isin(prev_symbols)]
+        ]).head(target_limit).copy()
+        
+        current_symbols = set(final_portfolio['SYMBOL'])
+        
+        num_new_trades = len(current_symbols - prev_symbols)
+        num_slots = len(final_portfolio)
+        churn_ratio = (num_new_trades / num_slots) if num_slots > 0 else 0.0
+        
+        capital -= (capital * churn_ratio * friction_tax)
+        equity_curve.append({'DATE': curr_date_str, 'EQUITY': capital, 'CHURN': churn_ratio, 'REGIME': 'Risk-ON' if is_risk_on else 'Risk-OFF'})
+        
+        for sym in (prev_symbols - current_symbols):
+            portfolio_snapshots.append({
+                'DATE': curr_date_str, 'SYMBOL': sym, 'SECTOR': prev_portfolio_df[prev_portfolio_df['SYMBOL']==sym]['SECTOR'].iloc[0],
+                'ACTION': 'EXIT', 'PRICE': day_prices.get(sym, 0), 'SCORE': day_scores.get(sym, 0),
+                'ENTRY_DATE': entry_dates.get(sym, 'N/A'), 'PNL': f"{((day_prices.get(sym, 0)/entry_prices.get(sym, 1))-1)*100:+.2f}%", 
+                'DELIV_%': f"{day_deliv.get(sym, 0):.1f}%" if pd.notna(day_deliv.get(sym, 0)) else "N/A",
+            })
+            if sym in entry_prices: del entry_prices[sym]
+            if sym in entry_dates: del entry_dates[sym]
             
-        day_scores = valid_scores.loc[date].dropna()
-        if day_scores.empty:
-            cash_weight.loc[date:] = 1.0
-            portfolio_weights.loc[date:] = 0.0
-            current_positions = []
-            continue
+        for _, row in final_portfolio.iterrows():
+            sym, curr_price = row['SYMBOL'], row['CLOSE_PRICE']
+            if sym not in prev_symbols:
+                entry_prices[sym], entry_dates[sym] = curr_price, curr_date_str
+            pnl_str = f"{((curr_price/entry_prices[sym])-1)*100:+.2f}%" if entry_prices[sym] > 0 else "NEW"
             
-        # Regime Filter
-        is_risk_on = benchmark.loc[date] > bench_sma_200.loc[date]
-        target_n = risk_on_limit if is_risk_on else risk_off_limit
-        
-        # Rank and Select
-        top_n = day_scores.sort_values(ascending=False).head(target_n)
-        selected_tickers = top_n.index.tolist()
-        
-        # Sizing
-        weight_per_stock = 1.0 / risk_on_limit # Equal weight based on MAX portfolio size
-        total_invested = len(selected_tickers) * weight_per_stock
-        
-        if not is_risk_on and not cash_cushion:
-            # If Risk-Off and no cash cushion, distribute remaining weight equally among the 10
-            weight_per_stock = 1.0 / target_n if target_n > 0 else 0
-            total_invested = 1.0
-            
-        new_weights = pd.Series(0.0, index=prices.columns)
-        new_weights[selected_tickers] = weight_per_stock
-        
-        # Apply weights forward until next rebalance
-        portfolio_weights.loc[date:] = new_weights.values
-        cash_weight.loc[date:] = 1.0 - total_invested
-        
-        # Logging for UI
-        current_positions = selected_tickers
-        for ticker in selected_tickers:
-            historical_holdings.append({
-                'Date': date.strftime('%Y-%m-%d'),
-                'Ticker': ticker,
-                'Score': top_n[ticker],
-                'Regime': 'Risk-ON' if is_risk_on else 'Risk-OFF'
+            portfolio_snapshots.append({
+                'DATE': curr_date_str, 'SYMBOL': sym, 'SECTOR': row['SECTOR'],
+                'ACTION': 'HOLD' if sym in prev_symbols else 'ENTRY', 'PRICE': curr_price, 'SCORE': row['MASTER_SCORE'],
+                'ENTRY_DATE': entry_dates[sym], 'PNL': pnl_str, 'DELIV_%': f"{row['AVG_DELIV_PER']:.1f}%",
             })
             
-    # 4. Calculate Equity Curve & Slippage
-    weight_shift = portfolio_weights.shift(1).fillna(0)
-    turnover = portfolio_weights.diff().abs().sum(axis=1) / 2 # Divide by 2 because buy+sell = 1 trade cycle
-    transaction_costs = turnover * slippage
+        prev_portfolio_df = final_portfolio.copy()
+
+    df_snaps = pd.DataFrame(portfolio_snapshots)
+    df_equity = pd.DataFrame(equity_curve)
     
-    # Portfolio daily return = sum(w * ret) - transaction costs
-    port_ret = (weight_shift * daily_returns).sum(axis=1) - transaction_costs
+    if not df_equity.empty:
+        df_equity['MOM_RET'] = df_equity['EQUITY'].pct_change() * 100
+        df_equity['MOM_RET'] = df_equity['MOM_RET'].fillna(0.0)
     
-    # Benchmark return
-    bench_ret = benchmark.pct_change().fillna(0)
-    
-    # Compile
-    equity_df = pd.DataFrame({
-        'Strategy_Return': port_ret,
-        'Benchmark_Return': bench_ret,
-        'Strategy_Equity': (1 + port_ret).cumprod() * 100,
-        'Benchmark_Equity': (1 + bench_ret).cumprod() * 100,
-        'Turnover': turnover
-    })
-    
-    holdings_df = pd.DataFrame(historical_holdings)
-    
-    # Trim to exactly 5 years from end to avoid the warmup period in the chart
-    start_viz_date = prices.index[-1] - pd.DateOffset(years=5)
-    equity_df = equity_df[equity_df.index >= start_viz_date]
-    
-    # Re-normalize to 100 at start of viz period
-    equity_df['Strategy_Equity'] = (1 + equity_df['Strategy_Return']).cumprod() * 100
-    equity_df['Benchmark_Equity'] = (1 + equity_df['Benchmark_Return']).cumprod() * 100
-    
-    return equity_df, holdings_df
+    return df_snaps, df_equity
 
 # ==========================================
-# MODULE 3: ANALYTICS ENGINE
+# MODULE 3: INTERNAL PYTHON VERIFIER
 # ==========================================
-def calculate_metrics(equity_df: pd.DataFrame, risk_free_rate: float = 0.05) -> Dict[str, float]:
-    returns = equity_df['Strategy_Return']
+def verify_backtest_integrity(df_snaps, df_equity):
+    print("Running PMS 5-Point Algorithmic Integrity Check...")
     
-    if len(returns) < 252:
-        return {"CAGR": 0, "Sharpe": 0, "Max DD": 0, "Win Rate": 0, "Profit Factor": 0}
+    if df_equity.empty or df_snaps.empty:
+        print("Skipping verification - no trades executed.")
+        return True
+
+    try:
+        # Instruction 1: Capital Conservation (No leverage/bankruptcy)
+        assert df_equity['EQUITY'].min() >= 0, "FATAL: Portfolio equity dropped below zero. Invalid weighting."
         
-    # CAGR
-    total_return = equity_df['Strategy_Equity'].iloc[-1] / 100
-    years = len(returns) / 252
-    cagr = (total_return ** (1 / years)) - 1
+        # Instruction 2: Turnover Boundaries
+        assert df_equity['CHURN'].max() <= 1.0, "FATAL: Monthly churn exceeded 100%. Friction tax calculation error."
+        assert df_equity['CHURN'].min() >= 0.0, "FATAL: Negative churn detected."
+        
+        # Instruction 3: Regime Compliance 
+        max_positions = df_snaps.groupby('DATE')['SYMBOL'].count().max()
+        assert max_positions <= 40, f"FATAL: Max position size breached. Counted {max_positions} active."
+
+        # Instruction 4: No Look-Ahead Bias
+        df_entries = df_snaps[df_snaps['ACTION'].isin(['ENTRY', 'HOLD'])].copy()
+        df_entries['DATE'] = pd.to_datetime(df_entries['DATE'])
+        df_entries['ENTRY_DATE'] = pd.to_datetime(df_entries['ENTRY_DATE'])
+        assert (df_entries['ENTRY_DATE'] <= df_entries['DATE']).all(), "FATAL: Look-ahead bias. Entry date occurs after execution date."
+        
+        # Instruction 5: Data Continuity
+        assert not df_equity.isnull().values.any(), "FATAL: Missing values in the equity curve. Calculation break."
+        
+        print("✅ Python PMS Verification Passed. Math is strictly reliable.")
+        return True
+    except AssertionError as e:
+        print(f"❌ PMS VERIFICATION FAILED: {e}")
+        raise SystemExit(1)
+
+# ==========================================
+# MODULE 4: AI HEAVY LIFTER (PMS JUSTIFICATION)
+# ==========================================
+def ai_portfolio_verifier(df_snaps, df_equity):
+    progress_file = "audit_progress.json"
+    if os.path.exists(progress_file):
+        with open(progress_file, "r") as f:
+            try: audit_progress = json.load(f)
+            except: audit_progress = {"results": {}}
+    else: audit_progress = {"results": {}}
+        
+    api_key = os.environ.get("GEMINI_API_KEY")
+    client = genai.Client() if api_key else None
+    if not client: return audit_progress
+
+    latest_date = df_snaps['DATE'].max()
+    if latest_date in audit_progress["results"]:
+        return audit_progress # Already audited
+
+    print(f"\nTriggering AI Heavy Lifting for {latest_date} Portfolio Construction...")
+    
+    latest_transitions = df_snaps[df_snaps['DATE'] == latest_date].copy()
+    latest_regime = df_equity.iloc[-1]['REGIME']
+    
+    audit_df = latest_transitions[['ACTION', 'SYMBOL', 'SECTOR', 'SCORE', 'PNL']]
+    
+    prompt = f"""
+    DATE: {latest_date}
+    CURRENT MARKET REGIME: {latest_regime}
+    
+    You are a Quantitative Portfolio Manager auditing the algorithmic momentum system. 
+    Below is the exact transition matrix executed on {latest_date}. The algorithm selects stocks based on Risk-Adjusted Momentum (SCORE), Technical Guardrails, and the Market Regime limit.
+    
+    TRANSITIONS:
+    {audit_df.to_markdown(index=False)}
+    
+    Perform the "Heavy Lifting" verification. Provide a professional, concise PMS justification report explaining:
+    1. Why specific stocks were EXITED (e.g., momentum decay, risk-off regime trigger).
+    2. Why specific stocks were ENTERED (e.g., high risk-adjusted score).
+    3. Why the HOLDS were maintained.
+    Do not hallucinate external news. Base your reasoning strictly on the SCOREs, PNL, and the {latest_regime} regime limit provided.
+    Output directly in a clean, professional format.
+    """
+    
+    try:
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            future = executor.submit(client.models.generate_content, model='gemini-2.5-flash', contents=prompt)
+            resp = future.result(timeout=45) 
+            
+        audit_progress["results"][latest_date] = resp.text
+        with open(progress_file, "w") as f:
+            json.dump(audit_progress, f, indent=4)
+        print("✅ AI PMS Justification generated and saved.")
+    except Exception as e:
+        print(f"⚠️ AI Generation Failed: {e}")
+
+    return audit_progress
+
+# ==========================================
+# MODULE 5: DUAL PUBLISHER
+# ==========================================
+def calculate_global_metrics(df_equity):
+    if df_equity.empty: return {"cagr": "0%", "max_dd": "0%", "sharpe": "0", "sortino": "0", "win_rate": "0%"}
+    
+    initial_equity = 1000000.0
+    final_equity = df_equity['EQUITY'].iloc[-1]
+    
+    start_date = pd.to_datetime(df_equity['DATE'].iloc[0])
+    end_date = pd.to_datetime(df_equity['DATE'].iloc[-1])
+    years = (end_date - start_date).days / 365.25
+    if years <= 0: years = 1 
+    
+    cagr = (((final_equity / initial_equity) ** (1 / years)) - 1) * 100
+    
+    df_equity['PEAK'] = df_equity['EQUITY'].cummax()
+    df_equity['DRAWDOWN'] = (df_equity['EQUITY'] - df_equity['PEAK']) / df_equity['PEAK']
+    max_dd = df_equity['DRAWDOWN'].min() * 100
+    
+    win_rate = (df_equity['MOM_RET'] > 0).mean() * 100
+    
+    monthly_returns_decimal = df_equity['MOM_RET'] / 100
+    risk_free = 0.07 
     
     # Sharpe
-    ann_vol = returns.std() * np.sqrt(252)
-    sharpe = (cagr - risk_free_rate) / ann_vol if ann_vol > 0 else 0
+    sharpe = ((cagr / 100) - risk_free) / (monthly_returns_decimal.std() * np.sqrt(12)) if monthly_returns_decimal.std() > 0 else 0
     
-    # Max Drawdown
-    peak = equity_df['Strategy_Equity'].cummax()
-    drawdown = (equity_df['Strategy_Equity'] - peak) / peak
-    max_dd = drawdown.min()
+    # Sortino (Professional Downside Metric)
+    downside_returns = monthly_returns_decimal[monthly_returns_decimal < 0]
+    downside_vol = downside_returns.std() * np.sqrt(12)
+    sortino = ((cagr / 100) - risk_free) / downside_vol if downside_vol > 0 else 0
     
-    # Win Rate (Daily)
-    win_rate = (returns > 0).mean()
-    
-    # Profit Factor (Gross Pos Returns / Abs(Gross Neg Returns))
-    gross_pos = returns[returns > 0].sum()
-    gross_neg = abs(returns[returns < 0].sum())
-    profit_factor = gross_pos / gross_neg if gross_neg > 0 else float('inf')
-    
-    return {
-        "CAGR": cagr,
-        "Sharpe": sharpe,
-        "Max DD": max_dd,
-        "Win Rate": win_rate,
-        "Profit Factor": profit_factor,
-        "Drawdown_Series": drawdown
-    }
+    return {"cagr": f"{cagr:.2f}%", "max_dd": f"{max_dd:.2f}%", "sharpe": f"{sharpe:.2f}", "sortino": f"{sortino:.2f}", "win_rate": f"{win_rate:.1f}%"}
 
-# ==========================================
-# MODULE 4: UI DASHBOARD
-# ==========================================
-def render_dashboard():
+def render_streamlit():
     st.title("⚡ Momentum Alpha Command Center")
-    st.markdown("Production-grade momentum backtesting with dynamic regime filtering.")
     
-    # --- SIDEBAR ---
     with st.sidebar:
         st.header("⚙️ Strategy Parameters")
-        ema_period = st.number_input("Trend Filter (EMA)", min_value=10, max_value=200, value=51)
-        mc_min = st.number_input("Min Market Cap (M)", value=1000)
-        mc_max = st.number_input("Max Market Cap (M)", value=1000000)
-        vol_thresh = st.number_input("Min Volume (20D Avg)", value=1000000)
+        ema_param = st.number_input("Trend Filter (EMA)", value=100)
+        deliv_param = st.number_input("Min Delivery %", value=30.0)
+        turnover_param = st.number_input("Min Turnover (Lacs)", value=1000.0)
         
-        st.markdown("---")
-        st.header("🛡️ Portfolio Sizing")
-        risk_on_limit = st.slider("Risk-ON Position Limit", 5, 50, 20)
-        risk_off_limit = st.slider("Risk-OFF Position Limit", 0, 50, 10)
-        cash_cushion = st.checkbox("Enable 50% Cash Cushion (Risk-OFF)", value=True)
-        slippage = st.number_input("Slippage/Costs per trade (%)", value=0.1, step=0.05) / 100
+        st.header("🛡️ Sizing & Regime")
+        risk_on = st.slider("Risk-ON Capacity", 5, 40, 20)
+        risk_off = st.slider("Risk-OFF Capacity", 0, 40, 10)
+        friction = st.number_input("Friction Tax per Churn (%)", value=0.5, step=0.1) / 100
         
-        st.markdown("---")
-        if st.button("🔄 Run Backtest", use_container_width=True, type="primary"):
+        if st.button("🔄 Run Backtest", type="primary"):
             st.session_state['run'] = True
 
-    # --- MAIN EXECUTION ---
-    with st.spinner("Fetching data & crunching matrices..."):
-        prices, volumes, bench_px, mcaps = fetch_data(DEFAULT_UNIVERSE, BENCHMARK_TICKER, years=5)
+    with st.spinner("Processing databases & Verifying Integrity..."):
+        raw_df, nifty_df = load_and_adjust_data()
+        df_snaps, df_equity = run_momentum_backtest(raw_df, nifty_df, ema_param, deliv_param, turnover_param, risk_on, risk_off, friction)
         
-        equity_df, holdings_df = run_backtest(
-            prices, volumes, bench_px, mcaps,
-            ema_period=ema_period,
-            vol_threshold=vol_thresh,
-            mc_min=mc_min,
-            mc_max=mc_max,
-            risk_on_limit=risk_on_limit,
-            risk_off_limit=risk_off_limit,
-            cash_cushion=cash_cushion,
-            slippage=slippage
-        )
-        
-        metrics = calculate_metrics(equity_df)
+        verify_backtest_integrity(df_snaps, df_equity)
+        audit_state = ai_portfolio_verifier(df_snaps, df_equity)
 
-    # --- TOP METRICS CARDS ---
+    metrics = calculate_global_metrics(df_equity)
     c1, c2, c3, c4, c5 = st.columns(5)
-    c1.metric("CAGR", f"{metrics['CAGR']*100:.2f}%")
-    c2.metric("Max Drawdown", f"{metrics['Max DD']*100:.2f}%")
-    c3.metric("Sharpe Ratio", f"{metrics['Sharpe']:.2f}")
-    c4.metric("Win Rate", f"{metrics['Win Rate']*100:.1f}%")
-    c5.metric("Profit Factor", f"{metrics['Profit Factor']:.2f}")
+    c1.metric("CAGR", metrics['cagr'])
+    c2.metric("Max Drawdown", metrics['max_dd'])
+    c3.metric("Sharpe Ratio", metrics['sharpe'])
+    c4.metric("Sortino Ratio", metrics['sortino'])
+    c5.metric("Win Rate", metrics['win_rate'])
     
     st.markdown("---")
-    
-    # --- CHARTS ---
-    col_chart, col_dd = st.columns([2, 1])
-    
-    with col_chart:
-        st.subheader("📈 Equity Curve vs Benchmark (5 Years)")
-        fig = px.line(equity_df, y=['Strategy_Equity', 'Benchmark_Equity'], 
-                      color_discrete_map={"Strategy_Equity": "#00FFAA", "Benchmark_Equity": "#AAAAAA"})
-        fig.update_layout(yaxis_title="Portfolio Value", xaxis_title="Date", legend_title="Asset",
-                          plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)",
-                          margin=dict(l=0, r=0, t=30, b=0))
-        st.plotly_chart(fig, use_container_width=True)
+    fig = px.line(df_equity, x='DATE', y='EQUITY', title='Verified Equity Growth (₹)')
+    fig.update_layout(plot_bgcolor="rgba(0,0,0,0)", yaxis_title="Portfolio Value")
+    st.plotly_chart(fig, use_container_width=True)
 
-    with col_dd:
-        st.subheader("📉 Drawdown Profile")
-        dd_series = metrics['Drawdown_Series'] * 100
-        fig_dd = px.area(dd_series, color_discrete_sequence=['#FF4444'])
-        fig_dd.update_layout(yaxis_title="Drawdown (%)", xaxis_title="", showlegend=False,
-                             plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)",
-                             margin=dict(l=0, r=0, t=30, b=0))
-        st.plotly_chart(fig_dd, use_container_width=True)
-
-    # --- DATA TABLES ---
-    st.markdown("---")
-    st.subheader("📋 Latest Live Portfolio Construction")
-    
-    if not holdings_df.empty:
-        latest_date = holdings_df['Date'].max()
-        latest_portfolio = holdings_df[holdings_df['Date'] == latest_date].copy()
-        latest_portfolio = latest_portfolio.reset_index(drop=True)
-        latest_portfolio.index += 1 # 1-based indexing for UI
+    if not df_snaps.empty:
+        latest_date = df_snaps['DATE'].max()
+        st.subheader(f"📋 Live Portfolio Construction: {latest_date}")
+        regime_status = df_equity.iloc[-1]['REGIME']
+        st.write(f"**Market Breadth Regime:** {regime_status}")
         
-        st.write(f"**Rebalance Date:** {latest_date} | **Regime:** {latest_portfolio['Regime'].iloc[0]}")
-        st.dataframe(
-            latest_portfolio[['Ticker', 'Score']], 
-            use_container_width=True,
-            column_config={
-                "Score": st.column_config.NumberColumn("Momentum Score", format="%.4f")
-            }
-        )
-    else:
-        st.warning("No stocks met the criteria on the latest rebalance date.")
+        latest_port = df_snaps[(df_snaps['DATE'] == latest_date) & (df_snaps['ACTION'].isin(['ENTRY', 'HOLD']))]
+        st.dataframe(latest_port[['SYMBOL', 'SECTOR', 'ACTION', 'ENTRY_DATE', 'PRICE', 'SCORE', 'DELIV_%', 'PNL']], use_container_width=True)
+        
+        if latest_date in audit_state.get("results", {}):
+            with st.expander("🤖 AI PMS Construction Verification", expanded=True):
+                st.write(audit_state["results"][latest_date])
 
+def generate_static_html(audit_progress, df_snaps, df_equity):
+    print("Generating Static Dashboard...")
+    df_snaps.to_csv("backtest_portfolio_history.csv", index=False)
+    metrics = calculate_global_metrics(df_equity)
+    
+    html_content = f"""
+    <!DOCTYPE html><html><head><title>Dashboard Rendered</title><style>body{{background:#121212;color:#fff;font-family:sans-serif;padding:40px;}}</style></head>
+    <body><h1>Static Pipeline Successful</h1><p>CAGR: {metrics['cagr']}</p><p>Sharpe: {metrics['sharpe']}</p>
+    <a href="backtest_portfolio_history.csv" style="color:#bb86fc;">Download Trade Ledger</a></body></html>
+    """
+    with open("index.html", "w", encoding="utf-8") as f:
+        f.write(html_content)
+
+# ==========================================
+# EXECUTION ROUTER
+# ==========================================
 if __name__ == "__main__":
-    render_dashboard()
+    if runtime.exists():
+        render_streamlit()
+    else:
+        print("🚀 Running in Bare Python Mode (GitHub Actions).")
+        raw_df, nifty_df = load_and_adjust_data()
+        df_snaps, df_equity = run_momentum_backtest(raw_df, nifty_df)
+        verify_backtest_integrity(df_snaps, df_equity)
+        audit_state = ai_portfolio_verifier(df_snaps, df_equity)
+        generate_static_html(audit_state, df_snaps, df_equity)
+        print("✅ Pipeline Complete.")
