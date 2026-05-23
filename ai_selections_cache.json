@@ -713,5 +713,66 @@
             "SGBJUL28IV": "Not selected. Likely a gold/bond-related instrument, avoiding selection to prevent sub-sector concentration within the 'Unknown' category.",
             "MOCAPITAL": "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector."
         }
+    },
+    "bt_2022-12-30_10": {
+        "symbols": [
+            "CGPOWER",
+            "FOCUS",
+            "VADILALIND",
+            "UJJIVAN",
+            "KTKBANK",
+            "IREDA",
+            "VBL",
+            "REFEX",
+            "MAZDOCK",
+            "RVNL"
+        ],
+        "reasons": {}
+    },
+    "bt_2023-11-30_20": {
+        "symbols": [
+            "JSL",
+            "RKFORGE",
+            "JWL",
+            "NPST",
+            "PENINLAND",
+            "IONEXCHANG",
+            "CADSYS",
+            "JINDALSAW",
+            "HSCL",
+            "MAANALU",
+            "VMARCIND",
+            "SPECTRUM",
+            "TATAMTRDVR",
+            "PULZ",
+            "KIRLOSBROS",
+            "ACE",
+            "EMIL",
+            "ANANDRATHI",
+            "THANGAMAYL",
+            "TARC"
+        ],
+        "reasons": {
+            "JSL": "Selected as the top-ranked symbol overall, providing exposure to the Metals & Mining sector.",
+            "RKFORGE": "Second highest Master Score, introducing the Automobile and Auto Components sector.",
+            "JWL": "High-scoring Capital Goods sector representative.",
+            "NPST": "First high-scoring entry from the \"Unknown\" sector.",
+            "PENINLAND": "Second high-scoring \"Unknown\" sector symbol.",
+            "IONEXCHANG": "Excellent Master Score, diversifying into the Utilities sector.",
+            "CADSYS": "Third \"Unknown\" sector symbol, maintaining score priority.",
+            "JINDALSAW": "Second strong Capital Goods symbol, deepening exposure to this sector while maintaining high scores.",
+            "HSCL": "High Master Score, adding the Chemicals sector to the portfolio.",
+            "MAANALU": "Fourth \"Unknown\" sector symbol.",
+            "VMARCIND": "Fifth \"Unknown\" sector symbol.",
+            "SPECTRUM": "Sixth \"Unknown\" sector symbol.",
+            "TATAMTRDVR": "Seventh \"Unknown\" sector symbol.",
+            "PULZ": "Eighth \"Unknown\" sector symbol. At this point, \"Unknown\" comprises 8 out of 14 selections (approx. 57%). To avoid further over-concentration, subsequent selections will prioritize known sectors.",
+            "KIRLOSBROS": "Third Capital Goods symbol. Capital Goods is a major sector, and this pick maintains a high Master Score.",
+            "ACE": "Fourth Capital Goods symbol. This allocation of 4/20 (20%) to Capital Goods is considered appropriate given its presence in the top 50.",
+            "EMIL": "Introduces the Consumer Services sector with a strong Master Score.",
+            "ANANDRATHI": "Crucially brings in the Financial Services sector, which was previously unrepresented.",
+            "THANGAMAYL": "Adds exposure to the Consumer Durables sector.",
+            "TARC": "Final selection to complete the portfolio, providing exposure to the Realty sector with a good Master Score."
+        }
     }
 }
