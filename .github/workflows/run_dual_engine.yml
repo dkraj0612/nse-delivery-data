@@ -24,14 +24,13 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pandas numpy plotly streamlit google-genai tabulate
+          pip install pandas numpy google-genai tabulate
 
       - name: Run Quantitative Engine
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           PYTHONUNBUFFERED: 1 
         run: |
-          # Runs in "Bare Python Mode" to generate the static HTML dashboard & CSVs
           python dual_engine_backtest.py
 
       - name: Commit and push changes
@@ -39,6 +38,6 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add index.html history.html backtest_portfolio_history.csv audit_progress.json || echo "No files generated"
+          git add index.html backtest_portfolio_history.csv ai_selections_cache.json audit_progress.json || echo "No files generated"
           git commit -m "Automated AI Audit & Portfolio Update" || echo "No changes to commit"
           git push
