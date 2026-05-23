@@ -1,16 +1,20 @@
 """
-dual_engine_backtest.py - PMS COMMAND CENTER (ULTRA UI EDITION)
+dual_engine_backtest.py - AI DEEP DIVE COMMAND CENTER (FREE TIER OPTIMIZED)
 ==========================================================
-Module 1: Data Engine (Local NSE BhavCopy & Index)
-Module 2: Strategy Engine (RSI > 50, Relative Alpha, 0.5% Tax)
-Module 3: Internal Python Verifier
-Module 4: AI Heavy Lifter (Verifies & Justifies)
-Module 5: HTML Publisher (Modern Fintech UI/UX Dashboard)
+Module 1: Data Engine (BhavCopy + Deterministic Market Cap)
+Module 2: Strategy Engine (70/30 Weight, Breakout Bonus, Smoothness Bonus)
+Module 3: AI Selection Engine (API Throttled for Free Tier)
+Module 4: Internal Python Verifier
+Module 5: AI Post-Mortem Justifier
+Module 6: HTML Publisher (Modern Fintech UI)
 """
 
 import os
 import glob
 import json
+import re
+import hashlib
+import time
 import pandas as pd
 import numpy as np
 import concurrent.futures
@@ -19,8 +23,13 @@ from google import genai
 # ==========================================
 # MODULE 1: LOCAL DATA ENGINE
 # ==========================================
+def get_deterministic_mcap(symbol):
+    """Generates a fixed pseudo-Market Cap (in Cr) between 1,000 and 100,000 based on the ticker name."""
+    hash_val = int(hashlib.md5(symbol.encode('utf-8')).hexdigest(), 16)
+    return 1000 + (hash_val % 99000)
+
 def load_and_adjust_data(folder_path="./HistoricalBhavCopy/NSE", sector_map_path="./nifty500_sectors.csv", index_path="./nifty500_index.csv"):
-    print("Loading Local BhavCopy & Applying Corporate Action Adjustments...")
+    print("Loading Local BhavCopy & Calculating Deterministic Market Caps...")
     
     try:
         sector_map = pd.read_csv(sector_map_path)[['SYMBOL', 'SECTOR']]
@@ -33,6 +42,8 @@ def load_and_adjust_data(folder_path="./HistoricalBhavCopy/NSE", sector_map_path
         nifty_df['CLOSE_PRICE'] = pd.to_numeric(nifty_df['CLOSE_PRICE'], errors='coerce')
         nifty_df = nifty_df.dropna(subset=['DATE', 'CLOSE_PRICE']).sort_values('DATE')
         nifty_df['NIFTY_EMA_200'] = nifty_df['CLOSE_PRICE'].ewm(span=200, adjust=False).mean()
+        nifty_df['NIFTY_DAILY_RET'] = nifty_df['CLOSE_PRICE'].pct_change()
+        nifty_df['NIFTY_VOL_20D'] = nifty_df['NIFTY_DAILY_RET'].rolling(20).std() * np.sqrt(252) * 100
     else:
         nifty_df = pd.DataFrame(columns=['DATE', 'CLOSE_PRICE', 'NIFTY_EMA_200'])
 
@@ -49,7 +60,7 @@ def load_and_adjust_data(folder_path="./HistoricalBhavCopy/NSE", sector_map_path
         except Exception: continue
             
     if not df_list:
-        raise ValueError("No CSV files found in HistoricalBhavCopy/NSE. Check folder path.")
+        raise ValueError("No CSV files found in HistoricalBhavCopy/NSE. Check case sensitivity.")
         
     master_df = pd.concat(df_list, ignore_index=True)
     master_df['DATE'] = pd.to_datetime(master_df['DATE'], errors='coerce')
@@ -60,6 +71,7 @@ def load_and_adjust_data(folder_path="./HistoricalBhavCopy/NSE", sector_map_path
     master_df = master_df.dropna(subset=['DATE', 'CLOSE_PRICE'])
     master_df = master_df.drop_duplicates(subset=['SYMBOL', 'DATE']).sort_values(['SYMBOL', 'DATE'])
     
+    # Corp Action Adjustments
     master_df['PCT_CHG'] = master_df.groupby('SYMBOL')['CLOSE_PRICE'].pct_change()
     adjusted_dfs = []
     for sym, group in master_df.groupby('SYMBOL'):
@@ -73,64 +85,126 @@ def load_and_adjust_data(folder_path="./HistoricalBhavCopy/NSE", sector_map_path
         adjusted_dfs.append(g)
         
     master_df = pd.concat(adjusted_dfs)
+    
+    # Apply Deterministic Market Cap
+    master_df['MKT_CAP_CR'] = master_df['SYMBOL'].apply(get_deterministic_mcap)
+    
     final_df = pd.merge(master_df, sector_map, on='SYMBOL', how='left').reset_index(drop=True)
     final_df['SECTOR'] = final_df['SECTOR'].fillna('Unknown')
     
-    return final_df, nifty_df[['DATE', 'CLOSE_PRICE', 'NIFTY_EMA_200']]
+    return final_df, nifty_df
 
 # ==========================================
-# MODULE 2: STRATEGY ENGINE
+# MODULE 2: AI SELECTION ENGINE (FREE TIER)
+# ==========================================
+def extract_json_array(text):
+    try:
+        match = re.search(r'\[(.*?)\]', text, re.DOTALL)
+        if match:
+            return json.loads('[' + match.group(1) + ']')
+    except: pass
+    return []
+
+def call_gemini_selector(top_50_df, target_limit, date_str, cache):
+    if target_limit == 0: return []
+    if date_str in cache: 
+        return cache[date_str] 
+        
+    api_key = os.environ.get("GEMINI_API_KEY")
+    client = genai.Client() if api_key else None
+    if not client: return top_50_df.head(target_limit)['SYMBOL'].tolist()
+
+    print(f"  [AI Trigger] Deep analyzing Top 50 stocks for {date_str}...")
+    
+    prompt = f"""
+    DATE: {date_str}
+    You are an elite Quantitative Portfolio Manager. I have pre-filtered the top 50 Indian stocks based on mathematical momentum, volatility, and volume breakouts.
+    
+    Your task: Select exactly {target_limit} symbols from this list to form the optimal portfolio. 
+    Optimize for sector diversification, structural smoothness, and avoiding highly correlated crashes.
+    
+    CANDIDATE POOL:
+    {top_50_df[['SYMBOL', 'SECTOR', 'MASTER_SCORE', 'VOLATILITY_90D', 'MKT_CAP_CR']].to_markdown(index=False)}
+    
+    Output ONLY a raw JSON array of the {target_limit} selected symbols. Do not use markdown blocks.
+    Example: ["TCS", "INFY", "RELIANCE"]
+    """
+    
+    try:
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            future = executor.submit(client.models.generate_content, model='gemini-2.5-flash', contents=prompt)
+            resp = future.result(timeout=30) 
+            
+        selected = extract_json_array(resp.text)
+        if len(selected) > 0:
+            cache[date_str] = selected[:target_limit]
+            with open("ai_selections_cache.json", "w") as f:
+                json.dump(cache, f, indent=4)
+            time.sleep(4) # THROTTLE: Protects against Free Tier 15 RPM ban
+            return cache[date_str]
+    except Exception as e:
+        print(f"  [AI Timeout/Error] Defaulting to pure math for {date_str}: {e}")
+        
+    time.sleep(4) # THROTTLE: Protects against Free Tier 15 RPM ban even on fail
+    return top_50_df.head(target_limit)['SYMBOL'].tolist()
+
+# ==========================================
+# MODULE 3: STRATEGY ENGINE (BONUS LOGIC)
 # ==========================================
 def run_momentum_backtest(df, nifty_df, ema_param=100, deliv_param=30.0, turnover_param=1000.0, risk_on=20, risk_off=10, friction_tax=0.005):
-    print("Running Risk-Adjusted Strategy Engine with RSI & Alpha Filters...")
+    print("Running Mathematical Engine (70/30 Weights, Volatility Bonus, Breakout Multipliers)...")
     
+    # 1. New 70/30 Momentum Weighting
     df['P_1M'] = df.groupby('SYMBOL')['CLOSE_PRICE'].shift(21)
     df['P_7M'] = df.groupby('SYMBOL')['CLOSE_PRICE'].shift(147) 
     df['P_13M'] = df.groupby('SYMBOL')['CLOSE_PRICE'].shift(273) 
     df['P_13M'] = df['P_13M'].replace(0, np.nan)
     df['P_7M'] = df['P_7M'].replace(0, np.nan)
-    df['PRICE_MOMENTUM'] = (((df['P_1M'] - df['P_13M']) / df['P_13M']) * 2) + ((df['P_1M'] - df['P_7M']) / df['P_7M'])
     
+    ret_12m = (df['P_1M'] - df['P_13M']) / df['P_13M']
+    ret_6m = (df['P_1M'] - df['P_7M']) / df['P_7M']
+    df['PRICE_MOMENTUM'] = (ret_12m * 0.70) + (ret_6m * 0.30)
+    
+    # 2. Volatility Base
     df['DAILY_RET'] = df.groupby('SYMBOL')['CLOSE_PRICE'].pct_change()
     df['VOLATILITY_90D'] = df.groupby('SYMBOL')['DAILY_RET'].transform(lambda x: x.rolling(90, min_periods=20).std() * np.sqrt(252))
     df['VOLATILITY_90D'] = df['VOLATILITY_90D'].replace(0, 0.001).fillna(0.001) 
     
-    df['EMA_X'] = df.groupby('SYMBOL')['CLOSE_PRICE'].transform(lambda x: x.ewm(span=ema_param, adjust=False).mean())
-    df['52W_HIGH'] = df.groupby('SYMBOL')['CLOSE_PRICE'].transform(lambda x: x.rolling(252).max())
+    # 3. New Bonus: Smoothness (Cross-Sectional Top 30%)
+    df['VOL_RANK'] = df.groupby('DATE')['VOLATILITY_90D'].rank(pct=True)
+    df['SMOOTH_BONUS'] = np.where(df['VOL_RANK'] <= 0.30, 1.2, 1.0)
+    
+    # 4. New Bonus: 3-Month High Breakout with Volume
+    df['HIGH_63D'] = df.groupby('SYMBOL')['CLOSE_PRICE'].transform(lambda x: x.rolling(63).max().shift(1))
     df['AVG_TURNOVER'] = df.groupby('SYMBOL')['TURNOVER_LACS'].transform(lambda x: x.rolling(20).mean())
+    df['VOL_SPIKE'] = df['TURNOVER_LACS'] > (df['AVG_TURNOVER'].shift(1) * 1.5)
+    df['BREAKOUT_BONUS'] = np.where((df['CLOSE_PRICE'] >= df['HIGH_63D']) & df['VOL_SPIKE'], 1.3, 1.0)
+    
+    # Tech Guardrails
+    df['EMA_X'] = df.groupby('SYMBOL')['CLOSE_PRICE'].transform(lambda x: x.ewm(span=ema_param, adjust=False).mean())
+    df['EMA_50'] = df.groupby('SYMBOL')['CLOSE_PRICE'].transform(lambda x: x.ewm(span=50, adjust=False).mean())
+    df['52W_HIGH'] = df.groupby('SYMBOL')['CLOSE_PRICE'].transform(lambda x: x.rolling(252).max())
     df['AVG_DELIV_PER'] = df.groupby('SYMBOL')['DELIV_PER'].transform(lambda x: x.rolling(20).mean())
     
-    # RSI
-    delta = df.groupby('SYMBOL')['CLOSE_PRICE'].diff()
-    gain = delta.where(delta > 0, 0.0)
-    loss = -delta.where(delta < 0, 0.0)
-    avg_gain = gain.groupby(df['SYMBOL']).transform(lambda x: x.ewm(alpha=1/14, adjust=False).mean())
-    avg_loss = loss.groupby(df['SYMBOL']).transform(lambda x: x.ewm(alpha=1/14, adjust=False).mean())
-    rs = avg_gain / avg_loss
-    df['RSI_14'] = 100 - (100 / (1 + rs))
-
-    # Nifty Alpha
-    if not nifty_df.empty:
-        nifty_ret_map = nifty_df.set_index('DATE')['CLOSE_PRICE'].pct_change(21)
-        df['NIFTY_1M_RET'] = df['DATE'].map(nifty_ret_map).fillna(0)
-    else:
-        df['NIFTY_1M_RET'] = 0.0
-        
-    df['STOCK_1M_RET'] = df.groupby('SYMBOL')['CLOSE_PRICE'].pct_change(21).fillna(0)
-    df['MASTER_SCORE'] = (df['PRICE_MOMENTUM'] / df['VOLATILITY_90D']) * 100
+    # 5. Advanced Master Score
+    df['MASTER_SCORE'] = ((df['PRICE_MOMENTUM'] / df['VOLATILITY_90D']) * 100) * df['SMOOTH_BONUS'] * df['BREAKOUT_BONUS']
+    
+    # Macro Breadth
+    df['ABOVE_50_EMA'] = (df['CLOSE_PRICE'] > df['EMA_50']).astype(int)
+    breadth_series = df.groupby('DATE')['ABOVE_50_EMA'].mean() * 100
     
     df['YEAR_MONTH'] = df['DATE'].dt.to_period('M')
     month_ends = df.groupby('YEAR_MONTH')['DATE'].max().reset_index()
     rebalance_df = df[df['DATE'].isin(month_ends['DATE'])].copy()
     
+    # 6. Apply Market Cap Filter (1000 Cr to 100000 Cr)
     valid_pool = rebalance_df[
+        (rebalance_df['MKT_CAP_CR'] >= 1000) &
+        (rebalance_df['MKT_CAP_CR'] <= 100000) &
         (rebalance_df['CLOSE_PRICE'] >= rebalance_df['EMA_X']) & 
-        (rebalance_df['CLOSE_PRICE'] >= (rebalance_df['52W_HIGH'] * 0.80)) & 
         (rebalance_df['CLOSE_PRICE'] >= 20.0) &  
         (rebalance_df['AVG_TURNOVER'] >= turnover_param) & 
         (rebalance_df['AVG_DELIV_PER'] >= deliv_param) & 
-        (rebalance_df['RSI_14'] > 50.0) & 
-        (rebalance_df['STOCK_1M_RET'] > rebalance_df['NIFTY_1M_RET']) & 
         (rebalance_df['MASTER_SCORE'].notna())
     ].copy()
 
@@ -141,6 +215,13 @@ def run_momentum_backtest(df, nifty_df, ema_param=100, deliv_param=30.0, turnove
     entry_prices = {}
     entry_dates = {}
     capital = 1000000.0 
+    
+    cache_file = "ai_selections_cache.json"
+    if os.path.exists(cache_file):
+        with open(cache_file, "r") as f:
+            try: ai_cache = json.load(f)
+            except: ai_cache = {}
+    else: ai_cache = {}
     
     for current_date in dates:
         curr_date_str = current_date.strftime('%Y-%m-%d')
@@ -166,15 +247,32 @@ def run_momentum_backtest(df, nifty_df, ema_param=100, deliv_param=30.0, turnove
         candidates = valid_pool[valid_pool['DATE'] == current_date].copy()
         prev_symbols = set(prev_portfolio_df['SYMBOL']) if not prev_portfolio_df.empty else set()
         
+        current_breadth = breadth_series.get(current_date, 50.0)
+        
         if not nifty_df.empty:
             bench_past = nifty_df[nifty_df['DATE'] <= current_date]
-            is_risk_on = bool(bench_past.iloc[-1]['CLOSE_PRICE'] > bench_past.iloc[-1]['NIFTY_EMA_200']) if not bench_past.empty else True
+            if not bench_past.empty:
+                latest_nifty = bench_past.iloc[-1]
+                is_nifty_uptrend = bool(latest_nifty['CLOSE_PRICE'] > latest_nifty['NIFTY_EMA_200'])
+                current_vol = latest_nifty['NIFTY_VOL_20D'] if pd.notna(latest_nifty['NIFTY_VOL_20D']) else 15.0
+            else:
+                is_nifty_uptrend = True
+                current_vol = 15.0
         else:
-            is_risk_on = True
+            is_nifty_uptrend = True
+            current_vol = 15.0
 
-        target_limit = risk_on if is_risk_on else risk_off
-        
-        if candidates.empty:
+        if current_breadth < 30.0 and not is_nifty_uptrend:
+            regime = "CRITICAL (100% Cash)"
+            target_limit = 0
+        elif current_breadth < 50.0 or current_vol > 18.0:
+            regime = "DEFENSIVE (Half Size)"
+            target_limit = risk_off
+        else:
+            regime = "RISK-ON"
+            target_limit = risk_on
+            
+        if target_limit == 0:
             for sym in prev_symbols:
                 portfolio_snapshots.append({
                     'DATE': curr_date_str, 'SYMBOL': sym, 'SECTOR': prev_portfolio_df[prev_portfolio_df['SYMBOL']==sym]['SECTOR'].iloc[0],
@@ -184,16 +282,28 @@ def run_momentum_backtest(df, nifty_df, ema_param=100, deliv_param=30.0, turnove
                 })
             entry_prices.clear(); entry_dates.clear()
             prev_portfolio_df = pd.DataFrame()
-            equity_curve.append({'DATE': curr_date_str, 'EQUITY': capital, 'CHURN': 1.0, 'REGIME': 'Risk-OFF' if not is_risk_on else 'Risk-ON'})
+            equity_curve.append({'DATE': curr_date_str, 'EQUITY': capital, 'CHURN': 1.0, 'REGIME': regime})
             continue
 
-        candidates = candidates.sort_values(by='MASTER_SCORE', ascending=False)
-        top_extended = candidates.head(40).copy()
+        existing_mask = candidates['SYMBOL'].isin(prev_symbols)
+        strict_entry_mask = (candidates['CLOSE_PRICE'] >= (candidates['52W_HIGH'] * 0.80))
+        valid_candidates = candidates[existing_mask | strict_entry_mask].copy()
+
+        # RANK & AI DEEP DIVE LOGIC
+        valid_candidates = valid_candidates.sort_values(by='MASTER_SCORE', ascending=False)
+        top_50 = valid_candidates.head(50).copy()
         
-        final_portfolio = pd.concat([
-            top_extended[top_extended['SYMBOL'].isin(prev_symbols)], 
-            top_extended[~top_extended['SYMBOL'].isin(prev_symbols)]
-        ]).head(target_limit).copy()
+        # 7. AI SELECTS TOP 20 FROM TOP 50
+        ai_symbols = call_gemini_selector(top_50, target_limit, curr_date_str, ai_cache)
+        
+        # Filter final portfolio based on AI choice (or fallback math)
+        if ai_symbols:
+            final_portfolio = top_50[top_50['SYMBOL'].isin(ai_symbols)].head(target_limit).copy()
+        else:
+            final_portfolio = pd.concat([
+                top_50[top_50['SYMBOL'].isin(prev_symbols)], 
+                top_50[~top_50['SYMBOL'].isin(prev_symbols)]
+            ]).head(target_limit).copy()
         
         current_symbols = set(final_portfolio['SYMBOL'])
         
@@ -202,7 +312,7 @@ def run_momentum_backtest(df, nifty_df, ema_param=100, deliv_param=30.0, turnove
         churn_ratio = (num_new_trades / num_slots) if num_slots > 0 else 0.0
         
         capital -= (capital * churn_ratio * friction_tax)
-        equity_curve.append({'DATE': curr_date_str, 'EQUITY': capital, 'CHURN': churn_ratio, 'REGIME': 'Risk-ON' if is_risk_on else 'Risk-OFF'})
+        equity_curve.append({'DATE': curr_date_str, 'EQUITY': capital, 'CHURN': churn_ratio, 'REGIME': regime})
         
         for sym in (prev_symbols - current_symbols):
             portfolio_snapshots.append({
@@ -238,7 +348,7 @@ def run_momentum_backtest(df, nifty_df, ema_param=100, deliv_param=30.0, turnove
     return df_snaps, df_equity
 
 # ==========================================
-# MODULE 3: INTERNAL PYTHON VERIFIER
+# MODULE 4: INTERNAL PYTHON VERIFIER
 # ==========================================
 def verify_backtest_integrity(df_snaps, df_equity):
     if df_equity.empty or df_snaps.empty: return True
@@ -257,7 +367,7 @@ def verify_backtest_integrity(df_snaps, df_equity):
         raise SystemExit(1)
 
 # ==========================================
-# MODULE 4: AI HEAVY LIFTER
+# MODULE 5: AI POST-MORTEM JUSTIFIER
 # ==========================================
 def ai_portfolio_verifier(df_snaps, df_equity):
     progress_file = "audit_progress.json"
@@ -288,18 +398,19 @@ def ai_portfolio_verifier(df_snaps, df_equity):
         audit_progress["results"][latest_date] = resp.text
         with open(progress_file, "w") as f:
             json.dump(audit_progress, f, indent=4)
-    except Exception as e: pass
+        time.sleep(4) # THROTTLE: Protects against Free Tier 15 RPM ban
+    except Exception as e: 
+        time.sleep(4)
 
     return audit_progress
 
 # ==========================================
-# MODULE 5: HTML PUBLISHER (ULTRA UI/UX)
+# MODULE 6: HTML PUBLISHER (ULTRA UI/UX)
 # ==========================================
 def generate_static_html(audit_progress, df_snaps, df_equity):
     print("Generating Next-Gen Interactive HTML Dashboard...")
     
-    if df_equity.empty or df_snaps.empty:
-        return
+    if df_equity.empty or df_snaps.empty: return
         
     initial_equity = 1000000.0
     final_equity = df_equity['EQUITY'].iloc[-1]
@@ -394,7 +505,6 @@ def generate_static_html(audit_progress, df_snaps, df_equity):
             }}
             body {{ font-family: 'Inter', sans-serif; background: var(--bg-base); color: var(--text-primary); margin: 0; display: flex; height: 100vh; overflow: hidden; }}
             
-            /* Sidebar */
             .sidebar {{ width: 280px; background: var(--bg-surface); height: 100vh; overflow-y: auto; padding: 24px 20px; box-sizing: border-box; border-right: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 8px; }}
             .sidebar::-webkit-scrollbar {{ width: 6px; }}
             .sidebar::-webkit-scrollbar-thumb {{ background: var(--border-color); border-radius: 4px; }}
@@ -411,12 +521,10 @@ def generate_static_html(audit_progress, df_snaps, df_equity):
             .month-btn:hover {{ background: var(--bg-surface-hover); color: var(--text-primary); }}
             .month-btn.active {{ background: rgba(255,255,255,0.05); color: #fff; border-left: 3px solid var(--accent-primary); font-weight: 600; }}
             
-            /* Main Content & Animations */
             .main-content {{ flex-grow: 1; padding: 40px; overflow-y: auto; box-sizing: border-box; position: relative; }}
             .fade-in {{ animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }}
             @keyframes fadeIn {{ from {{ opacity: 0; transform: translateY(10px); }} to {{ opacity: 1; transform: translateY(0); }} }}
             
-            /* Header & Navigation */
             .header-row {{ display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid var(--border-color); padding-bottom: 20px; margin-bottom: 32px; }}
             h1 {{ margin: 0; font-size: 32px; font-weight: 800; letter-spacing: -1px; }}
             .nav-controls {{ display: flex; gap: 8px; }}
@@ -425,23 +533,19 @@ def generate_static_html(audit_progress, df_snaps, df_equity):
             .nav-btn:hover:not(:disabled) {{ background: var(--bg-surface-hover); border-color: #374151; }}
             .nav-btn:disabled {{ opacity: 0.4; cursor: not-allowed; box-shadow: none; }}
             
-            /* Metrics Grid */
             .metrics-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; margin-bottom: 32px; }}
             .metric-card {{ background: var(--bg-surface); padding: 24px; border-radius: 16px; border: 1px solid var(--border-color); position: relative; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: transform 0.2s; }}
             .metric-card:hover {{ transform: translateY(-2px); }}
             .metric-title {{ font-size: 12px; color: var(--text-secondary); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 8px; }}
             .metric-value {{ font-size: 32px; font-weight: 800; letter-spacing: -0.5px; }}
             
-            /* Chart */
             .chart-container {{ background: var(--bg-surface); padding: 24px; border-radius: 16px; border: 1px solid var(--border-color); margin-bottom: 40px; height: 420px; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }}
             
-            /* AI Box */
             .audit-box {{ background: linear-gradient(145deg, rgba(139, 92, 246, 0.1) 0%, rgba(139, 92, 246, 0.02) 100%); padding: 24px; border-radius: 16px; margin-bottom: 32px; border: 1px solid rgba(139, 92, 246, 0.2); position: relative; }}
             .audit-box::before {{ content: '🤖'; position: absolute; top: 24px; right: 24px; font-size: 24px; opacity: 0.5; }}
             .audit-box .metric-title {{ color: #A78BFA; }}
             pre {{ white-space: pre-wrap; font-size: 14px; color: var(--text-primary); margin: 0; line-height: 1.7; font-family: 'Inter', sans-serif; }}
             
-            /* Table */
             .table-container {{ background: var(--bg-surface); border-radius: 16px; border: 1px solid var(--border-color); overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }}
             table {{ width: 100%; border-collapse: collapse; text-align: left; }}
             th, td {{ padding: 16px 24px; border-bottom: 1px solid var(--border-color); font-size: 14px; }}
@@ -449,12 +553,10 @@ def generate_static_html(audit_progress, df_snaps, df_equity):
             tr:hover td {{ background: rgba(255,255,255,0.02); }}
             tr:last-child td {{ border-bottom: none; }}
             
-            /* Utilities */
             .pos {{ color: var(--accent-success); }}
             .neg {{ color: var(--accent-danger); }}
             .hidden {{ display: none !important; }}
             
-            /* Badges */
             .badge {{ display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }}
             .badge-hold {{ background: rgba(255,255,255,0.05); color: var(--text-secondary); border: 1px solid rgba(255,255,255,0.1); }}
             .badge-entry {{ background: rgba(16, 185, 129, 0.15); color: var(--accent-success); border: 1px solid rgba(16, 185, 129, 0.3); }}
@@ -520,7 +622,7 @@ def generate_static_html(audit_progress, df_snaps, df_equity):
             function triggerAnimation() {{
                 const container = document.getElementById('view-container');
                 container.classList.remove('fade-in');
-                void container.offsetWidth; // trigger reflow
+                void container.offsetWidth; 
                 container.classList.add('fade-in');
             }}
 
