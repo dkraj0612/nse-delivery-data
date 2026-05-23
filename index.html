@@ -4,101 +4,257 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Momentum Alpha PM Matrix - LIVE</title>
+        <title>Momentum Alpha Live</title>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <style>
-            :root { --bg-base: #07090E; --bg-surface: #11151D; --bg-hover: #1A202C; --border: #1F2733; --accent: #2563EB; --success: #10B981; --danger: #EF4444; --text: #F3F4F6; --text-muted: #9CA3AF; }
-            body { font-family: 'Inter', sans-serif; background: var(--bg-base); color: var(--text); margin: 0; padding: 20px; box-sizing: border-box; }
-            @media(min-width: 768px) { body { padding: 40px; } }
+            :root { --bg-base: #0B0F19; --bg-surface: #151A27; --bg-hover: #1E2538; --border: #2A344A; --accent: #3B82F6; --success: #10B981; --warning: #F59E0B; --danger: #EF4444; --text: #F8FAFC; --text-muted: #94A3B8; }
+            body { font-family: 'Inter', sans-serif; background: var(--bg-base); color: var(--text); margin: 0; display: flex; height: 100vh; overflow: hidden; }
             
-            .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
-            .brand { font-size: 24px; font-weight: 800; letter-spacing: -0.5px; color: #fff; }
-            .brand span { color: var(--accent); }
+            /* Sidebar Layout */
+            .sidebar { width: 280px; background: var(--bg-surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; }
+            .brand { padding: 24px; font-size: 20px; font-weight: 800; border-bottom: 1px solid var(--border); letter-spacing: -0.5px; }
+            .brand i { color: var(--accent); margin-right: 8px; }
+            .nav-menu { padding: 16px; display: flex; flex-direction: column; gap: 8px; flex-grow: 1; }
+            .nav-btn { background: transparent; color: var(--text-muted); border: none; padding: 14px 16px; border-radius: 8px; cursor: pointer; text-align: left; font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 12px; transition: all 0.2s; }
+            .nav-btn:hover { background: var(--bg-hover); color: var(--text); }
+            .nav-btn.active { background: rgba(59, 130, 246, 0.1); color: var(--accent); border: 1px solid rgba(59, 130, 246, 0.2); }
             
-            .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
-            .card { background: var(--bg-surface); padding: 20px; border-radius: 12px; border: 1px solid var(--border); }
-            .card-title { font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin-bottom: 6px; }
-            .card-value { font-size: 24px; font-weight: 800; }
+            /* Main Content Area */
+            .main-content { flex-grow: 1; overflow-y: auto; padding: 32px; scroll-behavior: smooth; }
+            .view-section { display: none; animation: fadeIn 0.3s ease; }
+            .view-section.active { display: block; }
+            @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
             
-            .methodology-card { background: var(--bg-surface); padding: 24px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 32px; }
-            .methodology-card h3 { margin-top: 0; margin-bottom: 16px; font-size: 16px; color: #fff; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
-            .methodology-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
-            .methodology-item h4 { margin: 0 0 8px 0; font-size: 13px; color: var(--accent); }
-            .methodology-item p { margin: 0; font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+            .page-title { font-size: 28px; font-weight: 800; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; }
+            .timestamp-badge { background: var(--bg-hover); padding: 6px 12px; border-radius: 6px; font-size: 13px; font-weight: 600; color: var(--text-muted); border: 1px solid var(--border); }
             
-            .tab-container { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
-            .tab-btn { background: transparent; border: none; color: var(--text-muted); font-size: 14px; font-weight: 600; padding: 10px 20px; cursor: pointer; border-radius: 6px; }
-            .tab-btn.active { background: rgba(255,255,255,0.05); color: #fff; }
+            /* Dashboard Grid */
+            .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 32px; }
+            .card { background: var(--bg-surface); padding: 24px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+            .card-icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(59, 130, 246, 0.1); color: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 18px; margin-bottom: 16px; }
+            .card-title { font-size: 13px; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin-bottom: 8px; letter-spacing: 0.5px; }
+            .card-value { font-size: 28px; font-weight: 800; }
             
-            .stock-card { background: var(--bg-surface); padding: 20px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 12px; display: flex; flex-direction: column; gap: 10px; }
-            .stock-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
-            .stock-symbol { font-weight: 800; font-size: 18px; }
-            .stock-reason { font-size: 13px; color: var(--text-muted); line-height: 1.6; background: rgba(0,0,0,0.1); padding: 12px; border-radius: 6px; border-left: 3px solid var(--accent); }
+            .dashboard-layout { display: grid; grid-template-columns: 1fr 350px; gap: 24px; }
+            .chart-card { background: var(--bg-surface); padding: 24px; border-radius: 16px; border: 1px solid var(--border); }
+            .methodology-card { background: var(--bg-surface); padding: 24px; border-radius: 16px; border: 1px solid var(--border); }
+            .method-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); }
+            .method-row:last-child { border-bottom: none; }
+            
+            /* Portfolio Grid View */
+            .controls-bar { display: flex; justify-content: space-between; margin-bottom: 20px; }
+            .search-box { background: var(--bg-surface); border: 1px solid var(--border); color: var(--text); padding: 12px 16px; border-radius: 8px; width: 300px; font-family: 'Inter'; outline: none; }
+            .search-box:focus { border-color: var(--accent); }
+            
+            .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 24px; }
+            .stock-card { background: var(--bg-surface); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; transition: transform 0.2s, border-color 0.2s; }
+            .stock-card:hover { transform: translateY(-3px); border-color: var(--accent); }
+            .sc-header { padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-start; background: rgba(0,0,0,0.1); }
+            .sc-symbol { font-size: 22px; font-weight: 800; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+            .sc-sector { font-size: 13px; color: var(--text-muted); font-weight: 500; display: block; }
+            .sc-score-badge { background: rgba(16, 185, 129, 0.1); color: var(--success); padding: 8px 14px; border-radius: 12px; font-weight: 800; font-size: 18px; border: 1px solid rgba(16, 185, 129, 0.2); }
+            
+            .sc-body { padding: 20px; }
+            .score-breakdown { margin-bottom: 20px; }
+            .sb-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; font-size: 12px; font-weight: 600; color: #E2E8F0; }
+            .sb-bar-bg { height: 6px; background: var(--bg-hover); border-radius: 3px; overflow: hidden; margin-bottom: 12px; }
+            .sb-bar-fill { height: 100%; border-radius: 3px; }
+            
+            .sc-reason { background: rgba(59, 130, 246, 0.05); padding: 16px; border-radius: 8px; border-left: 4px solid var(--accent); font-size: 14px; line-height: 1.6; color: var(--text); border: 1px solid rgba(59, 130, 246, 0.1); }
+            .sc-reason-title { font-size: 12px; text-transform: uppercase; font-weight: 800; color: var(--accent); margin-bottom: 8px; letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px; }
         </style>
     </head>
     <body>
-        <div class="header">
-            <div class="brand">⚡ Momentum<span>Alpha</span> LIVE</div>
-        </div>
         
-        <div class="metrics-grid">
-            <div class="card"><div class="card-title">Analysis Date</div><div class="card-value" id="m-date">--</div></div>
-            <div class="card"><div class="card-title">Market Regime</div><div class="card-value" id="m-regime" style="color:#60A5FA;">--</div></div>
-            <div class="card"><div class="card-title">Total Selections</div><div class="card-value" id="m-count">--</div></div>
-        </div>
-        
-        <div class="methodology-card">
-            <h3>⚙️ The 100-Point Selection Engine & Filters</h3>
-            <div class="methodology-grid">
-                <div class="methodology-item"><h4>1. Pure Momentum (Max 50 Pts)</h4><p>How fast is the stock growing compared to the rest of the market?</p></div>
-                <div class="methodology-item"><h4>2. Trend Alignment (Max 20 Pts)</h4><p>+7 pts if above 51 EMA, +6 pts if above 100 EMA, +7 pts if above 200 EMA.</p></div>
-                <div class="methodology-item"><h4>3. Strong Hands Bonus (Max 15 Pts)</h4><p>Rewards high Delivery Percentages (investors buying and holding).</p></div>
-                <div class="methodology-item"><h4>4. Liquidity Bonus (Max 15 Pts)</h4><p>Rewards massive trading turnover volume.</p></div>
+        <div class="sidebar">
+            <div class="brand"><i class="fas fa-bolt"></i> Momentum Alpha</div>
+            <div class="nav-menu">
+                <button class="nav-btn active" onclick="switchView('dashboard')" id="btn-dashboard"><i class="fas fa-chart-pie"></i> Metrics Dashboard</button>
+                <button class="nav-btn" onclick="switchView('selected')" id="btn-selected"><i class="fas fa-check-circle" style="color: var(--success)"></i> Selected Portfolio <span style="background:var(--bg-hover); padding:2px 8px; border-radius:10px; font-size:12px; margin-left:auto;">10</span></button>
+                <button class="nav-btn" onclick="switchView('rejected')" id="btn-rejected"><i class="fas fa-times-circle" style="color: var(--danger)"></i> Rejected Candidates</button>
             </div>
-            <div style="margin-top: 16px; padding: 12px; background: rgba(37, 99, 235, 0.1); border-left: 4px solid var(--accent); border-radius: 4px; font-size: 13px;">
-                <span style="font-weight: 700; color: var(--text);">Strict Hard Filters:</span> Master Score <b>≥ 70</b> AND price <b>within 20% of 52-week high</b>.
+            <div style="padding: 24px; font-size: 12px; color: var(--text-muted); text-align: center; border-top: 1px solid var(--border);">
+                Algorithmic Scoring Engine v2.0
             </div>
         </div>
         
-        <div class="tab-container">
-            <button class="tab-btn active" id="btn-sel-tab" onclick="switchTab('SELECTED')">✅ Final AI Portfolio</button>
-            <button class="tab-btn" id="btn-rej-tab" onclick="switchTab('REJECTED')">❌ Rejected Candidates</button>
+        <div class="main-content">
+            
+            <!-- DASHBOARD VIEW -->
+            <div id="view-dashboard" class="view-section active">
+                <div class="page-title">
+                    Live System Dashboard 
+                    <span class="timestamp-badge"><i class="far fa-clock"></i> As of 2026-05-18</span>
+                </div>
+                
+                <div class="metrics-grid">
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-chess-board"></i></div>
+                        <div class="card-title">Market Regime Framework</div>
+                        <div class="card-value" style="color: var(--accent); font-size: 22px;">DEFENSIVE (Reduced Allocation)</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-layer-group"></i></div>
+                        <div class="card-title">Final AI Allocations</div>
+                        <div class="card-value">10 <span style="font-size:14px; color:var(--text-muted); font-weight:500;">/ 50 Screened</span></div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-star"></i></div>
+                        <div class="card-title">Average Portfolio Score</div>
+                        <div class="card-value">90.0 <span style="font-size:14px; color:var(--text-muted); font-weight:500;">/ 100</span></div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-layout">
+                    <div class="chart-card">
+                        <h3 style="margin-top:0; color:var(--text-muted); font-size:14px; text-transform:uppercase;">Sector Allocation</h3>
+                        <div style="height: 300px; display:flex; justify-content:center;">
+                            <canvas id="sectorChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="methodology-card">
+                        <h3 style="margin-top:0; margin-bottom:20px; color:var(--text-muted); font-size:14px; text-transform:uppercase;"><i class="fas fa-cogs"></i> Scoring Engine (100 Pts)</h3>
+                        <div class="method-row"><div>Pure Momentum</div><div style="font-weight:700; color:#3B82F6;">Max 50 pts</div></div>
+                        <div class="method-row"><div>Trend Alignment (EMAs)</div><div style="font-weight:700; color:#10B981;">Max 20 pts</div></div>
+                        <div class="method-row"><div>Strong Hands (Delivery %)</div><div style="font-weight:700; color:#F59E0B;">Max 15 pts</div></div>
+                        <div class="method-row"><div>Liquidity (Turnover)</div><div style="font-weight:700; color:#8B5CF6;">Max 15 pts</div></div>
+                        <div style="margin-top:20px; padding:12px; background:rgba(239, 68, 68, 0.1); border-left:3px solid var(--danger); border-radius:6px; font-size:13px;">
+                            <strong>Hard Filter:</strong> Must score ≥70 and price within 20% of 52-week high.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SELECTED PORTFOLIO VIEW -->
+            <div id="view-selected" class="view-section">
+                <div class="page-title">AI Selected Portfolio</div>
+                <div class="controls-bar">
+                    <input type="text" class="search-box" id="search-sel" placeholder="Search symbol or sector..." onkeyup="filterCards('search-sel', 'grid-sel')">
+                </div>
+                <div class="portfolio-grid" id="grid-sel"></div>
+            </div>
+            
+            <!-- REJECTED VIEW -->
+            <div id="view-rejected" class="view-section">
+                <div class="page-title">Rejected Candidates</div>
+                <div class="controls-bar">
+                    <input type="text" class="search-box" id="search-rej" placeholder="Search symbol or sector..." onkeyup="filterCards('search-rej', 'grid-rej')">
+                </div>
+                <div class="portfolio-grid" id="grid-rej"></div>
+            </div>
+            
         </div>
-        
-        <div id="stocks-list-container"></div>
 
         <script>
-            const data = {'date': '2026-05-18', 'regime': 'DEFENSIVE', 'selected': [{'SYMBOL': 'NHIT', 'SECTOR': 'Unknown', 'PRICE': 160.1, 'SCORE': 93.04963565291864, 'DELIV_%': '99.0%', 'REASON': 'Selected for its highest master score (93.0496) and overall robustness.'}, {'SYMBOL': 'PRIZOR', 'SECTOR': 'Unknown', 'PRICE': 649.55, 'SCORE': 92.29442274525276, 'DELIV_%': '94.4%', 'REASON': 'Selected for its high master score (92.2944) and robustness, contributing to the diversified portfolio.'}, {'SYMBOL': 'GVT&D', 'SECTOR': 'Capital Goods', 'PRICE': 4426.8, 'SCORE': 91.63462906136455, 'DELIV_%': '57.5%', 'REASON': 'Selected for its high master score (91.6346), robustness, and to provide essential diversification into the Capital Goods sector.'}, {'SYMBOL': 'UNIHEALTH', 'SECTOR': 'Unknown', 'PRICE': 442.0, 'SCORE': 91.10698318009621, 'DELIV_%': '91.5%', 'REASON': "Selected for its high master score (91.107) and robustness, fitting the 'Unknown' sector allocation with a strong score."}, {'SYMBOL': 'MON100', 'SECTOR': 'Unknown', 'PRICE': 331.62, 'SCORE': 90.10452116279879, 'DELIV_%': '91.0%', 'REASON': "Selected for its high master score (90.1045) and robustness, supported by a strong market cap (72233) within the 'Unknown' sector for structural price smoothness."}, {'SYMBOL': 'ANANDRATHI', 'SECTOR': 'Financial Services', 'PRICE': 3575.7, 'SCORE': 89.86993883694612, 'DELIV_%': '60.8%', 'REASON': 'Selected for its high master score (89.8699), robustness, and to provide crucial diversification into the Financial Services sector.'}, {'SYMBOL': 'HINDALCO', 'SECTOR': 'Metals & Mining', 'PRICE': 1053.1, 'SCORE': 89.40739147810855, 'DELIV_%': '56.4%', 'REASON': 'Selected for its high master score (89.4074), robustness, and to provide essential diversification into the Metals & Mining sector.'}, {'SYMBOL': 'AKIKO', 'SECTOR': 'Unknown', 'PRICE': 270.8, 'SCORE': 88.45911990150569, 'DELIV_%': '95.0%', 'REASON': "Selected for its high master score (88.4591), robustness, and particularly its strong market cap (82538) which contributes to structural price smoothness within the 'Unknown' sector."}, {'SYMBOL': 'LAURUSLABS', 'SECTOR': 'Healthcare', 'PRICE': 1327.3, 'SCORE': 87.391299908518, 'DELIV_%': '49.7%', 'REASON': 'Selected for its strong master score (87.3913), robustness, and to provide crucial diversification into the Healthcare sector.'}, {'SYMBOL': 'SANSERA', 'SECTOR': 'Automobile and Auto Components', 'PRICE': 2392.5, 'SCORE': 86.7252559482505, 'DELIV_%': '50.5%', 'REASON': 'Selected for its solid master score (86.7253), robustness, and to provide essential diversification into the Automobile and Auto Components sector.'}], 'rejected': [{'SYMBOL': 'DPEL', 'SECTOR': 'Unknown', 'PRICE': 519.6, 'SCORE': 88.68867746704726, 'DELIV_%': '71.5%', 'REASON': "Not selected. While having a strong master score (88.6887), other symbols were prioritized for broader sector diversification, and AKIKO was chosen for its higher market cap within the 'Unknown' sector to enhance structural price smoothness."}, {'SYMBOL': 'VMARCIND', 'SECTOR': 'Unknown', 'PRICE': 1052.8, 'SCORE': 88.62320610442289, 'DELIV_%': '63.6%', 'REASON': "Not selected. While having a strong master score (88.6232), other symbols were prioritized for broader sector diversification, and AKIKO was chosen for its higher market cap within the 'Unknown' sector to enhance structural price smoothness."}, {'SYMBOL': 'CUMMINSIND', 'SECTOR': 'Capital Goods', 'PRICE': 5298.5, 'SCORE': 88.42812686873333, 'DELIV_%': '54.9%', 'REASON': 'Not selected due to potential over-concentration in the Capital Goods sector, as GVT&D was already selected with a higher master score.'}, {'SYMBOL': 'MAXVOLT', 'SECTOR': 'Unknown', 'PRICE': 446.25, 'SCORE': 88.3053236037835, 'DELIV_%': '70.6%', 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector."}, {'SYMBOL': 'MONQ50', 'SECTOR': 'Unknown', 'PRICE': 135.01, 'SCORE': 88.20940368185344, 'DELIV_%': '97.6%', 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector."}, {'SYMBOL': 'DIVINEHIRA', 'SECTOR': 'Unknown', 'PRICE': 326.65, 'SCORE': 88.1761344082078, 'DELIV_%': '85.0%', 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector."}, {'SYMBOL': 'VENUSREM', 'SECTOR': 'Unknown', 'PRICE': 957.35, 'SCORE': 87.92515196808623, 'DELIV_%': '62.2%', 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector."}, {'SYMBOL': 'GOLD1', 'SECTOR': 'Unknown', 'PRICE': 130.92, 'SCORE': 87.84815937210384, 'DELIV_%': '63.5%', 'REASON': "Not selected. Likely a gold-related instrument, avoiding selection to prevent sub-sector concentration within the 'Unknown' category."}, {'SYMBOL': 'COMMITTED', 'SECTOR': 'Unknown', 'PRICE': 300.25, 'SCORE': 87.81000414225653, 'DELIV_%': '84.1%', 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector."}, {'SYMBOL': 'GOLDIETF', 'SECTOR': 'Unknown', 'PRICE': 134.19, 'SCORE': 87.7629315277165, 'DELIV_%': '58.3%', 'REASON': "Not selected. Likely a gold-related instrument, avoiding selection to prevent sub-sector concentration within the 'Unknown' category."}, {'SYMBOL': 'UCL', 'SECTOR': 'Unknown', 'PRICE': 148.0, 'SCORE': 87.63221088230895, 'DELIV_%': '100.0%', 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector."}, {'SYMBOL': 'SETFGOLD', 'SECTOR': 'Unknown', 'PRICE': 133.73, 'SCORE': 87.55706350104064, 'DELIV_%': '59.5%', 'REASON': "Not selected. Likely a gold-related instrument, avoiding selection to prevent sub-sector concentration within the 'Unknown' category."}, {'SYMBOL': 'AIMTRON', 'SECTOR': 'Unknown', 'PRICE': 1037.85, 'SCORE': 87.3885677003307, 'DELIV_%': '60.8%', 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector."}, {'SYMBOL': 'HDFCGOLD', 'SECTOR': 'Unknown', 'PRICE': 134.01, 'SCORE': 87.09617724029543, 'DELIV_%': '58.7%', 'REASON': "Not selected. Likely a gold-related instrument, avoiding selection to prevent sub-sector concentration within the 'Unknown' category."}, {'SYMBOL': 'HOACFOODS', 'SECTOR': 'Unknown', 'PRICE': 467.0, 'SCORE': 86.94512150898481, 'DELIV_%': '83.5%', 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector."}, {'SYMBOL': 'SJS', 'SECTOR': 'Unknown', 'PRICE': 1867.7, 'SCORE': 86.90958442467371, 'DELIV_%': '55.6%', 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector."}, {'SYMBOL': 'VIESL', 'SECTOR': 'Unknown', 'PRICE': 304.9, 'SCORE': 86.89253475482116, 'DELIV_%': '70.7%', 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector."}, {'SYMBOL': 'ACCENTMIC', 'SECTOR': 'Unknown', 'PRICE': 428.35, 'SCORE': 86.85839377841123, 'DELIV_%': '68.2%', 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector."}, {'SYMBOL': 'MANAV', 'SECTOR': 'Unknown', 'PRICE': 43.0, 'SCORE': 86.8134403876244, 'DELIV_%': '100.0%', 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector."}, {'SYMBOL': 'REXPIPES', 'SECTOR': 'Unknown', 'PRICE': 191.9, 'SCORE': 86.76963546027196, 'DELIV_%': '100.0%', 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector."}, {'SYMBOL': 'SGBAUG28V', 'SECTOR': 'Unknown', 'PRICE': 15597.95, 'SCORE': 86.67206411507696, 'DELIV_%': '78.6%', 'REASON': "Not selected. Likely a gold/bond-related instrument, avoiding selection to prevent sub-sector concentration within the 'Unknown' category."}, {'SYMBOL': 'OLIL', 'SECTOR': 'Unknown', 'PRICE': 451.0, 'SCORE': 86.53590665319858, 'DELIV_%': '74.3%', 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector."}, {'SYMBOL': 'MASPTOP50', 'SECTOR': 'Unknown', 'PRICE': 82.69, 'SCORE': 86.37013214587299, 'DELIV_%': '98.8%', 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector."}, {'SYMBOL': 'SHEETAL', 'SECTOR': 'Unknown', 'PRICE': 284.25, 'SCORE': 86.36913074608512, 'DELIV_%': '77.2%', 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector."}, {'SYMBOL': 'MAFANG', 'SECTOR': 'Unknown', 'PRICE': 197.89, 'SCORE': 86.31600905279814, 'DELIV_%': '97.1%', 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector."}, {'SYMBOL': 'AXISGOLD', 'SECTOR': 'Unknown', 'PRICE': 130.49, 'SCORE': 86.30974691770203, 'DELIV_%': '62.4%', 'REASON': "Not selected. Likely a gold-related instrument, avoiding selection to prevent sub-sector concentration within the 'Unknown' category."}, {'SYMBOL': 'SGBMAY29I', 'SECTOR': 'Unknown', 'PRICE': 15608.94, 'SCORE': 86.24046744872533, 'DELIV_%': '78.9%', 'REASON': "Not selected. Likely a gold/bond-related instrument, avoiding selection to prevent sub-sector concentration within the 'Unknown' category."}, {'SYMBOL': 'NATIONALUM', 'SECTOR': 'Metals & Mining', 'PRICE': 400.45, 'SCORE': 86.23419245178616, 'DELIV_%': '42.6%', 'REASON': 'Not selected due to potential over-concentration in the Metals & Mining sector, as HINDALCO was already selected with a higher master score.'}, {'SYMBOL': 'VEDL', 'SECTOR': 'Metals & Mining', 'PRICE': 327.0, 'SCORE': 86.11858653280434, 'DELIV_%': '44.5%', 'REASON': 'Not selected due to potential over-concentration in the Metals & Mining sector, as HINDALCO was already selected with a higher master score.'}, {'SYMBOL': 'OBSCP', 'SECTOR': 'Unknown', 'PRICE': 369.2, 'SCORE': 86.06965696558008, 'DELIV_%': '67.1%', 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector."}, {'SYMBOL': 'MCX', 'SECTOR': 'Financial Services', 'PRICE': 3348.4, 'SCORE': 86.06776280898725, 'DELIV_%': '40.7%', 'REASON': 'Not selected due to potential over-concentration in the Financial Services sector, as ANANDRATHI was already selected with a higher master score.'}, {'SYMBOL': 'MAGSON', 'SECTOR': 'Unknown', 'PRICE': 177.0, 'SCORE': 85.97160621544462, 'DELIV_%': '91.2%', 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector."}, {'SYMBOL': 'KRISHANA', 'SECTOR': 'Unknown', 'PRICE': 665.4, 'SCORE': 85.96053560636015, 'DELIV_%': '50.0%', 'REASON': "Not selected due to a lower master score, relatively small market cap, and to avoid over-concentration within the 'Unknown' sector."}, {'SYMBOL': 'TFCILTD', 'SECTOR': 'Unknown', 'PRICE': 73.09, 'SCORE': 85.94742019411095, 'DELIV_%': '52.7%', 'REASON': "Not selected due to a lower master score, very small market cap, and to avoid over-concentration within the 'Unknown' sector."}, {'SYMBOL': 'GOLDETF', 'SECTOR': 'Unknown', 'PRICE': 152.37, 'SCORE': 85.89516132522452, 'DELIV_%': '57.7%', 'REASON': "Not selected. Likely a gold-related instrument, avoiding selection to prevent sub-sector concentration within the 'Unknown' category."}, {'SYMBOL': 'KIRLOSENG', 'SECTOR': 'Capital Goods', 'PRICE': 1700.0, 'SCORE': 85.76026929431794, 'DELIV_%': '46.6%', 'REASON': 'Not selected due to potential over-concentration in the Capital Goods sector, as GVT&D was already selected with a higher master score.'}, {'SYMBOL': 'MAHICKRA', 'SECTOR': 'Unknown', 'PRICE': 228.2, 'SCORE': 85.72747691431411, 'DELIV_%': '94.7%', 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector."}, {'SYMBOL': 'KOVAI', 'SECTOR': 'Unknown', 'PRICE': 5363.0, 'SCORE': 85.61706230246271, 'DELIV_%': '69.5%', 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector."}, {'SYMBOL': 'SGBJUL28IV', 'SECTOR': 'Unknown', 'PRICE': 15591.1, 'SCORE': 85.55630713898455, 'DELIV_%': '82.6%', 'REASON': "Not selected. Likely a gold/bond-related instrument, avoiding selection to prevent sub-sector concentration within the 'Unknown' category."}, {'SYMBOL': 'MOCAPITAL', 'SECTOR': 'Unknown', 'PRICE': 54.93, 'SCORE': 85.52506032920752, 'DELIV_%': '71.9%', 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector."}]};
-            let currentTab = 'SELECTED';
+            const coreData = {'date': '2026-05-18', 'regime': 'DEFENSIVE (Reduced Allocation)', 'avg_score': np.float64(90.0), 'sector_labels': ['Unknown', 'Capital Goods', 'Financial Services', 'Metals & Mining', 'Healthcare', 'Automobile and Auto Components'], 'sector_data': [5, 1, 1, 1, 1, 1], 'selected': [{'SYMBOL': 'NHIT', 'SECTOR': 'Unknown', 'PRICE': 160.1, 'SCORE': 93.04963565291864, 'MOM_PTS': 50.0, 'EMA_PTS': 20, 'DEL_PTS': 14.87792472024415, 'TURN_PTS': 8.17171093267449, 'REASON': 'Selected for its highest master score (93.0496) and overall robustness.', 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'PRIZOR', 'SECTOR': 'Unknown', 'PRICE': 649.55, 'SCORE': 92.29442274525276, 'MOM_PTS': 49.63045084996304, 'EMA_PTS': 20, 'DEL_PTS': 14.501525940996949, 'TURN_PTS': 8.162445954292775, 'REASON': 'Selected for its high master score (92.2944) and robustness, contributing to the diversified portfolio.', 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'GVT&D', 'SECTOR': 'Capital Goods', 'PRICE': 4426.8, 'SCORE': 91.63462906136455, 'MOM_PTS': 49.26090169992609, 'EMA_PTS': 20, 'DEL_PTS': 7.901831129196339, 'TURN_PTS': 14.471896232242125, 'REASON': 'Selected for its high master score (91.6346), robustness, and to provide essential diversification into the Capital Goods sector.', 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'UNIHEALTH', 'SECTOR': 'Unknown', 'PRICE': 442.0, 'SCORE': 91.10698318009621, 'MOM_PTS': 49.72283813747229, 'EMA_PTS': 20, 'DEL_PTS': 14.175991861648017, 'TURN_PTS': 7.208153180975911, 'REASON': "Selected for its high master score (91.107) and robustness, fitting the 'Unknown' sector allocation with a strong score.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'MON100', 'SECTOR': 'Unknown', 'PRICE': 331.62, 'SCORE': 90.10452116279879, 'MOM_PTS': 44.2350332594235, 'EMA_PTS': 20, 'DEL_PTS': 14.08443540183113, 'TURN_PTS': 11.785052501544163, 'REASON': "Selected for its high master score (90.1045) and robustness, supported by a strong market cap (72233) within the 'Unknown' sector for structural price smoothness.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'ANANDRATHI', 'SECTOR': 'Financial Services', 'PRICE': 3575.7, 'SCORE': 89.86993883694612, 'MOM_PTS': 47.96747967479675, 'EMA_PTS': 20, 'DEL_PTS': 8.616480162767038, 'TURN_PTS': 13.285978999382333, 'REASON': 'Selected for its high master score (89.8699), robustness, and to provide crucial diversification into the Financial Services sector.', 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'HINDALCO', 'SECTOR': 'Metals & Mining', 'PRICE': 1053.1, 'SCORE': 89.40739147810855, 'MOM_PTS': 47.06208425720621, 'EMA_PTS': 20, 'DEL_PTS': 7.609359104781283, 'TURN_PTS': 14.735948116121062, 'REASON': 'Selected for its high master score (89.4074), robustness, and to provide essential diversification into the Metals & Mining sector.', 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'AKIKO', 'SECTOR': 'Unknown', 'PRICE': 270.8, 'SCORE': 88.45911990150569, 'MOM_PTS': 48.46637102734664, 'EMA_PTS': 20, 'DEL_PTS': 14.572736520854527, 'TURN_PTS': 5.420012353304509, 'REASON': "Selected for its high master score (88.4591), robustness, and particularly its strong market cap (82538) which contributes to structural price smoothness within the 'Unknown' sector.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'LAURUSLABS', 'SECTOR': 'Healthcare', 'PRICE': 1327.3, 'SCORE': 87.391299908518, 'MOM_PTS': 47.91204730229121, 'EMA_PTS': 20, 'DEL_PTS': 5.030518819938963, 'TURN_PTS': 14.448733786287832, 'REASON': 'Selected for its strong master score (87.3913), robustness, and to provide crucial diversification into the Healthcare sector.', 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'SANSERA', 'SECTOR': 'Automobile and Auto Components', 'PRICE': 2392.5, 'SCORE': 86.7252559482505, 'MOM_PTS': 48.50332594235034, 'EMA_PTS': 20, 'DEL_PTS': 5.320447609359105, 'TURN_PTS': 12.901482396541073, 'REASON': 'Selected for its solid master score (86.7253), robustness, and to provide essential diversification into the Automobile and Auto Components sector.', 'ENTRY_DATE': '2026-05-18'}], 'rejected': [{'SYMBOL': 'DPEL', 'SECTOR': 'Unknown', 'PRICE': 519.6, 'SCORE': 88.68867746704726, 'MOM_PTS': 49.33481152993348, 'EMA_PTS': 20, 'DEL_PTS': 11.047812817904374, 'TURN_PTS': 8.30605311920939, 'REASON': "Not selected. While having a strong master score (88.6887), other symbols were prioritized for broader sector diversification, and AKIKO was chosen for its higher market cap within the 'Unknown' sector to enhance structural price smoothness.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'VMARCIND', 'SECTOR': 'Unknown', 'PRICE': 1052.8, 'SCORE': 88.62320610442289, 'MOM_PTS': 49.5750184774575, 'EMA_PTS': 20, 'DEL_PTS': 9.231943031536115, 'TURN_PTS': 9.816244595429277, 'REASON': "Not selected. While having a strong master score (88.6232), other symbols were prioritized for broader sector diversification, and AKIKO was chosen for its higher market cap within the 'Unknown' sector to enhance structural price smoothness.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'CUMMINSIND', 'SECTOR': 'Capital Goods', 'PRICE': 5298.5, 'SCORE': 88.42812686873333, 'MOM_PTS': 47.099039172209906, 'EMA_PTS': 20, 'DEL_PTS': 7.019328585961343, 'TURN_PTS': 14.309759110562077, 'REASON': 'Not selected due to potential over-concentration in the Capital Goods sector, as GVT&D was already selected with a higher master score.', 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'MAXVOLT', 'SECTOR': 'Unknown', 'PRICE': 446.25, 'SCORE': 88.30532360378352, 'MOM_PTS': 48.74353288987435, 'EMA_PTS': 20, 'DEL_PTS': 10.834181078331639, 'TURN_PTS': 8.727609635577517, 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'MONQ50', 'SECTOR': 'Unknown', 'PRICE': 135.01, 'SCORE': 88.20940368185344, 'MOM_PTS': 46.7110125646711, 'EMA_PTS': 20, 'DEL_PTS': 14.781281790437436, 'TURN_PTS': 6.717109326744904, 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'DIVINEHIRA', 'SECTOR': 'Unknown', 'PRICE': 326.65, 'SCORE': 88.1761344082078, 'MOM_PTS': 49.87065779748707, 'EMA_PTS': 20, 'DEL_PTS': 13.367243133265514, 'TURN_PTS': 4.938233477455219, 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'VENUSREM', 'SECTOR': 'Unknown', 'PRICE': 957.35, 'SCORE': 87.92515196808623, 'MOM_PTS': 49.611973392461195, 'EMA_PTS': 20, 'DEL_PTS': 8.886063072227874, 'TURN_PTS': 9.42711550339716, 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'GOLD1', 'SECTOR': 'Unknown', 'PRICE': 130.92, 'SCORE': 87.84815937210384, 'MOM_PTS': 46.175166297117514, 'EMA_PTS': 20, 'DEL_PTS': 9.211597151576806, 'TURN_PTS': 12.461395923409512, 'REASON': "Not selected. Likely a gold-related instrument, avoiding selection to prevent sub-sector concentration within the 'Unknown' category.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'COMMITTED', 'SECTOR': 'Unknown', 'PRICE': 300.25, 'SCORE': 87.81000414225653, 'MOM_PTS': 49.83370288248337, 'EMA_PTS': 20, 'DEL_PTS': 13.260427263479146, 'TURN_PTS': 4.715873996294008, 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'GOLDIETF', 'SECTOR': 'Unknown', 'PRICE': 134.19, 'SCORE': 87.7629315277165, 'MOM_PTS': 46.230598669623056, 'EMA_PTS': 20, 'DEL_PTS': 8.102746693794506, 'TURN_PTS': 13.42958616429895, 'REASON': "Not selected. Likely a gold-related instrument, avoiding selection to prevent sub-sector concentration within the 'Unknown' category.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'UCL', 'SECTOR': 'Unknown', 'PRICE': 148.0, 'SCORE': 87.63221088230895, 'MOM_PTS': 46.914264597191426, 'EMA_PTS': 20, 'DEL_PTS': 14.96439471007121, 'TURN_PTS': 5.753551575046324, 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'SETFGOLD', 'SECTOR': 'Unknown', 'PRICE': 133.73, 'SCORE': 87.55706350104064, 'MOM_PTS': 45.95343680709534, 'EMA_PTS': 20, 'DEL_PTS': 8.382502543234995, 'TURN_PTS': 13.221124150710315, 'REASON': "Not selected. Likely a gold-related instrument, avoiding selection to prevent sub-sector concentration within the 'Unknown' category.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'AIMTRON', 'SECTOR': 'Unknown', 'PRICE': 1037.85, 'SCORE': 87.3885677003307, 'MOM_PTS': 48.54028085735403, 'EMA_PTS': 20, 'DEL_PTS': 8.601220752797559, 'TURN_PTS': 10.247066090179123, 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'HDFCGOLD', 'SECTOR': 'Unknown', 'PRICE': 134.01, 'SCORE': 87.09617724029543, 'MOM_PTS': 45.73170731707317, 'EMA_PTS': 20, 'DEL_PTS': 8.194303153611393, 'TURN_PTS': 13.170166769610871, 'REASON': "Not selected. Likely a gold-related instrument, avoiding selection to prevent sub-sector concentration within the 'Unknown' category.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'HOACFOODS', 'SECTOR': 'Unknown', 'PRICE': 467.0, 'SCORE': 86.94512150898481, 'MOM_PTS': 49.40872135994087, 'EMA_PTS': 20, 'DEL_PTS': 13.158697863682605, 'TURN_PTS': 4.377702285361334, 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'SJS', 'SECTOR': 'Unknown', 'PRICE': 1867.7, 'SCORE': 86.90958442467371, 'MOM_PTS': 47.413155949741316, 'EMA_PTS': 20, 'DEL_PTS': 7.299084435401831, 'TURN_PTS': 12.197344039530575, 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'VIESL', 'SECTOR': 'Unknown', 'PRICE': 304.9, 'SCORE': 86.89253475482116, 'MOM_PTS': 48.18920916481892, 'EMA_PTS': 20, 'DEL_PTS': 10.869786368260426, 'TURN_PTS': 7.833539221741816, 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'ACCENTMIC', 'SECTOR': 'Unknown', 'PRICE': 428.35, 'SCORE': 86.85839377841123, 'MOM_PTS': 48.577235772357724, 'EMA_PTS': 20, 'DEL_PTS': 10.1881993896236, 'TURN_PTS': 8.092958616429895, 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'MANAV', 'SECTOR': 'Unknown', 'PRICE': 43.0, 'SCORE': 86.8134403876244, 'MOM_PTS': 49.759793052475985, 'EMA_PTS': 20, 'DEL_PTS': 14.96439471007121, 'TURN_PTS': 2.0892526250772083, 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'REXPIPES', 'SECTOR': 'Unknown', 'PRICE': 191.9, 'SCORE': 86.76963546027196, 'MOM_PTS': 48.87287509238728, 'EMA_PTS': 20, 'DEL_PTS': 14.96439471007121, 'TURN_PTS': 2.932365657813465, 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'SGBAUG28V', 'SECTOR': 'Unknown', 'PRICE': 15597.95, 'SCORE': 86.67206411507696, 'MOM_PTS': 46.19364375461936, 'EMA_PTS': 20, 'DEL_PTS': 12.436419125127163, 'TURN_PTS': 8.042001235330451, 'REASON': "Not selected. Likely a gold/bond-related instrument, avoiding selection to prevent sub-sector concentration within the 'Unknown' category.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'OLIL', 'SECTOR': 'Unknown', 'PRICE': 451.0, 'SCORE': 86.53590665319858, 'MOM_PTS': 47.80118255728012, 'EMA_PTS': 20, 'DEL_PTS': 11.688708036622584, 'TURN_PTS': 7.046016059295861, 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'MASPTOP50', 'SECTOR': 'Unknown', 'PRICE': 82.69, 'SCORE': 86.37013214587299, 'MOM_PTS': 43.95787139689579, 'EMA_PTS': 20, 'DEL_PTS': 14.847405900305189, 'TURN_PTS': 7.564854848672019, 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'SHEETAL', 'SECTOR': 'Unknown', 'PRICE': 284.25, 'SCORE': 86.36913074608512, 'MOM_PTS': 49.42719881744272, 'EMA_PTS': 20, 'DEL_PTS': 12.207527975584945, 'TURN_PTS': 4.734403953057443, 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'MAFANG', 'SECTOR': 'Unknown', 'PRICE': 197.89, 'SCORE': 86.31600905279814, 'MOM_PTS': 42.03621581670362, 'EMA_PTS': 20, 'DEL_PTS': 14.750762970498474, 'TURN_PTS': 9.529030265596047, 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'AXISGOLD', 'SECTOR': 'Unknown', 'PRICE': 130.49, 'SCORE': 86.30974691770203, 'MOM_PTS': 46.008869179600886, 'EMA_PTS': 20, 'DEL_PTS': 8.94201424211597, 'TURN_PTS': 11.358863495985176, 'REASON': "Not selected. Likely a gold-related instrument, avoiding selection to prevent sub-sector concentration within the 'Unknown' category.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'SGBMAY29I', 'SECTOR': 'Unknown', 'PRICE': 15608.94, 'SCORE': 86.24046744872533, 'MOM_PTS': 46.43385070214339, 'EMA_PTS': 20, 'DEL_PTS': 12.487283825025433, 'TURN_PTS': 7.319332921556516, 'REASON': "Not selected. Likely a gold/bond-related instrument, avoiding selection to prevent sub-sector concentration within the 'Unknown' category.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'NATIONALUM', 'SECTOR': 'Metals & Mining', 'PRICE': 400.45, 'SCORE': 86.23419245178616, 'MOM_PTS': 49.31633407243163, 'EMA_PTS': 20, 'DEL_PTS': 2.2838250254323498, 'TURN_PTS': 14.634033353922174, 'REASON': 'Not selected due to potential over-concentration in the Metals & Mining sector, as HINDALCO was already selected with a higher master score.', 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'VEDL', 'SECTOR': 'Metals & Mining', 'PRICE': 327.0, 'SCORE': 86.11858653280436, 'MOM_PTS': 48.11529933481153, 'EMA_PTS': 20, 'DEL_PTS': 3.0264496439471005, 'TURN_PTS': 14.976837554045709, 'REASON': 'Not selected due to potential over-concentration in the Metals & Mining sector, as HINDALCO was already selected with a higher master score.', 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'OBSCP', 'SECTOR': 'Unknown', 'PRICE': 369.2, 'SCORE': 86.06965696558008, 'MOM_PTS': 47.856614929785664, 'EMA_PTS': 20, 'DEL_PTS': 9.944048830111903, 'TURN_PTS': 8.26899320568252, 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'MCX', 'SECTOR': 'Financial Services', 'PRICE': 3348.4, 'SCORE': 86.06776280898725, 'MOM_PTS': 49.297856614929785, 'EMA_PTS': 20, 'DEL_PTS': 1.871820956256358, 'TURN_PTS': 14.898085237801112, 'REASON': 'Not selected due to potential over-concentration in the Financial Services sector, as ANANDRATHI was already selected with a higher master score.', 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'MAGSON', 'SECTOR': 'Unknown', 'PRICE': 177.0, 'SCORE': 85.97160621544462, 'MOM_PTS': 48.04138950480414, 'EMA_PTS': 20, 'DEL_PTS': 14.145473041709055, 'TURN_PTS': 3.7847436689314393, 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'KRISHANA', 'SECTOR': 'Unknown', 'PRICE': 665.4, 'SCORE': 85.96053560636015, 'MOM_PTS': 48.983739837398375, 'EMA_PTS': 20, 'DEL_PTS': 5.150050864699899, 'TURN_PTS': 11.82674490426189, 'REASON': "Not selected due to a lower master score, relatively small market cap, and to avoid over-concentration within the 'Unknown' sector.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'TFCILTD', 'SECTOR': 'Unknown', 'PRICE': 73.09, 'SCORE': 85.94742019411095, 'MOM_PTS': 47.32076866223208, 'EMA_PTS': 20, 'DEL_PTS': 6.169888097660224, 'TURN_PTS': 12.456763434218653, 'REASON': "Not selected due to a lower master score, very small market cap, and to avoid over-concentration within the 'Unknown' sector.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'GOLDETF', 'SECTOR': 'Unknown', 'PRICE': 152.37, 'SCORE': 85.89516132522452, 'MOM_PTS': 45.80561714708056, 'EMA_PTS': 20, 'DEL_PTS': 7.975584944048831, 'TURN_PTS': 12.11395923409512, 'REASON': "Not selected. Likely a gold-related instrument, avoiding selection to prevent sub-sector concentration within the 'Unknown' category.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'KIRLOSENG', 'SECTOR': 'Capital Goods', 'PRICE': 1700.0, 'SCORE': 85.76026929431794, 'MOM_PTS': 48.706577974870655, 'EMA_PTS': 20, 'DEL_PTS': 3.7538148524923702, 'TURN_PTS': 13.299876466954911, 'REASON': 'Not selected due to potential over-concentration in the Capital Goods sector, as GVT&D was already selected with a higher master score.', 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'MAHICKRA', 'SECTOR': 'Unknown', 'PRICE': 228.2, 'SCORE': 85.72747691431411, 'MOM_PTS': 48.28159645232816, 'EMA_PTS': 20, 'DEL_PTS': 14.53204476093591, 'TURN_PTS': 2.9138357010500306, 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'KOVAI', 'SECTOR': 'Unknown', 'PRICE': 5363.0, 'SCORE': 85.61706230246271, 'MOM_PTS': 47.135994087213604, 'EMA_PTS': 20, 'DEL_PTS': 10.559511698880977, 'TURN_PTS': 7.921556516368129, 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'SGBJUL28IV', 'SECTOR': 'Unknown', 'PRICE': 15591.1, 'SCORE': 85.55630713898455, 'MOM_PTS': 46.39689578713969, 'EMA_PTS': 20, 'DEL_PTS': 13.021363173957274, 'TURN_PTS': 6.138048177887585, 'REASON': "Not selected. Likely a gold/bond-related instrument, avoiding selection to prevent sub-sector concentration within the 'Unknown' category.", 'ENTRY_DATE': '2026-05-18'}, {'SYMBOL': 'MOCAPITAL', 'SECTOR': 'Unknown', 'PRICE': 54.93, 'SCORE': 85.52506032920752, 'MOM_PTS': 44.08721359940872, 'EMA_PTS': 20, 'DEL_PTS': 11.144455747711088, 'TURN_PTS': 10.293390982087708, 'REASON': "Not selected due to a comparatively lower master score and to avoid over-concentration within the 'Unknown' sector.", 'ENTRY_DATE': '2026-05-18'}]};
             
-            document.getElementById('m-date').innerText = data.date;
-            document.getElementById('m-regime').innerText = data.regime;
-            document.getElementById('m-count').innerText = data.selected.length;
-            
-            function switchTab(mode) {
-                currentTab = mode;
-                document.getElementById('btn-sel-tab').className = mode === 'SELECTED' ? 'tab-btn active' : 'tab-btn';
-                document.getElementById('btn-rej-tab').className = mode === 'REJECTED' ? 'tab-btn active' : 'tab-btn';
+            // View Switching Logic
+            function switchView(viewName) {
+                document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+                document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
                 
-                const listData = mode === 'SELECTED' ? data.selected : data.rejected;
-                let cardsHtml = '';
-                listData.forEach(s => {
-                    cardsHtml += `<div class="stock-card">
-                        <div class="stock-header">
-                            <div class="stock-symbol">${s.SYMBOL} <span style="font-size:13px; font-weight:400; color:var(--text-muted);">| ${s.SECTOR}</span></div>
-                            <div style="font-weight:700;">₹${s.PRICE}</div>
-                        </div>
-                        <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--text-muted);">
-                            <div>Factor Score: ${parseFloat(s.SCORE).toFixed(1)} / 100</div>
-                            <div>Delivery Base: ${s.DELIV_％||s['DELIV_%']}</div>
-                        </div>
-                        <div class="stock-reason">${s.REASON}</div>
-                    </div>`;
-                });
-                document.getElementById('stocks-list-container').innerHTML = cardsHtml || '<div style="color:var(--text-muted)">No items generated.</div>';
+                document.getElementById('view-' + viewName).classList.add('active');
+                document.getElementById('btn-' + viewName).classList.add('active');
             }
             
-            switchTab('SELECTED');
+            // Search Filter Logic
+            function filterCards(inputId, gridId) {
+                let input = document.getElementById(inputId).value.toUpperCase();
+                let grid = document.getElementById(gridId);
+                let cards = grid.getElementsByClassName('stock-card');
+                
+                for (let i = 0; i < cards.length; i++) {
+                    let text = cards[i].innerText.toUpperCase();
+                    cards[i].style.display = text.indexOf(input) > -1 ? "" : "none";
+                }
+            }
+            
+            // Render Cards Function
+            function renderCards(dataList, containerId, mode) {
+                let html = '';
+                dataList.forEach(s => {
+                    let total = parseFloat(s.SCORE).toFixed(1);
+                    let mPct = (s.MOM_PTS / 50) * 100;
+                    let ePct = (s.EMA_PTS / 20) * 100;
+                    let dPct = (s.DEL_PTS / 15) * 100;
+                    let tPct = (s.TURN_PTS / 15) * 100;
+                    
+                    let badgeColor = total >= 85 ? 'var(--success)' : (total >= 75 ? 'var(--accent)' : 'var(--warning)');
+                    let badgeBg = total >= 85 ? 'rgba(16,185,129,0.1)' : (total >= 75 ? 'rgba(59,130,246,0.1)' : 'rgba(245,158,11,0.1)');
+                    
+                    let statusText = mode === 'SELECTED' ? `<span style="color:var(--success);">Active Hold</span>` : `<span style="color:var(--danger);">Rejected</span>`;
+                    let entryText = mode === 'SELECTED' ? `Entry: ${s.ENTRY_DATE}` : `Evaluated: ${s.ENTRY_DATE}`;
+
+                    html += `
+                    <div class="stock-card">
+                        <div class="sc-header">
+                            <div>
+                                <div class="sc-symbol">${s.SYMBOL}</div>
+                                <div class="sc-sector">${s.SECTOR} &nbsp;&bull;&nbsp; ${entryText} &nbsp;&bull;&nbsp; ${statusText}</div>
+                            </div>
+                            <div class="sc-score-badge" style="color: ${badgeColor}; background: ${badgeBg}; border-color: ${badgeColor}40">
+                                ${total}
+                            </div>
+                        </div>
+                        <div class="sc-body">
+                            <div class="score-breakdown">
+                                <div class="sb-row"><span>Momentum</span><span>${s.MOM_PTS.toFixed(1)} / 50</span></div>
+                                <div class="sb-bar-bg"><div class="sb-bar-fill" style="width:${mPct}%; background:#3B82F6;"></div></div>
+                                
+                                <div class="sb-row"><span>Trend (EMA)</span><span>${s.EMA_PTS.toFixed(1)} / 20</span></div>
+                                <div class="sb-bar-bg"><div class="sb-bar-fill" style="width:${ePct}%; background:#10B981;"></div></div>
+                                
+                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+                                    <div>
+                                        <div class="sb-row"><span>Delivery</span><span>${s.DEL_PTS.toFixed(1)}</span></div>
+                                        <div class="sb-bar-bg"><div class="sb-bar-fill" style="width:${dPct}%; background:#F59E0B;"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="sb-row"><span>Volume</span><span>${s.TURN_PTS.toFixed(1)}</span></div>
+                                        <div class="sb-bar-bg"><div class="sb-bar-fill" style="width:${tPct}%; background:#8B5CF6;"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sc-reason">
+                                <div class="sc-reason-title"><i class="fas fa-brain"></i> AI Portfolio Manager Analysis</div>
+                                ${s.REASON}
+                            </div>
+                        </div>
+                    </div>`;
+                });
+                document.getElementById(containerId).innerHTML = html;
+            }
+            
+            // Initialization
+            renderCards(coreData.selected, 'grid-sel', 'SELECTED');
+            renderCards(coreData.rejected, 'grid-rej', 'REJECTED');
+            
+            // Render Donut Chart
+            if(coreData.sector_labels.length > 0) {
+                const ctx = document.getElementById('sectorChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: coreData.sector_labels,
+                        datasets: [{
+                            data: coreData.sector_data,
+                            backgroundColor: ['#3B82F6', '#10B981', '#F59E0B', '#8B5CF6', '#EC4899', '#06B6D4', '#64748B'],
+                            borderWidth: 0,
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'right', labels: { color: '#94A3B8', font: { family: 'Inter', size: 12 } } }
+                        },
+                        cutout: '70%'
+                    }
+                });
+            }
         </script>
     </body>
     </html>
