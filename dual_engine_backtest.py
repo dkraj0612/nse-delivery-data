@@ -1,8 +1,8 @@
 """
-dual_engine_backtest.py - INSTITUTIONAL DAILY MACRO MATRIX ENGINE (WITH AUTO-RECOVERY & WARM-UP)
+dual_engine_backtest.py - INSTITUTIONAL DAILY MACRO MATRIX ENGINE (WITH AUTO-RECOVERY)
 =============================================================================
 Features: 70/30 Momentum, Strict Daily Look-Back Macro Sandbox, 
-Asymmetric Free-Tier 90-Second Throttling + 429 Auto-Retry, Dual-Curve Dashboard, 12M Warm-up.
+Asymmetric Free-Tier 90-Second Throttling, 1.5-Flash CoT Prompting, Dual-Curve Dashboard.
 """
 
 import os
@@ -24,7 +24,6 @@ def get_deterministic_mcap(symbol):
     return 1000 + (hash_val % 99000)
 
 def get_historical_macro_context(date_timestamp):
-    """Provides a precise, day-level chronological snapshot of Indian and Global macro landscapes."""
     current_date = pd.to_datetime(date_timestamp)
     
     macro_timeline = [
@@ -110,7 +109,7 @@ def load_and_adjust_data(folder_path="./HistoricalBhavCopy/NSE", sector_map_path
     return final_df, nifty_df
 
 # ==========================================
-# MODULE 2: AI INSTITUTIONAL DEEP DIVE SELECTION ENGINE
+# MODULE 2: REFINED 1.5-FLASH CHAIN-OF-THOUGHT ENGINE
 # ==========================================
 def parse_ai_reasoning_payload(text):
     symbols = []
@@ -132,7 +131,7 @@ def parse_ai_reasoning_payload(text):
 
 def call_gemini_institutional_analor(top_50_df, target_limit, date_str, cache):
     if target_limit == 0 or top_50_df.empty: return [], {}
-    cache_key = f"v3_daily_{date_str}_{target_limit}"
+    cache_key = f"v4_1.5flash_{date_str}_{target_limit}"
     if cache_key in cache:
         return cache[cache_key]["symbols"], cache[cache_key]["reasons"]
         
@@ -143,30 +142,40 @@ def call_gemini_institutional_analor(top_50_df, target_limit, date_str, cache):
         return fallback_syms, {s: "Mathematical selection mode default." for s in top_50_df['SYMBOL']}
 
     macro_context = get_historical_macro_context(date_str)
-    print(f"  [AI Processing] Deep analyzing top 50 stocks for timeline match: {date_str}...")
+    print(f"  [AI Processing] Initiating advanced 1.5-Flash CoT extraction for: {date_str}...")
     
     prompt = f"""
-    STRICT CHRONOLOGICAL TIMESTAMP: {date_str}
-    You are an Institutional Portfolio Manager evaluating assets on exactly {date_str}.
+    [SYSTEM OVERRIDE: STRICT TEMPORAL FIREWALL INITIATED]
+    CURRENT SIMULATION DATE: {date_str}
+
+    ROLE: You are an elite Institutional Quantitative Portfolio Manager executing a live allocation strictly on {date_str}.
     
-    STRICT TIMELINE DIRECTIVE: You have no knowledge of any event, chart pattern, earnings release, or political outcome that occurs after {date_str}. Do not look ahead.
-    
-    DAY-LEVEL MACRO CONTEXT VALID ON {date_str}:
+    CRITICAL DIRECTIVE - ZERO LOOK-AHEAD BIAS: 
+    You are operating in a historical sandbox. You have ZERO knowledge of any events, market crashes, earnings, or geopolitical shifts that occur after {date_str}. You must not use future tense or reference events beyond this exact day.
+
+    --- STEP 1: MACROECONOMIC ASSIMILATION ---
+    ENVIRONMENTAL CONTEXT VALID ON {date_str}:
     {macro_context}
     
-    PORTFOLIO CONSTRAINT: Select exactly {target_limit} symbols from the top 50 table below.
-    
-    CANDIDATE TOP 50 UNIVERSE DATA:
+    --- STEP 2: CROSS-SECTIONAL CANDIDATE POOL ---
+    You must evaluate the following 50 pre-filtered momentum candidates:
     {top_50_df[['SYMBOL', 'SECTOR', 'MASTER_SCORE', 'VOLATILITY_90D', 'MKT_CAP_CR']].to_markdown(index=False)}
-    
-    EXPLICIT EVALUATION DIRECTIVE:
-    Analyze every single stock. Align selections with the day-level macro context. If the market contains specific shocks valid on this day, reject highly speculative lines and fund robust, asset-backed configurations. Include specific chronological or trigger references inside your logic.
-    
-    REQUIRED SYSTEM OUTPUT FORMAT:
-    You must output a row-by-row reason for ALL 50 stocks using this strict syntax:
-    SYMBOL | REASON (You must stamp a date or event reference here, e.g., 'Given the macro shock on {date_str}...')
-    
-    At the final line of your return string, write the array code block verbatim:
+
+    --- STEP 3: MANDATORY REASONING FRAMEWORK (CHAIN OF THOUGHT) ---
+    You must select EXACTLY {target_limit} symbols. To ensure institutional-grade research, apply this exact logic to EVERY stock:
+    1. Macro Alignment: Does the asset's Sector thrive or die under the specific {date_str} macro landscape?
+    2. Volatility Check: Is the VOLATILITY_90D optimal or dangerously erratic?
+    3. Differentiation Directive: DO NOT copy-paste generic reasoning. You MUST explicitly type out the stock's Sector, Master Score, or Volatility metric in your justification to prove you analyzed it individually.
+
+    --- REQUIRED OUTPUT SCHEMA ---
+    Output a row-by-row analytical ledger for ALL 50 stocks using this exact pipe-delimited format:
+    SYMBOL | REASON (Must explicitly cite the {date_str} macro context AND the stock's specific quantitative data points.)
+
+    Example:
+    RELIANCE | SELECTED: As of {date_str}, global supply chains are constrained. Reliance's Energy sector profile benefits from this, and its low 0.18 Volatility represents a stable anchor.
+    TCS | REJECTED: Despite a high Master Score, the {date_str} macro environment indicates severe headwinds for IT sector billings. 
+
+    At the absolute end of your response, write the final selection array exactly like this:
     FINAL_SELECTIONS = ["SYM1", "SYM2", ...]
     """
     
@@ -174,27 +183,28 @@ def call_gemini_institutional_analor(top_50_df, target_limit, date_str, cache):
     for attempt in range(max_retries):
         try:
             with concurrent.futures.ThreadPoolExecutor() as executor:
-                future = executor.submit(client.models.generate_content, model='gemini-2.5-flash', contents=prompt)
+                # Downgraded to 1.5-flash to completely bypass the 20/day limit of 2.5-flash.
+                future = executor.submit(client.models.generate_content, model='gemini-1.5-flash', contents=prompt)
                 resp = future.result(timeout=60)
                 
             syms, reasons = parse_ai_reasoning_payload(resp.text)
             if syms:
                 cache[cache_key] = {"symbols": syms[:target_limit], "reasons": reasons}
                 with open("ai_selections_cache.json", "w") as f: json.dump(cache, f, indent=4)
-                print(f"  [Throttling Guard] Call clean. Sleeping 90 seconds to preserve Free-Tier boundaries...")
+                print(f"  [Throttling Guard] CoT Inference complete. Sleeping 90 seconds to preserve 15 RPM boundary...")
                 time.sleep(90)
                 return cache[cache_key]["symbols"], cache[cache_key]["reasons"]
                 
         except Exception as e:
             error_str = str(e)
             if "429" in error_str or "RESOURCE_EXHAUSTED" in error_str:
-                print(f"  [Rate Limit Hit] API quota exhausted. Cooling down for 60 seconds before retrying (Attempt {attempt + 1}/{max_retries})...")
+                print(f"  [Rate Limit Hit] API quota exhausted. Cooling down for 60 seconds (Attempt {attempt + 1}/{max_retries})...")
                 time.sleep(60)
             else:
                 print(f"  [API Error] Unexpected failure: {e}. Retrying in 30 seconds...")
                 time.sleep(30)
                 
-    print(f"  [Inference Bypass] Max retries exhausted for {date_str}. Engaging fallback routing.")
+    print(f"  [Inference Bypass] Max retries exhausted for {date_str}. Engaging mathematical fallback.")
     time.sleep(90)
     fallback_syms = top_50_df.head(target_limit)['SYMBOL'].tolist()
     return fallback_syms, {s: "Baseline algorithmic selection fallback status." for s in top_50_df['SYMBOL']}
@@ -255,7 +265,7 @@ def run_momentum_backtest(df, nifty_df, ema_param=100, deliv_param=30.0, turnove
     min_dataset_date = df['DATE'].min()
     warmup_end_date = min_dataset_date + pd.DateOffset(months=12)
     dates = sorted(rebalance_df[rebalance_df['DATE'] >= warmup_end_date]['DATE'].dropna().unique())
-    print(f"Dataset start: {min_dataset_date.strftime('%Y-%m-%d')} | Backtest start (Post Warm-Up): {warmup_end_date.strftime('%Y-%m-%d')}")
+    print(f"Dataset start: {min_dataset_date.strftime('%Y-%m-%d')} | Backtest active phase: {warmup_end_date.strftime('%Y-%m-%d')}")
     
     portfolio_snapshots = []
     equity_curve = []
@@ -326,7 +336,6 @@ def run_momentum_backtest(df, nifty_df, ema_param=100, deliv_param=30.0, turnove
         valid_candidates = valid_candidates.sort_values(by='MASTER_SCORE', ascending=False)
         top_50 = valid_candidates.head(50).copy()
         
-        # Immediate Bypass if candidate pool is completely empty
         if top_50.empty:
             equity_curve.append({'DATE': curr_date_str, 'SELECTED_EQUITY': capital_selected, 'REJECTED_EQUITY': capital_rejected, 'CHURN': 0.0, 'REGIME': regime})
             continue
