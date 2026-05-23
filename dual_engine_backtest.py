@@ -1,7 +1,8 @@
 """
 live_momentum_engine.py - AI DUAL-PORTFOLIO DASHBOARD (LATEST ONLY)
 ===================================================================
-Features: 100-Point Scoring, 70/30 Momentum, Live Portfolio Generation.
+Features: 100-Point Scoring, 70/30 Momentum, Live Portfolio Generation,
+Interactive SPA HTML Dashboard, Bulletproof AI Text Parsing.
 """
 
 import os
@@ -80,22 +81,29 @@ def load_and_adjust_data(folder_path="./HistoricalBhavCopy/NSE", sector_map_path
 # MODULE 2: REVOLUTIONIZED AI LOGIC ENGINE
 # ==========================================
 def parse_ai_reasoning_payload(text):
+    """Bulletproof parser to handle weird AI string formatting."""
     symbols = []
     reasoning_map = {}
     
+    # 1. Extract the array of final selections
     array_match = re.search(r'FINAL_SELECTIONS\s*=\s*\[(.*?)\]', text, re.DOTALL)
     if array_match:
-        try:
-            symbols = json.loads('[' + array_match.group(1) + ']')
-        except:
-            symbols = [s.strip().replace('"', '').replace("'", "") for s in array_match.group(1).split(',') if s.strip()]
+        raw_syms = array_match.group(1).split(',')
+        symbols = [re.sub(r'[^A-Z0-9-]', '', s.strip().upper()) for s in raw_syms if s.strip()]
             
+    # 2. Extract the reasoning block by splitting on pipes
     for line in text.split('\n'):
-        if '|' in line and not line.startswith('---') and not 'SYMBOL' in line:
-            parts = [p.strip() for p in line.split('|')]
-            if len(parts) >= 2:
-                sym = parts[0].replace('*', '').replace('"', '').replace("'", "")
-                reasoning_map[sym] = parts[1]
+        if '|' in line:
+            parts = line.split('|', 1) # Split only on the first pipe
+            sym_raw = parts[0].strip()
+            reason = parts[1].strip()
+            
+            # Clean the symbol side to strictly A-Z, 0-9, and hyphens (removes markdown bolding, numbers)
+            clean_sym = re.sub(r'[^A-Z0-9-]', '', sym_raw.upper())
+            
+            # Only save it if it looks like an actual ticker and not a header row
+            if len(clean_sym) >= 2 and clean_sym != 'SYMBOL':
+                reasoning_map[clean_sym] = reason
                 
     return symbols, reasoning_map
 
@@ -173,15 +181,16 @@ def run_momentum_live(df, nifty_df, risk_on=20, risk_off=10):
     df['AVG_TURNOVER'] = df.groupby('SYMBOL')['TURNOVER_LACS'].transform(lambda x: x.rolling(20).mean())
     df['AVG_DELIV_PER'] = df.groupby('SYMBOL')['DELIV_PER'].transform(lambda x: x.rolling(20).mean())
     
-    df['MOMENTUM_RANK'] = df.groupby('DATE')['PRICE_MOMENTUM'].rank(pct=True) * 100
-    df['DELIV_RANK'] = df.groupby('DATE')['AVG_DELIV_PER'].rank(pct=True) * 100
-    df['TURNOVER_RANK'] = df.groupby('DATE')['AVG_TURNOVER'].rank(pct=True) * 100
+    # Calculate Sub-Scores (Saved to DataFrame for UI export)
+    df['MOMENTUM_PTS'] = df.groupby('DATE')['PRICE_MOMENTUM'].rank(pct=True) * 50.0
+    df['DELIV_PTS'] = df.groupby('DATE')['AVG_DELIV_PER'].rank(pct=True) * 15.0
+    df['TURN_PTS'] = df.groupby('DATE')['AVG_TURNOVER'].rank(pct=True) * 15.0
     
-    df['EMA_SCORE'] = np.where(df['CLOSE_PRICE'] > df['EMA_51'], 7, 0) + \
-                      np.where(df['CLOSE_PRICE'] > df['EMA_100'], 6, 0) + \
-                      np.where(df['CLOSE_PRICE'] > df['EMA_200'], 7, 0)
+    df['EMA_PTS'] = np.where(df['CLOSE_PRICE'] > df['EMA_51'], 7, 0) + \
+                    np.where(df['CLOSE_PRICE'] > df['EMA_100'], 6, 0) + \
+                    np.where(df['CLOSE_PRICE'] > df['EMA_200'], 7, 0)
                       
-    df['MASTER_SCORE'] = (df['MOMENTUM_RANK'] * 0.50) + df['EMA_SCORE'] + (df['DELIV_RANK'] * 0.15) + (df['TURNOVER_RANK'] * 0.15)
+    df['MASTER_SCORE'] = df['MOMENTUM_PTS'] + df['EMA_PTS'] + df['DELIV_PTS'] + df['TURN_PTS']
     
     df['ABOVE_51_EMA'] = (df['CLOSE_PRICE'] > df['EMA_51']).astype(int)
     breadth_series = df.groupby('DATE')['ABOVE_51_EMA'].mean() * 100
@@ -195,7 +204,6 @@ def run_momentum_live(df, nifty_df, risk_on=20, risk_off=10):
         (df['MASTER_SCORE'] >= 70.0) 
     ].copy()
 
-    # ONLY GET THE LATEST AVAILABLE DATE IN THE DATASET
     all_dates = sorted(df['DATE'].dropna().unique())
     if not all_dates:
         return pd.DataFrame()
@@ -223,13 +231,13 @@ def run_momentum_live(df, nifty_df, risk_on=20, risk_off=10):
     else: is_nifty_uptrend = True; current_vol = 15.0
 
     if current_breadth < 30.0 and not is_nifty_uptrend:
-        regime = "CRITICAL"
+        regime = "CRITICAL (Cash Only)"
         target_limit = 0
     elif current_breadth < 50.0 or current_vol > 18.0:
-        regime = "DEFENSIVE"
+        regime = "DEFENSIVE (Reduced Allocation)"
         target_limit = risk_off
     else:
-        regime = "RISK-ON"
+        regime = "RISK-ON (Full Allocation)"
         target_limit = risk_on
         
     portfolio_snapshots = []
@@ -248,21 +256,23 @@ def run_momentum_live(df, nifty_df, risk_on=20, risk_off=10):
             portfolio_snapshots.append({
                 'DATE': curr_date_str, 'SYMBOL': sym, 'SECTOR': row['SECTOR'],
                 'ACTION': 'SELECTED' if is_chosen else 'REJECTED', 'PRICE': row['CLOSE_PRICE'],
-                'SCORE': row['MASTER_SCORE'], 'DELIV_%': f"{row['AVG_DELIV_PER']:.1f}%",
-                'REASON': ai_reasons.get(sym, "Mathematical thresholding applied.")
+                'SCORE': row['MASTER_SCORE'], 
+                'MOM_PTS': row['MOMENTUM_PTS'], 'EMA_PTS': row['EMA_PTS'], 
+                'DEL_PTS': row['DELIV_PTS'], 'TURN_PTS': row['TURN_PTS'],
+                'ENTRY_DATE': curr_date_str, # Explicitly adding Entry Date
+                'REASON': ai_reasons.get(sym, "Waiting for AI reasoning or skipped by PM layer.")
             })
 
-    # Return a dataframe with the regime attached as a metadata column for the UI
     final_df = pd.DataFrame(portfolio_snapshots)
     if not final_df.empty:
         final_df['REGIME'] = regime
     return final_df
 
 # ==========================================
-# MODULE 4: LIVE DASHBOARD COMPILER
+# MODULE 4: INTERACTIVE UI DASHBOARD COMPILER
 # ==========================================
 def generate_live_html(df_snaps):
-    print("Compiling Modern Live Portfolio Dashboard...")
+    print("Compiling Modern Interactive UI...")
     
     if df_snaps.empty:
         print("No eligible stocks found for current market conditions.")
@@ -271,12 +281,22 @@ def generate_live_html(df_snaps):
     latest_date = df_snaps['DATE'].iloc[0]
     regime = df_snaps['REGIME'].iloc[0]
     
-    selected_data = df_snaps[df_snaps['ACTION'] == 'SELECTED'][['SYMBOL', 'SECTOR', 'PRICE', 'SCORE', 'DELIV_%', 'REASON']].to_dict('records')
-    rejected_data = df_snaps[df_snaps['ACTION'] == 'REJECTED'][['SYMBOL', 'SECTOR', 'PRICE', 'SCORE', 'DELIV_%', 'REASON']].to_dict('records')
+    # Calculate Dashboard Metrics
+    selected_df = df_snaps[df_snaps['ACTION'] == 'SELECTED']
+    avg_score = selected_df['SCORE'].mean() if not selected_df.empty else 0
+    sector_counts = selected_df['SECTOR'].value_counts().to_dict()
+    
+    # Format data for JS injection
+    fields = ['SYMBOL', 'SECTOR', 'PRICE', 'SCORE', 'MOM_PTS', 'EMA_PTS', 'DEL_PTS', 'TURN_PTS', 'REASON', 'ENTRY_DATE']
+    selected_data = selected_df[fields].to_dict('records')
+    rejected_data = df_snaps[df_snaps['ACTION'] == 'REJECTED'][fields].to_dict('records')
     
     payload = {
         "date": latest_date,
         "regime": regime,
+        "avg_score": round(avg_score, 1),
+        "sector_labels": list(sector_counts.keys()),
+        "sector_data": list(sector_counts.values()),
         "selected": selected_data,
         "rejected": rejected_data
     }
@@ -287,101 +307,257 @@ def generate_live_html(df_snaps):
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Momentum Alpha PM Matrix - LIVE</title>
+        <title>Momentum Alpha Live</title>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <style>
-            :root {{ --bg-base: #07090E; --bg-surface: #11151D; --bg-hover: #1A202C; --border: #1F2733; --accent: #2563EB; --success: #10B981; --danger: #EF4444; --text: #F3F4F6; --text-muted: #9CA3AF; }}
-            body {{ font-family: 'Inter', sans-serif; background: var(--bg-base); color: var(--text); margin: 0; padding: 20px; box-sizing: border-box; }}
-            @media(min-width: 768px) {{ body {{ padding: 40px; }} }}
+            :root {{ --bg-base: #0B0F19; --bg-surface: #151A27; --bg-hover: #1E2538; --border: #2A344A; --accent: #3B82F6; --success: #10B981; --warning: #F59E0B; --danger: #EF4444; --text: #F8FAFC; --text-muted: #94A3B8; }}
+            body {{ font-family: 'Inter', sans-serif; background: var(--bg-base); color: var(--text); margin: 0; display: flex; height: 100vh; overflow: hidden; }}
             
-            .header {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }}
-            .brand {{ font-size: 24px; font-weight: 800; letter-spacing: -0.5px; color: #fff; }}
-            .brand span {{ color: var(--accent); }}
+            /* Sidebar Layout */
+            .sidebar {{ width: 280px; background: var(--bg-surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; }}
+            .brand {{ padding: 24px; font-size: 20px; font-weight: 800; border-bottom: 1px solid var(--border); letter-spacing: -0.5px; }}
+            .brand i {{ color: var(--accent); margin-right: 8px; }}
+            .nav-menu {{ padding: 16px; display: flex; flex-direction: column; gap: 8px; flex-grow: 1; }}
+            .nav-btn {{ background: transparent; color: var(--text-muted); border: none; padding: 14px 16px; border-radius: 8px; cursor: pointer; text-align: left; font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 12px; transition: all 0.2s; }}
+            .nav-btn:hover {{ background: var(--bg-hover); color: var(--text); }}
+            .nav-btn.active {{ background: rgba(59, 130, 246, 0.1); color: var(--accent); border: 1px solid rgba(59, 130, 246, 0.2); }}
             
-            .metrics-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }}
-            .card {{ background: var(--bg-surface); padding: 20px; border-radius: 12px; border: 1px solid var(--border); }}
-            .card-title {{ font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin-bottom: 6px; }}
-            .card-value {{ font-size: 24px; font-weight: 800; }}
+            /* Main Content Area */
+            .main-content {{ flex-grow: 1; overflow-y: auto; padding: 32px; scroll-behavior: smooth; }}
+            .view-section {{ display: none; animation: fadeIn 0.3s ease; }}
+            .view-section.active {{ display: block; }}
+            @keyframes fadeIn {{ from {{ opacity: 0; transform: translateY(10px); }} to {{ opacity: 1; transform: translateY(0); }} }}
             
-            .methodology-card {{ background: var(--bg-surface); padding: 24px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 32px; }}
-            .methodology-card h3 {{ margin-top: 0; margin-bottom: 16px; font-size: 16px; color: #fff; border-bottom: 1px solid var(--border); padding-bottom: 12px; }}
-            .methodology-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }}
-            .methodology-item h4 {{ margin: 0 0 8px 0; font-size: 13px; color: var(--accent); }}
-            .methodology-item p {{ margin: 0; font-size: 13px; color: var(--text-muted); line-height: 1.5; }}
+            .page-title {{ font-size: 28px; font-weight: 800; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; }}
+            .timestamp-badge {{ background: var(--bg-hover); padding: 6px 12px; border-radius: 6px; font-size: 13px; font-weight: 600; color: var(--text-muted); border: 1px solid var(--border); }}
             
-            .tab-container {{ display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }}
-            .tab-btn {{ background: transparent; border: none; color: var(--text-muted); font-size: 14px; font-weight: 600; padding: 10px 20px; cursor: pointer; border-radius: 6px; }}
-            .tab-btn.active {{ background: rgba(255,255,255,0.05); color: #fff; }}
+            /* Dashboard Grid */
+            .metrics-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 32px; }}
+            .card {{ background: var(--bg-surface); padding: 24px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }}
+            .card-icon {{ width: 40px; height: 40px; border-radius: 10px; background: rgba(59, 130, 246, 0.1); color: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 18px; margin-bottom: 16px; }}
+            .card-title {{ font-size: 13px; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin-bottom: 8px; letter-spacing: 0.5px; }}
+            .card-value {{ font-size: 28px; font-weight: 800; }}
             
-            .stock-card {{ background: var(--bg-surface); padding: 20px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 12px; display: flex; flex-direction: column; gap: 10px; }}
-            .stock-header {{ display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 8px; }}
-            .stock-symbol {{ font-weight: 800; font-size: 18px; }}
-            .stock-reason {{ font-size: 13px; color: var(--text-muted); line-height: 1.6; background: rgba(0,0,0,0.1); padding: 12px; border-radius: 6px; border-left: 3px solid var(--accent); }}
+            .dashboard-layout {{ display: grid; grid-template-columns: 1fr 350px; gap: 24px; }}
+            .chart-card {{ background: var(--bg-surface); padding: 24px; border-radius: 16px; border: 1px solid var(--border); }}
+            .methodology-card {{ background: var(--bg-surface); padding: 24px; border-radius: 16px; border: 1px solid var(--border); }}
+            .method-row {{ display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); }}
+            .method-row:last-child {{ border-bottom: none; }}
+            
+            /* Portfolio Grid View */
+            .controls-bar {{ display: flex; justify-content: space-between; margin-bottom: 20px; }}
+            .search-box {{ background: var(--bg-surface); border: 1px solid var(--border); color: var(--text); padding: 12px 16px; border-radius: 8px; width: 300px; font-family: 'Inter'; outline: none; }}
+            .search-box:focus {{ border-color: var(--accent); }}
+            
+            .portfolio-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 24px; }}
+            .stock-card {{ background: var(--bg-surface); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; transition: transform 0.2s, border-color 0.2s; }}
+            .stock-card:hover {{ transform: translateY(-3px); border-color: var(--accent); }}
+            .sc-header {{ padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-start; background: rgba(0,0,0,0.1); }}
+            .sc-symbol {{ font-size: 22px; font-weight: 800; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }}
+            .sc-sector {{ font-size: 13px; color: var(--text-muted); font-weight: 500; display: block; }}
+            .sc-score-badge {{ background: rgba(16, 185, 129, 0.1); color: var(--success); padding: 8px 14px; border-radius: 12px; font-weight: 800; font-size: 18px; border: 1px solid rgba(16, 185, 129, 0.2); }}
+            
+            .sc-body {{ padding: 20px; }}
+            .score-breakdown {{ margin-bottom: 20px; }}
+            .sb-row {{ display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; font-size: 12px; font-weight: 600; color: #E2E8F0; }}
+            .sb-bar-bg {{ height: 6px; background: var(--bg-hover); border-radius: 3px; overflow: hidden; margin-bottom: 12px; }}
+            .sb-bar-fill {{ height: 100%; border-radius: 3px; }}
+            
+            .sc-reason {{ background: rgba(59, 130, 246, 0.05); padding: 16px; border-radius: 8px; border-left: 4px solid var(--accent); font-size: 14px; line-height: 1.6; color: var(--text); border: 1px solid rgba(59, 130, 246, 0.1); }}
+            .sc-reason-title {{ font-size: 12px; text-transform: uppercase; font-weight: 800; color: var(--accent); margin-bottom: 8px; letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px; }}
         </style>
     </head>
     <body>
-        <div class="header">
-            <div class="brand">⚡ Momentum<span>Alpha</span> LIVE</div>
-        </div>
         
-        <div class="metrics-grid">
-            <div class="card"><div class="card-title">Analysis Date</div><div class="card-value" id="m-date">--</div></div>
-            <div class="card"><div class="card-title">Market Regime</div><div class="card-value" id="m-regime" style="color:#60A5FA;">--</div></div>
-            <div class="card"><div class="card-title">Total Selections</div><div class="card-value" id="m-count">--</div></div>
-        </div>
-        
-        <div class="methodology-card">
-            <h3>⚙️ The 100-Point Selection Engine & Filters</h3>
-            <div class="methodology-grid">
-                <div class="methodology-item"><h4>1. Pure Momentum (Max 50 Pts)</h4><p>How fast is the stock growing compared to the rest of the market?</p></div>
-                <div class="methodology-item"><h4>2. Trend Alignment (Max 20 Pts)</h4><p>+7 pts if above 51 EMA, +6 pts if above 100 EMA, +7 pts if above 200 EMA.</p></div>
-                <div class="methodology-item"><h4>3. Strong Hands Bonus (Max 15 Pts)</h4><p>Rewards high Delivery Percentages (investors buying and holding).</p></div>
-                <div class="methodology-item"><h4>4. Liquidity Bonus (Max 15 Pts)</h4><p>Rewards massive trading turnover volume.</p></div>
+        <div class="sidebar">
+            <div class="brand"><i class="fas fa-bolt"></i> Momentum Alpha</div>
+            <div class="nav-menu">
+                <button class="nav-btn active" onclick="switchView('dashboard')" id="btn-dashboard"><i class="fas fa-chart-pie"></i> Metrics Dashboard</button>
+                <button class="nav-btn" onclick="switchView('selected')" id="btn-selected"><i class="fas fa-check-circle" style="color: var(--success)"></i> Selected Portfolio <span style="background:var(--bg-hover); padding:2px 8px; border-radius:10px; font-size:12px; margin-left:auto;">{len(selected_data)}</span></button>
+                <button class="nav-btn" onclick="switchView('rejected')" id="btn-rejected"><i class="fas fa-times-circle" style="color: var(--danger)"></i> Rejected Candidates</button>
             </div>
-            <div style="margin-top: 16px; padding: 12px; background: rgba(37, 99, 235, 0.1); border-left: 4px solid var(--accent); border-radius: 4px; font-size: 13px;">
-                <span style="font-weight: 700; color: var(--text);">Strict Hard Filters:</span> Master Score <b>≥ 70</b> AND price <b>within 20% of 52-week high</b>.
+            <div style="padding: 24px; font-size: 12px; color: var(--text-muted); text-align: center; border-top: 1px solid var(--border);">
+                Algorithmic Scoring Engine v2.0
             </div>
         </div>
         
-        <div class="tab-container">
-            <button class="tab-btn active" id="btn-sel-tab" onclick="switchTab('SELECTED')">✅ Final AI Portfolio</button>
-            <button class="tab-btn" id="btn-rej-tab" onclick="switchTab('REJECTED')">❌ Rejected Candidates</button>
+        <div class="main-content">
+            
+            <!-- DASHBOARD VIEW -->
+            <div id="view-dashboard" class="view-section active">
+                <div class="page-title">
+                    Live System Dashboard 
+                    <span class="timestamp-badge"><i class="far fa-clock"></i> As of {latest_date}</span>
+                </div>
+                
+                <div class="metrics-grid">
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-chess-board"></i></div>
+                        <div class="card-title">Market Regime Framework</div>
+                        <div class="card-value" style="color: var(--accent); font-size: 22px;">{regime}</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-layer-group"></i></div>
+                        <div class="card-title">Final AI Allocations</div>
+                        <div class="card-value">{len(selected_data)} <span style="font-size:14px; color:var(--text-muted); font-weight:500;">/ 50 Screened</span></div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-star"></i></div>
+                        <div class="card-title">Average Portfolio Score</div>
+                        <div class="card-value">{round(avg_score, 1)} <span style="font-size:14px; color:var(--text-muted); font-weight:500;">/ 100</span></div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-layout">
+                    <div class="chart-card">
+                        <h3 style="margin-top:0; color:var(--text-muted); font-size:14px; text-transform:uppercase;">Sector Allocation</h3>
+                        <div style="height: 300px; display:flex; justify-content:center;">
+                            <canvas id="sectorChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="methodology-card">
+                        <h3 style="margin-top:0; margin-bottom:20px; color:var(--text-muted); font-size:14px; text-transform:uppercase;"><i class="fas fa-cogs"></i> Scoring Engine (100 Pts)</h3>
+                        <div class="method-row"><div>Pure Momentum</div><div style="font-weight:700; color:#3B82F6;">Max 50 pts</div></div>
+                        <div class="method-row"><div>Trend Alignment (EMAs)</div><div style="font-weight:700; color:#10B981;">Max 20 pts</div></div>
+                        <div class="method-row"><div>Strong Hands (Delivery %)</div><div style="font-weight:700; color:#F59E0B;">Max 15 pts</div></div>
+                        <div class="method-row"><div>Liquidity (Turnover)</div><div style="font-weight:700; color:#8B5CF6;">Max 15 pts</div></div>
+                        <div style="margin-top:20px; padding:12px; background:rgba(239, 68, 68, 0.1); border-left:3px solid var(--danger); border-radius:6px; font-size:13px;">
+                            <strong>Hard Filter:</strong> Must score ≥70 and price within 20% of 52-week high.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SELECTED PORTFOLIO VIEW -->
+            <div id="view-selected" class="view-section">
+                <div class="page-title">AI Selected Portfolio</div>
+                <div class="controls-bar">
+                    <input type="text" class="search-box" id="search-sel" placeholder="Search symbol or sector..." onkeyup="filterCards('search-sel', 'grid-sel')">
+                </div>
+                <div class="portfolio-grid" id="grid-sel"></div>
+            </div>
+            
+            <!-- REJECTED VIEW -->
+            <div id="view-rejected" class="view-section">
+                <div class="page-title">Rejected Candidates</div>
+                <div class="controls-bar">
+                    <input type="text" class="search-box" id="search-rej" placeholder="Search symbol or sector..." onkeyup="filterCards('search-rej', 'grid-rej')">
+                </div>
+                <div class="portfolio-grid" id="grid-rej"></div>
+            </div>
+            
         </div>
-        
-        <div id="stocks-list-container"></div>
 
         <script>
-            const data = {payload};
-            let currentTab = 'SELECTED';
+            const coreData = {payload};
             
-            document.getElementById('m-date').innerText = data.date;
-            document.getElementById('m-regime').innerText = data.regime;
-            document.getElementById('m-count').innerText = data.selected.length;
-            
-            function switchTab(mode) {{
-                currentTab = mode;
-                document.getElementById('btn-sel-tab').className = mode === 'SELECTED' ? 'tab-btn active' : 'tab-btn';
-                document.getElementById('btn-rej-tab').className = mode === 'REJECTED' ? 'tab-btn active' : 'tab-btn';
+            // View Switching Logic
+            function switchView(viewName) {{
+                document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+                document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
                 
-                const listData = mode === 'SELECTED' ? data.selected : data.rejected;
-                let cardsHtml = '';
-                listData.forEach(s => {{
-                    cardsHtml += `<div class="stock-card">
-                        <div class="stock-header">
-                            <div class="stock-symbol">${{s.SYMBOL}} <span style="font-size:13px; font-weight:400; color:var(--text-muted);">| ${{s.SECTOR}}</span></div>
-                            <div style="font-weight:700;">₹${{s.PRICE}}</div>
-                        </div>
-                        <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--text-muted);">
-                            <div>Factor Score: ${{parseFloat(s.SCORE).toFixed(1)}} / 100</div>
-                            <div>Delivery Base: ${{s.DELIV_％||s['DELIV_%']}}</div>
-                        </div>
-                        <div class="stock-reason">${{s.REASON}}</div>
-                    </div>`;
-                }});
-                document.getElementById('stocks-list-container').innerHTML = cardsHtml || '<div style="color:var(--text-muted)">No items generated.</div>';
+                document.getElementById('view-' + viewName).classList.add('active');
+                document.getElementById('btn-' + viewName).classList.add('active');
             }}
             
-            switchTab('SELECTED');
+            // Search Filter Logic
+            function filterCards(inputId, gridId) {{
+                let input = document.getElementById(inputId).value.toUpperCase();
+                let grid = document.getElementById(gridId);
+                let cards = grid.getElementsByClassName('stock-card');
+                
+                for (let i = 0; i < cards.length; i++) {{
+                    let text = cards[i].innerText.toUpperCase();
+                    cards[i].style.display = text.indexOf(input) > -1 ? "" : "none";
+                }}
+            }}
+            
+            // Render Cards Function
+            function renderCards(dataList, containerId, mode) {{
+                let html = '';
+                dataList.forEach(s => {{
+                    let total = parseFloat(s.SCORE).toFixed(1);
+                    let mPct = (s.MOM_PTS / 50) * 100;
+                    let ePct = (s.EMA_PTS / 20) * 100;
+                    let dPct = (s.DEL_PTS / 15) * 100;
+                    let tPct = (s.TURN_PTS / 15) * 100;
+                    
+                    let badgeColor = total >= 85 ? 'var(--success)' : (total >= 75 ? 'var(--accent)' : 'var(--warning)');
+                    let badgeBg = total >= 85 ? 'rgba(16,185,129,0.1)' : (total >= 75 ? 'rgba(59,130,246,0.1)' : 'rgba(245,158,11,0.1)');
+                    
+                    let statusText = mode === 'SELECTED' ? `<span style="color:var(--success);">Active Hold</span>` : `<span style="color:var(--danger);">Rejected</span>`;
+                    let entryText = mode === 'SELECTED' ? `Entry: ${{s.ENTRY_DATE}}` : `Evaluated: ${{s.ENTRY_DATE}}`;
+
+                    html += `
+                    <div class="stock-card">
+                        <div class="sc-header">
+                            <div>
+                                <div class="sc-symbol">${{s.SYMBOL}}</div>
+                                <div class="sc-sector">${{s.SECTOR}} &nbsp;&bull;&nbsp; ${{entryText}} &nbsp;&bull;&nbsp; ${{statusText}}</div>
+                            </div>
+                            <div class="sc-score-badge" style="color: ${{badgeColor}}; background: ${{badgeBg}}; border-color: ${{badgeColor}}40">
+                                ${{total}}
+                            </div>
+                        </div>
+                        <div class="sc-body">
+                            <div class="score-breakdown">
+                                <div class="sb-row"><span>Momentum</span><span>${{s.MOM_PTS.toFixed(1)}} / 50</span></div>
+                                <div class="sb-bar-bg"><div class="sb-bar-fill" style="width:${{mPct}}%; background:#3B82F6;"></div></div>
+                                
+                                <div class="sb-row"><span>Trend (EMA)</span><span>${{s.EMA_PTS.toFixed(1)}} / 20</span></div>
+                                <div class="sb-bar-bg"><div class="sb-bar-fill" style="width:${{ePct}}%; background:#10B981;"></div></div>
+                                
+                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+                                    <div>
+                                        <div class="sb-row"><span>Delivery</span><span>${{s.DEL_PTS.toFixed(1)}}</span></div>
+                                        <div class="sb-bar-bg"><div class="sb-bar-fill" style="width:${{dPct}}%; background:#F59E0B;"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="sb-row"><span>Volume</span><span>${{s.TURN_PTS.toFixed(1)}}</span></div>
+                                        <div class="sb-bar-bg"><div class="sb-bar-fill" style="width:${{tPct}}%; background:#8B5CF6;"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sc-reason">
+                                <div class="sc-reason-title"><i class="fas fa-brain"></i> AI Portfolio Manager Analysis</div>
+                                ${{s.REASON}}
+                            </div>
+                        </div>
+                    </div>`;
+                }});
+                document.getElementById(containerId).innerHTML = html;
+            }}
+            
+            // Initialization
+            renderCards(coreData.selected, 'grid-sel', 'SELECTED');
+            renderCards(coreData.rejected, 'grid-rej', 'REJECTED');
+            
+            // Render Donut Chart
+            if(coreData.sector_labels.length > 0) {{
+                const ctx = document.getElementById('sectorChart').getContext('2d');
+                new Chart(ctx, {{
+                    type: 'doughnut',
+                    data: {{
+                        labels: coreData.sector_labels,
+                        datasets: [{{
+                            data: coreData.sector_data,
+                            backgroundColor: ['#3B82F6', '#10B981', '#F59E0B', '#8B5CF6', '#EC4899', '#06B6D4', '#64748B'],
+                            borderWidth: 0,
+                            hoverOffset: 4
+                        }}]
+                    }},
+                    options: {{
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {{
+                            legend: {{ position: 'right', labels: {{ color: '#94A3B8', font: {{ family: 'Inter', size: 12 }} }} }}
+                        }},
+                        cutout: '70%'
+                    }}
+                }});
+            }}
         </script>
     </body>
     </html>
