@@ -1,8 +1,8 @@
 """
-dual_engine_backtest.py - INSITUTIONAL DAILY MACRO MATRIX ENGINE (90S BUFFER)
+dual_engine_backtest.py - INSTITUTIONAL DAILY MACRO MATRIX ENGINE (WITH AUTO-RECOVERY)
 =============================================================================
 Features: 70/30 Momentum, Strict Daily Look-Back Macro Sandbox, 
-Asymmetric Free-Tier 90-Second Throttling, Dual-Curve Dashboard.
+Asymmetric Free-Tier 90-Second Throttling + 429 Auto-Retry, Dual-Curve Dashboard.
 """
 
 import os
@@ -112,7 +112,7 @@ def load_and_adjust_data(folder_path="./HistoricalBhavCopy/NSE", sector_map_path
     return final_df, nifty_df
 
 # ==========================================
-# MODULE 2: AI INSTUTIONAL DEEP DIVE SELECTION ENGINE
+# MODULE 2: AI INSTITUTIONAL DEEP DIVE SELECTION ENGINE
 # ==========================================
 def parse_ai_reasoning_payload(text):
     symbols = []
@@ -172,21 +172,31 @@ def call_gemini_institutional_analor(top_50_df, target_limit, date_str, cache):
     FINAL_SELECTIONS = ["SYM1", "SYM2", ...]
     """
     
-    try:
-        with concurrent.futures.ThreadPoolExecutor() as executor:
-            future = executor.submit(client.models.generate_content, model='gemini-2.5-flash', contents=prompt)
-            resp = future.result(timeout=60)
-            
-        syms, reasons = parse_ai_reasoning_payload(resp.text)
-        if syms:
-            cache[cache_key] = {"symbols": syms[:target_limit], "reasons": reasons}
-            with open("ai_selections_cache.json", "w") as f: json.dump(cache, f, indent=4)
-            print(f"  [Throttling Guard] Call clean. Sleeping 90 seconds to preserve Free-Tier boundaries...")
-            time.sleep(90) # STRICT USER REQUEST DIRECTIVE BUFFER
-            return cache[cache_key]["symbols"], cache[cache_key]["reasons"]
-    except Exception as e:
-        print(f"  [Inference Bypass] Fallback routing initiated: {e}")
-        
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                future = executor.submit(client.models.generate_content, model='gemini-2.5-flash', contents=prompt)
+                resp = future.result(timeout=60)
+                
+            syms, reasons = parse_ai_reasoning_payload(resp.text)
+            if syms:
+                cache[cache_key] = {"symbols": syms[:target_limit], "reasons": reasons}
+                with open("ai_selections_cache.json", "w") as f: json.dump(cache, f, indent=4)
+                print(f"  [Throttling Guard] Call clean. Sleeping 90 seconds to preserve Free-Tier boundaries...")
+                time.sleep(90) # STRICT USER REQUEST DIRECTIVE BUFFER
+                return cache[cache_key]["symbols"], cache[cache_key]["reasons"]
+                
+        except Exception as e:
+            error_str = str(e)
+            if "429" in error_str or "RESOURCE_EXHAUSTED" in error_str:
+                print(f"  [Rate Limit Hit] API quota exhausted. Cooling down for 60 seconds before retrying (Attempt {attempt + 1}/{max_retries})...")
+                time.sleep(60) # Wait for the quota to reset
+            else:
+                print(f"  [API Error] Unexpected failure: {e}. Retrying in 30 seconds...")
+                time.sleep(30)
+                
+    print(f"  [Inference Bypass] Max retries exhausted for {date_str}. Engaging fallback routing.")
     time.sleep(90)
     fallback_syms = top_50_df.head(target_limit)['SYMBOL'].tolist()
     return fallback_syms, {s: "Baseline algorithmic selection fallback status." for s in top_50_df['SYMBOL']}
@@ -346,6 +356,11 @@ def run_momentum_backtest(df, nifty_df, ema_param=100, deliv_param=30.0, turnove
 
     return pd.DataFrame(portfolio_snapshots), pd.DataFrame(equity_curve)
 
+def verify_backtest_integrity(df_snaps, df_equity):
+    assert df_equity['SELECTED_EQUITY'].min() >= 0, "Security validation break."
+    print("✅ Python Structural Controls Guardrails Verified.")
+    return True
+
 # ==========================================
 # MODULE 4: DUAL-CURVE RESPONSIVE PUBLISHER
 # ==========================================
@@ -382,7 +397,7 @@ def generate_static_html(df_snaps, df_equity):
             "sel_total": f"{((fin_sel/init_eq)-1)*100:.2f}%",
             "sel_cagr": f"{cagr_sel:.2f}%",
             "rej_cagr": f"{cagr_rej:.2f}%",
-            "sel_dd": f"{max_dd_pct:.2f}%" if 'max_dd_pct' in locals() else f"{max_dd_sel:.2f}%",
+            "sel_dd": f"{max_dd_sel:.2f}%",
             "avg_churn": f"{df_equity['CHURN'].mean()*100:.1f}%",
             "chart_dates": df_equity['DATE'].tolist(),
             "chart_selected": df_equity['SELECTED_EQUITY'].tolist(),
