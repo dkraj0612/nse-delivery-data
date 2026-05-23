@@ -1,8 +1,8 @@
 """
-dual_engine_backtest.py - INSTITUTIONAL DAILY MACRO MATRIX ENGINE (WITH AUTO-RECOVERY)
+dual_engine_backtest.py - INSTITUTIONAL DAILY MACRO MATRIX ENGINE (WITH AUTO-RECOVERY & WARM-UP)
 =============================================================================
 Features: 70/30 Momentum, Strict Daily Look-Back Macro Sandbox, 
-Asymmetric Free-Tier 90-Second Throttling + 429 Auto-Retry, Dual-Curve Dashboard.
+Asymmetric Free-Tier 90-Second Throttling + 429 Auto-Retry, Dual-Curve Dashboard, 12M Warm-up.
 """
 
 import os
@@ -27,7 +27,6 @@ def get_historical_macro_context(date_timestamp):
     """Provides a precise, day-level chronological snapshot of Indian and Global macro landscapes."""
     current_date = pd.to_datetime(date_timestamp)
     
-    # Precise timeline of macro-critical events (Indian & Global specific)
     macro_timeline = [
         ("2021-01-01", "Post-COVID structural economic restart. Global liquidity extreme easing, record low interest rates."),
         ("2021-06-15", "Massive global IT sector spend tailwinds. Indian IT corporate earnings boom."),
@@ -49,7 +48,6 @@ def get_historical_macro_context(date_timestamp):
     
     effective_context = "Normal structural growth environment with stable cross-sectional liquidity indicators."
     
-    # Loop chronologically to find the closest event on or before the current day
     for event_date_str, description in macro_timeline:
         event_date = pd.to_datetime(event_date_str)
         if current_date >= event_date:
@@ -133,7 +131,7 @@ def parse_ai_reasoning_payload(text):
     return symbols, reasoning_map
 
 def call_gemini_institutional_analor(top_50_df, target_limit, date_str, cache):
-    if target_limit == 0: return [], {}
+    if target_limit == 0 or top_50_df.empty: return [], {}
     cache_key = f"v3_daily_{date_str}_{target_limit}"
     if cache_key in cache:
         return cache[cache_key]["symbols"], cache[cache_key]["reasons"]
@@ -184,14 +182,14 @@ def call_gemini_institutional_analor(top_50_df, target_limit, date_str, cache):
                 cache[cache_key] = {"symbols": syms[:target_limit], "reasons": reasons}
                 with open("ai_selections_cache.json", "w") as f: json.dump(cache, f, indent=4)
                 print(f"  [Throttling Guard] Call clean. Sleeping 90 seconds to preserve Free-Tier boundaries...")
-                time.sleep(90) # STRICT USER REQUEST DIRECTIVE BUFFER
+                time.sleep(90)
                 return cache[cache_key]["symbols"], cache[cache_key]["reasons"]
                 
         except Exception as e:
             error_str = str(e)
             if "429" in error_str or "RESOURCE_EXHAUSTED" in error_str:
                 print(f"  [Rate Limit Hit] API quota exhausted. Cooling down for 60 seconds before retrying (Attempt {attempt + 1}/{max_retries})...")
-                time.sleep(60) # Wait for the quota to reset
+                time.sleep(60)
             else:
                 print(f"  [API Error] Unexpected failure: {e}. Retrying in 30 seconds...")
                 time.sleep(30)
@@ -202,7 +200,7 @@ def call_gemini_institutional_analor(top_50_df, target_limit, date_str, cache):
     return fallback_syms, {s: "Baseline algorithmic selection fallback status." for s in top_50_df['SYMBOL']}
 
 # ==========================================
-# MODULE 3: STRATEGY ENGINE (DUAL CURVE PROCESSING)
+# MODULE 3: STRATEGY ENGINE (DUAL CURVE PROCESSING & WARM-UP)
 # ==========================================
 def run_momentum_backtest(df, nifty_df, ema_param=100, deliv_param=30.0, turnover_param=1000.0, risk_on=20, risk_off=10, friction_tax=0.005):
     print("Running Institutional Dual-Curve Simulation Engine...")
@@ -253,7 +251,12 @@ def run_momentum_backtest(df, nifty_df, ema_param=100, deliv_param=30.0, turnove
         (rebalance_df['MASTER_SCORE'].notna())
     ].copy()
 
-    dates = sorted(rebalance_df['DATE'].dropna().unique())
+    # 12-MONTH WARM-UP BYPASS
+    min_dataset_date = df['DATE'].min()
+    warmup_end_date = min_dataset_date + pd.DateOffset(months=12)
+    dates = sorted(rebalance_df[rebalance_df['DATE'] >= warmup_end_date]['DATE'].dropna().unique())
+    print(f"Dataset start: {min_dataset_date.strftime('%Y-%m-%d')} | Backtest start (Post Warm-Up): {warmup_end_date.strftime('%Y-%m-%d')}")
+    
     portfolio_snapshots = []
     equity_curve = []
     
@@ -322,6 +325,11 @@ def run_momentum_backtest(df, nifty_df, ema_param=100, deliv_param=30.0, turnove
 
         valid_candidates = valid_candidates.sort_values(by='MASTER_SCORE', ascending=False)
         top_50 = valid_candidates.head(50).copy()
+        
+        # Immediate Bypass if candidate pool is completely empty
+        if top_50.empty:
+            equity_curve.append({'DATE': curr_date_str, 'SELECTED_EQUITY': capital_selected, 'REJECTED_EQUITY': capital_rejected, 'CHURN': 0.0, 'REGIME': regime})
+            continue
         
         ai_symbols, ai_reasons = call_gemini_institutional_analor(top_50, target_limit, curr_date_str, ai_cache)
         
