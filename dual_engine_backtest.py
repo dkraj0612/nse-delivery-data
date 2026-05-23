@@ -208,7 +208,7 @@ def run_ai_latest_portfolio_audit(latest_top_50, target_limit, date_str):
     """
     
     try:
-        response = client.models.generate_content(model='models/gemini-1.5-flash', contents=prompt)
+        response = client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
         syms, reasons = [], {}
         match = re.search(r'FINAL_SELECTIONS\s*=\s*\[(.*?)\]', response.text, re.DOTALL)
         if match: syms = [s.strip().replace('"', '').replace("'", "") for s in match.group(1).split(',') if s.strip()]
