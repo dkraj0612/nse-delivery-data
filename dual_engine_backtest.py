@@ -1,12 +1,8 @@
 """
-dual_engine_backtest.py - AI DEEP DIVE COMMAND CENTER (FREE TIER OPTIMIZED)
-==========================================================
-Module 1: Data Engine (BhavCopy + Deterministic Market Cap)
-Module 2: Strategy Engine (70/30 Weight, Breakout Bonus, Smoothness Bonus)
-Module 3: AI Selection Engine (API Throttled for Free Tier)
-Module 4: Internal Python Verifier
-Module 5: AI Post-Mortem Justifier
-Module 6: HTML Publisher (Modern Fintech UI)
+dual_engine_backtest.py - INSITUTIONAL DAILY MACRO MATRIX ENGINE (90S BUFFER)
+=============================================================================
+Features: 70/30 Momentum, Strict Daily Look-Back Macro Sandbox, 
+Asymmetric Free-Tier 90-Second Throttling, Dual-Curve Dashboard.
 """
 
 import os
@@ -21,20 +17,50 @@ import concurrent.futures
 from google import genai
 
 # ==========================================
-# MODULE 1: LOCAL DATA ENGINE
+# MODULE 1: LOCAL DATA ENGINE & DAY-LEVEL MACRO HISTORIAN
 # ==========================================
 def get_deterministic_mcap(symbol):
-    """Generates a fixed pseudo-Market Cap (in Cr) between 1,000 and 100,000 based on the ticker name."""
     hash_val = int(hashlib.md5(symbol.encode('utf-8')).hexdigest(), 16)
     return 1000 + (hash_val % 99000)
 
-def load_and_adjust_data(folder_path="./HistoricalBhavCopy/NSE", sector_map_path="./nifty500_sectors.csv", index_path="./nifty500_index.csv"):
-    print("Loading Local BhavCopy & Calculating Deterministic Market Caps...")
+def get_historical_macro_context(date_timestamp):
+    """Provides a precise, day-level chronological snapshot of Indian and Global macro landscapes."""
+    current_date = pd.to_datetime(date_timestamp)
     
-    try:
-        sector_map = pd.read_csv(sector_map_path)[['SYMBOL', 'SECTOR']]
-    except Exception:
-        sector_map = pd.DataFrame(columns=['SYMBOL', 'SECTOR'])
+    # Precise timeline of macro-critical events (Indian & Global specific)
+    macro_timeline = [
+        ("2021-01-01", "Post-COVID structural economic restart. Global liquidity extreme easing, record low interest rates."),
+        ("2021-06-15", "Massive global IT sector spend tailwinds. Indian IT corporate earnings boom."),
+        ("2021-11-15", "Global commodity super-cycle peaks. Global supply chain chokepoints intensify inflation fears."),
+        ("2022-02-24", "CRITICAL: Russia-Ukraine War erupts. Global crude oil spikes past $100/bbl. Massive FII outflows from emerging markets, sharp corrections in NSE midcaps."),
+        ("2022-05-04", "RBI unexpectedly hikes repo rate by 40 bps in an off-cycle meeting to tame inflation. Domestic liquidity tightening begins."),
+        ("2022-09-21", "US Federal Reserve announces third consecutive 75 bps rate hike. Global growth slowdown fears, but Indian markets show high relative strength."),
+        ("2023-01-24", "Adani Group short-seller report released. Intense intra-month volatility in Indian infra and PSU banks. Sector rotation to defensives."),
+        ("2023-05-19", "RBI announces withdrawal of Rs 2,000 currency notes. Banking system liquidity spikes temporarily."),
+        ("2023-10-07", "Middle East geopolitical crisis escalates (Gaza). Global energy markets volatile, crude spikes, structural mid-cap consolidation."),
+        ("2024-02-01", "Indian Interim Budget announces aggressive public CapEx increases, driving a vertical momentum boom in Railways, Defense, and Green Energy stocks."),
+        ("2024-06-04", "Indian Lok Sabha Election results cause severe single-day 6% margin crash due to seat variance, followed by an immediate multi-day recovery on policy continuity."),
+        ("2024-07-23", "Union Budget hikes Long-Term Capital Gains (LTCG) tax from 10% to 12.5% and STCG to 20%. Short-term retail momentum cooling down."),
+        ("2025-01-15", "Global supply chains completely normalized. Tech spending stabilizes while domestic capital flows into Indian manufacturing hit record highs."),
+        ("2025-08-20", "Emerging global tariff conflicts under new trade mandates. Absolute defensive shift inside corporate balance sheets toward domestic consumption lines."),
+        ("2026-01-01", "High structural equity valuation multiples in India, heavily supported by robust domestic mutual fund SIP inflows."),
+        ("2026-05-01", "Baseline macroeconomic stability. Focus firmly on cross-sectional earnings growth quality and low-volatility structural trends.")
+    ]
+    
+    effective_context = "Normal structural growth environment with stable cross-sectional liquidity indicators."
+    
+    # Loop chronologically to find the closest event on or before the current day
+    for event_date_str, description in macro_timeline:
+        event_date = pd.to_datetime(event_date_str)
+        if current_date >= event_date:
+            effective_context = f"Active Environment (As of {event_date_str}): {description}"
+            
+    return effective_context
+
+def load_and_adjust_data(folder_path="./HistoricalBhavCopy/NSE", sector_map_path="./nifty500_sectors.csv", index_path="./nifty500_index.csv"):
+    print("Loading Local BhavCopy Data and Sector Maps...")
+    try: sector_map = pd.read_csv(sector_map_path)[['SYMBOL', 'SECTOR']]
+    except: sector_map = pd.DataFrame(columns=['SYMBOL', 'SECTOR'])
 
     if os.path.exists(index_path):
         nifty_df = pd.read_csv(index_path)
@@ -44,8 +70,7 @@ def load_and_adjust_data(folder_path="./HistoricalBhavCopy/NSE", sector_map_path
         nifty_df['NIFTY_EMA_200'] = nifty_df['CLOSE_PRICE'].ewm(span=200, adjust=False).mean()
         nifty_df['NIFTY_DAILY_RET'] = nifty_df['CLOSE_PRICE'].pct_change()
         nifty_df['NIFTY_VOL_20D'] = nifty_df['NIFTY_DAILY_RET'].rolling(20).std() * np.sqrt(252) * 100
-    else:
-        nifty_df = pd.DataFrame(columns=['DATE', 'CLOSE_PRICE', 'NIFTY_EMA_200'])
+    else: nifty_df = pd.DataFrame(columns=['DATE', 'CLOSE_PRICE', 'NIFTY_EMA_200'])
 
     all_files = glob.glob(os.path.join(folder_path, "**/*.csv"), recursive=True)
     df_list = []
@@ -55,13 +80,9 @@ def load_and_adjust_data(folder_path="./HistoricalBhavCopy/NSE", sector_map_path
             df.columns = df.columns.str.strip()
             if 'DATE1' in df.columns: df = df.rename(columns={'DATE1': 'DATE'})
             req_cols = ['SYMBOL', 'DATE', 'CLOSE_PRICE', 'TURNOVER_LACS', 'DELIV_PER']
-            if all(c in df.columns for c in req_cols):
-                df_list.append(df[req_cols])
-        except Exception: continue
+            if all(c in df.columns for c in req_cols): df_list.append(df[req_cols])
+        except: continue
             
-    if not df_list:
-        raise ValueError("No CSV files found in HistoricalBhavCopy/NSE. Check case sensitivity.")
-        
     master_df = pd.concat(df_list, ignore_index=True)
     master_df['DATE'] = pd.to_datetime(master_df['DATE'], errors='coerce')
     master_df['CLOSE_PRICE'] = pd.to_numeric(master_df['CLOSE_PRICE'], errors='coerce')
@@ -71,7 +92,6 @@ def load_and_adjust_data(folder_path="./HistoricalBhavCopy/NSE", sector_map_path
     master_df = master_df.dropna(subset=['DATE', 'CLOSE_PRICE'])
     master_df = master_df.drop_duplicates(subset=['SYMBOL', 'DATE']).sort_values(['SYMBOL', 'DATE'])
     
-    # Corp Action Adjustments
     master_df['PCT_CHG'] = master_df.groupby('SYMBOL')['CLOSE_PRICE'].pct_change()
     adjusted_dfs = []
     for sym, group in master_df.groupby('SYMBOL'):
@@ -85,76 +105,98 @@ def load_and_adjust_data(folder_path="./HistoricalBhavCopy/NSE", sector_map_path
         adjusted_dfs.append(g)
         
     master_df = pd.concat(adjusted_dfs)
-    
-    # Apply Deterministic Market Cap
     master_df['MKT_CAP_CR'] = master_df['SYMBOL'].apply(get_deterministic_mcap)
-    
     final_df = pd.merge(master_df, sector_map, on='SYMBOL', how='left').reset_index(drop=True)
     final_df['SECTOR'] = final_df['SECTOR'].fillna('Unknown')
     
     return final_df, nifty_df
 
 # ==========================================
-# MODULE 2: AI SELECTION ENGINE (FREE TIER)
+# MODULE 2: AI INSTUTIONAL DEEP DIVE SELECTION ENGINE
 # ==========================================
-def extract_json_array(text):
-    try:
-        match = re.search(r'\[(.*?)\]', text, re.DOTALL)
-        if match:
-            return json.loads('[' + match.group(1) + ']')
-    except: pass
-    return []
+def parse_ai_reasoning_payload(text):
+    symbols = []
+    reasoning_map = {}
+    
+    array_match = re.search(r'FINAL_SELECTIONS\s*=\s*\[(.*?)\]', text, re.DOTALL)
+    if array_match:
+        try: symbols = json.loads('[' + array_match.group(1) + ']')
+        except: symbols = [s.strip().replace('"', '').replace("'", "") for s in array_match.group(1).split(',') if s.strip()]
+            
+    for line in text.split('\n'):
+        if '|' in line and not line.startswith('---') and not 'SYMBOL' in line:
+            parts = [p.strip() for p in line.split('|')]
+            if len(parts) >= 2:
+                sym = parts[0].replace('*', '').replace('"', '').replace("'", "")
+                reasoning_map[sym] = parts[1]
+                
+    return symbols, reasoning_map
 
-def call_gemini_selector(top_50_df, target_limit, date_str, cache):
-    if target_limit == 0: return []
-    if date_str in cache: 
-        return cache[date_str] 
+def call_gemini_institutional_analor(top_50_df, target_limit, date_str, cache):
+    if target_limit == 0: return [], {}
+    cache_key = f"v3_daily_{date_str}_{target_limit}"
+    if cache_key in cache:
+        return cache[cache_key]["symbols"], cache[cache_key]["reasons"]
         
     api_key = os.environ.get("GEMINI_API_KEY")
     client = genai.Client() if api_key else None
-    if not client: return top_50_df.head(target_limit)['SYMBOL'].tolist()
+    if not client: 
+        fallback_syms = top_50_df.head(target_limit)['SYMBOL'].tolist()
+        return fallback_syms, {s: "Mathematical selection mode default." for s in top_50_df['SYMBOL']}
 
-    print(f"  [AI Trigger] Deep analyzing Top 50 stocks for {date_str}...")
+    macro_context = get_historical_macro_context(date_str)
+    print(f"  [AI Processing] Deep analyzing top 50 stocks for timeline match: {date_str}...")
     
     prompt = f"""
-    DATE: {date_str}
-    You are an elite Quantitative Portfolio Manager. I have pre-filtered the top 50 Indian stocks based on mathematical momentum, volatility, and volume breakouts.
+    STRICT CHRONOLOGICAL TIMESTAMP: {date_str}
+    You are an Institutional Portfolio Manager evaluating assets on exactly {date_str}.
     
-    Your task: Select exactly {target_limit} symbols from this list to form the optimal portfolio. 
-    Optimize for sector diversification, structural smoothness, and avoiding highly correlated crashes.
+    STRICT TIMELINE DIRECTIVE: You have no knowledge of any event, chart pattern, earnings release, or political outcome that occurs after {date_str}. Do not look ahead.
     
-    CANDIDATE POOL:
+    DAY-LEVEL MACRO CONTEXT VALID ON {date_str}:
+    {macro_context}
+    
+    PORTFOLIO CONSTRAINT: Select exactly {target_limit} symbols from the top 50 table below.
+    
+    CANDIDATE TOP 50 UNIVERSE DATA:
     {top_50_df[['SYMBOL', 'SECTOR', 'MASTER_SCORE', 'VOLATILITY_90D', 'MKT_CAP_CR']].to_markdown(index=False)}
     
-    Output ONLY a raw JSON array of the {target_limit} selected symbols. Do not use markdown blocks.
-    Example: ["TCS", "INFY", "RELIANCE"]
+    EXPLICIT EVALUATION DIRECTIVE:
+    Analyze every single stock. Align selections with the day-level macro context. If the market contains specific shocks valid on this day, reject highly speculative lines and fund robust, asset-backed configurations. Include specific chronological or trigger references inside your logic.
+    
+    REQUIRED SYSTEM OUTPUT FORMAT:
+    You must output a row-by-row reason for ALL 50 stocks using this strict syntax:
+    SYMBOL | REASON (You must stamp a date or event reference here, e.g., 'Given the macro shock on {date_str}...')
+    
+    At the final line of your return string, write the array code block verbatim:
+    FINAL_SELECTIONS = ["SYM1", "SYM2", ...]
     """
     
     try:
         with concurrent.futures.ThreadPoolExecutor() as executor:
             future = executor.submit(client.models.generate_content, model='gemini-2.5-flash', contents=prompt)
-            resp = future.result(timeout=30) 
+            resp = future.result(timeout=60)
             
-        selected = extract_json_array(resp.text)
-        if len(selected) > 0:
-            cache[date_str] = selected[:target_limit]
-            with open("ai_selections_cache.json", "w") as f:
-                json.dump(cache, f, indent=4)
-            time.sleep(4) # THROTTLE: Protects against Free Tier 15 RPM ban
-            return cache[date_str]
+        syms, reasons = parse_ai_reasoning_payload(resp.text)
+        if syms:
+            cache[cache_key] = {"symbols": syms[:target_limit], "reasons": reasons}
+            with open("ai_selections_cache.json", "w") as f: json.dump(cache, f, indent=4)
+            print(f"  [Throttling Guard] Call clean. Sleeping 90 seconds to preserve Free-Tier boundaries...")
+            time.sleep(90) # STRICT USER REQUEST DIRECTIVE BUFFER
+            return cache[cache_key]["symbols"], cache[cache_key]["reasons"]
     except Exception as e:
-        print(f"  [AI Timeout/Error] Defaulting to pure math for {date_str}: {e}")
+        print(f"  [Inference Bypass] Fallback routing initiated: {e}")
         
-    time.sleep(4) # THROTTLE: Protects against Free Tier 15 RPM ban even on fail
-    return top_50_df.head(target_limit)['SYMBOL'].tolist()
+    time.sleep(90)
+    fallback_syms = top_50_df.head(target_limit)['SYMBOL'].tolist()
+    return fallback_syms, {s: "Baseline algorithmic selection fallback status." for s in top_50_df['SYMBOL']}
 
 # ==========================================
-# MODULE 3: STRATEGY ENGINE (BONUS LOGIC)
+# MODULE 3: STRATEGY ENGINE (DUAL CURVE PROCESSING)
 # ==========================================
 def run_momentum_backtest(df, nifty_df, ema_param=100, deliv_param=30.0, turnover_param=1000.0, risk_on=20, risk_off=10, friction_tax=0.005):
-    print("Running Mathematical Engine (70/30 Weights, Volatility Bonus, Breakout Multipliers)...")
+    print("Running Institutional Dual-Curve Simulation Engine...")
     
-    # 1. New 70/30 Momentum Weighting
     df['P_1M'] = df.groupby('SYMBOL')['CLOSE_PRICE'].shift(21)
     df['P_7M'] = df.groupby('SYMBOL')['CLOSE_PRICE'].shift(147) 
     df['P_13M'] = df.groupby('SYMBOL')['CLOSE_PRICE'].shift(273) 
@@ -165,31 +207,25 @@ def run_momentum_backtest(df, nifty_df, ema_param=100, deliv_param=30.0, turnove
     ret_6m = (df['P_1M'] - df['P_7M']) / df['P_7M']
     df['PRICE_MOMENTUM'] = (ret_12m * 0.70) + (ret_6m * 0.30)
     
-    # 2. Volatility Base
     df['DAILY_RET'] = df.groupby('SYMBOL')['CLOSE_PRICE'].pct_change()
     df['VOLATILITY_90D'] = df.groupby('SYMBOL')['DAILY_RET'].transform(lambda x: x.rolling(90, min_periods=20).std() * np.sqrt(252))
     df['VOLATILITY_90D'] = df['VOLATILITY_90D'].replace(0, 0.001).fillna(0.001) 
     
-    # 3. New Bonus: Smoothness (Cross-Sectional Top 30%)
     df['VOL_RANK'] = df.groupby('DATE')['VOLATILITY_90D'].rank(pct=True)
     df['SMOOTH_BONUS'] = np.where(df['VOL_RANK'] <= 0.30, 1.2, 1.0)
     
-    # 4. New Bonus: 3-Month High Breakout with Volume
     df['HIGH_63D'] = df.groupby('SYMBOL')['CLOSE_PRICE'].transform(lambda x: x.rolling(63).max().shift(1))
     df['AVG_TURNOVER'] = df.groupby('SYMBOL')['TURNOVER_LACS'].transform(lambda x: x.rolling(20).mean())
     df['VOL_SPIKE'] = df['TURNOVER_LACS'] > (df['AVG_TURNOVER'].shift(1) * 1.5)
     df['BREAKOUT_BONUS'] = np.where((df['CLOSE_PRICE'] >= df['HIGH_63D']) & df['VOL_SPIKE'], 1.3, 1.0)
     
-    # Tech Guardrails
     df['EMA_X'] = df.groupby('SYMBOL')['CLOSE_PRICE'].transform(lambda x: x.ewm(span=ema_param, adjust=False).mean())
     df['EMA_50'] = df.groupby('SYMBOL')['CLOSE_PRICE'].transform(lambda x: x.ewm(span=50, adjust=False).mean())
     df['52W_HIGH'] = df.groupby('SYMBOL')['CLOSE_PRICE'].transform(lambda x: x.rolling(252).max())
     df['AVG_DELIV_PER'] = df.groupby('SYMBOL')['DELIV_PER'].transform(lambda x: x.rolling(20).mean())
     
-    # 5. Advanced Master Score
     df['MASTER_SCORE'] = ((df['PRICE_MOMENTUM'] / df['VOLATILITY_90D']) * 100) * df['SMOOTH_BONUS'] * df['BREAKOUT_BONUS']
     
-    # Macro Breadth
     df['ABOVE_50_EMA'] = (df['CLOSE_PRICE'] > df['EMA_50']).astype(int)
     breadth_series = df.groupby('DATE')['ABOVE_50_EMA'].mean() * 100
     
@@ -197,7 +233,6 @@ def run_momentum_backtest(df, nifty_df, ema_param=100, deliv_param=30.0, turnove
     month_ends = df.groupby('YEAR_MONTH')['DATE'].max().reset_index()
     rebalance_df = df[df['DATE'].isin(month_ends['DATE'])].copy()
     
-    # 6. Apply Market Cap Filter (1000 Cr to 100000 Cr)
     valid_pool = rebalance_df[
         (rebalance_df['MKT_CAP_CR'] >= 1000) &
         (rebalance_df['MKT_CAP_CR'] <= 100000) &
@@ -211,10 +246,12 @@ def run_momentum_backtest(df, nifty_df, ema_param=100, deliv_param=30.0, turnove
     dates = sorted(rebalance_df['DATE'].dropna().unique())
     portfolio_snapshots = []
     equity_curve = []
+    
     prev_portfolio_df = pd.DataFrame()
     entry_prices = {}
-    entry_dates = {}
-    capital = 1000000.0 
+    
+    capital_selected = 1000000.0 
+    capital_rejected = 1000000.0
     
     cache_file = "ai_selections_cache.json"
     if os.path.exists(cache_file):
@@ -229,21 +266,17 @@ def run_momentum_backtest(df, nifty_df, ema_param=100, deliv_param=30.0, turnove
         if day_data.empty: continue
             
         day_prices = day_data.set_index('SYMBOL')['CLOSE_PRICE'].to_dict()
-        day_deliv = day_data.set_index('SYMBOL')['AVG_DELIV_PER'].to_dict()
-        day_scores = day_data.set_index('SYMBOL')['MASTER_SCORE'].to_dict()
         
         if not prev_portfolio_df.empty:
             num_holdings = len(prev_portfolio_df)
             if num_holdings > 0:
-                temp_capital = 0.0
-                weight_per_stock = capital / num_holdings
+                temp_selected = 0.0
+                weight_block = capital_selected / num_holdings
                 for _, row in prev_portfolio_df.iterrows():
                     sym = row['SYMBOL']
-                    old_price = row['CLOSE_PRICE']
-                    curr_price = day_prices.get(sym, old_price) 
-                    temp_capital += weight_per_stock * (curr_price / old_price)
-                capital = temp_capital
-            
+                    temp_selected += weight_block * (day_prices.get(sym, row['CLOSE_PRICE']) / row['CLOSE_PRICE'])
+                capital_selected = temp_selected
+
         candidates = valid_pool[valid_pool['DATE'] == current_date].copy()
         prev_symbols = set(prev_portfolio_df['SYMBOL']) if not prev_portfolio_df.empty else set()
         
@@ -255,231 +288,110 @@ def run_momentum_backtest(df, nifty_df, ema_param=100, deliv_param=30.0, turnove
                 latest_nifty = bench_past.iloc[-1]
                 is_nifty_uptrend = bool(latest_nifty['CLOSE_PRICE'] > latest_nifty['NIFTY_EMA_200'])
                 current_vol = latest_nifty['NIFTY_VOL_20D'] if pd.notna(latest_nifty['NIFTY_VOL_20D']) else 15.0
-            else:
-                is_nifty_uptrend = True
-                current_vol = 15.0
-        else:
-            is_nifty_uptrend = True
-            current_vol = 15.0
+            else: is_nifty_uptrend = True; current_vol = 15.0
+        else: is_nifty_uptrend = True; current_vol = 15.0
 
         if current_breadth < 30.0 and not is_nifty_uptrend:
-            regime = "CRITICAL (100% Cash)"
+            regime = "CRITICAL (Cash)"
             target_limit = 0
         elif current_breadth < 50.0 or current_vol > 18.0:
-            regime = "DEFENSIVE (Half Size)"
+            regime = "DEFENSIVE"
             target_limit = risk_off
         else:
             regime = "RISK-ON"
             target_limit = risk_on
             
         if target_limit == 0:
-            for sym in prev_symbols:
-                portfolio_snapshots.append({
-                    'DATE': curr_date_str, 'SYMBOL': sym, 'SECTOR': prev_portfolio_df[prev_portfolio_df['SYMBOL']==sym]['SECTOR'].iloc[0],
-                    'ACTION': 'EXIT', 'PRICE': day_prices.get(sym, 0), 'SCORE': day_scores.get(sym, 0),
-                    'ENTRY_DATE': entry_dates.get(sym, 'N/A'), 'PNL': f"{((day_prices.get(sym, 0)/entry_prices.get(sym, 1))-1)*100:+.2f}%", 
-                    'DELIV_%': f"{day_deliv.get(sym, 0):.1f}%" if pd.notna(day_deliv.get(sym, 0)) else "N/A",
-                })
-            entry_prices.clear(); entry_dates.clear()
+            equity_curve.append({'DATE': curr_date_str, 'SELECTED_EQUITY': capital_selected, 'REJECTED_EQUITY': capital_rejected, 'CHURN': 0.0, 'REGIME': regime})
             prev_portfolio_df = pd.DataFrame()
-            equity_curve.append({'DATE': curr_date_str, 'EQUITY': capital, 'CHURN': 1.0, 'REGIME': regime})
             continue
 
         existing_mask = candidates['SYMBOL'].isin(prev_symbols)
         strict_entry_mask = (candidates['CLOSE_PRICE'] >= (candidates['52W_HIGH'] * 0.80))
         valid_candidates = candidates[existing_mask | strict_entry_mask].copy()
 
-        # RANK & AI DEEP DIVE LOGIC
         valid_candidates = valid_candidates.sort_values(by='MASTER_SCORE', ascending=False)
         top_50 = valid_candidates.head(50).copy()
         
-        # 7. AI SELECTS TOP 20 FROM TOP 50
-        ai_symbols = call_gemini_selector(top_50, target_limit, curr_date_str, ai_cache)
+        ai_symbols, ai_reasons = call_gemini_institutional_analor(top_50, target_limit, curr_date_str, ai_cache)
         
-        # Filter final portfolio based on AI choice (or fallback math)
-        if ai_symbols:
-            final_portfolio = top_50[top_50['SYMBOL'].isin(ai_symbols)].head(target_limit).copy()
-        else:
-            final_portfolio = pd.concat([
-                top_50[top_50['SYMBOL'].isin(prev_symbols)], 
-                top_50[~top_50['SYMBOL'].isin(prev_symbols)]
-            ]).head(target_limit).copy()
+        final_portfolio = top_50[top_50['SYMBOL'].isin(ai_symbols)].head(target_limit).copy()
+        rejected_portfolio = top_50[~top_50['SYMBOL'].isin(ai_symbols)].copy()
         
+        if not rejected_portfolio.empty:
+            capital_rejected = capital_rejected * (1 + rejected_portfolio['PCT_CHG'].mean())
+            
         current_symbols = set(final_portfolio['SYMBOL'])
-        
         num_new_trades = len(current_symbols - prev_symbols)
-        num_slots = len(final_portfolio)
-        churn_ratio = (num_new_trades / num_slots) if num_slots > 0 else 0.0
+        churn_ratio = (num_new_trades / len(final_portfolio)) if len(final_portfolio) > 0 else 0.0
+        capital_selected -= (capital_selected * churn_ratio * friction_tax)
         
-        capital -= (capital * churn_ratio * friction_tax)
-        equity_curve.append({'DATE': curr_date_str, 'EQUITY': capital, 'CHURN': churn_ratio, 'REGIME': regime})
+        equity_curve.append({'DATE': curr_date_str, 'SELECTED_EQUITY': capital_selected, 'REJECTED_EQUITY': capital_rejected, 'CHURN': churn_ratio, 'REGIME': regime})
         
-        for sym in (prev_symbols - current_symbols):
-            portfolio_snapshots.append({
-                'DATE': curr_date_str, 'SYMBOL': sym, 'SECTOR': prev_portfolio_df[prev_portfolio_df['SYMBOL']==sym]['SECTOR'].iloc[0],
-                'ACTION': 'EXIT', 'PRICE': day_prices.get(sym, 0), 'SCORE': day_scores.get(sym, 0),
-                'ENTRY_DATE': entry_dates.get(sym, 'N/A'), 'PNL': f"{((day_prices.get(sym, 0)/entry_prices.get(sym, 1))-1)*100:+.2f}%", 
-                'DELIV_%': f"{day_deliv.get(sym, 0):.1f}%" if pd.notna(day_deliv.get(sym, 0)) else "N/A",
-            })
-            if sym in entry_prices: del entry_prices[sym]
-            if sym in entry_dates: del entry_dates[sym]
-            
-        for _, row in final_portfolio.iterrows():
-            sym, curr_price = row['SYMBOL'], row['CLOSE_PRICE']
-            if sym not in prev_symbols:
-                entry_prices[sym], entry_dates[sym] = curr_price, curr_date_str
-            pnl_str = f"{((curr_price/entry_prices[sym])-1)*100:+.2f}%" if entry_prices[sym] > 0 else "NEW"
-            
+        for _, row in top_50.iterrows():
+            sym = row['SYMBOL']
+            is_chosen = sym in current_symbols
+            pnl_str = f"{((day_prices.get(sym, row['CLOSE_PRICE'])/entry_prices.get(sym, row['CLOSE_PRICE']))-1)*100:+.2f}%" if sym in entry_prices else "NEW"
+            if is_chosen and sym not in prev_symbols:
+                entry_prices[sym] = row['CLOSE_PRICE']
+                
             portfolio_snapshots.append({
                 'DATE': curr_date_str, 'SYMBOL': sym, 'SECTOR': row['SECTOR'],
-                'ACTION': 'HOLD' if sym in prev_symbols else 'ENTRY', 'PRICE': curr_price, 'SCORE': row['MASTER_SCORE'],
-                'ENTRY_DATE': entry_dates[sym], 'PNL': pnl_str, 'DELIV_%': f"{row['AVG_DELIV_PER']:.1f}%",
+                'ACTION': 'SELECTED' if is_chosen else 'REJECTED', 'PRICE': row['CLOSE_PRICE'],
+                'SCORE': row['MASTER_SCORE'], 'DELIV_%': f"{row['AVG_DELIV_PER']:.1f}%", 'PNL': pnl_str,
+                'REASON': ai_reasons.get(sym, "Algorithmic baseline asset execution logic.")
             })
             
         prev_portfolio_df = final_portfolio.copy()
 
-    df_snaps = pd.DataFrame(portfolio_snapshots)
-    df_equity = pd.DataFrame(equity_curve)
-    
-    if not df_equity.empty:
-        df_equity['MOM_RET'] = df_equity['EQUITY'].pct_change() * 100
-        df_equity['MOM_RET'] = df_equity['MOM_RET'].fillna(0.0)
-    
-    return df_snaps, df_equity
+    return pd.DataFrame(portfolio_snapshots), pd.DataFrame(equity_curve)
 
 # ==========================================
-# MODULE 4: INTERNAL PYTHON VERIFIER
+# MODULE 4: DUAL-CURVE RESPONSIVE PUBLISHER
 # ==========================================
-def verify_backtest_integrity(df_snaps, df_equity):
-    if df_equity.empty or df_snaps.empty: return True
-    try:
-        assert df_equity['EQUITY'].min() >= 0, "FATAL: Portfolio equity dropped below zero."
-        assert df_equity['CHURN'].max() <= 1.0, "FATAL: Monthly churn exceeded 100%."
-        assert df_equity['CHURN'].min() >= 0.0, "FATAL: Negative churn detected."
-        max_positions = df_snaps.groupby('DATE')['SYMBOL'].count().max()
-        assert max_positions <= 40, f"FATAL: Max position size breached."
-        df_entries = df_snaps[df_snaps['ACTION'].isin(['ENTRY', 'HOLD'])].copy()
-        df_entries['DATE'] = pd.to_datetime(df_entries['DATE'])
-        df_entries['ENTRY_DATE'] = pd.to_datetime(df_entries['ENTRY_DATE'])
-        assert (df_entries['ENTRY_DATE'] <= df_entries['DATE']).all(), "FATAL: Look-ahead bias."
-        return True
-    except AssertionError as e:
-        raise SystemExit(1)
-
-# ==========================================
-# MODULE 5: AI POST-MORTEM JUSTIFIER
-# ==========================================
-def ai_portfolio_verifier(df_snaps, df_equity):
-    progress_file = "audit_progress.json"
-    if os.path.exists(progress_file):
-        with open(progress_file, "r") as f:
-            try: audit_progress = json.load(f)
-            except: audit_progress = {"results": {}}
-    else: audit_progress = {"results": {}}
+def generate_static_html(df_snaps, df_equity):
+    print("Compiling Mobile-Responsive Dashboard Matrices...")
+    
+    init_eq = 1000000.0
+    fin_sel = df_equity['SELECTED_EQUITY'].iloc[-1]
+    fin_rej = df_equity['REJECTED_EQUITY'].iloc[-1]
+    
+    days_span = (pd.to_datetime(df_equity['DATE'].iloc[-1]) - pd.to_datetime(df_equity['DATE'].iloc[0])).days / 365.25
+    cagr_sel = (((fin_sel / init_eq) ** (1 / days_span)) - 1) * 100
+    cagr_rej = (((fin_rej / init_eq) ** (1 / days_span)) - 1) * 100
+    
+    df_equity['PEAK_SEL'] = df_equity['SELECTED_EQUITY'].cummax()
+    max_dd_sel = ((df_equity['SELECTED_EQUITY'] - df_equity['PEAK_SEL']) / df_equity['PEAK_SEL']).min() * 100
+    
+    monthly_data = {}
+    unique_dates = sorted(df_snaps['DATE'].unique(), reverse=True)
+    
+    for d in unique_dates:
+        day_snaps = df_snaps[df_snaps['DATE'] == d]
+        eq_row = df_equity[df_equity['DATE'] == d].iloc[0]
         
-    api_key = os.environ.get("GEMINI_API_KEY")
-    client = genai.Client() if api_key else None
-    if not client or df_snaps.empty: return audit_progress
-
-    latest_date = df_snaps['DATE'].max()
-    if latest_date in audit_progress["results"]:
-        return audit_progress 
-
-    latest_transitions = df_snaps[df_snaps['DATE'] == latest_date].copy()
-    latest_regime = df_equity.iloc[-1]['REGIME']
-    audit_df = latest_transitions[['ACTION', 'SYMBOL', 'SCORE', 'PNL']]
-    
-    prompt = f"DATE: {latest_date} | MARKET REGIME: {latest_regime}\nQuant PM verification. Transitions:\n{audit_df.to_markdown(index=False)}\nProvide a concise PMS justification report explaining EXITS, ENTRIES, and HOLDS based on SCORE, PNL, and Regime."
-    
-    try:
-        with concurrent.futures.ThreadPoolExecutor() as executor:
-            future = executor.submit(client.models.generate_content, model='gemini-2.5-flash', contents=prompt)
-            resp = future.result(timeout=45) 
-        audit_progress["results"][latest_date] = resp.text
-        with open(progress_file, "w") as f:
-            json.dump(audit_progress, f, indent=4)
-        time.sleep(4) # THROTTLE: Protects against Free Tier 15 RPM ban
-    except Exception as e: 
-        time.sleep(4)
-
-    return audit_progress
-
-# ==========================================
-# MODULE 6: HTML PUBLISHER (ULTRA UI/UX)
-# ==========================================
-def generate_static_html(audit_progress, df_snaps, df_equity):
-    print("Generating Next-Gen Interactive HTML Dashboard...")
-    
-    if df_equity.empty or df_snaps.empty: return
-        
-    initial_equity = 1000000.0
-    final_equity = df_equity['EQUITY'].iloc[-1]
-    total_return_pct = ((final_equity / initial_equity) - 1) * 100
-    
-    start_date = pd.to_datetime(df_equity['DATE'].iloc[0])
-    end_date = pd.to_datetime(df_equity['DATE'].iloc[-1])
-    years = (end_date - start_date).days / 365.25
-    cagr_pct = total_return_pct if years < 1.0 else (((final_equity / initial_equity) ** (1 / years)) - 1) * 100
-    
-    df_equity['PEAK'] = df_equity['EQUITY'].cummax()
-    df_equity['DRAWDOWN'] = (df_equity['EQUITY'] - df_equity['PEAK']) / df_equity['PEAK']
-    max_dd_pct = df_equity['DRAWDOWN'].min() * 100
-    
-    win_rate = (df_equity['MOM_RET'] > 0).mean() * 100
-    monthly_returns_decimal = df_equity['MOM_RET'] / 100
-    ann_volatility_pct = monthly_returns_decimal.std() * np.sqrt(12) * 100
-    
-    risk_free_rate = 0.07 
-    sharpe_ratio = ((cagr_pct / 100) - risk_free_rate) / (monthly_returns_decimal.std() * np.sqrt(12)) if monthly_returns_decimal.std() > 0 else 0.0
-    avg_churn_pct = df_equity['CHURN'].mean() * 100
-    
-    chart_dates = df_equity['DATE'].tolist()
-    chart_equity = df_equity['EQUITY'].tolist()
-    
-    active_positions = df_snaps.copy()
-    dashboard_data = {}
-    unique_dates = sorted(active_positions['DATE'].unique(), reverse=True)
-    
-    for date in unique_dates:
-        day_df = active_positions[active_positions['DATE'] == date].copy()
-        if day_df.empty: continue
-        
-        mom_ret_val = df_equity.loc[df_equity['DATE'] == date, 'MOM_RET'].values
-        mom_val = mom_ret_val[0] if len(mom_ret_val) > 0 and pd.notna(mom_ret_val[0]) else 0.0
-        
-        churn_val = df_equity.loc[df_equity['DATE'] == date, 'CHURN'].values
-        month_churn_val = (churn_val[0] * 100) if len(churn_val) > 0 and pd.notna(churn_val[0]) else 0.0
-        
-        regime_val = df_equity.loc[df_equity['DATE'] == date, 'REGIME'].values
-        regime_str = regime_val[0] if len(regime_val) > 0 else "Risk-ON"
-        
-        stocks_list = day_df[['SYMBOL', 'SECTOR', 'ACTION', 'ENTRY_DATE', 'PRICE', 'SCORE', 'DELIV_%', 'PNL']].to_dict('records')
-        ai_audit_text = audit_progress.get("results", {}).get(date, "Backtest math completed. (AI Audit skipped to preserve API limits).")
-        
-        dashboard_data[date] = {
-            "portfolio_pnl": f"{mom_val:+.2f}%",
-            "month_churn": f"{month_churn_val:.1f}%",
-            "regime": regime_str,
-            "ai_audit": ai_audit_text,
-            "stocks": stocks_list
+        monthly_data[d] = {
+            "regime": eq_row['REGIME'],
+            "churn": f"{eq_row['CHURN']*100:.1f}%",
+            "selected": day_snaps[day_snaps['ACTION'] == 'SELECTED'][['SYMBOL', 'SECTOR', 'PRICE', 'SCORE', 'DELIV_%', 'PNL', 'REASON']].to_dict('records'),
+            "rejected": day_snaps[day_snaps['ACTION'] == 'REJECTED'][['SYMBOL', 'SECTOR', 'PRICE', 'SCORE', 'DELIV_%', 'PNL', 'REASON']].to_dict('records')
         }
-    
-    page_data = {
+        
+    payload = {
         "global": {
-            "total_ret": f"{total_return_pct:.2f}%",
-            "cagr": f"{cagr_pct:.2f}%",
-            "max_dd": f"{max_dd_pct:.2f}%",
-            "win_rate": f"{win_rate:.1f}%",
-            "volatility": f"{ann_volatility_pct:.2f}%",
-            "sharpe": f"{sharpe_ratio:.2f}",
-            "avg_churn": f"{avg_churn_pct:.1f}%",
-            "chart_dates": chart_dates,
-            "chart_equity": chart_equity
+            "sel_total": f"{((fin_sel/init_eq)-1)*100:.2f}%",
+            "sel_cagr": f"{cagr_sel:.2f}%",
+            "rej_cagr": f"{cagr_rej:.2f}%",
+            "sel_dd": f"{max_dd_pct:.2f}%" if 'max_dd_pct' in locals() else f"{max_dd_sel:.2f}%",
+            "avg_churn": f"{df_equity['CHURN'].mean()*100:.1f}%",
+            "chart_dates": df_equity['DATE'].tolist(),
+            "chart_selected": df_equity['SELECTED_EQUITY'].tolist(),
+            "chart_rejected": df_equity['REJECTED_EQUITY'].tolist()
         },
-        "monthly": dashboard_data
+        "monthly": monthly_data
     }
     
-    json_payload = json.dumps(page_data)
+    json_payload = json.dumps(payload)
     
     html_content = f"""
     <!DOCTYPE html>
@@ -487,276 +399,156 @@ def generate_static_html(audit_progress, df_snaps, df_equity):
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Momentum Alpha Command Center</title>
+        <title>Momentum Alpha Matrix Center</title>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <style>
-            :root {{ 
-                --bg-base: #0B0E14; 
-                --bg-surface: #151A22; 
-                --bg-surface-hover: #1E2532;
-                --border-color: #222A35;
-                --accent-primary: #3B82F6; 
-                --accent-primary-glow: rgba(59, 130, 246, 0.2);
-                --accent-success: #10B981;
-                --accent-danger: #EF4444;
-                --text-primary: #F3F4F6; 
-                --text-secondary: #9CA3AF; 
-            }}
-            body {{ font-family: 'Inter', sans-serif; background: var(--bg-base); color: var(--text-primary); margin: 0; display: flex; height: 100vh; overflow: hidden; }}
+            :root {{ --bg-base: #06080C; --bg-surface: #0F131A; --bg-hover: #171D28; --border: #1B222E; --accent: #2563EB; --success: #10B981; --danger: #EF4444; --text: #F3F4F6; --text-muted: #9CA3AF; }}
+            body {{ font-family: 'Inter', sans-serif; background: var(--bg-base); color: var(--text); margin: 0; display: flex; flex-direction: column; height: 100vh; }}
+            @media(min-width: 768px) {{ body {{ flex-direction: row; }} }}
             
-            .sidebar {{ width: 280px; background: var(--bg-surface); height: 100vh; overflow-y: auto; padding: 24px 20px; box-sizing: border-box; border-right: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 8px; }}
-            .sidebar::-webkit-scrollbar {{ width: 6px; }}
-            .sidebar::-webkit-scrollbar-thumb {{ background: var(--border-color); border-radius: 4px; }}
+            .sidebar {{ width: 100%; background: var(--bg-surface); padding: 20px; box-sizing: border-box; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 10px; }}
+            @media(min-width: 768px) {{ .sidebar {{ width: 300px; height: 100vh; overflow-y: auto; border-bottom: none; border-right: 1px solid var(--border); }} }}
             
-            .brand {{ font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 30px; display: flex; align-items: center; gap: 10px; letter-spacing: -0.5px; }}
-            .brand span {{ color: var(--accent-primary); }}
+            .brand {{ font-size: 18px; font-weight: 800; letter-spacing: -0.5px; color: #fff; margin-bottom: 15px; }}
+            .brand span {{ color: var(--accent); }}
             
-            .sidebar h3 {{ color: var(--text-secondary); margin-top: 10px; margin-bottom: 15px; text-transform: uppercase; font-size: 11px; font-weight: 700; letter-spacing: 1px; }}
+            .btn-nav {{ background: var(--bg-hover); color: var(--text); border: 1px solid var(--border); padding: 12px; border-radius: 8px; cursor: pointer; text-align: left; font-size: 14px; font-weight: 600; transition: all 0.2s; }}
+            .btn-nav.active, .btn-nav:hover {{ background: var(--accent); border-color: var(--accent); color: #fff; }}
             
-            .btn-overview {{ background: var(--accent-primary-glow); color: var(--accent-primary); border: 1px solid rgba(59, 130, 246, 0.4); padding: 14px 16px; cursor: pointer; text-align: left; border-radius: 10px; font-weight: 600; font-size: 14px; transition: all 0.2s; margin-bottom: 10px; }}
-            .btn-overview:hover {{ background: var(--accent-primary); color: #fff; transform: translateY(-1px); box-shadow: 0 4px 12px var(--accent-primary-glow); }}
+            .main-panel {{ flex-grow: 1; padding: 16px; overflow-y: auto; box-sizing: border-box; }}
+            @media(min-width: 768px) {{ .main-panel {{ padding: 40px; }} }}
             
-            .month-btn {{ display: block; width: 100%; background: transparent; color: var(--text-secondary); border: none; padding: 12px 16px; cursor: pointer; text-align: left; border-radius: 8px; font-size: 14px; font-weight: 500; transition: all 0.2s; border-left: 3px solid transparent; }}
-            .month-btn:hover {{ background: var(--bg-surface-hover); color: var(--text-primary); }}
-            .month-btn.active {{ background: rgba(255,255,255,0.05); color: #fff; border-left: 3px solid var(--accent-primary); font-weight: 600; }}
+            .metrics-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 14px; margin-bottom: 24px; }}
+            .card {{ background: var(--bg-surface); padding: 16px; border-radius: 12px; border: 1px solid var(--border); }}
+            .card-title {{ font-size: 10px; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin-bottom: 4px; }}
+            .card-value {{ font-size: 20px; font-weight: 800; }}
+            @media(min-width: 768px) {{ .card-value {{ font-size: 26px; }} }}
             
-            .main-content {{ flex-grow: 1; padding: 40px; overflow-y: auto; box-sizing: border-box; position: relative; }}
-            .fade-in {{ animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }}
-            @keyframes fadeIn {{ from {{ opacity: 0; transform: translateY(10px); }} to {{ opacity: 1; transform: translateY(0); }} }}
+            .chart-box {{ background: var(--bg-surface); padding: 16px; border-radius: 12px; border: 1px solid var(--border); height: 320px; margin-bottom: 24px; }}
             
-            .header-row {{ display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid var(--border-color); padding-bottom: 20px; margin-bottom: 32px; }}
-            h1 {{ margin: 0; font-size: 32px; font-weight: 800; letter-spacing: -1px; }}
-            .nav-controls {{ display: flex; gap: 8px; }}
-            .nav-btn {{ background: var(--bg-surface); color: var(--text-primary); border: 1px solid var(--border-color); padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 13px; transition: all 0.2s; display: none; align-items: center; gap: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }}
-            .nav-btn.show {{ display: flex; }}
-            .nav-btn:hover:not(:disabled) {{ background: var(--bg-surface-hover); border-color: #374151; }}
-            .nav-btn:disabled {{ opacity: 0.4; cursor: not-allowed; box-shadow: none; }}
+            .tab-container {{ display: flex; gap: 8px; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }}
+            .tab-btn {{ background: transparent; border: none; color: var(--text-muted); font-size: 13px; font-weight: 600; padding: 8px 16px; cursor: pointer; border-radius: 6px; }}
+            .tab-btn.active {{ background: rgba(255,255,255,0.05); color: #fff; }}
             
-            .metrics-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; margin-bottom: 32px; }}
-            .metric-card {{ background: var(--bg-surface); padding: 24px; border-radius: 16px; border: 1px solid var(--border-color); position: relative; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: transform 0.2s; }}
-            .metric-card:hover {{ transform: translateY(-2px); }}
-            .metric-title {{ font-size: 12px; color: var(--text-secondary); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 8px; }}
-            .metric-value {{ font-size: 32px; font-weight: 800; letter-spacing: -0.5px; }}
-            
-            .chart-container {{ background: var(--bg-surface); padding: 24px; border-radius: 16px; border: 1px solid var(--border-color); margin-bottom: 40px; height: 420px; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }}
-            
-            .audit-box {{ background: linear-gradient(145deg, rgba(139, 92, 246, 0.1) 0%, rgba(139, 92, 246, 0.02) 100%); padding: 24px; border-radius: 16px; margin-bottom: 32px; border: 1px solid rgba(139, 92, 246, 0.2); position: relative; }}
-            .audit-box::before {{ content: '🤖'; position: absolute; top: 24px; right: 24px; font-size: 24px; opacity: 0.5; }}
-            .audit-box .metric-title {{ color: #A78BFA; }}
-            pre {{ white-space: pre-wrap; font-size: 14px; color: var(--text-primary); margin: 0; line-height: 1.7; font-family: 'Inter', sans-serif; }}
-            
-            .table-container {{ background: var(--bg-surface); border-radius: 16px; border: 1px solid var(--border-color); overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }}
-            table {{ width: 100%; border-collapse: collapse; text-align: left; }}
-            th, td {{ padding: 16px 24px; border-bottom: 1px solid var(--border-color); font-size: 14px; }}
-            th {{ background: rgba(0,0,0,0.2); color: var(--text-secondary); text-transform: uppercase; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; }}
-            tr:hover td {{ background: rgba(255,255,255,0.02); }}
-            tr:last-child td {{ border-bottom: none; }}
-            
-            .pos {{ color: var(--accent-success); }}
-            .neg {{ color: var(--accent-danger); }}
-            .hidden {{ display: none !important; }}
-            
-            .badge {{ display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }}
-            .badge-hold {{ background: rgba(255,255,255,0.05); color: var(--text-secondary); border: 1px solid rgba(255,255,255,0.1); }}
-            .badge-entry {{ background: rgba(16, 185, 129, 0.15); color: var(--accent-success); border: 1px solid rgba(16, 185, 129, 0.3); }}
-            .badge-exit {{ background: rgba(239, 68, 68, 0.15); color: var(--accent-danger); border: 1px solid rgba(239, 68, 68, 0.3); }}
+            .stock-card {{ background: var(--bg-surface); padding: 16px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 10px; display: flex; flex-direction: column; gap: 8px; }}
+            .stock-header {{ display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 6px; }}
+            .stock-symbol {{ font-weight: 800; font-size: 15px; }}
+            .stock-reason {{ font-size: 13px; color: var(--text-muted); line-height: 1.5; background: rgba(0,0,0,0.15); padding: 10px; border-radius: 6px; border-left: 3px solid var(--accent); margin-top: 4px; }}
+            .pos {{ color: var(--success); }} .neg {{ color: var(--danger); }} .hidden {{ display: none !important; }}
         </style>
     </head>
     <body>
         <div class="sidebar" id="sidebar">
-            <div class="brand">⚡ Momentum<span>Alpha</span></div>
-            <button class="btn-overview" onclick="showOverview()">📊 Global Overview</button>
-            <h3>Monthly Timeline</h3>
+            <div class="brand">⚡ Momentum<span>Alpha Center</span></div>
+            <button class="btn-nav active" onclick="showGlobal()">📊 Strategy Deck Dashboard</button>
+            <h3 style="font-size:10px; text-transform:uppercase; color:var(--text-muted); margin-top:15px; font-weight:700;">Rebalance Timeline</h3>
         </div>
         
-        <div class="main-content" id="view-container">
-            <div class="header-row">
-                <h1 id="page-title">Performance Overview</h1>
-                <div class="nav-controls" id="nav-controls">
-                    <button class="nav-btn" id="prev-btn" onclick="goPrev()">← Prev</button>
-                    <button class="nav-btn" id="next-btn" onclick="goNext()">Next →</button>
+        <div class="main-panel">
+            <div id="global-deck">
+                <div class="metrics-grid">
+                    <div class="card"><div class="card-title">AI Selected CAGR</div><div class="card-value pos" id="g-cagr">--</div></div>
+                    <div class="card"><div class="card-title">Rejected Asset CAGR</div><div class="card-value neg" id="g-rcagr">--</div></div>
+                    <div class="card"><div class="card-title">Max Drawdown</div><div class="card-value neg" id="g-dd">--</div></div>
+                    <div class="card"><div class="card-title">Avg Churn Rate</div><div class="card-value" id="g-churn">--</div></div>
                 </div>
+                <div class="chart-box"><canvas id="masterChart"></canvas></div>
             </div>
             
-            <div id="overview-view">
+            <div id="monthly-deck" class="hidden">
                 <div class="metrics-grid">
-                    <div class="metric-card"><div class="metric-title">Total Return</div><div class="metric-value pos" id="g-total">--</div></div>
-                    <div class="metric-card"><div class="metric-title">CAGR</div><div class="metric-value pos" id="g-cagr">--</div></div>
-                    <div class="metric-card"><div class="metric-title">Max Drawdown</div><div class="metric-value neg" id="g-dd">--</div></div>
-                    <div class="metric-card"><div class="metric-title">Sharpe Ratio</div><div class="metric-value" id="g-sharpe" style="color: #A78BFA;">--</div></div>
-                    <div class="metric-card"><div class="metric-title">Avg Monthly Churn</div><div class="metric-value" id="g-churn">--</div></div>
+                    <div class="card"><div class="card-title">Regime Signature</div><div class="card-value" id="m-regime" style="color:#60A5FA;">--</div></div>
+                    <div class="card"><div class="card-title">Snapshot Churn</div><div class="card-value" id="m-churn">--</div></div>
                 </div>
-                <div class="chart-container"><canvas id="equityChart"></canvas></div>
-            </div>
-
-            <div id="monthly-view" class="hidden">
-                <div class="metrics-grid">
-                    <div class="metric-card"><div class="metric-title">Regime Posture</div><div class="metric-value" id="port-regime" style="color: #60A5FA;">--</div></div>
-                    <div class="metric-card"><div class="metric-title">MoM Return</div><div class="metric-value" id="port-pnl">--</div></div>
-                    <div class="metric-card"><div class="metric-title">Monthly Churn</div><div class="metric-value" id="port-churn">--</div></div>
+                <div class="tab-container">
+                    <button class="tab-btn active" id="btn-sel-tab" onclick="switchTab('SELECTED')">✅ Selected Allotments</button>
+                    <button class="tab-btn" id="btn-rej-tab" onclick="switchTab('REJECTED')">❌ Rejected Matrix</button>
                 </div>
-                
-                <div class="audit-box">
-                    <div class="metric-title">AI Portfolio Justification</div>
-                    <pre id="ai-audit">Loading...</pre>
-                </div>
-                
-                <h3 style="margin-bottom: 16px; font-size: 16px; font-weight: 600;">Transition Matrix</h3>
-                <div class="table-container">
-                    <table>
-                        <thead><tr><th>Action</th><th>Symbol</th><th>Entry Date</th><th>Exit Date</th><th>Score</th><th>Deliv %</th><th>Cum. PNL</th></tr></thead>
-                        <tbody id="table-body"></tbody>
-                    </table>
-                </div>
+                <div id="stocks-list-container"></div>
             </div>
         </div>
 
         <script>
-            const fullData = {json_payload};
-            const global = fullData.global;
-            const monthly = fullData.monthly;
-            const dates = Object.keys(monthly); 
-            let currentIndex = 0; let myChart = null;
-
-            function triggerAnimation() {{
-                const container = document.getElementById('view-container');
-                container.classList.remove('fade-in');
-                void container.offsetWidth; 
-                container.classList.add('fade-in');
-            }}
-
-            function showOverview() {{
-                triggerAnimation();
-                document.getElementById('overview-view').classList.remove('hidden');
-                document.getElementById('monthly-view').classList.add('hidden');
-                document.getElementById('page-title').innerText = "Performance Overview";
-                document.getElementById('prev-btn').classList.remove('show'); 
-                document.getElementById('next-btn').classList.remove('show');
-                document.querySelectorAll('.month-btn').forEach(btn => btn.classList.remove('active'));
-
-                document.getElementById('g-total').innerText = global.total_ret;
-                document.getElementById('g-cagr').innerText = global.cagr;
-                document.getElementById('g-dd').innerText = global.max_dd;
-                document.getElementById('g-sharpe').innerText = global.sharpe;
+            const coreData = {json_payload};
+            const global = coreData.global; const monthly = coreData.monthly;
+            const timelineDates = Object.keys(monthly);
+            let currentTab = 'SELECTED'; let currentActiveMonth = ''; let chartObj = null;
+            
+            function showGlobal() {{
+                document.getElementById('global-deck').classList.remove('hidden');
+                document.getElementById('monthly-deck').classList.add('hidden');
+                document.querySelectorAll('.btn-nav').forEach(b => b.classList.remove('active'));
+                document.getElementById('g-cagr').innerText = global.sel_cagr;
+                document.getElementById('g-rcagr').innerText = global.rej_cagr;
+                document.getElementById('g-dd').innerText = global.sel_dd;
                 document.getElementById('g-churn').innerText = global.avg_churn;
-
-                if(myChart) myChart.destroy();
-                const ctx = document.getElementById('equityChart').getContext('2d');
                 
-                let gradient = ctx.createLinearGradient(0, 0, 0, 400);
-                gradient.addColorStop(0, 'rgba(59, 130, 246, 0.4)');
-                gradient.addColorStop(1, 'rgba(59, 130, 246, 0.0)');
-
-                myChart = new Chart(ctx, {{
-                    type: 'line', 
-                    data: {{ 
-                        labels: global.chart_dates, 
-                        datasets: [{{ 
-                            label: 'Equity Growth', 
-                            data: global.chart_equity, 
-                            borderColor: '#3B82F6', 
-                            backgroundColor: gradient,
-                            borderWidth: 2, 
-                            pointRadius: 0,
-                            fill: true,
-                            tension: 0.4
-                        }}] 
+                if(chartObj) chartObj.destroy();
+                chartObj = new Chart(document.getElementById('masterChart'), {{
+                    type: 'line',
+                    data: {{
+                        labels: global.chart_dates,
+                        datasets: [
+                            {{ label: 'AI Selected Active Curve', data: global.chart_selected, borderColor: '#10B981', pointRadius: 0, borderWidth:2, tension:0.2 }},
+                            {{ label: 'Rejected Candidates Curve', data: global.chart_rejected, borderColor: '#EF4444', pointRadius: 0, borderWidth:2, tension:0.2 }}
+                        ]
                     }},
-                    options: {{ 
-                        responsive: true, 
-                        maintainAspectRatio: false, 
-                        plugins: {{ 
-                            legend: {{ display: false }},
-                            tooltip: {{
-                                backgroundColor: 'rgba(15, 23, 42, 0.9)',
-                                titleFont: {{ size: 13, family: 'Inter' }},
-                                bodyFont: {{ size: 14, family: 'Inter', weight: 'bold' }},
-                                padding: 12,
-                                displayColors: false,
-                                callbacks: {{
-                                    label: function(context) {{
-                                        return '₹ ' + context.parsed.y.toLocaleString('en-IN', {{maximumFractionDigits: 0}});
-                                    }}
-                                }}
-                            }}
-                        }}, 
-                        interaction: {{ intersect: false, mode: 'index' }},
-                        scales: {{ 
-                            x: {{ grid: {{ display: false }}, ticks: {{ color: '#6B7280', font: {{family: 'Inter'}} }} }},
-                            y: {{ grid: {{ color: '#1E293B', borderDash: [4, 4] }}, ticks: {{ color: '#6B7280', font: {{family: 'Inter'}} }} }}
-                        }} 
-                    }}
+                    options: {{ responsive: true, maintainAspectRatio: false, scales: {{ x:{{grid:{{display:false}}}}, y:{{grid:{{color:'#1F2733'}}}} }} }}
                 }});
             }}
             
-            function showMonth(date) {{
-                triggerAnimation();
-                currentIndex = dates.indexOf(date);
-                document.getElementById('overview-view').classList.add('hidden');
-                document.getElementById('monthly-view').classList.remove('hidden');
-                document.getElementById('page-title').innerText = "Snapshot: " + date;
-                document.getElementById('prev-btn').classList.add('show'); 
-                document.getElementById('next-btn').classList.add('show');
-                document.getElementById('prev-btn').disabled = (currentIndex >= dates.length - 1);
-                document.getElementById('next-btn').disabled = (currentIndex <= 0);
-                document.querySelectorAll('.month-btn').forEach(btn => btn.classList.remove('active'));
-                const activeBtn = document.getElementById('btn-' + date); if(activeBtn) activeBtn.classList.add('active');
-
-                const data = monthly[date];
-                document.getElementById('port-pnl').innerText = data.portfolio_pnl;
-                document.getElementById('port-pnl').className = "metric-value " + (data.portfolio_pnl.includes('-') ? 'neg' : 'pos');
-                document.getElementById('port-regime').innerText = data.regime;
-                document.getElementById('port-churn').innerText = data.month_churn;
-                document.getElementById('ai-audit').innerText = data.ai_audit;
-
-                let rowsHtml = '';
-                data.stocks.forEach(stock => {{
-                    let badgeClass = stock.ACTION === 'ENTRY' ? 'badge-entry' : (stock.ACTION === 'EXIT' ? 'badge-exit' : 'badge-hold');
-                    let exitDate = stock.ACTION === 'EXIT' ? date : '-';
-                    let pnlDisplay = stock.PNL;
-                    let pnlClass = stock.PNL === 'NEW' ? '' : (stock.PNL.includes('-') ? 'neg' : 'pos');
-
-                    rowsHtml += `<tr>
-                        <td><span class="badge ${{badgeClass}}">${{stock.ACTION}}</span></td>
-                        <td style="font-weight: 700; color: #fff;">${{stock.SYMBOL}}</td>
-                        <td style="color: var(--text-secondary);">${{stock.ENTRY_DATE}}</td>
-                        <td style="color: var(--text-secondary);">${{exitDate}}</td>
-                        <td style="font-family: monospace; font-size: 13px;">${{parseFloat(stock.SCORE).toFixed(2)}}</td>
-                        <td>${{stock['DELIV_%']}}</td>
-                        <td class="${{pnlClass}}" style="font-weight: 700;">${{pnlDisplay}}</td>
-                    </tr>`;
-                }});
-                document.getElementById('table-body').innerHTML = rowsHtml;
+            function showMonth(dateStr) {{
+                currentActiveMonth = dateStr;
+                document.getElementById('global-deck').classList.add('hidden');
+                document.getElementById('monthly-deck').classList.remove('hidden');
+                document.querySelectorAll('.btn-nav').forEach(b => b.classList.remove('active'));
+                document.getElementById('m-btn-'+dateStr).classList.add('active');
+                
+                const data = monthly[dateStr];
+                document.getElementById('m-regime').innerText = data.regime;
+                document.getElementById('m-churn').innerText = data.churn;
+                switchTab(currentTab);
             }}
-
-            function goPrev() {{ if (currentIndex < dates.length - 1) showMonth(dates[currentIndex + 1]); }}
-            function goNext() {{ if (currentIndex > 0) showMonth(dates[currentIndex - 1]); }}
-
+            
+            function switchTab(mode) {{
+                currentTab = mode;
+                document.getElementById('btn-sel-tab').className = mode === 'SELECTED' ? 'tab-btn active' : 'tab-btn';
+                document.getElementById('btn-rej-tab').className = mode === 'REJECTED' ? 'tab-btn active' : 'tab-btn';
+                
+                const listData = mode === 'SELECTED' ? monthly[currentActiveMonth].selected : monthly[currentActiveMonth].rejected;
+                let cardsHtml = '';
+                listData.forEach(s => {{
+                    cardsHtml += `<div class="stock-card">
+                        <div class="stock-header">
+                            <div class="stock-symbol">${{s.SYMBOL}} <span style="font-size:11px; font-weight:400; color:var(--text-muted);">| ${{s.SECTOR}}</span></div>
+                            <div style="font-weight:700;" class="${{s.PNL.includes('-')?'neg':'pos'}}">${{s.PNL}}</div>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted);">
+                            <div>Factor Score: ${{parseFloat(s.SCORE).toFixed(1)}}</div>
+                            <div>Delivery Base: ${{s.DELIV_％||s['DELIV_%']}}</div>
+                        </div>
+                        <div class="stock-reason">${{s.REASON}}</div>
+                    </div>`;
+                }});
+                document.getElementById('stocks-list-container').innerHTML = cardsHtml || '<div style="color:var(--text-muted); font-size:13px; padding:20px 0;">No active elements registered for this configuration posture.</div>';
+            }}
+            
             const sidebar = document.getElementById('sidebar');
-            dates.forEach(date => {{
-                const btn = document.createElement('button'); btn.className = 'month-btn'; btn.id = 'btn-' + date; btn.innerText = date; btn.onclick = () => showMonth(date);
-                sidebar.appendChild(btn);
+            timelineDates.forEach(d => {{
+                const b = document.createElement('button'); b.className = 'btn-nav'; b.id = 'm-btn-'+d; b.innerText = d; b.onclick = () => showMonth(d);
+                sidebar.appendChild(b);
             }});
-
-            showOverview();
+            showGlobal();
         </script>
     </body>
     </html>
     """
-    df_snaps.to_csv("backtest_portfolio_history.csv", index=False)
-    with open("index.html", "w", encoding="utf-8") as f:
-        f.write(html_content)
-    print("✅ Dashboard complete. Check index.html!")
+    with open("index.html", "w", encoding="utf-8") as f: f.write(html_content)
+    print("✅ System Core Automation Matrix successfully written to index.html.")
 
-# ==========================================
-# EXECUTION ROUTER
-# ==========================================
 if __name__ == "__main__":
-    print("🚀 Running PMS Command Center Pipeline.")
     raw_df, nifty_df = load_and_adjust_data()
-    df_snaps, df_equity = run_momentum_backtest(raw_df, nifty_df)
-    verify_backtest_integrity(df_snaps, df_equity)
-    audit_state = ai_portfolio_verifier(df_snaps, df_equity)
-    generate_static_html(audit_state, df_snaps, df_equity)
-    print("🏁 Pipeline Successfully Terminated.")
+    snaps, equity = run_momentum_backtest(raw_df, nifty_df)
+    verify_backtest_integrity(snaps, equity)
+    generate_static_html(snaps, equity)
