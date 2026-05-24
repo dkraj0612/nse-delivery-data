@@ -10,28 +10,17 @@ import zipfile
 from bs4 import BeautifulSoup
 from io import BytesIO
 from datetime import datetime
-from dateutil.relativedelta import relativedelta
-from requests.adapters import HTTPAdapter
-from requests.packages.urllib3.util.retry import Retry
 
 # --- SETUP & RESILIENCE ---
 IST = pytz.timezone('Asia/Kolkata')
 
-def create_resilient_session():
-    """Generates an auto-retrying HTTP session to survive 429/500 server drops."""
-    session = requests.Session()
-    retry = Retry(total=3, backoff_factor=2, status_forcelist=[429, 500, 502, 503, 504])
-    adapter = HTTPAdapter(max_retries=retry)
-    session.mount("http://", adapter)
-    session.mount("https://", adapter)
-    session.headers.update({
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Origin': 'https://www.bseindia.com',
-        'Referer': 'https://www.bseindia.com/'
-    })
-    return session
-
-http = create_resilient_session()
+HEADERS = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'Accept': 'application/json, text/plain, */*',
+    'Accept-Language': 'en-US,en;q=0.9',
+    'Origin': 'https://www.bseindia.com',
+    'Referer': 'https://www.bseindia.com/'
+}
 
 # --- UTILITIES ---
 def clean_filename(text, max_length=30):
@@ -45,11 +34,10 @@ def update_dashboard(scrip, name, status, files_downloaded=0):
 def get_target_companies():
     print("Fetching live market symbols...")
     cache_file = "bse_master_cache.csv"
-    fallback_list = [{'scrip': '500034', 'name': 'BAJAJ FINANCE'}, {'scrip': '500325', 'name': 'RELIANCE INDUSTRIES'}, {'scrip': '500696', 'name': 'HINDUSTAN UNILEVER'}]
+    fallback_list = [{'scrip': '500325', 'name': 'RELIANCE INDUSTRIES'}, {'scrip': '500696', 'name': 'HINDUSTAN UNILEVER'}]
     
     try:
-        url = "https://api.kite.trade/instruments"
-        res = http.get(url, timeout=15)
+        res = requests.get("https://api.kite.trade/instruments", timeout=15)
         res.raise_for_status() 
         lines = res.content.decode('utf-8').splitlines()
         cr = csv.DictReader(lines)
@@ -67,9 +55,8 @@ def get_target_companies():
                 writer = csv.DictWriter(f, fieldnames=['scrip', 'name'])
                 writer.writeheader()
                 writer.writerows(companies)
-            print(f"Success! Found {len(companies)} companies and updated local cache.")
+            print(f"Success! Found {len(companies)} companies.")
             return companies
-            
     except Exception as e:
         print(f"API fetch failed: {e}. Attempting to load from local cache...")
         
@@ -79,46 +66,51 @@ def get_target_companies():
                 return list(csv.DictReader(f))
         except Exception:
             pass
-            
     return fallback_list
 
-# --- CORE DATA ENGINE ---
-def get_bse_announcements(scrip, start_date, end_date):
-    """QA FIX: Enforces explicit date boundaries to prevent BSE's 30-day default trap."""
+# --- CORE DATA ENGINE (RESTORED TO ORIGINAL LOGIC) ---
+def get_bse_announcements(scrip):
+    """Uses BSE's internal search engine directly, bypassing volume crashes."""
     url = "https://api.bseindia.com/BseIndiaAPI/api/AnnGetData/w"
     valid_announcements = []
+    seen_attachments = set()
     
-    try:
-        # A 3-month window rarely exceeds 2 pages (100 announcements), 5 is very safe.
-        for pageno in range(1, 5): 
-            params = {
-                'pageno': str(pageno), 'strCat': '-1', 
-                'strPrevDate': start_date.strftime("%Y%m%d"),
-                'strScrip': str(scrip), 'strSearch': '',
-                'strToDate': end_date.strftime("%Y%m%d"), 'strType': 'C'
-            }
-            res = http.get(url, params=params, timeout=15)
-            data = res.json().get('Table', [])
-            
-            if not data: 
-                break
-            
-            for item in data:
-                h = item.get('NEWSSUB', '').lower()
-                attachment = item.get('ATTACHMENTNAME', '')
+    # We search the 3 most common terms individually. BSE handles the history automatically.
+    keywords = ['transcript', 'call', 'meet']
+    
+    for kw in keywords:
+        try:
+            for pageno in range(1, 4): # 3 pages per keyword is plenty for historical data
+                params = {
+                    'pageno': str(pageno), 'strCat': '-1', 
+                    'strPrevDate': '', 'strScrip': str(scrip), 
+                    'strSearch': kw, 'strToDate': '', 'strType': 'C'
+                }
+                res = requests.get(url, headers=HEADERS, params=params, timeout=15)
+                data = res.json().get('Table', [])
                 
-                is_valid = False
-                if 'transcript' in h:
-                    is_valid = True
-                elif any(kw in h for kw in ['earnings call', 'analyst meet', 'investor call', 'conference call']):
-                    if not any(bad in h for bad in ['audio', 'video', 'mp3', 'presentation', 'slides', 'presentation slides']):
-                        is_valid = True
+                if not data: 
+                    break
+                
+                for item in data:
+                    h = item.get('NEWSSUB', '').lower()
+                    attachment = item.get('ATTACHMENTNAME', '')
+                    
+                    if not attachment or attachment in seen_attachments:
+                        continue
                         
-                if attachment and is_valid:
+                    # Negative filter: Reject audio files unless it explicitly says 'transcript'
+                    if any(bad in h for bad in ['audio', 'video', 'mp3', 'presentation', 'slides']):
+                        if 'transcript' not in h:
+                            continue
+                            
                     valid_announcements.append(item)
-            time.sleep(0.5)
-    except Exception as e:
-        print(f"BSE API Error for {scrip}: {e}")
+                    seen_attachments.add(attachment)
+                    
+                time.sleep(0.5)
+        except Exception as e:
+            print(f"BSE API Error for {scrip} on keyword '{kw}': {e}")
+            
     return valid_announcements
 
 # --- PDF PROCESSING ---
@@ -166,17 +158,12 @@ def resolve_external_link(url):
         return None
         
     stealth_headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
-        'Accept-Language': 'en-US,en;q=0.5',
-        'Upgrade-Insecure-Requests': '1',
-        'Sec-Fetch-Dest': 'document',
-        'Sec-Fetch-Mode': 'navigate',
-        'Sec-Fetch-Site': 'none'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
     }
         
     try:
-        res = http.get(url, headers=stealth_headers, timeout=15)
+        res = requests.get(url, headers=stealth_headers, timeout=15)
         if 'pdf' in res.headers.get('Content-Type', '').lower() or res.content.startswith(b'%PDF'):
             text, _ = extract_text_from_pdf(res.content)
             return text
@@ -185,7 +172,7 @@ def resolve_external_link(url):
             for a in soup.find_all('a', href=True):
                 if a['href'].lower().endswith('.pdf') or 'transcript' in a.get_text().lower():
                     pdf_url = urllib.parse.urljoin(url, a['href'])
-                    pdf_res = http.get(pdf_url, headers=stealth_headers, timeout=15)
+                    pdf_res = requests.get(pdf_url, headers=stealth_headers, timeout=15)
                     text, _ = extract_text_from_pdf(pdf_res.content)
                     return text
     except Exception:
@@ -217,7 +204,6 @@ if __name__ == "__main__":
         marker = f"{folder}/_checked.mar"
         needs_update = True
         
-        # Phase 1: Rolling State Management
         if os.path.exists(marker):
             state = open(marker, 'r').read().strip()
             if ":" in state:
@@ -233,45 +219,18 @@ if __name__ == "__main__":
             
         print(f"\nEvaluating: {name} ({scrip})")
         
-        # Phase 2: History Validation (Strict 3-Month Chunks to satisfy BSE Server Limits)
-        is_first_time = not os.path.exists(marker) or "skipped" in open(marker, 'r').read()
-        lookback_years = 3 if is_first_time else 1
+        # We no longer need separate Quick Check / Deep Dive phases.
+        # The Targeted Multi-Search fetches everything instantly.
+        all_calls = get_bse_announcements(scrip)
         
-        start_check = datetime.now(IST) - relativedelta(years=lookback_years)
-        curr_end_check = datetime.now(IST)
-        has_history = False
-        
-        while curr_end_check > start_check:
-            # QA FIX: 3-month steps perfectly match the BSE web UI limits
-            curr_start_check = max(curr_end_check - relativedelta(months=3), start_check)
-            recent_announcements = get_bse_announcements(scrip, curr_start_check, curr_end_check)
-            
-            if recent_announcements:
-                has_history = True
-                break
-                
-            curr_end_check = curr_start_check
-            time.sleep(0.5)
-        
-        if not has_history:
+        if not all_calls:
             print("No IR history. 90-day cooldown.")
             open(marker, "w").write(f"skipped_no_history:{datetime.now(IST).strftime('%Y-%m-%d')}")
             update_dashboard(scrip, name, "NO_HISTORY")
             quick_checks_performed += 1
             continue
             
-        # Phase 3: Deep Dive (Strict 3-Month Chunks across 5 years)
-        print("IR History found. Harvesting 5 years in 90-day blocks...")
-        start_5y = datetime.now(IST) - relativedelta(years=5)
-        all_calls = []
-        
-        curr_end = datetime.now(IST)
-        while curr_end > start_5y:
-            curr_start = max(curr_end - relativedelta(months=3), start_5y)
-            all_calls.extend(get_bse_announcements(scrip, curr_start, curr_end))
-            curr_end = curr_start
-            time.sleep(1)
-
+        print(f"IR History found. Harvesting {len(all_calls)} targeted documents...")
         success = True
         files_saved = 0
         
@@ -286,7 +245,7 @@ if __name__ == "__main__":
                 continue
                 
             try:
-                res = http.get(pdf_url, timeout=20)
+                res = requests.get(pdf_url, headers=HEADERS, timeout=20)
                 content_type = res.headers.get('Content-Type', '').lower()
                 
                 text, err_status = process_downloaded_payload(res.content, content_type)
@@ -311,7 +270,6 @@ if __name__ == "__main__":
                 print(f"File extraction failure: {e}")
                 success = False
                 
-        # Phase 4: Atomic Commit Marker
         if success:
             open(marker, "w").write(f"done:{datetime.now(IST).strftime('%Y-%m-%d')}")
             update_dashboard(scrip, name, "SUCCESS", files_saved)
