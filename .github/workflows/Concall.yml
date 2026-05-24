@@ -1,20 +1,22 @@
-name: Concall Downloader
+name: Autonomous Concall Engine
 
 on:
   schedule:
-    # Runs automatically every 2 hours
-    - cron: '0 */2 * * *'
-  workflow_dispatch: # Allows manual run button
+    # Wakes up automatically every 4 hours forever
+    - cron: '0 */4 * * *'
+  workflow_dispatch: 
 
 permissions:
-  contents: write # Crucial: Allows the bot to save files back to your repository
+  contents: write 
 
 jobs:
-  scrape:
+  harvest:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Code
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 # Fetches full history to prevent merge conflicts
       
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -24,12 +26,14 @@ jobs:
     - name: Install Requirements
       run: pip install -r requirements.txt
       
-    - name: Run Script
+    - name: Execute Sync Engine
       run: python Concall-downloaded.py
       
-    - name: Commit and Save Transcripts
+    - name: Safely Commit Data
       run: |
         git config --local user.email "bot@github.actions.com"
         git config --local user.name "Transcript Bot"
         git add transcripts/
-        git diff-index --quiet HEAD || (git commit -m "Auto-downloaded next batch of concalls" && git push)
+        
+        # The Pro Fix: Gracefully pull any external changes before pushing
+        git diff-index --quiet HEAD || (git commit -m "Auto-synced latest market transcripts" && git pull --rebase origin main && git push)
