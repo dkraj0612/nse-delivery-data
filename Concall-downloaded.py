@@ -110,7 +110,7 @@ def get_session_with_retries(max_retries=3):
     retry_strategy = Retry(
         total=max_retries,
         status_forcelist=[429, 500, 502, 503, 504],
-        allowed_whitelist=["HEAD", "GET", "OPTIONS"],
+        allowed_methods=["HEAD", "GET", "OPTIONS"],
         backoff_factor=1.5,  # Exponential backoff: 1.5s, 3s, 6s, etc.
     )
     
