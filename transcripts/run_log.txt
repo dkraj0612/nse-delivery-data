@@ -7,3 +7,12 @@
 2026-05-24 11:50:07,438 | ERROR | Batch error: 'str' object has no attribute 'strftime'
 2026-05-24 11:50:07,438 | INFO | 
 🎉 PROCESS COMPLETED! Total Transcripts Saved: 0
+2026-05-24 11:54:35,382 | INFO | === Transcript Downloader with Resume (Fixed) ===
+2026-05-24 11:54:35,382 | INFO | Starting from beginning (2020)
+2026-05-24 11:54:35,386 | INFO | Loaded 503 companies
+2026-05-24 11:54:35,392 | INFO | 
+==========================================================================================
+2026-05-24 11:54:35,392 | INFO | BATCH: 2020-01-01 → 2020-01-20
+2026-05-24 11:54:35,392 | ERROR | Batch error: 'str' object has no attribute 'strftime'
+2026-05-24 11:54:35,392 | INFO | 
+🎉 FINISHED! Total Transcripts Saved: 0
