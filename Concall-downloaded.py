@@ -10,7 +10,6 @@ import zipfile
 from bs4 import BeautifulSoup
 from io import BytesIO
 from datetime import datetime
-from dateutil.relativedelta import relativedelta
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
 
@@ -86,24 +85,25 @@ def get_target_companies():
     return fallback_list
 
 # --- CORE DATA ENGINE ---
-def get_bse_announcements(scrip, start_date, end_date):
-    """Hits the BSE API with auto-pagination (up to 10 pages) and smart keywords."""
+def get_bse_announcements(scrip, max_pages=15):
+    """Hits the BSE API with pure chronological pagination, ignoring broken date filters."""
     url = "https://api.bseindia.com/BseIndiaAPI/api/AnnGetData/w"
     valid_announcements = []
     
     try:
-        for pageno in range(1, 10):  # QA FIX: Expanded pagination for active companies
+        for pageno in range(1, max_pages + 1): 
             params = {
                 'pageno': str(pageno), 'strCat': '-1', 
-                'strPrevDate': start_date.strftime("%Y%m%d"),
+                'strPrevDate': '',  # QA FIX: Blank dates bypass BSE's shadow-ban bug
                 'strScrip': str(scrip), 'strSearch': '',
-                'strToDate': end_date.strftime("%Y%m%d"), 'strType': 'C'
+                'strToDate': '',    # QA FIX: Blank dates bypass BSE's shadow-ban bug
+                'strType': 'C'
             }
             res = http.get(url, params=params, timeout=15)
             data = res.json().get('Table', [])
             
             if not data: 
-                break
+                break # Reached the absolute end of the company's history
             
             for item in data:
                 h = item.get('NEWSSUB', '').lower()
@@ -112,8 +112,8 @@ def get_bse_announcements(scrip, start_date, end_date):
                 is_valid = False
                 if 'transcript' in h:
                     is_valid = True
-                elif any(kw in h for kw in ['earnings call', 'analyst meet', 'investor call']):
-                    if not any(bad in h for bad in ['audio', 'video', 'mp3', 'presentation', 'presentation slides']):
+                elif any(kw in h for kw in ['earnings call', 'analyst meet', 'investor call', 'conference call']):
+                    if not any(bad in h for bad in ['audio', 'video', 'mp3', 'presentation', 'slides', 'presentation slides']):
                         is_valid = True
                         
                 if attachment and is_valid:
@@ -205,10 +205,6 @@ if __name__ == "__main__":
     print("==========================================")
     
     os.makedirs("transcripts", exist_ok=True)
-    
-    # Now it fetches the companies...
-    companies = get_target_companies()
-    os.makedirs("transcripts", exist_ok=True)
     companies = get_target_companies()
     
     deep_dives_performed = 0
@@ -227,7 +223,7 @@ if __name__ == "__main__":
         marker = f"{folder}/_checked.mar"
         needs_update = True
         
-        # Phase 1: Rolling State Management
+        # Phase 1: Rolling State Management (With Auto-Upgrade for Legacy Files)
         if os.path.exists(marker):
             state = open(marker, 'r').read().strip()
             if ":" in state:
@@ -243,43 +239,22 @@ if __name__ == "__main__":
             
         print(f"\nEvaluating: {name} ({scrip})")
         
-        # Phase 2: History Validation (Chunked into 6-month blocks to bypass API limits)
+        # Phase 2: History Validation (Just check the first 3-5 pages / ~150-250 recent announcements)
         is_first_time = not os.path.exists(marker) or "skipped" in open(marker, 'r').read()
-        lookback_years = 3 if is_first_time else 1
+        pages_to_check = 5 if is_first_time else 2
         
-        start_check = datetime.now(IST) - relativedelta(years=lookback_years)
-        curr_end_check = datetime.now(IST)
-        has_history = False
+        recent_announcements = get_bse_announcements(scrip, max_pages=pages_to_check)
         
-        while curr_end_check > start_check:
-            curr_start_check = max(curr_end_check - relativedelta(months=6), start_check)
-            recent_announcements = get_bse_announcements(scrip, curr_start_check, curr_end_check)
-            
-            if recent_announcements:
-                has_history = True
-                break  # Found active IR, stop checking backward
-                
-            curr_end_check = curr_start_check
-            time.sleep(0.5)
-        
-        if not has_history:
+        if not recent_announcements:
             print("No IR history. 90-day cooldown.")
             open(marker, "w").write(f"skipped_no_history:{datetime.now(IST).strftime('%Y-%m-%d')}")
             update_dashboard(scrip, name, "NO_HISTORY")
             quick_checks_performed += 1
             continue
             
-        # Phase 3: Deep Dive (5 Years)
-        print("IR History found. Harvesting 5 years...")
-        start_5y = datetime.now(IST) - relativedelta(years=5)
-        all_calls = []
-        
-        curr_end = datetime.now(IST)
-        while curr_end > start_5y:
-            curr_start = max(curr_end - relativedelta(months=6), start_5y)
-            all_calls.extend(get_bse_announcements(scrip, curr_start, curr_end))
-            curr_end = curr_start
-            time.sleep(1)
+        # Phase 3: Deep Dive (Sweep 15 pages to pull up to 750 historical announcements)
+        print("IR History found. Harvesting historical records...")
+        all_calls = get_bse_announcements(scrip, max_pages=15)
 
         success = True
         files_saved = 0
