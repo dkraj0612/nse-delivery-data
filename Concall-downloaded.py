@@ -7,38 +7,42 @@ import pdfplumber
 from bse import BSE
 
 # ================== CONFIG ==================
-START_DATE = "20250501"      # ← Start with recent month for testing!
+START_DATE = "20250501"      # Change this for testing (e.g., "20200101" later)
 END_DATE = "20260524"
 BASE_FOLDER = "bse_results_transcripts_text"
-BATCH_DAYS = 15              # Smaller = safer & faster feedback
+BATCH_DAYS = 15
 DELAY = 2.0
 # ===========================================
 
-# Setup Logging
-log_file = os.path.join(BASE_FOLDER, "run_log.txt")
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s | %(levelname)s | %(message)s',
-    handlers=[
-        logging.FileHandler(log_file, encoding='utf-8'),
-        logging.StreamHandler()   # Also print to console
-    ]
-)
+# === CREATE FOLDERS FIRST (Important fix) ===
+os.makedirs(BASE_FOLDER, exist_ok=True)
 
 metadata_folder = os.path.join(BASE_FOLDER, "metadata")
 companies_folder = os.path.join(BASE_FOLDER, "Companies")
 os.makedirs(metadata_folder, exist_ok=True)
 os.makedirs(companies_folder, exist_ok=True)
 
+# === NOW Setup Logging ===
+log_file = os.path.join(BASE_FOLDER, "run_log.txt")
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s | %(levelname)s | %(message)s',
+    handlers=[
+        logging.FileHandler(log_file, encoding='utf-8', mode='a'),
+        logging.StreamHandler()
+    ]
+)
+
 logging.info("=== Script Started ===")
-logging.info(f"Date Range: {START_DATE} to {END_DATE}")
 logging.info(f"Base Folder: {BASE_FOLDER}")
+logging.info(f"Log file created at: {log_file}")
+logging.info(f"Date Range: {START_DATE} → {END_DATE}")
+logging.info(f"Batch size: {BATCH_DAYS} days")
 
 b = BSE()
 
 def is_relevant(ann):
-    text = (str(ann.get('headline', '')) + " " + 
-            str(ann.get('subject', ''))).lower()
+    text = (str(ann.get('headline', '')) + " " + str(ann.get('subject', ''))).lower()
     if any(k in text for k in ["result", "financial", "quarterly", "annual", "audited"]):
         return "Results"
     if any(k in text for k in ["transcript", "earnings call", "concall", "conference call"]):
@@ -61,24 +65,23 @@ def process_ann(ann, category):
     try:
         pdf_url = ann.get('attachment') or ann.get('pdf_link')
         if not pdf_url or not str(pdf_url).startswith('http'):
-            logging.warning(f"No valid PDF URL for {ann.get('company_name')}")
+            logging.warning(f"No PDF URL for {ann.get('company_name')}")
             return False
 
         company = str(ann.get('company_name', 'Unknown'))
         date_str = str(ann.get('dt', ''))
         headline = str(ann.get('headline', ''))
 
-        logging.info(f"Downloading PDF for {company} | {date_str}")
+        logging.info(f"Downloading: {company} | {date_str}")
 
         resp = b.session.get(pdf_url, timeout=30)
         if resp.status_code != 200:
-            logging.error(f"Download failed {resp.status_code} for {company}")
+            logging.error(f"Download failed ({resp.status_code}) for {company}")
             return False
 
-        logging.info(f"Extracting text from PDF ({len(resp.content)/1024:.1f} KB)")
+        logging.info(f"Extracting text...")
         text = extract_text(resp.content)
 
-        # Save file
         clean_company = "".join(c if c.isalnum() or c in " _-" else "_" for c in company)[:80]
         clean_headline = "".join(c if c.isalnum() or c in " _-" else "_" for c in headline)[:100]
 
@@ -94,62 +97,55 @@ def process_ann(ann, category):
             f.write("="*80 + "\n\n")
             f.write(text)
 
-        logging.info(f"✓ SUCCESS: {clean_company} | {category} | {date_str}")
+        logging.info(f"✓ SAVED: {clean_company} | {category} | {date_str}")
         return True
     except Exception as e:
-        logging.error(f"✗ Failed processing {company}: {str(e)}")
+        logging.error(f"✗ Failed {company}: {str(e)}")
         return False
 
-# ============== Main Processing Loop ==============
+# ============== Main Loop ==============
 current = datetime.strptime(START_DATE, "%Y%m%d")
 end_dt = datetime.strptime(END_DATE, "%Y%m%d")
-total_processed = 0
+total = 0
 
 while current <= end_dt:
     batch_end = min(current + timedelta(days=BATCH_DAYS), end_dt)
     start_str = current.strftime("%Y-%m-%d")
     end_str = batch_end.strftime("%Y-%m-%d")
 
-    logging.info(f"\n{'='*60}")
-    logging.info(f"STARTING BATCH: {start_str} to {end_str}")
+    logging.info(f"\n{'='*70}")
+    logging.info(f"BATCH START: {start_str} to {end_str}")
 
     try:
-        logging.info("Calling BSE API for announcements...")
+        logging.info("Fetching announcements from BSE...")
         anns = b.announcements(from_date=start_str, to_date=end_str, category="-1")
-        
-        logging.info(f"API returned {len(anns)} total announcements")
+        logging.info(f"API returned {len(anns)} announcements")
 
-        relevant = []
-        for a in anns:
-            cat = is_relevant(a)
-            if cat:
-                a['filtered_category'] = cat
-                relevant.append(a)
+        relevant = [a for a in anns if (cat := is_relevant(a))]
+        for a in relevant:
+            a['filtered_category'] = cat
 
-        logging.info(f"Filtered to {len(relevant)} relevant (Results/Transcript)")
+        logging.info(f"→ {len(relevant)} relevant Results/Transcripts found")
 
         if relevant:
             df = pd.DataFrame(relevant)
             csv_path = os.path.join(metadata_folder, f"metadata_{start_str}_{end_str}.csv")
             df.to_csv(csv_path, index=False)
-            logging.info(f"Saved metadata CSV: {len(relevant)} rows")
+            logging.info(f"Saved metadata CSV")
 
             for i, ann in enumerate(relevant, 1):
-                logging.info(f"Processing {i}/{len(relevant)}: {ann.get('company_name')}")
+                logging.info(f"[{i}/{len(relevant)}] Processing {ann.get('company_name')}")
                 process_ann(ann, ann['filtered_category'])
                 time.sleep(DELAY)
-            
-            total_processed += len(relevant)
-        else:
-            logging.info("No relevant announcements in this batch.")
 
+            total += len(relevant)
     except Exception as e:
-        logging.error(f"Batch failed with error: {str(e)}")
+        logging.error(f"Batch error: {str(e)}")
 
     current = batch_end + timedelta(days=1)
     time.sleep(3)
 
-logging.info(f"\n🎉 SCRIPT FINISHED!")
-logging.info(f"Total relevant announcements processed: {total_processed}")
-logging.info(f"Log file: {log_file}")
+logging.info(f"\n🎉 FINISHED!")
+logging.info(f"Total files processed: {total}")
 logging.info(f"Check folder: {BASE_FOLDER}")
+print(f"\nLog file: {log_file}")
