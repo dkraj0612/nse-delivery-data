@@ -7,14 +7,11 @@ import pdfplumber
 from bse import BSE
 
 # ================== CONFIG ==================
-START_DATE = "20200101"
-END_DATE = "20260524"
 BASE_FOLDER = "transcripts"
 BATCH_DAYS = 20
 DELAY = 2.0
-# ===========================================
-
 RESUME_FILE = os.path.join(BASE_FOLDER, "last_processed_date.txt")
+# ===========================================
 
 logging.basicConfig(
     level=logging.INFO,
@@ -25,17 +22,22 @@ logging.basicConfig(
     ]
 )
 
-logging.info("=== Transcript Downloader with Resume (Fixed) ===")
+logging.info("=== Transcript Downloader with Resume (Stable Version) ===")
 
-# Resume Logic
+# ================== Resume Logic ==================
+start_date_str = "20200101"   # Default
+
 if os.path.exists(RESUME_FILE):
-    with open(RESUME_FILE, 'r') as f:
-        last_date_str = f.read().strip()
-        if last_date_str:
-            START_DATE = last_date_str
-            logging.info(f"✅ Resuming from: {START_DATE}")
-else:
-    logging.info("Starting from beginning (2020)")
+    try:
+        with open(RESUME_FILE, 'r') as f:
+            last_date = f.read().strip()
+            if last_date and len(last_date) == 8:
+                start_date_str = last_date
+                logging.info(f"✅ Resuming from: {start_date_str}")
+    except:
+        logging.warning("Could not read resume file. Starting from 2020.")
+
+logging.info(f"Starting from date: {start_date_str}")
 
 # Company Mapping
 company_map = {}
@@ -107,18 +109,12 @@ def save_file(ann):
         logging.error(f"Save failed: {str(e)}")
         return False
 
-# ============== Main Loop (Fixed Date Handling) ==============
-current = datetime.strptime(START_DATE, "%Y%m%d")
-end_dt = datetime.strptime(END_DATE, "%Y%m%d")
+# ============== Main Loop ==============
+current = datetime.strptime(start_date_str, "%Y%m%d")
+end_dt = datetime.strptime("20260524", "%Y%m%d")
 total = 0
 
 while current <= end_dt:
-    # Ensure datetime objects
-    if isinstance(current, str):
-        current = datetime.strptime(current, "%Y%m%d")
-    if isinstance(end_dt, str):
-        end_dt = datetime.strptime(end_dt, "%Y%m%d")
-
     batch_end = min(current + timedelta(days=BATCH_DAYS - 1), end_dt)
 
     start_str = current.strftime("%Y-%m-%d")
@@ -141,17 +137,16 @@ while current <= end_dt:
 
         logging.info(f"Saved {saved_count} transcripts in this batch")
 
-        # Update resume file
+        # Update resume
         with open(RESUME_FILE, 'w') as f:
             f.write(batch_end.strftime("%Y%m%d"))
-        logging.info(f"Resume point updated → {batch_end.strftime('%Y-%m-%d')}")
+        logging.info(f"Resume updated → {batch_end.strftime('%Y-%m-%d')}")
 
     except Exception as e:
         logging.error(f"Batch error: {str(e)}")
-        break
+        break   # Allow resume on next run
 
     current = batch_end + timedelta(days=1)
     time.sleep(3)
 
 logging.info(f"\n🎉 FINISHED! Total Transcripts Saved: {total}")
-print("You can re-run the script anytime to resume.")
