@@ -200,6 +200,14 @@ def resolve_external_link(url):
 
 # --- MAIN EXECUTION ---
 if __name__ == "__main__":
+    print("==========================================")
+    print("🚀 PIPELINE WAKING UP - ENVIRONMENT LOADED")
+    print("==========================================")
+    
+    os.makedirs("transcripts", exist_ok=True)
+    
+    # Now it fetches the companies...
+    companies = get_target_companies()
     os.makedirs("transcripts", exist_ok=True)
     companies = get_target_companies()
     
