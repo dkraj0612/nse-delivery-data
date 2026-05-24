@@ -22,22 +22,24 @@ logging.basicConfig(
     ]
 )
 
-logging.info("=== Transcript Downloader with Resume (Stable Version) ===")
+logging.info("=== Transcript Downloader - Ultra Stable Version ===")
 
-# ================== Resume Logic ==================
-start_date_str = "20200101"   # Default
+# ================== Resume Logic (Very Defensive) ==================
+start_date_str = "20200101"
 
 if os.path.exists(RESUME_FILE):
     try:
         with open(RESUME_FILE, 'r') as f:
-            last_date = f.read().strip()
-            if last_date and len(last_date) == 8:
-                start_date_str = last_date
+            content = f.read().strip()
+            if content and len(content) == 8 and content.isdigit():
+                start_date_str = content
                 logging.info(f"✅ Resuming from: {start_date_str}")
-    except:
-        logging.warning("Could not read resume file. Starting from 2020.")
+            else:
+                logging.info("Invalid resume date, starting from 2020")
+    except Exception as e:
+        logging.warning(f"Resume file error: {e}. Starting from beginning.")
 
-logging.info(f"Starting from date: {start_date_str}")
+logging.info(f"Starting Date: {start_date_str}")
 
 # Company Mapping
 company_map = {}
@@ -109,7 +111,7 @@ def save_file(ann):
         logging.error(f"Save failed: {str(e)}")
         return False
 
-# ============== Main Loop ==============
+# ============== Main Loop - Very Safe Date Handling ==============
 current = datetime.strptime(start_date_str, "%Y%m%d")
 end_dt = datetime.strptime("20260524", "%Y%m%d")
 total = 0
@@ -117,6 +119,7 @@ total = 0
 while current <= end_dt:
     batch_end = min(current + timedelta(days=BATCH_DAYS - 1), end_dt)
 
+    # Force string conversion safely
     start_str = current.strftime("%Y-%m-%d")
     end_str = batch_end.strftime("%Y-%m-%d")
 
@@ -138,13 +141,14 @@ while current <= end_dt:
         logging.info(f"Saved {saved_count} transcripts in this batch")
 
         # Update resume
+        resume_date = batch_end.strftime("%Y%m%d")
         with open(RESUME_FILE, 'w') as f:
-            f.write(batch_end.strftime("%Y%m%d"))
-        logging.info(f"Resume updated → {batch_end.strftime('%Y-%m-%d')}")
+            f.write(resume_date)
+        logging.info(f"Resume updated → {resume_date}")
 
     except Exception as e:
         logging.error(f"Batch error: {str(e)}")
-        break   # Allow resume on next run
+        break
 
     current = batch_end + timedelta(days=1)
     time.sleep(3)
