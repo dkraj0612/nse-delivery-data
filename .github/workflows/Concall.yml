@@ -1,0 +1,35 @@
+name: Concall Downloader
+
+on:
+  schedule:
+    # Runs automatically every 2 hours
+    - cron: '0 */2 * * *'
+  workflow_dispatch: # Allows manual run button
+
+permissions:
+  contents: write # Crucial: Allows the bot to save files back to your repository
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        
+    - name: Install Requirements
+      run: pip install -r requirements.txt
+      
+    - name: Run Script
+      run: python concall-downloaded.py
+      
+    - name: Commit and Save Transcripts
+      run: |
+        git config --local user.email "bot@github.actions.com"
+        git config --local user.name "Transcript Bot"
+        git add transcripts/
+        git diff-index --quiet HEAD || (git commit -m "Auto-downloaded next batch of concalls" && git push)
