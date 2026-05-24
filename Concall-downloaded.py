@@ -7,21 +7,21 @@ import pdfplumber
 from bse import BSE
 
 # ================== CONFIG ==================
-START_DATE = "20250501"      # Good for testing
+START_DATE = "20250501"      # Start small for testing
 END_DATE = "20260524"
 BASE_FOLDER = "bse_results_transcripts_text"
-BATCH_DAYS = 15
+BATCH_DAYS = 10              # Reduced for safety
 DELAY = 2.0
 # ===========================================
 
-# Create folders first
+# Create folders
 os.makedirs(BASE_FOLDER, exist_ok=True)
 metadata_folder = os.path.join(BASE_FOLDER, "metadata")
 companies_folder = os.path.join(BASE_FOLDER, "Companies")
 os.makedirs(metadata_folder, exist_ok=True)
 os.makedirs(companies_folder, exist_ok=True)
 
-# Setup Logging
+# Logging
 log_file = os.path.join(BASE_FOLDER, "run_log.txt")
 logging.basicConfig(
     level=logging.INFO,
@@ -33,13 +33,12 @@ logging.basicConfig(
 )
 
 logging.info("=== Script Started ===")
-logging.info(f"Base Folder: {BASE_FOLDER}")
-logging.info(f"Date Range: {START_DATE} → {END_DATE}")
+logging.info(f"Date Range: {START_DATE} to {END_DATE}")
 logging.info(f"Batch size: {BATCH_DAYS} days")
 
-# Initialize BSE with download folder
+# Initialize BSE
 b = BSE(download_folder=os.path.join(BASE_FOLDER, "temp_downloads"))
-logging.info("BSE client initialized successfully")
+logging.info("BSE client initialized")
 
 def is_relevant(ann):
     text = (str(ann.get('headline', '')) + " " + str(ann.get('subject', ''))).lower()
@@ -65,21 +64,21 @@ def process_ann(ann, category):
     try:
         pdf_url = ann.get('attachment') or ann.get('pdf_link')
         if not pdf_url or not str(pdf_url).startswith('http'):
-            logging.warning(f"No valid PDF for {ann.get('company_name')}")
+            logging.warning(f"No PDF URL for {ann.get('company_name')}")
             return False
 
         company = str(ann.get('company_name', 'Unknown'))
         date_str = str(ann.get('dt', ''))
         headline = str(ann.get('headline', ''))
 
-        logging.info(f"Downloading PDF: {company} | {date_str}")
+        logging.info(f"Downloading PDF → {company} | {date_str}")
 
         resp = b.session.get(pdf_url, timeout=30)
         if resp.status_code != 200:
             logging.error(f"Download failed ({resp.status_code})")
             return False
 
-        logging.info(f"Extracting text from PDF...")
+        logging.info("Extracting text from PDF...")
         text = extract_text(resp.content)
 
         clean_company = "".join(c if c.isalnum() or c in " _-" else "_" for c in company)[:80]
@@ -97,35 +96,41 @@ def process_ann(ann, category):
             f.write("="*80 + "\n\n")
             f.write(text)
 
-        logging.info(f"✓ SAVED: {clean_company} | {category} | {date_str}")
+        logging.info(f"✓ SAVED: {clean_company} | {category}")
         return True
     except Exception as e:
-        logging.error(f"Failed {company}: {str(e)}")
+        logging.error(f"Failed processing announcement: {str(e)}")
         return False
 
-# ============== Main Processing ==============
+# ============== Main Loop ==============
 current = datetime.strptime(START_DATE, "%Y%m%d")
 end_dt = datetime.strptime(END_DATE, "%Y%m%d")
 total = 0
 
 while current <= end_dt:
-    batch_end = min(current + timedelta(days=BATCH_DAYS), end_dt)
+    batch_end = min(current + timedelta(days=BATCH_DAYS - 1), end_dt)   # Fixed: -1 to avoid overlap
+
     start_str = current.strftime("%Y-%m-%d")
     end_str = batch_end.strftime("%Y-%m-%d")
 
-    logging.info(f"\n{'='*70}")
-    logging.info(f"BATCH: {start_str} to {end_str}")
+    logging.info(f"\n{'='*80}")
+    logging.info(f"BATCH: {start_str} → {end_str}")
 
     try:
-        logging.info("Fetching announcements...")
+        logging.info("Fetching announcements from BSE...")
         anns = b.announcements(from_date=start_str, to_date=end_str, category="-1")
-        logging.info(f"Total announcements received: {len(anns)}")
+        
+        logging.info(f"API returned {len(anns)} announcements")
 
-        relevant = [a for a in anns if (cat := is_relevant(a))]
-        for a in relevant:
-            a['filtered_category'] = cat
+        relevant = []
+        for a in anns:
+            cat = is_relevant(a)
+            if cat:
+                a_copy = dict(a)                    # Avoid modifying original
+                a_copy['filtered_category'] = cat
+                relevant.append(a_copy)
 
-        logging.info(f"Relevant (Results/Transcript): {len(relevant)}")
+        logging.info(f"Relevant Results/Transcripts: {len(relevant)}")
 
         if relevant:
             df = pd.DataFrame(relevant)
@@ -134,16 +139,17 @@ while current <= end_dt:
             logging.info("Metadata CSV saved")
 
             for i, ann in enumerate(relevant, 1):
-                logging.info(f"[{i}/{len(relevant)}] {ann.get('company_name')}")
+                logging.info(f"[{i}/{len(relevant)}] Processing: {ann.get('company_name')}")
                 process_ann(ann, ann['filtered_category'])
                 time.sleep(DELAY)
 
             total += len(relevant)
     except Exception as e:
-        logging.error(f"Batch failed: {str(e)}")
+        logging.error(f"Batch error: {str(e)}")
 
+    # Move to next batch
     current = batch_end + timedelta(days=1)
     time.sleep(3)
 
-logging.info(f"\n🎉 FINISHED! Total processed: {total}")
-print("Script completed. Check the log and output folder.")
+logging.info(f"\n🎉 SCRIPT COMPLETED! Total announcements processed: {total}")
+print("Done! Check the folder and run_log.txt")
