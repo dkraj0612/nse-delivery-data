@@ -8,39 +8,41 @@ import pdfplumber
 import re
 
 # ================== CONFIG ==================
-START_DATE = "20200101"      # From 2020 onwards
+START_DATE = "20200101"
 END_DATE = "20260524"
-BASE_FOLDER = "transcripts"  # Your existing folder
-BATCH_DAYS = 10
-DELAY = 2.5
-MAX_RETRIES = 3
+BASE_FOLDER = "transcripts"
+BATCH_DAYS = 15              # Larger batch = fewer API calls
+DELAY = 2.0
 # ===========================================
 
-# Setup Logging
+os.makedirs(BASE_FOLDER, exist_ok=True)
+
 log_file = os.path.join(BASE_FOLDER, "run_log.txt")
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s | %(levelname)s | %(message)s',
-    handlers=[
-        logging.FileHandler(log_file, encoding='utf-8', mode='a'),
-        logging.StreamHandler()
-    ]
+    handlers=[logging.FileHandler(log_file, encoding='utf-8', mode='a'),
+              logging.StreamHandler()]
 )
 
-logging.info("=== Script Started - Company Specific Mode ===")
-logging.info(f"Processing companies from folder: {BASE_FOLDER}")
+logging.info("=== Optimized Company-Specific Script Started ===")
 
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
     "Referer": "https://www.bseindia.com/"
 }
-
 session = requests.Session()
 
-def get_scrip_code_from_folder(folder_name):
-    """Extract BSE code like 500002 from folder name"""
-    match = re.search(r'\((\d{5,6})\)', folder_name)
-    return match.group(1) if match else None
+# Build company mapping: scrip_code → folder_path
+company_map = {}
+for folder in os.listdir(BASE_FOLDER):
+    if os.path.isdir(os.path.join(BASE_FOLDER, folder)):
+        match = re.search(r'\((\d{5,6})\)', folder)
+        if match:
+            scrip = match.group(1)
+            company_map[scrip] = os.path.join(BASE_FOLDER, folder)
+
+logging.info(f"Loaded {len(company_map)} companies")
 
 def is_relevant(ann):
     text = (str(ann.get('headline', '')) + " " + str(ann.get('subject', ''))).lower()
@@ -59,104 +61,86 @@ def extract_text(pdf_bytes):
                 if page_text:
                     text += f"--- Page {i+1} ---\n{page_text}\n\n"
     except:
-        text = "Could not extract text from PDF"
+        text = "Extraction failed"
     return text
 
-def process_ann(ann, category, company_folder):
-    for attempt in range(MAX_RETRIES):
-        try:
-            pdf_url = ann.get('attachment') or ann.get('pdf_link') or ann.get('ATTACHMENT')
-            if not pdf_url or not str(pdf_url).startswith('http'):
-                return False
+def save_announcement(ann, category):
+    scrip = str(ann.get('scrip_code', ''))
+    if not scrip or scrip not in company_map:
+        return False
 
-            company = str(ann.get('company_name', 'Unknown'))
-            date_str = str(ann.get('dt', ''))
-            headline = str(ann.get('headline', ''))
+    company_folder = company_map[scrip]
+    cat_folder = os.path.join(company_folder, category)
+    os.makedirs(cat_folder, exist_ok=True)
 
-            logging.info(f"Downloading: {company} | {date_str}")
+    company_name = str(ann.get('company_name', 'Unknown'))
+    date_str = str(ann.get('dt', ''))
+    headline = str(ann.get('headline', ''))
 
-            resp = session.get(pdf_url, headers=headers, timeout=40)
-            if resp.status_code != 200:
-                time.sleep(2)
-                continue
+    try:
+        pdf_url = ann.get('attachment') or ann.get('pdf_link') or ann.get('ATTACHMENT')
+        resp = session.get(pdf_url, headers=headers, timeout=40)
+        if resp.status_code != 200:
+            return False
 
-            text = extract_text(resp.content)
+        text = extract_text(resp.content)
 
-            cat_folder = os.path.join(company_folder, category)
-            os.makedirs(cat_folder, exist_ok=True)
+        clean_headline = "".join(c if c.isalnum() or c in " _-" else "_" for c in headline)[:100]
+        filename = f"{company_name}_{date_str}_{category}_{clean_headline}.txt"
+        path = os.path.join(cat_folder, filename)
 
-            clean_headline = "".join(c if c.isalnum() or c in " _-" else "_" for c in headline)[:100]
-            filename = f"{company}_{date_str}_{category}_{clean_headline}.txt"
-            path = os.path.join(cat_folder, filename)
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(f"Company: {company_name}\nDate: {date_str}\nCategory: {category}\n")
+            f.write(f"Headline: {headline}\n")
+            f.write("="*80 + "\n\n")
+            f.write(text)
 
-            with open(path, "w", encoding="utf-8") as f:
-                f.write(f"Company: {company}\nDate: {date_str}\nCategory: {category}\nHeadline: {headline}\n")
-                f.write("="*80 + "\n\n")
-                f.write(text)
+        logging.info(f"✓ SAVED: {company_name} | {category} | {date_str}")
+        return True
+    except Exception as e:
+        logging.error(f"Save failed for {company_name}: {str(e)}")
+        return False
 
-            logging.info(f"✓ SAVED in {category}: {filename}")
-            return True
-        except Exception as e:
-            logging.error(f"Attempt {attempt+1} failed: {str(e)}")
-            time.sleep(3)
-    return False
-
-# ============== Get All Company Folders ==============
-companies = [f for f in os.listdir(BASE_FOLDER) 
-             if os.path.isdir(os.path.join(BASE_FOLDER, f)) and f != "__pycache__"]
-
-logging.info(f"Found {len(companies)} company folders")
-
-# ============== Main Processing ==============
-total = 0
+# ============== Main Loop ==============
 current = datetime.strptime(START_DATE, "%Y%m%d")
 end_dt = datetime.strptime(END_DATE, "%Y%m%d")
+total_saved = 0
 
 while current <= end_dt:
     batch_end = min(current + timedelta(days=BATCH_DAYS - 1), end_dt)
     start_str = current.strftime("%Y%m%d")
     end_str = batch_end.strftime("%Y%m%d")
 
-    logging.info(f"\n{'='*90}")
+    logging.info(f"\n{'='*85}")
     logging.info(f"BATCH: {start_str} → {end_str}")
 
-    for folder in companies:
-        scrip_code = get_scrip_code_from_folder(folder)
-        if not scrip_code:
-            continue
+    try:
+        url = "https://api.bseindia.com/BseIndiaAPI/api/AnnGetData/w"
+        params = {
+            "pageno": 1,
+            "strCat": "-1",
+            "strPrevDate": start_str,
+            "strToDate": end_str,
+            "strScrip": "",           # Empty = all companies
+            "strSearch": "P"
+        }
 
-        company_folder = os.path.join(BASE_FOLDER, folder)
-        logging.info(f"Processing {folder} (Code: {scrip_code})")
+        resp = session.get(url, params=params, headers=headers, timeout=30)
+        if resp.status_code == 200:
+            anns = resp.json().get('Table', [])
+            logging.info(f"API returned {len(anns)} announcements")
 
-        try:
-            url = "https://api.bseindia.com/BseIndiaAPI/api/AnnGetData/w"
-            params = {
-                "pageno": 1,
-                "strCat": "-1",
-                "strPrevDate": start_str,
-                "strToDate": end_str,
-                "strScrip": scrip_code,      # ← Key: Specific company
-                "strSearch": "P"
-            }
-
-            resp = session.get(url, params=params, headers=headers, timeout=30)
-            
-            if resp.status_code == 200:
-                data = resp.json()
-                anns = data.get('Table', [])
-
-                relevant = [dict(a, filtered_category=cat) for a in anns if (cat := is_relevant(a))]
-
-                if relevant:
-                    for ann in relevant:
-                        process_ann(ann, ann['filtered_category'], company_folder)
-                        time.sleep(DELAY)
-                    total += len(relevant)
-        except Exception as e:
-            logging.error(f"Error processing {folder}: {str(e)}")
+            for ann in anns:
+                cat = is_relevant(ann)
+                if cat:
+                    if save_announcement(ann, cat):
+                        total_saved += 1
+                    time.sleep(DELAY)
+    except Exception as e:
+        logging.error(f"Batch error: {str(e)}")
 
     current = batch_end + timedelta(days=1)
     time.sleep(4)
 
-logging.info(f"\n🎉 FINISHED! Total announcements processed: {total}")
-print("Script completed. Check run_log.txt")
+logging.info(f"\n🎉 FINISHED! Total files saved: {total_saved}")
+print("Completed. Check run_log.txt")
