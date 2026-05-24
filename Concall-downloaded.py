@@ -25,19 +25,17 @@ logging.basicConfig(
     ]
 )
 
-logging.info("=== Transcript / Concall Downloader with Resume ===")
+logging.info("=== Transcript Downloader with Resume (Fixed) ===")
 
-# ================== Resume Logic ==================
+# Resume Logic
 if os.path.exists(RESUME_FILE):
     with open(RESUME_FILE, 'r') as f:
-        last_date = f.read().strip()
-        if last_date:
-            START_DATE = last_date
-            logging.info(f"✅ Resuming from last processed date: {START_DATE}")
-        else:
-            logging.info("No previous resume date found. Starting from beginning.")
+        last_date_str = f.read().strip()
+        if last_date_str:
+            START_DATE = last_date_str
+            logging.info(f"✅ Resuming from: {START_DATE}")
 else:
-    logging.info("No resume file found. Starting from 2020.")
+    logging.info("Starting from beginning (2020)")
 
 # Company Mapping
 company_map = {}
@@ -53,8 +51,7 @@ logging.info(f"Loaded {len(company_map)} companies")
 b = BSE(download_folder=os.path.join(BASE_FOLDER, "temp_downloads"))
 
 def is_transcript(ann):
-    text = (str(ann.get('headline', '')) + " " + 
-            str(ann.get('subject', ''))).lower()
+    text = (str(ann.get('headline', '')) + " " + str(ann.get('subject', ''))).lower()
     keywords = ["transcript", "earnings call", "concall", "conference call", 
                 "investor meet transcript", "con call", "earnings transcript"]
     return any(kw in text for kw in keywords)
@@ -110,13 +107,20 @@ def save_file(ann):
         logging.error(f"Save failed: {str(e)}")
         return False
 
-# ============== Main Loop with Resume Support ==============
+# ============== Main Loop (Fixed Date Handling) ==============
 current = datetime.strptime(START_DATE, "%Y%m%d")
 end_dt = datetime.strptime(END_DATE, "%Y%m%d")
 total = 0
 
 while current <= end_dt:
+    # Ensure datetime objects
+    if isinstance(current, str):
+        current = datetime.strptime(current, "%Y%m%d")
+    if isinstance(end_dt, str):
+        end_dt = datetime.strptime(end_dt, "%Y%m%d")
+
     batch_end = min(current + timedelta(days=BATCH_DAYS - 1), end_dt)
+
     start_str = current.strftime("%Y-%m-%d")
     end_str = batch_end.strftime("%Y-%m-%d")
 
@@ -137,17 +141,17 @@ while current <= end_dt:
 
         logging.info(f"Saved {saved_count} transcripts in this batch")
 
-        # Update resume file after successful batch
+        # Update resume file
         with open(RESUME_FILE, 'w') as f:
             f.write(batch_end.strftime("%Y%m%d"))
-        logging.info(f"Resume point updated to: {batch_end.strftime('%Y-%m-%d')}")
+        logging.info(f"Resume point updated → {batch_end.strftime('%Y-%m-%d')}")
 
     except Exception as e:
         logging.error(f"Batch error: {str(e)}")
-        break  # Stop on major error so you can resume
+        break
 
     current = batch_end + timedelta(days=1)
     time.sleep(3)
 
-logging.info(f"\n🎉 PROCESS COMPLETED! Total Transcripts Saved: {total}")
-print("Script finished. You can re-run anytime to resume.")
+logging.info(f"\n🎉 FINISHED! Total Transcripts Saved: {total}")
+print("You can re-run the script anytime to resume.")
