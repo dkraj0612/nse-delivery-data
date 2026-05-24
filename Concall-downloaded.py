@@ -10,6 +10,7 @@ import zipfile
 from bs4 import BeautifulSoup
 from io import BytesIO
 from datetime import datetime
+from dateutil.relativedelta import relativedelta
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
 
@@ -34,20 +35,17 @@ http = create_resilient_session()
 
 # --- UTILITIES ---
 def clean_filename(text, max_length=30):
-    """Prevents Windows MAX_PATH crashes and strips illegal characters."""
     return re.sub(r'[\\/*?:"<>|]', "", text).strip()[:max_length]
 
 def update_dashboard(scrip, name, status, files_downloaded=0):
-    """Maintains a high-level PM observability log."""
     with open("execution_dashboard.log", "a", encoding="utf-8") as f:
         timestamp = datetime.now(IST).strftime("%Y-%m-%d %H:%M:%S")
         f.write(f"[{timestamp}] {scrip} - {name[:20]:<20} | Status: {status:<15} | Files: {files_downloaded}\n")
 
 def get_target_companies():
-    """Fetches BSE codes from Zerodha, with a resilient local CSV cache fallback."""
     print("Fetching live market symbols...")
     cache_file = "bse_master_cache.csv"
-    fallback_list = [{'scrip': '500034', 'name': 'BAJAJ FINANCE'}, {'scrip': '500325', 'name': 'RELIANCE INDUSTRIES'}]
+    fallback_list = [{'scrip': '500034', 'name': 'BAJAJ FINANCE'}, {'scrip': '500325', 'name': 'RELIANCE INDUSTRIES'}, {'scrip': '500696', 'name': 'HINDUSTAN UNILEVER'}]
     
     try:
         url = "https://api.kite.trade/instruments"
@@ -85,25 +83,25 @@ def get_target_companies():
     return fallback_list
 
 # --- CORE DATA ENGINE ---
-def get_bse_announcements(scrip, max_pages=15):
-    """Hits the BSE API with pure chronological pagination, ignoring broken date filters."""
+def get_bse_announcements(scrip, start_date, end_date):
+    """QA FIX: Enforces explicit date boundaries to prevent BSE's 30-day default trap."""
     url = "https://api.bseindia.com/BseIndiaAPI/api/AnnGetData/w"
     valid_announcements = []
     
     try:
-        for pageno in range(1, max_pages + 1): 
+        # A 3-month window rarely exceeds 2 pages (100 announcements), 5 is very safe.
+        for pageno in range(1, 5): 
             params = {
                 'pageno': str(pageno), 'strCat': '-1', 
-                'strPrevDate': '',  # QA FIX: Blank dates bypass BSE's shadow-ban bug
+                'strPrevDate': start_date.strftime("%Y%m%d"),
                 'strScrip': str(scrip), 'strSearch': '',
-                'strToDate': '',    # QA FIX: Blank dates bypass BSE's shadow-ban bug
-                'strType': 'C'
+                'strToDate': end_date.strftime("%Y%m%d"), 'strType': 'C'
             }
             res = http.get(url, params=params, timeout=15)
             data = res.json().get('Table', [])
             
             if not data: 
-                break # Reached the absolute end of the company's history
+                break
             
             for item in data:
                 h = item.get('NEWSSUB', '').lower()
@@ -125,7 +123,6 @@ def get_bse_announcements(scrip, max_pages=15):
 
 # --- PDF PROCESSING ---
 def extract_text_from_pdf(pdf_bytes):
-    """Reads binary content, checks magic bytes, extracts text/links, and flushes RAM."""
     if not pdf_bytes.startswith(b'%PDF'):
         return None, "INVALID_PDF_FORMAT_OR_WAF_BLOCK"
         
@@ -137,7 +134,6 @@ def extract_text_from_pdf(pdf_bytes):
             
         text = "".join(page.get_text() + "\n" for page in doc)
         
-        # Fallback for Scanned Image Cover Letters (Extract raw embedded URIs)
         if len(text.strip()) < 50:
             for page in doc:
                 for link in page.get_links():
@@ -151,7 +147,6 @@ def extract_text_from_pdf(pdf_bytes):
         if doc: doc.close()
 
 def process_downloaded_payload(file_bytes, content_type):
-    """Unpacks hidden ZIPs or processes raw PDFs directly."""
     if 'zip' in content_type or file_bytes.startswith(b'PK\x03\x04'):
         try:
             with zipfile.ZipFile(BytesIO(file_bytes)) as z:
@@ -166,7 +161,6 @@ def process_downloaded_payload(file_bytes, content_type):
     return extract_text_from_pdf(file_bytes)
 
 def resolve_external_link(url):
-    """Traverses corporate landing directories with stealth headers to bypass WAFs."""
     url = url.rstrip('.,);:]')
     if any(x in url.lower() for x in ['.mp3', '.mp4', 'youtube', 'zoom.us', 'bseindia.com']): 
         return None
@@ -223,7 +217,7 @@ if __name__ == "__main__":
         marker = f"{folder}/_checked.mar"
         needs_update = True
         
-        # Phase 1: Rolling State Management (With Auto-Upgrade for Legacy Files)
+        # Phase 1: Rolling State Management
         if os.path.exists(marker):
             state = open(marker, 'r').read().strip()
             if ":" in state:
@@ -239,22 +233,44 @@ if __name__ == "__main__":
             
         print(f"\nEvaluating: {name} ({scrip})")
         
-        # Phase 2: History Validation (Just check the first 3-5 pages / ~150-250 recent announcements)
+        # Phase 2: History Validation (Strict 3-Month Chunks to satisfy BSE Server Limits)
         is_first_time = not os.path.exists(marker) or "skipped" in open(marker, 'r').read()
-        pages_to_check = 5 if is_first_time else 2
+        lookback_years = 3 if is_first_time else 1
         
-        recent_announcements = get_bse_announcements(scrip, max_pages=pages_to_check)
+        start_check = datetime.now(IST) - relativedelta(years=lookback_years)
+        curr_end_check = datetime.now(IST)
+        has_history = False
         
-        if not recent_announcements:
+        while curr_end_check > start_check:
+            # QA FIX: 3-month steps perfectly match the BSE web UI limits
+            curr_start_check = max(curr_end_check - relativedelta(months=3), start_check)
+            recent_announcements = get_bse_announcements(scrip, curr_start_check, curr_end_check)
+            
+            if recent_announcements:
+                has_history = True
+                break
+                
+            curr_end_check = curr_start_check
+            time.sleep(0.5)
+        
+        if not has_history:
             print("No IR history. 90-day cooldown.")
             open(marker, "w").write(f"skipped_no_history:{datetime.now(IST).strftime('%Y-%m-%d')}")
             update_dashboard(scrip, name, "NO_HISTORY")
             quick_checks_performed += 1
             continue
             
-        # Phase 3: Deep Dive (Sweep 15 pages to pull up to 750 historical announcements)
-        print("IR History found. Harvesting historical records...")
-        all_calls = get_bse_announcements(scrip, max_pages=15)
+        # Phase 3: Deep Dive (Strict 3-Month Chunks across 5 years)
+        print("IR History found. Harvesting 5 years in 90-day blocks...")
+        start_5y = datetime.now(IST) - relativedelta(years=5)
+        all_calls = []
+        
+        curr_end = datetime.now(IST)
+        while curr_end > start_5y:
+            curr_start = max(curr_end - relativedelta(months=3), start_5y)
+            all_calls.extend(get_bse_announcements(scrip, curr_start, curr_end))
+            curr_end = curr_start
+            time.sleep(1)
 
         success = True
         files_saved = 0
@@ -273,10 +289,8 @@ if __name__ == "__main__":
                 res = http.get(pdf_url, timeout=20)
                 content_type = res.headers.get('Content-Type', '').lower()
                 
-                # Handles raw PDFs and ZIP files dynamically
                 text, err_status = process_downloaded_payload(res.content, content_type)
                 
-                # If short text (Cover Letter), hunt for the real PDF via external URL
                 if text and len(text) < 3000: 
                     urls = re.findall(r'(https?://[^\s\"\'\>]+)', text)
                     for link in urls[:3]:
@@ -285,7 +299,6 @@ if __name__ == "__main__":
                             text += "\n\n=== EXTERNAL TRANSCRIPT ===\n\n" + ext_text
                             break
                 
-                # Tag bad files cleanly for AI Pre-processing
                 if not text:
                     filename = f"{folder}/ERROR_{date}_{headline}_{unique_id}.txt"
                     text = f"[SYSTEM WARNING: Extraction failed. Reason: {err_status}]"
