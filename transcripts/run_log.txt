@@ -25,3 +25,12 @@
 2026-05-24 11:57:29,378 | ERROR | Batch error: 'str' object has no attribute 'strftime'
 2026-05-24 11:57:29,378 | INFO | 
 🎉 FINISHED! Total Transcripts Saved: 0
+2026-05-24 12:00:16,214 | INFO | === Transcript Downloader - Ultra Stable Version ===
+2026-05-24 12:00:16,214 | INFO | Starting Date: 20200101
+2026-05-24 12:00:16,218 | INFO | Loaded 503 companies
+2026-05-24 12:00:16,229 | INFO | 
+==========================================================================================
+2026-05-24 12:00:16,229 | INFO | BATCH: 2020-01-01 → 2020-01-20
+2026-05-24 12:00:16,229 | ERROR | Batch error: 'str' object has no attribute 'strftime'
+2026-05-24 12:00:16,229 | INFO | 
+🎉 FINISHED! Total Transcripts Saved: 0
