@@ -1,67 +1,84 @@
 """
-🚀 WORKING EARNINGS TRANSCRIPT SCRAPER
+🚀 EARNINGS TRANSCRIPT SCRAPER - GITHUB ACTIONS COMPATIBLE
 ============================================================
-Sources: Moneycontrol (primary), Company IR pages, Manual upload
-No more API/parsing issues - uses proven methods
+Uses Playwright (lightweight, works in GitHub Actions)
+Auto-downloads browsers, handles JavaScript rendering
 """
 
-import requests
+import asyncio
 import os
 import time
 import re
-import json
 import fitz
 import pytz
 import zipfile
-from bs4 import BeautifulSoup
-from io import BytesIO
 from datetime import datetime
-from urllib.parse import urljoin, quote
+from io import BytesIO
+
+try:
+    from playwright.async_api import async_playwright
+except ImportError:
+    print("Installing Playwright...")
+    os.system("pip install playwright")
+    os.system("playwright install")
+    from playwright.async_api import async_playwright
 
 IST = pytz.timezone('Asia/Kolkata')
 
-HEADERS = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-    'Accept-Encoding': 'gzip, deflate',
-    'Accept-Language': 'en-US,en;q=0.9',
-}
-
 COMPANIES = [
-    ('RELIANCE', 'Reliance Industries', 'reliance-industries'),
-    ('TCS', 'Tata Consultancy Services', 'tcs'),
-    ('INFY', 'Infosys', 'infosys'),
-    ('WIPRO', 'Wipro', 'wipro'),
-    ('HDFC', 'HDFC', 'hdfc'),
-    ('HDFCBANK', 'HDFC Bank', 'hdfc-bank'),
-    ('ICICIBANK', 'ICICI Bank', 'icici-bank'),
-    ('KOTAKBANK', 'Kotak Bank', 'kotak-bank'),
-    ('AXISBANK', 'Axis Bank', 'axis-bank'),
-    ('SBIN', 'State Bank of India', 'sbi'),
-    ('BAJAJFINSV', 'Bajaj Finserv', 'bajaj-finserv'),
-    ('LT', 'Larsen & Toubro', 'larsen-toubro'),
-    ('MARUTI', 'Maruti Suzuki', 'maruti-suzuki'),
-    ('TECHM', 'Tech Mahindra', 'tech-mahindra'),
-    ('BHARTIARTL', 'Bharti Airtel', 'bharti-airtel'),
-    ('SUNPHARMA', 'Sun Pharmaceutical', 'sun-pharma'),
-    ('CIPLA', 'Cipla', 'cipla'),
-    ('DRREDDYS', "Dr. Reddy's Laboratories", 'dr-reddys'),
-    ('BRITANNIA', 'Britannia Industries', 'britannia'),
-    ('NESTLEIND', 'Nestle India', 'nestle-india'),
+    ('RELIANCE', 'Reliance Industries'),
+    ('TCS', 'Tata Consultancy Services'),
+    ('INFY', 'Infosys'),
+    ('WIPRO', 'Wipro'),
+    ('HDFC', 'HDFC'),
+    ('HDFCBANK', 'HDFC Bank'),
+    ('ICICIBANK', 'ICICI Bank'),
+    ('KOTAKBANK', 'Kotak Bank'),
+    ('AXISBANK', 'Axis Bank'),
+    ('SBIN', 'SBI'),
+    ('BAJAJFINSV', 'Bajaj Finserv'),
+    ('LT', 'L&T'),
+    ('MARUTI', 'Maruti Suzuki'),
+    ('TECHM', 'Tech Mahindra'),
+    ('BHARTIARTL', 'Bharti Airtel'),
+    ('SUNPHARMA', 'Sun Pharma'),
+    ('CIPLA', 'Cipla'),
+    ('DRREDDYS', "Dr. Reddy's"),
+    ('BRITANNIA', 'Britannia'),
+    ('NESTLEIND', 'Nestle India'),
 ]
+
+MONEYCONTROL_URLS = {
+    'RELIANCE': 'https://www.moneycontrol.com/company/reliance-industries/',
+    'TCS': 'https://www.moneycontrol.com/company/tcs/',
+    'INFY': 'https://www.moneycontrol.com/company/infosys/',
+    'WIPRO': 'https://www.moneycontrol.com/company/wipro/',
+    'HDFC': 'https://www.moneycontrol.com/company/hdfc/',
+    'HDFCBANK': 'https://www.moneycontrol.com/company/hdfc-bank/',
+    'ICICIBANK': 'https://www.moneycontrol.com/company/icici-bank/',
+    'KOTAKBANK': 'https://www.moneycontrol.com/company/kotak-bank/',
+    'AXISBANK': 'https://www.moneycontrol.com/company/axis-bank/',
+    'SBIN': 'https://www.moneycontrol.com/company/sbi/',
+    'BAJAJFINSV': 'https://www.moneycontrol.com/company/bajaj-finserv/',
+    'LT': 'https://www.moneycontrol.com/company/larsen-toubro/',
+    'MARUTI': 'https://www.moneycontrol.com/company/maruti-suzuki/',
+    'TECHM': 'https://www.moneycontrol.com/company/tech-mahindra/',
+    'BHARTIARTL': 'https://www.moneycontrol.com/company/bharti-airtel/',
+    'SUNPHARMA': 'https://www.moneycontrol.com/company/sun-pharma/',
+    'CIPLA': 'https://www.moneycontrol.com/company/cipla/',
+    'DRREDDYS': 'https://www.moneycontrol.com/company/dr-reddys/',
+    'BRITANNIA': 'https://www.moneycontrol.com/company/britannia/',
+    'NESTLEIND': 'https://www.moneycontrol.com/company/nestle-india/',
+}
 
 def extract_pdf_text(pdf_bytes):
     """Extract text from PDF."""
     try:
         if not pdf_bytes.startswith(b'%PDF'):
             return None
-        
         doc = fitz.open(stream=pdf_bytes, filetype="pdf")
-        text = ""
-        for page in doc:
-            text += page.get_text() + "\n"
+        text = "".join(page.get_text() for page in doc)
         doc.close()
-        
         return text if len(text.strip()) > 300 else None
     except:
         return None
@@ -71,7 +88,6 @@ def process_file(content):
     if not content:
         return None
     
-    # ZIP file
     if content.startswith(b'PK\x03\x04'):
         try:
             with zipfile.ZipFile(BytesIO(content)) as z:
@@ -83,90 +99,7 @@ def process_file(content):
         except:
             pass
     
-    # Direct PDF
     return extract_pdf_text(content)
-
-def scrape_moneycontrol(symbol, mc_url):
-    """
-    Scrape earnings transcripts from Moneycontrol.
-    Moneycontrol stores transcripts in structured format.
-    """
-    transcripts = []
-    
-    try:
-        # Try multiple Moneycontrol URLs for earnings
-        urls_to_try = [
-            f"https://www.moneycontrol.com/company/{mc_url}/transcripts/",
-            f"https://www.moneycontrol.com/company/{mc_url}/news/",
-            f"https://www.moneycontrol.com/company/{mc_url}/",
-        ]
-        
-        for url in urls_to_try:
-            try:
-                response = requests.get(url, headers=HEADERS, timeout=12)
-                
-                if response.status_code != 200:
-                    continue
-                
-                soup = BeautifulSoup(response.text, 'html.parser')
-                
-                # Look for PDF/transcript links
-                for link in soup.find_all('a', href=True):
-                    href = link.get('href', '')
-                    text = link.get_text(strip=True).lower()
-                    
-                    # Filter for earnings-related
-                    if any(kw in text for kw in ['transcript', 'earnings', 'results', 'conference', 'call', 'q1', 'q2', 'q3', 'q4', 'fy']):
-                        
-                        if href.startswith('/'):
-                            href = 'https://www.moneycontrol.com' + href
-                        elif not href.startswith('http'):
-                            continue
-                        
-                        transcripts.append({
-                            'title': link.get_text(strip=True),
-                            'url': href,
-                        })
-                
-                if transcripts:
-                    break
-                
-                time.sleep(0.5)
-            
-            except:
-                continue
-        
-        time.sleep(1)
-    
-    except Exception as e:
-        pass
-    
-    return transcripts
-
-def download_file(url, folder, title):
-    """Download and save file."""
-    try:
-        response = requests.get(url, headers=HEADERS, timeout=20, verify=False)
-        
-        if response.status_code != 200:
-            return False
-        
-        text = process_file(response.content)
-        
-        if text:
-            filename = f"{folder}/{int(time.time())}.txt"
-            with open(filename, 'w', encoding='utf-8') as f:
-                f.write(f"TITLE: {title}\n")
-                f.write(f"DATE: {datetime.now(IST).strftime('%Y-%m-%d')}\n")
-                f.write(f"SOURCE: Moneycontrol\n")
-                f.write(f"URL: {url}\n\n")
-                f.write(text)
-            return True
-    
-    except:
-        pass
-    
-    return False
 
 def log_result(symbol, name, status, files):
     """Log results."""
@@ -174,72 +107,116 @@ def log_result(symbol, name, status, files):
         ts = datetime.now(IST).strftime("%Y-%m-%d %H:%M:%S")
         f.write(f"[{ts}] {symbol:12} | {name[:30]:<30} | {status:<15} | Files: {files}\n")
 
-def main():
+async def scrape_company(playwright, symbol, name, url, idx, total):
+    """Scrape one company using Playwright."""
+    
+    files_downloaded = 0
+    folder = f"transcripts/{name} ({symbol})"
+    os.makedirs(folder, exist_ok=True)
+    
+    browser = None
+    
+    try:
+        print(f"📍 {idx:2d}/{total} | {symbol:12} | {name:35} | ", end="", flush=True)
+        
+        # Launch browser (headless for GitHub Actions)
+        browser = await playwright.chromium.launch(headless=True, args=['--no-sandbox'])
+        context = await browser.new_context()
+        page = await context.new_page()
+        
+        # Goto page and wait for content
+        await page.goto(url, wait_until='networkidle', timeout=30000)
+        
+        # Wait for PDF/transcript links to load
+        await page.wait_for_selector('a[href*=".pdf"], a[href*="transcript"]', timeout=10000)
+        
+        # Extract all links that look like transcripts
+        links = await page.eval_on_selector_all(
+            'a[href*=".pdf"], a[href*="transcript"], a[href*="earnings"], a[href*="results"]',
+            'elements => elements.map(el => ({title: el.innerText, url: el.href}))'
+        )
+        
+        if links:
+            print(f"Found {len(links):2d} | ", end="", flush=True)
+            
+            # Download up to 3 transcripts
+            for link in links[:3]:
+                try:
+                    title = link.get('title', 'transcript')
+                    pdf_url = link.get('url', '')
+                    
+                    if not pdf_url:
+                        continue
+                    
+                    # Download the PDF
+                    response = await page.goto(pdf_url, wait_until='networkidle')
+                    
+                    if response and response.ok:
+                        content = await response.body()
+                        text = process_file(content)
+                        
+                        if text:
+                            filename = f"{folder}/{int(time.time())}.txt"
+                            with open(filename, 'w', encoding='utf-8') as f:
+                                f.write(f"TITLE: {title}\n")
+                                f.write(f"DATE: {datetime.now(IST).strftime('%Y-%m-%d')}\n")
+                                f.write(f"SOURCE: Moneycontrol\n")
+                                f.write(f"URL: {pdf_url}\n\n")
+                                f.write(text)
+                            files_downloaded += 1
+                    
+                    await asyncio.sleep(1)
+                
+                except Exception as e:
+                    pass
+        else:
+            print(f"✗ No links found | ", end="", flush=True)
+        
+        await context.close()
+        await browser.close()
+        
+        print(f"Downloaded {files_downloaded}")
+        
+        status = "SUCCESS" if files_downloaded > 0 else "NO_DATA"
+        log_result(symbol, name, status, files_downloaded)
+        
+        return files_downloaded
+    
+    except Exception as e:
+        print(f"✗ Error: {str(e)[:30]}")
+        log_result(symbol, name, "ERROR", 0)
+        return 0
+    
+    finally:
+        if browser:
+            await browser.close()
+
+async def main():
     """Main execution."""
     print("=" * 90)
-    print("🚀 WORKING EARNINGS TRANSCRIPT SCRAPER")
+    print("🚀 PLAYWRIGHT-BASED EARNINGS TRANSCRIPT SCRAPER")
     print("=" * 90)
-    print(f"Source: Moneycontrol")
     print(f"Started: {datetime.now(IST).strftime('%Y-%m-%d %H:%M:%S')}\n")
     
     os.makedirs("transcripts", exist_ok=True)
     
     total_files = 0
-    successful = 0
     
-    for idx, (symbol, name, mc_url) in enumerate(COMPANIES, 1):
-        
-        folder = f"transcripts/{name} ({symbol})"
-        os.makedirs(folder, exist_ok=True)
-        
-        print(f"📍 {idx:2d}/20 | {symbol:12} | {name:35}", end=" | ")
-        
-        files_downloaded = 0
-        
-        # Scrape Moneycontrol
-        transcripts = scrape_moneycontrol(symbol, mc_url)
-        
-        if not transcripts:
-            print(f"✗ No transcripts found")
-            log_result(symbol, name, "NO_DATA", 0)
-            time.sleep(1)
-            continue
-        
-        print(f"Found {len(transcripts):2d} | ", end="")
-        
-        # Download transcripts
-        for transcript in transcripts[:3]:
-            if download_file(transcript['url'], folder, transcript['title']):
-                files_downloaded += 1
-            time.sleep(1)
-        
-        print(f"Downloaded {files_downloaded}")
-        
-        if files_downloaded > 0:
-            successful += 1
-            log_result(symbol, name, "SUCCESS", files_downloaded)
-        else:
-            log_result(symbol, name, "FAILED", 0)
-        
-        total_files += files_downloaded
-        time.sleep(2)
+    async with async_playwright() as playwright:
+        for idx, (symbol, name) in enumerate(COMPANIES, 1):
+            url = MONEYCONTROL_URLS.get(symbol)
+            
+            if url:
+                files = await scrape_company(playwright, symbol, name, url, idx, len(COMPANIES))
+                total_files += files
+            
+            await asyncio.sleep(2)
     
     print("\n" + "=" * 90)
     print(f"✓ COMPLETED")
-    print(f"  • Companies processed: 20")
-    print(f"  • Successful: {successful}")
-    print(f"  • Total files: {total_files}")
+    print(f"  • Total files downloaded: {total_files}")
     print(f"  • Completed: {datetime.now(IST).strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 90)
-    
-    if total_files == 0:
-        print("\n⚠️  No files downloaded. This could mean:")
-        print("   1. Moneycontrol blocked the requests")
-        print("   2. Network connectivity issue")
-        print("   3. Try running again with longer delays")
-        print("\n✅ Manual option: Download transcripts manually from:")
-        print("   - https://www.moneycontrol.com/company/RELIANCE/transcripts/")
-        print("   - Save PDFs to the 'transcripts' folder")
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
