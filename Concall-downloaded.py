@@ -66,7 +66,6 @@ def get_target_companies():
                     companies.append({'scrip': scrip_code, 'name': raw_name.strip()})
         
         if companies:
-            # Save to local cache for future resilience
             with open(cache_file, "w", newline="", encoding="utf-8") as f:
                 writer = csv.DictWriter(f, fieldnames=['scrip', 'name'])
                 writer.writeheader()
@@ -88,12 +87,12 @@ def get_target_companies():
 
 # --- CORE DATA ENGINE ---
 def get_bse_announcements(scrip, start_date, end_date):
-    """Single Source of Truth for hitting the BSE API with auto-pagination and smart keywords."""
+    """Hits the BSE API with auto-pagination (up to 10 pages) and smart keywords."""
     url = "https://api.bseindia.com/BseIndiaAPI/api/AnnGetData/w"
     valid_announcements = []
     
     try:
-        for pageno in range(1, 5): 
+        for pageno in range(1, 10):  # QA FIX: Expanded pagination for active companies
             params = {
                 'pageno': str(pageno), 'strCat': '-1', 
                 'strPrevDate': start_date.strftime("%Y%m%d"),
@@ -220,7 +219,7 @@ if __name__ == "__main__":
         marker = f"{folder}/_checked.mar"
         needs_update = True
         
-        # Phase 1: Rolling State Management (With Auto-Upgrade for Legacy Files)
+        # Phase 1: Rolling State Management
         if os.path.exists(marker):
             state = open(marker, 'r').read().strip()
             if ":" in state:
@@ -236,12 +235,26 @@ if __name__ == "__main__":
             
         print(f"\nEvaluating: {name} ({scrip})")
         
-        # Phase 2: History Validation (3-year lookback for first-timers, 1-year maintenance)
-        lookback_years = 3 if not os.path.exists(marker) else 1
-        start_check = datetime.now(IST) - relativedelta(years=lookback_years)
-        recent_announcements = get_bse_announcements(scrip, start_check, datetime.now(IST))
+        # Phase 2: History Validation (Chunked into 6-month blocks to bypass API limits)
+        is_first_time = not os.path.exists(marker) or "skipped" in open(marker, 'r').read()
+        lookback_years = 3 if is_first_time else 1
         
-        if not recent_announcements:
+        start_check = datetime.now(IST) - relativedelta(years=lookback_years)
+        curr_end_check = datetime.now(IST)
+        has_history = False
+        
+        while curr_end_check > start_check:
+            curr_start_check = max(curr_end_check - relativedelta(months=6), start_check)
+            recent_announcements = get_bse_announcements(scrip, curr_start_check, curr_end_check)
+            
+            if recent_announcements:
+                has_history = True
+                break  # Found active IR, stop checking backward
+                
+            curr_end_check = curr_start_check
+            time.sleep(0.5)
+        
+        if not has_history:
             print("No IR history. 90-day cooldown.")
             open(marker, "w").write(f"skipped_no_history:{datetime.now(IST).strftime('%Y-%m-%d')}")
             update_dashboard(scrip, name, "NO_HISTORY")
