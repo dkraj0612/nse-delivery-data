@@ -5,3 +5,5 @@ lightgbm
 scikit-learn
 google-genai
 tabulate
+requests==2.31.0
+pypdf==3.17.0
