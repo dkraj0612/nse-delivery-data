@@ -1,116 +1,155 @@
-import requests
 import os
 import time
+import logging
 from datetime import datetime, timedelta
 import pandas as pd
 import pdfplumber
+from bse import BSE
 
 # ================== CONFIG ==================
-START_DATE = "20200101"
+START_DATE = "20250501"      # ← Start with recent month for testing!
 END_DATE = "20260524"
 BASE_FOLDER = "bse_results_transcripts_text"
-BATCH_MONTHS = 1
-DELAY = 1.5
+BATCH_DAYS = 15              # Smaller = safer & faster feedback
+DELAY = 2.0
 # ===========================================
 
-# Create folder structure
+# Setup Logging
+log_file = os.path.join(BASE_FOLDER, "run_log.txt")
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s | %(levelname)s | %(message)s',
+    handlers=[
+        logging.FileHandler(log_file, encoding='utf-8'),
+        logging.StreamHandler()   # Also print to console
+    ]
+)
+
 metadata_folder = os.path.join(BASE_FOLDER, "metadata")
 companies_folder = os.path.join(BASE_FOLDER, "Companies")
 os.makedirs(metadata_folder, exist_ok=True)
 os.makedirs(companies_folder, exist_ok=True)
 
-headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-    "Referer": "https://www.bseindia.com/"
-}
+logging.info("=== Script Started ===")
+logging.info(f"Date Range: {START_DATE} to {END_DATE}")
+logging.info(f"Base Folder: {BASE_FOLDER}")
 
-session = requests.Session()
+b = BSE()
 
-def is_relevant_announcement(ann):
-    headline = str(ann.get('headline', '')).lower()
-    subject = str(ann.get('subject', '')).lower()
-    text = headline + " " + subject
-    
-    if any(kw in text for kw in ["result", "financial result", "quarterly", "annual result", "audited"]):
+def is_relevant(ann):
+    text = (str(ann.get('headline', '')) + " " + 
+            str(ann.get('subject', ''))).lower()
+    if any(k in text for k in ["result", "financial", "quarterly", "annual", "audited"]):
         return "Results"
-    if any(kw in text for kw in ["transcript", "earnings call", "concall", "conference call", "investor meet transcript"]):
+    if any(k in text for k in ["transcript", "earnings call", "concall", "conference call"]):
         return "Transcript"
     return None
 
-def extract_text_from_pdf(pdf_content):
+def extract_text(pdf_bytes):
     text = ""
     try:
-        with pdfplumber.open(pdf_content) as pdf:
-            for page in pdf.pages:
+        with pdfplumber.open(pdf_bytes) as pdf:
+            for i, page in enumerate(pdf.pages):
                 page_text = page.extract_text()
                 if page_text:
-                    text += page_text + "\n\n"
-                tables = page.extract_tables()
-                if tables:
-                    text += "\n--- TABLE ---\n"
-                    for table in tables:
-                        text += str(table) + "\n\n"
+                    text += f"--- Page {i+1} ---\n{page_text}\n\n"
     except Exception as e:
-        text = f"Extraction Error: {str(e)}"
+        text = f"PDF extraction failed: {str(e)}"
     return text
 
-def process_pdf(pdf_url, company_name, category, date_str, headline):
+def process_ann(ann, category):
     try:
-        response = session.get(pdf_url, headers=headers, timeout=30)
-        if response.status_code != 200:
+        pdf_url = ann.get('attachment') or ann.get('pdf_link')
+        if not pdf_url or not str(pdf_url).startswith('http'):
+            logging.warning(f"No valid PDF URL for {ann.get('company_name')}")
             return False
 
-        text = extract_text_from_pdf(response.content)
+        company = str(ann.get('company_name', 'Unknown'))
+        date_str = str(ann.get('dt', ''))
+        headline = str(ann.get('headline', ''))
 
-        # Clean company name for folder
-        clean_company = "".join(c if c.isalnum() or c in " _-" else "_" for c in company_name)[:80]
-        company_folder = os.path.join(companies_folder, clean_company)
-        cat_folder = os.path.join(company_folder, category)
-        os.makedirs(cat_folder, exist_ok=True)
+        logging.info(f"Downloading PDF for {company} | {date_str}")
 
-        # Filename starts with Company Name
+        resp = b.session.get(pdf_url, timeout=30)
+        if resp.status_code != 200:
+            logging.error(f"Download failed {resp.status_code} for {company}")
+            return False
+
+        logging.info(f"Extracting text from PDF ({len(resp.content)/1024:.1f} KB)")
+        text = extract_text(resp.content)
+
+        # Save file
+        clean_company = "".join(c if c.isalnum() or c in " _-" else "_" for c in company)[:80]
         clean_headline = "".join(c if c.isalnum() or c in " _-" else "_" for c in headline)[:100]
-        filename = f"{clean_company}_{date_str}_{category}_{clean_headline}.txt"
-        txt_path = os.path.join(cat_folder, filename)
 
-        with open(txt_path, "w", encoding="utf-8") as f:
-            f.write(f"Company: {company_name}\n")
-            f.write(f"Date: {date_str}\n")
-            f.write(f"Category: {category}\n")
-            f.write(f"Headline: {headline}\n")
+        company_dir = os.path.join(companies_folder, clean_company)
+        cat_dir = os.path.join(company_dir, category)
+        os.makedirs(cat_dir, exist_ok=True)
+
+        filename = f"{clean_company}_{date_str}_{category}_{clean_headline}.txt"
+        path = os.path.join(cat_dir, filename)
+
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(f"Company: {company}\nDate: {date_str}\nCategory: {category}\nHeadline: {headline}\n")
             f.write("="*80 + "\n\n")
             f.write(text)
 
-        print(f"✓ Saved: {clean_company} / {category} / {filename}")
+        logging.info(f"✓ SUCCESS: {clean_company} | {category} | {date_str}")
         return True
     except Exception as e:
-        print(f"✗ Failed {company_name}: {str(e)}")
+        logging.error(f"✗ Failed processing {company}: {str(e)}")
         return False
 
-def fetch_announcements(start_str, end_str, page=1):
-    url = "https://api.bseindia.com/BseIndiaAPI/api/AnnGetData/w"
-    params = {
-        "pageno": page, "strCat": "-1", "strPrevDate": start_str,
-        "strToDate": end_str, "strScrip": "", "strSearch": "P"
-    }
+# ============== Main Processing Loop ==============
+current = datetime.strptime(START_DATE, "%Y%m%d")
+end_dt = datetime.strptime(END_DATE, "%Y%m%d")
+total_processed = 0
+
+while current <= end_dt:
+    batch_end = min(current + timedelta(days=BATCH_DAYS), end_dt)
+    start_str = current.strftime("%Y-%m-%d")
+    end_str = batch_end.strftime("%Y-%m-%d")
+
+    logging.info(f"\n{'='*60}")
+    logging.info(f"STARTING BATCH: {start_str} to {end_str}")
+
     try:
-        resp = session.get(url, params=params, headers=headers, timeout=20)
-        if resp.status_code == 200:
-            return resp.json().get('Table', [])
-    except:
-        pass
-    return []
+        logging.info("Calling BSE API for announcements...")
+        anns = b.announcements(from_date=start_str, to_date=end_str, category="-1")
+        
+        logging.info(f"API returned {len(anns)} total announcements")
 
-def process_batch(start_date, end_date):
-    print(f"\n=== Processing {start_date} to {end_date} ===")
-    all_data = []
-    page = 1
+        relevant = []
+        for a in anns:
+            cat = is_relevant(a)
+            if cat:
+                a['filtered_category'] = cat
+                relevant.append(a)
 
-    while True:
-        announcements = fetch_announcements(start_date, end_date, page)
-        if not announcements:
-            break
+        logging.info(f"Filtered to {len(relevant)} relevant (Results/Transcript)")
 
-        relevant = [ann for ann in announcements if (cat := is_relevant_announcement(ann))]
-        for ann in relevant:
-            ann['filtered_category'] = cat
+        if relevant:
+            df = pd.DataFrame(relevant)
+            csv_path = os.path.join(metadata_folder, f"metadata_{start_str}_{end_str}.csv")
+            df.to_csv(csv_path, index=False)
+            logging.info(f"Saved metadata CSV: {len(relevant)} rows")
+
+            for i, ann in enumerate(relevant, 1):
+                logging.info(f"Processing {i}/{len(relevant)}: {ann.get('company_name')}")
+                process_ann(ann, ann['filtered_category'])
+                time.sleep(DELAY)
+            
+            total_processed += len(relevant)
+        else:
+            logging.info("No relevant announcements in this batch.")
+
+    except Exception as e:
+        logging.error(f"Batch failed with error: {str(e)}")
+
+    current = batch_end + timedelta(days=1)
+    time.sleep(3)
+
+logging.info(f"\n🎉 SCRIPT FINISHED!")
+logging.info(f"Total relevant announcements processed: {total_processed}")
+logging.info(f"Log file: {log_file}")
+logging.info(f"Check folder: {BASE_FOLDER}")
