@@ -1,0 +1,9 @@
+2026-05-24 11:50:07,424 | INFO | === Transcript / Concall Downloader with Resume ===
+2026-05-24 11:50:07,424 | INFO | No resume file found. Starting from 2020.
+2026-05-24 11:50:07,428 | INFO | Loaded 503 companies
+2026-05-24 11:50:07,437 | INFO | 
+==========================================================================================
+2026-05-24 11:50:07,438 | INFO | BATCH: 2020-01-01 → 2020-01-20
+2026-05-24 11:50:07,438 | ERROR | Batch error: 'str' object has no attribute 'strftime'
+2026-05-24 11:50:07,438 | INFO | 
+🎉 PROCESS COMPLETED! Total Transcripts Saved: 0
