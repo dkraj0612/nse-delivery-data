@@ -1264,3 +1264,14 @@
 2026-05-25 08:22:52,326 | INFO | Saved 0 transcripts
 2026-05-25 08:22:56,330 | INFO | 
 🎉 FINISHED! Total saved: 0
+2026-05-25 14:55:19,532 | INFO | === Safe & Simple Transcript Downloader ===
+2026-05-25 14:55:19,532 | INFO | Resuming from 20260524
+2026-05-25 14:55:19,532 | INFO | Starting from 20260524
+2026-05-25 14:55:19,536 | INFO | Loaded 503 companies
+2026-05-25 14:55:19,542 | INFO | 
+=====================================================================================
+2026-05-25 14:55:19,542 | INFO | BATCH: 20260524 → 20260524
+2026-05-25 14:55:20,279 | INFO | API returned 0 announcements
+2026-05-25 14:55:20,279 | INFO | Saved 0 transcripts
+2026-05-25 14:55:24,283 | INFO | 
+🎉 FINISHED! Total saved: 0
