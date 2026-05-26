@@ -1,41 +1,89 @@
-name: Autonomous Concall Engine
+name: Download Concall Transcripts
+
+# ─────────────────────────────────────────────────────────────────
+#  HOW TO TRIGGER FROM YOUR MOBILE:
+#  1. Open GitHub app  →  your repo  →  Actions tab
+#  2. Tap "Download Concall Transcripts"
+#  3. Tap "Run workflow"  →  Run workflow  ✅
+# ─────────────────────────────────────────────────────────────────
 
 on:
+  workflow_dispatch:          # ← Manual trigger (the "Run workflow" button)
   schedule:
-    # Wakes up automatically every 4 hours forever
-    - cron: '0 */4 * * *'
-  workflow_dispatch: 
-
-permissions:
-  contents: write 
+    - cron: "0 1 * * 0"      # Auto-run every Sunday at 1 AM UTC
 
 jobs:
-  harvest:
+  download:
     runs-on: ubuntu-latest
+    timeout-minutes: 360      # 6-hour max (5 years = long run)
+
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0 # Fetches full history to prevent merge conflicts
-      
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
-        
-    - name: Install Requirements
-      run: pip install -r requirements.txt
-      
-    - name: Execute Sync Engine
-      env:
-        PYTHONUNBUFFERED: "1"
-      run: python Concall-downloaded.py
-      
-    - name: Safely Commit Data
-      run: |
-        git config --local user.email "bot@github.actions.com"
-        git config --local user.name "Transcript Bot"
-        git add transcripts/
-        
-        # The Pro Fix: Gracefully pull any external changes before pushing
-        git diff-index --quiet HEAD || (git commit -m "Auto-synced latest market transcripts" && git pull --rebase origin main && git push)
+      # ── 1. Checkout repo ─────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      # ── 2. Python setup ──────────────────────────────────────────
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      # ── 3. Install Python deps ───────────────────────────────────
+      - name: Install Python dependencies
+        run: |
+          pip install --upgrade pip
+          pip install playwright pdfplumber requests
+
+      # ── 4. Install Playwright browsers ──────────────────────────
+      - name: Install Playwright Chromium
+        run: playwright install chromium --with-deps
+
+      # ── 5. Restore resume checkpoint if it exists ───────────────
+      - name: Restore resume checkpoint
+        run: |
+          mkdir -p transcripts
+          if [ -f transcripts/resume.txt ]; then
+            echo "▶ Resuming from $(cat transcripts/resume.txt)"
+          else
+            echo "⚡ Starting fresh"
+          fi
+
+      # ── 6. Run the scraper ───────────────────────────────────────
+      - name: Run concall scraper
+        run: python Concall_downloaded.py
+
+      # ── 7. Show log summary ──────────────────────────────────────
+      - name: Show run summary
+        if: always()
+        run: |
+          echo "────────────────────────────────────"
+          echo "📊 FILES DOWNLOADED:"
+          find transcripts -name "*.txt" | wc -l
+          echo "────────────────────────────────────"
+          echo "📝 LAST 50 LOG LINES:"
+          tail -50 transcripts/run.log || echo "(no log yet)"
+
+      # ── 8. Upload ALL transcripts as GitHub artifact ─────────────
+      #       You can download the ZIP from your phone via GitHub app
+      - name: Upload transcripts as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: concall-transcripts-${{ github.run_number }}
+          path: transcripts/
+          retention-days: 90
+          if-no-files-found: warn
+
+      # ── 9. Commit resume checkpoint back to repo ─────────────────
+      #       So next run continues from where this one stopped
+      - name: Commit resume checkpoint
+        if: always()
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add transcripts/resume.txt transcripts/run.log || true
+          git diff --cached --quiet || git commit -m "chore: update resume checkpoint [skip ci]"
+          git push || echo "Nothing to push"
