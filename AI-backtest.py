@@ -142,9 +142,11 @@ def generate_analysis(cutoff_date_str: str, prev_month_data: str) -> Optional[Di
     return None
 
 # ========================= DASHBOARD GENERATOR =========================
-def generate_dashboard():
-    logging.info("\n📊 Compiling results and generating Institutional Dashboard...")
-    
+# ========================= MAIN SEQUENTIAL LOOP =========================
+if __name__ == "__main__":
+    logging.info("🚀 Forcing Dashboard Generation from existing JSON files...")
+    generate_dashboard()
+
     compiled_data = {}
     if OUTPUT_DIR.exists():
         for filename in os.listdir(OUTPUT_DIR):
