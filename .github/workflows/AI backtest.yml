@@ -17,7 +17,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install Dependencies
-        run:  install google-genai
+        run: pip install google-genai
             python-dateutil
 
       - name: Create Reports Directory
