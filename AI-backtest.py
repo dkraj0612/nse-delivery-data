@@ -9,7 +9,6 @@ from dateutil.relativedelta import relativedelta
 from pathlib import Path
 from typing import List, Optional, Dict, Any
 
-# Updated imports for the new Google GenAI SDK
 from google import genai
 from google.genai import types
 
@@ -35,17 +34,20 @@ logging.basicConfig(
 )
 
 # ========================= CORE FUNCTIONS =========================
-def get_all_dates(years_back: int = 5) -> List[str]:
-    """Generates a list of the last calendar days for every month looking backward."""
-    end_date = datetime.now()
-    start_date = end_date - relativedelta(years=years_back)
+def get_all_dates(months_total: int = 6) -> List[str]:
+    """Generates a list of the last calendar days for exactly N months backward."""
     dates = []
-    current = start_date
-    while current <= end_date:
-        last_day = (current + relativedelta(months=1, days=-1)).strftime("%d-%b-%Y")
-        dates.append(last_day)
-        current += relativedelta(months=1)
-    return dates
+    current = datetime.now()
+    for _ in range(months_total):
+        # Find the last day of the currently evaluated month
+        next_month = current.replace(day=28) + relativedelta(days=4)
+        last_day = next_month - relativedelta(days=next_month.day)
+        dates.append(last_day.strftime("%d-%b-%Y"))
+        # Move back one month
+        current -= relativedelta(months=1)
+    
+    # Reverse to make it chronological (oldest to newest)
+    return dates[::-1]
 
 def load_progress() -> Dict[str, list]:
     if PROGRESS_FILE.exists():
@@ -66,7 +68,6 @@ def save_progress(completed_dates: List[str]) -> None:
         logging.error(f"Failed to save progress: {e}")
 
 def get_previous_month_state(current_date_str: str, all_dates: List[str]) -> str:
-    """Retrieves the model_portfolio from the previous month's JSON to maintain state."""
     try:
         current_idx = all_dates.index(current_date_str)
         if current_idx == 0:
@@ -87,7 +88,6 @@ def get_previous_month_state(current_date_str: str, all_dates: List[str]) -> str
         return "ERROR_MISSING_PREVIOUS"
 
 def generate_analysis(cutoff_date_str: str, prev_month_data: str) -> Optional[Dict[str, Any]]:
-    """Calls Gemini API with exponential backoff and robust JSON parsing."""
     try:
         with open("prompt_template.txt", "r", encoding="utf-8") as f:
             prompt = f.read()
@@ -114,8 +114,8 @@ def generate_analysis(cutoff_date_str: str, prev_month_data: str) -> Optional[Di
             
             raw_text = response.text
             
-            # FIXED: Dynamically generate markdown ticks to prevent UI parser breaks
-            cb = '`' * 3 
+            # Using dynamic ticks to prevent Markdown parsers from breaking
+            cb = chr(96) * 3 
             pattern = rf'{cb}(?:json)?\s*(.*?)\s*{cb}'
             json_match = re.search(pattern, raw_text, re.DOTALL)
             text_to_parse = json_match.group(1) if json_match else raw_text.strip()
@@ -126,7 +126,7 @@ def generate_analysis(cutoff_date_str: str, prev_month_data: str) -> Optional[Di
             
         except json.JSONDecodeError as je:
             logging.error(f"    ❌ JSON Decode Error for {cutoff_date_str}: {je}")
-            time.sleep(10)
+            time.sleep(10) 
             
         except Exception as e:
             error_str = str(e).lower()
@@ -143,7 +143,6 @@ def generate_analysis(cutoff_date_str: str, prev_month_data: str) -> Optional[Di
 
 # ========================= DASHBOARD GENERATOR =========================
 def generate_dashboard():
-    """Generates the HTML Dashboard by injecting data into dashboard_template.html."""
     logging.info("\n📊 Compiling results and generating Institutional Dashboard...")
     
     compiled_data = {}
@@ -182,14 +181,21 @@ def generate_dashboard():
 if __name__ == "__main__":
     logging.info("🚀 Starting CONTINUOUS STATEFUL Indian Market Backtest...")
     
-    all_dates = get_all_dates(years_back=5)
+    # Strictly limits backtest to 6 months
+    all_dates = get_all_dates(months_total=6)
     progress = load_progress()
     completed = progress.get("completed", [])
     
-    # Process strictly in order to preserve the portfolio's historical chain.
+    months_processed_this_run = 0
+    MAX_MONTHS_PER_RUN = 6 # Set to 6 to process all in one go safely
+    
     for date_str in all_dates:
         if date_str in completed:
             continue 
+            
+        if months_processed_this_run >= MAX_MONTHS_PER_RUN:
+            logging.info(f"🛑 Reached safe run limit. Shutting down cleanly so GitHub can commit the data.")
+            break
             
         logging.info(f"\n➡️ Processing {date_str}...")
         
@@ -198,10 +204,9 @@ if __name__ == "__main__":
         
         if prev_state == "ERROR_MISSING_PREVIOUS":
             logging.error(f"🛑 FATAL: Cannot process {date_str} because the previous month's JSON is missing.")
-            logging.error("Data integrity broken. You must restart from the missing month.")
             break 
             
-        # 2. Call API (will block and retry automatically if rate limited)
+        # 2. Call API
         analysis = generate_analysis(date_str, prev_state)
         
         # 3. Save and Commit
@@ -214,17 +219,15 @@ if __name__ == "__main__":
             save_progress(completed)
             logging.info(f"    💾 Saved state for {date_str}. Integrity maintained.")
             
-            # Standard delay to prevent hitting RPM limits immediately
+            months_processed_this_run += 1
+            
             delay = 35 + random.uniform(5, 10)
             logging.info(f"    Sleeping for {delay:.1f}s...")
             time.sleep(delay)
         else:
-            logging.error(f"🛑 API failed to return valid data for {date_str}. Halting backtest to preserve integrity.")
+            logging.error(f"🛑 API failed to return valid data for {date_str}.")
             break
 
-    logging.info("🎉 BACKTEST RUN COMPLETE.")
-    
+    logging.info("🎉 RUN COMPLETE. Generating Dashboard...")
     if len(completed) > 0:
         generate_dashboard()
-
-
