@@ -39,10 +39,14 @@ def get_all_dates(months_total: int = 6) -> List[str]:
     dates = []
     current = datetime.now()
     for _ in range(months_total):
+        # Find the last day of the currently evaluated month
         next_month = current.replace(day=28) + relativedelta(days=4)
         last_day = next_month - relativedelta(days=next_month.day)
         dates.append(last_day.strftime("%d-%b-%Y"))
+        # Move back one month
         current -= relativedelta(months=1)
+    
+    # Reverse to make it chronological (oldest to newest)
     return dates[::-1]
 
 def load_progress() -> Dict[str, list]:
@@ -176,12 +180,13 @@ def generate_dashboard():
 if __name__ == "__main__":
     logging.info("🚀 Starting CONTINUOUS STATEFUL Indian Market Backtest...")
     
+    # Strictly limits backtest to 6 months
     all_dates = get_all_dates(months_total=6)
     progress = load_progress()
     completed = progress.get("completed", [])
     
     months_processed_this_run = 0
-    MAX_MONTHS_PER_RUN = 6 
+    MAX_MONTHS_PER_RUN = 6 # Set to 6 to process all in one go safely
     
     for date_str in all_dates:
         if date_str in completed:
@@ -193,14 +198,17 @@ if __name__ == "__main__":
             
         logging.info(f"\n➡️ Processing {date_str}...")
         
+        # 1. Get memory state
         prev_state = get_previous_month_state(date_str, all_dates)
         
         if prev_state == "ERROR_MISSING_PREVIOUS":
             logging.error(f"🛑 FATAL: Cannot process {date_str} because the previous month's JSON is missing.")
             break 
             
+        # 2. Call API
         analysis = generate_analysis(date_str, prev_state)
         
+        # 3. Save and Commit
         if analysis:
             filename = OUTPUT_DIR / f"{date_str.replace('-', '_')}.json"
             with open(filename, "w", encoding="utf-8") as f:
@@ -221,8 +229,7 @@ if __name__ == "__main__":
 
     logging.info("🎉 RUN COMPLETE. Checking for data to build Dashboard...")
     
-    # FIX: It now checks if JSON files exist in the folder directly, 
-    # instead of relying on the 'completed' list which might be empty during this specific run.
+    # Looks inside the folder directly to guarantee the dashboard gets built using your separate HTML template
     json_files = list(OUTPUT_DIR.glob("*.json")) if OUTPUT_DIR.exists() else []
     
     if len(json_files) > 0:
