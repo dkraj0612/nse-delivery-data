@@ -33,7 +33,7 @@ jobs:
         env:
           # Make sure this secret is set in your GitHub Repo Settings > Secrets
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: python AI_backtest_final.py
+        run: python AI-backtest.py
 
       - name: Commit and Push Progress (Auto-Save)
         # The 'if: always()' ensures this runs even if the Python script throws an error/rate limit
