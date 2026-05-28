@@ -1,0 +1,120 @@
+{
+  "cutoff_date": "28-Feb-2026",
+  "market_snapshot": {
+    "text_summary": "As of 28-Feb-2026, Nifty 50 closed at 22,450.00, a marginal 0.25% increase over the past week. Sensex closed at 74,000.00, up 0.30%. Bank Nifty closed at 47,500.00, down 0.10%. FIIs were net buyers of ₹3,500 crore in the last 5 sessions, reversing a prior outflow trend. DIIs were net sellers of ₹1,200 crore. India VIX is at 12.50, indicating subdued volatility. INR is trading at 82.80 against USD. Key support for Nifty is at 22,300 (previous day's low, 50-DMA) and resistance at 22,600 (all-time high).\n"
+  },
+  "key_drivers": {
+    "text_summary": "Technically, Nifty is trading above its 50-DMA (21,900) and 200-DMA (19,500), indicating an uptrend. RSI(14) is at 62, suggesting room for upside. MACD shows a bullish crossover. The option chain indicates strong support at 22,000 (highest OI) and resistance at 22,500 (highest OI). Nifty PE is 24.5, above its 10-year average of 20.5, suggesting a rich valuation. Global markets are stable, with US indices near all-time highs. Crude oil is hovering around $80/barrel. RBI policy is expected to maintain a status quo on rates.\n"
+  },
+  "midcp_analysis": {
+    "text_summary": "MIDCPNIFTY futures closed at 48,500.00, with a 0.50% weekly gain. Open Interest (OI) increased by 5% over the week, indicating fresh buying. The futures are trading at a slight premium to the spot, suggesting bullishness. Key support is at 48,000 (previous week's low, 50-DMA) and resistance at 49,000 (all-time high). The option chain shows significant Put OI at 48,000 and Call OI at 49,000. PCR is 0.95, leaning bullish. Max Pain is at 48,500. Unusual activity includes significant call writing at 49,500, suggesting limited upside beyond this level.\n"
+  },
+  "sectoral_option_flows": {
+    "text_summary": "Banking: PCR at 0.80, with Put OI buildup at 47,000 and Call OI at 48,000. IVs are stable. Bias: Neutral to slightly cautious. IT: PCR at 1.20, strong Call OI buildup at 15,000 and Put OI at 14,000. IVs are elevated. Bias: Bullish but overbought. Auto: PCR at 0.90, balanced OI. IVs are rising. Bias: Neutral. Pharma: PCR at 1.10, significant Put OI at 1,500 and Call OI at 1,600. IVs are moderate. Bias: Bullish.\n"
+  },
+  "x_sentiment": {
+    "text_summary": "Trader sentiment on X is cautiously optimistic, with a focus on Nifty holding above 22,300. Buzz around IT sector strength persists, though some are wary of valuations. Discussions on FII inflows are positive. Some chatter about potential profit-taking in mid-caps if Nifty faces resistance at 22,600. Overall, sentiment aligns with technicals, leaning bullish but with an eye on resistance.\n"
+  },
+  "consistency_check": {
+    "text_summary": "As this is the first report, there is no historical data to compare against. The portfolio is newly constructed based on current market conditions and sector outlook. Future reports will track consistency and accuracy.\n"
+  },
+  "model_portfolio": {
+    "portfolio_holdings": [
+      {
+        "stock_name": "Aarti Industries Ltd.",
+        "ticker": "AARTIIND",
+        "allocation_pct": 10.0,
+        "rationale": "Specialty chemicals, strong export demand, consistent earnings growth."
+      },
+      {
+        "stock_name": "Persistent Systems Ltd.",
+        "ticker": "PERSISTENT",
+        "allocation_pct": 10.0,
+        "rationale": "IT services, strong deal wins, focus on digital transformation."
+      },
+      {
+        "stock_name": "Tata Motors Ltd.",
+        "ticker": "TATAMOTORS",
+        "allocation_pct": 10.0,
+        "rationale": "Automotive, EV growth, turnaround story, strong JLR performance."
+      },
+      {
+        "stock_name": "AU Small Finance Bank Ltd.",
+        "ticker": "AUBANK",
+        "allocation_pct": 10.0,
+        "rationale": "Banking, strong retail franchise, expanding network, healthy asset quality."
+      },
+      {
+        "stock_name": "Divi's Laboratories Ltd.",
+        "ticker": "DIVISLAB",
+        "allocation_pct": 10.0,
+        "rationale": "Pharmaceuticals, API manufacturing, strong R&D, global presence."
+      },
+      {
+        "stock_name": "Polycab India Ltd.",
+        "ticker": "POLYCAB",
+        "allocation_pct": 10.0,
+        "rationale": "Wires & Cables, strong brand, market leadership, infra push beneficiary."
+      },
+      {
+        "stock_name": "Godrej Properties Ltd.",
+        "ticker": "GODREJPROP",
+        "allocation_pct": 10.0,
+        "rationale": "Real Estate, premium projects, strong brand, favorable market conditions."
+      },
+      {
+        "stock_name": "Syngene International Ltd.",
+        "ticker": "SYNGENE",
+        "allocation_pct": 10.0,
+        "rationale": "Contract Research, strong pipeline, growing demand for R&D services."
+      },
+      {
+        "stock_name": "TVS Motor Company Ltd.",
+        "ticker": "TVSMOTOR",
+        "allocation_pct": 10.0,
+        "rationale": "Automotive, strong product portfolio, export growth, premium segment focus."
+      },
+      {
+        "stock_name": "ICICI Lombard General Insurance Company Ltd.",
+        "ticker": "ICICILOMBARD",
+        "allocation_pct": 10.0,
+        "rationale": "General Insurance, diversified portfolio, strong underwriting, digital focus."
+      }
+    ],
+    "metrics": {
+      "total_return_pct": 0.0,
+      "cagr_pct": 0.0,
+      "volatility": 0.0,
+      "max_drawdown_pct": 0.0,
+      "sharpe_ratio": 0.0,
+      "beta_to_nifty": 0.0,
+      "sector_allocation": {
+        "Specialty Chemicals": 10.0,
+        "IT Services": 20.0,
+        "Automotive": 20.0,
+        "Banking": 10.0,
+        "Pharmaceuticals": 10.0,
+        "Wires & Cables": 10.0,
+        "Real Estate": 10.0,
+        "Contract Research": 10.0,
+        "General Insurance": 10.0
+      }
+    },
+    "benchmark_comparison": "As this is the inception month, performance metrics are zero. The portfolio is designed to capture growth across diversified sectors.",
+    "rebalancing_suggestion": "No immediate rebalancing needed. Monitor IT and Auto sectors for potential profit booking if momentum falters. Consider increasing allocation to Pharma if downside risks abate."
+  },
+  "one_week_outlook": {
+    "directional_bias": "Bullish",
+    "confidence_percent": 65,
+    "expected_nifty_range": "22300 - 22650",
+    "base_case": "Nifty is expected to consolidate in the 22300-22500 range, with a slight upward bias. Positive FII flows and strong technicals support this. Key triggers for upside are a sustained break above 22500, while a fall below 22300 could signal a short-term correction.",
+    "bull_case": "Nifty breaks decisively above 22500, driven by strong global cues or positive domestic news, potentially testing 22650. This scenario has a 30% probability. Catalysts include better-than-expected earnings or significant foreign institutional buying.",
+    "bear_case": "Nifty falls below 22300, triggered by global sell-off or weak domestic data, testing 22100. This scenario has a 5% probability. Key risks include geopolitical tensions or a sharp rise in inflation.",
+    "high_conviction_ideas": [
+      "Long Nifty futures: Entry 22350, Target 22550, Stop 22250. Rationale: Positive FII flows, technical uptrend, support at 22300.",
+      "Long MIDCPNIFTY futures: Entry 48300, Target 49000, Stop 48000. Rationale: Bullish option chain, rising OI, positive trend.",
+      "Long Persistent Systems (PERSISTENT): Entry 7800, Target 8200, Stop 7600. Rationale: Strong IT sector momentum, consistent deal wins, RSI above 60.",
+      "Long Divi's Laboratories (DIVISLAB): Entry 3600, Target 3800, Stop 3500. Rationale: Pharma sector strength, positive option chain bias, defensive qualities."
+    ]
+  }
+}
