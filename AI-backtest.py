@@ -13,7 +13,7 @@ from google.genai import types
 # ========================= CONFIGURATION =========================
 # Automatically uses the GEMINI_API_KEY environment variable
 client = genai.Client()
-MODEL_ID = 'gemini-2.5-pro'
+MODEL_ID = 'gemini-2.5-flash'
 
 OUTPUT_DIR = "reports"
 PROGRESS_FILE = "progress.json"
