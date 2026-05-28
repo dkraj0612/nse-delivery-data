@@ -2,7 +2,7 @@
 <html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Institutional Quant Dashboard</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,15 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = { 
-            darkMode: 'class', 
-            theme: { 
-                extend: { 
-                    fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] }, 
-                    colors: { dark: { bg: '#0B0F19', card: '#111827', border: '#1F2937', hover: '#1E293B' }, pos: '#10B981', neg: '#EF4444' } 
-                } 
-            } 
-        }
+        tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] }, colors: { dark: { bg: '#0B0F19', card: '#111827', border: '#1F2937', hover: '#1E293B' }, pos: '#10B981', neg: '#EF4444' } } } }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -68,9 +60,9 @@
             <div><h2 class="text-lg md:text-2xl font-semibold text-white tracking-tight flex items-center">Period: <span id="header-period" class="ml-2 text-blue-400 num-font">--</span></h2></div>
             <div class="flex items-center space-x-4 w-full md:w-auto justify-between md:justify-end">
                 <div class="flex items-center bg-gray-800 rounded-md border border-gray-700 p-1 shadow-inner w-full md:w-auto justify-center">
-                    <button id="btn-prev" class="px-3 py-1.5 text-gray-400 hover:text-white transition-colors flex items-center text-xs font-bold" disabled aria-label="Previous Period"><i class="fa-solid fa-chevron-left mr-1"></i> Prev</button>
+                    <button id="btn-prev" class="px-3 py-1.5 text-gray-400 hover:text-white transition-colors flex items-center text-xs font-bold" disabled><i class="fa-solid fa-chevron-left mr-1"></i> Prev</button>
                     <div class="w-px h-4 bg-gray-600 mx-2"></div>
-                    <button id="btn-next" class="px-3 py-1.5 text-gray-400 hover:text-white transition-colors flex items-center text-xs font-bold" disabled aria-label="Next Period">Next <i class="fa-solid fa-chevron-right ml-1"></i></button>
+                    <button id="btn-next" class="px-3 py-1.5 text-gray-400 hover:text-white transition-colors flex items-center text-xs font-bold" disabled>Next <i class="fa-solid fa-chevron-right ml-1"></i></button>
                 </div>
             </div>
         </header>
@@ -104,7 +96,6 @@
 
                 <div class="bg-gray-900/70 backdrop-blur-md border border-gray-800 rounded-xl p-4 md:p-6 bg-gradient-to-br from-gray-900 to-gray-800/50">
                     <h3 class="text-sm font-semibold text-gray-200 mb-4 border-b border-dark-border pb-2 flex items-center"><i class="fa-solid fa-robot text-blue-500 mr-2"></i> AI Analyst Insights</h3>
-                    
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <h4 class="text-[11px] font-bold text-blue-400 uppercase tracking-widest mb-2">1-Week Outlook</h4>
@@ -119,7 +110,6 @@
                                 <p id="ai-ideas" class="text-[11px] text-gray-300 leading-relaxed"></p>
                             </div>
                         </div>
-                        
                         <div class="space-y-4">
                             <div>
                                 <h4 class="text-[11px] font-bold text-blue-400 uppercase tracking-widest mb-1">Market Snapshot</h4>
@@ -144,10 +134,10 @@
                         <table class="w-full text-left border-collapse whitespace-nowrap md:whitespace-normal min-w-[600px]">
                             <thead>
                                 <tr class="bg-[#0f1524] text-[9px] md:text-[10px] font-bold text-gray-400 uppercase tracking-wider border-b border-dark-border">
-                                    <th scope="col" class="px-4 md:px-5 py-2 md:py-3 w-20 md:w-24">Ticker</th>
-                                    <th scope="col" class="px-4 md:px-5 py-2 md:py-3">Company Name</th>
-                                    <th scope="col" class="px-4 md:px-5 py-2 md:py-3 text-right w-20 md:w-24">Allocation</th>
-                                    <th scope="col" class="px-4 md:px-5 py-2 md:py-3 text-left" colspan="3">Investment Rationale</th>
+                                    <th class="px-4 md:px-5 py-2 md:py-3 w-20 md:w-24">Ticker</th>
+                                    <th class="px-4 md:px-5 py-2 md:py-3">Company Name</th>
+                                    <th class="px-4 md:px-5 py-2 md:py-3 text-right w-20 md:w-24">Allocation</th>
+                                    <th class="px-4 md:px-5 py-2 md:py-3 text-left" colspan="3">Investment Rationale</th>
                                 </tr>
                             </thead>
                             <tbody id="holdings-table" class="text-[10px] md:text-xs divide-y divide-dark-border"></tbody>
@@ -163,20 +153,22 @@
             Chart.defaults.color = '#9CA3AF'; 
             Chart.defaults.font.family = "'Inter', sans-serif";
             
-            // 1. Safely load Data
             let advancedData = {};
             const rawDataEl = document.getElementById('backtest-data');
             
             try {
                 const textData = rawDataEl.textContent.trim();
-                if(textData && textData !== '__PYTHON_INJECT_DATA_HERE__') {
+                // Check if it's securely injected JSON
+                if(textData && !textData.includes('__PYTHON_INJECT_DATA_HERE__')) {
                     advancedData = JSON.parse(textData);
+                } else if (typeof window.injectedData !== 'undefined') {
+                    // Fallback for older python parsing
+                    advancedData = window.injectedData;
                 }
             } catch(e) {
-                console.error("No valid JSON injected yet.", e);
+                console.error("Failed to parse injected data:", e);
             }
 
-            // 2. Cache DOM Elements
             const DOM = {
                 nav: document.getElementById('nav-months'),
                 headerPeriod: document.getElementById('header-period'),
@@ -213,14 +205,16 @@
             };
 
             let displayMonths = [], sortedChronological = [], currentIndex = 0, eqChart = null, attrChart = null;
-            
-            // Helpers
             const fmtPct = (v) => (v > 0 ? '+' : '') + (v || 0).toFixed(2) + '%';
             const numColor = (v) => v > 0 ? 'text-pos' : (v < 0 ? 'text-neg' : 'text-gray-400');
 
             function init() {
                 displayMonths = Object.keys(advancedData).sort((a,b) => new Date(b) - new Date(a));
-                if(displayMonths.length === 0) return;
+                
+                if(displayMonths.length === 0) {
+                    DOM.headerPeriod.innerText = "NO DATA FOUND";
+                    return;
+                }
                 
                 sortedChronological = [...displayMonths].reverse();
                 
@@ -237,10 +231,8 @@
                 });
                 
                 DOM.timelineStart.innerText = sortedChronological[0];
-                
                 DOM.btnPrev.onclick = () => { if(currentIndex < displayMonths.length - 1) selectMonth(currentIndex + 1); };
                 DOM.btnNext.onclick = () => { if(currentIndex > 0) selectMonth(currentIndex - 1); };
-                
                 selectMonth(0);
             }
 
@@ -257,8 +249,6 @@
                 }
                 
                 DOM.headerPeriod.innerText = month; 
-                
-                // Using exact HTML disabled attribute
                 DOM.btnPrev.disabled = (index === displayMonths.length - 1); 
                 DOM.btnNext.disabled = (index === 0);
                 
@@ -294,16 +284,13 @@
                 const m = p.metrics || {};
                 const outlook = d.one_week_outlook || {};
                 
-                // Populate AI Text
                 DOM.aiBias.innerText = outlook.directional_bias || '--';
-                
                 let confColor = 'text-gray-400';
                 if(outlook.confidence_percent >= 70) confColor = 'text-pos';
                 else if(outlook.confidence_percent < 50) confColor = 'text-neg';
                 
                 DOM.aiConf.innerText = (outlook.confidence_percent ? outlook.confidence_percent + '%' : '--');
                 DOM.aiConf.className = `font-bold ${confColor}`;
-                
                 DOM.aiRange.innerText = outlook.expected_nifty_range || '--';
                 DOM.aiBaseCase.innerHTML = `<strong>Base Case Scenario:</strong> ${outlook.base_case || '--'}`;
                 
@@ -312,7 +299,6 @@
                 DOM.aiSnapshot.innerText = d.market_snapshot?.text_summary || '--';
                 DOM.aiDrivers.innerText = d.key_drivers?.text_summary || '--';
 
-                // Populate KPIs
                 const ret = m.total_return_pct || 0;
                 const bmk = ret - (Math.random() * 2 - 1); 
                 const active = ret - bmk;
@@ -329,7 +315,6 @@
                 DOM.kpiDd.innerText = (m.max_drawdown_pct || 0).toFixed(1) + '%';
                 DOM.kpiBeta.innerText = (m.beta_to_nifty || 0).toFixed(2);
 
-                // Populate Table
                 let tableHTML = '';
                 const holdings = p.portfolio_holdings || [];
                 if(holdings.length > 0) {
@@ -345,7 +330,6 @@
                     tableHTML = `<tr><td colspan="6" class="px-5 py-8 text-center text-gray-500">No holdings data generated for this period.</td></tr>`;
                 }
                 DOM.holdingsTable.innerHTML = tableHTML;
-                
                 renderCharts(m);
             }
 
@@ -355,51 +339,29 @@
                 const stratData = [100, 100+step, 100+(step*2), 100+(step*3), 100+ret];
                 const bmkData = [100, 100+(step*0.8), 100+(step*1.6), 100+(step*2.4), 100+(ret*0.8)];
 
-                // Update or Create Line Chart (Animation support)
                 if (!eqChart) {
                     const grad = DOM.eqChartCtx.createLinearGradient(0, 0, 0, 300); 
                     grad.addColorStop(0, 'rgba(59, 130, 246, 0.2)'); 
                     grad.addColorStop(1, 'rgba(59, 130, 246, 0)');
-                    
-                    eqChart = new Chart(DOM.eqChartCtx, { 
-                        type: 'line', 
-                        data: { 
-                            labels: ['W1','W2','W3','W4','EOM'], 
-                            datasets: [
-                                { label: 'Strategy', data: stratData, borderColor: '#3b82f6', backgroundColor: grad, borderWidth: 2, fill: true, tension: 0.4, pointRadius: 0, pointHoverRadius: 4 }, 
-                                { label: 'Benchmark', data: bmkData, borderColor: '#4B5563', borderWidth: 2, borderDash: [5, 5], tension: 0.4, pointRadius: 0 }
-                            ]
-                        }, 
-                        options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, plugins: { legend: { display: false }, tooltip: { backgroundColor: 'rgba(17,24,39,0.9)', titleFont: {family: 'Inter'}, bodyFont: {family: 'JetBrains Mono'} } }, scales: { y: { grid: { color: '#1F2937', drawBorder: false }, ticks: { font: {family: 'JetBrains Mono'}, maxTicksLimit: 5 } }, x: { grid: { display: false }, ticks: { font: {family: 'JetBrains Mono'} } } } 
-                    });
+                    eqChart = new Chart(DOM.eqChartCtx, { type: 'line', data: { labels: ['W1','W2','W3','W4','EOM'], datasets: [{ label: 'Strategy', data: stratData, borderColor: '#3b82f6', backgroundColor: grad, borderWidth: 2, fill: true, tension: 0.4, pointRadius: 0, pointHoverRadius: 4 }, { label: 'Benchmark', data: bmkData, borderColor: '#4B5563', borderWidth: 2, borderDash: [5, 5], tension: 0.4, pointRadius: 0 }]}, options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, plugins: { legend: { display: false }, tooltip: { backgroundColor: 'rgba(17,24,39,0.9)', titleFont: {family: 'Inter'}, bodyFont: {family: 'JetBrains Mono'} } }, scales: { y: { grid: { color: '#1F2937', drawBorder: false }, ticks: { font: {family: 'JetBrains Mono'}, maxTicksLimit: 5 } }, x: { grid: { display: false }, ticks: { font: {family: 'JetBrains Mono'} } } } });
                 } else {
                     eqChart.data.datasets[0].data = stratData;
                     eqChart.data.datasets[1].data = bmkData;
                     eqChart.update();
                 }
 
-                // Update or Create Bar Chart (Animation support)
                 const sectorsObj = m.sector_allocation || {};
                 const sectorNames = Object.keys(sectorsObj);
                 const sectorData = Object.values(sectorsObj);
                 
                 if (!attrChart) {
-                    attrChart = new Chart(DOM.attrChartCtx, { 
-                        type: 'bar', 
-                        data: { 
-                            labels: sectorNames.length ? sectorNames : ['No Data'], 
-                            datasets: [{ data: sectorData.length ? sectorData : [0], backgroundColor: 'rgba(16, 185, 129, 0.8)', borderRadius: 2, barPercentage: 0.6 }] 
-                        }, 
-                        options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => fmtPct(c.raw) }, backgroundColor: 'rgba(17,24,39,0.9)' } }, scales: { x: { grid: { color: '#1F2937', drawBorder: false }, ticks: { font: {family: 'JetBrains Mono'}, callback: (v) => v+'%', maxTicksLimit: 4 } }, y: { grid: { display: false }, ticks: { font: {family: 'Inter', size: 10} } } } 
-                    });
+                    attrChart = new Chart(DOM.attrChartCtx, { type: 'bar', data: { labels: sectorNames.length ? sectorNames : ['No Data'], datasets: [{ data: sectorData.length ? sectorData : [0], backgroundColor: 'rgba(16, 185, 129, 0.8)', borderRadius: 2, barPercentage: 0.6 }] }, options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => fmtPct(c.raw) }, backgroundColor: 'rgba(17,24,39,0.9)' } }, scales: { x: { grid: { color: '#1F2937', drawBorder: false }, ticks: { font: {family: 'JetBrains Mono'}, callback: (v) => v+'%', maxTicksLimit: 4 } }, y: { grid: { display: false }, ticks: { font: {family: 'Inter', size: 10} } } } });
                 } else {
                     attrChart.data.labels = sectorNames.length ? sectorNames : ['No Data'];
                     attrChart.data.datasets[0].data = sectorData.length ? sectorData : [0];
                     attrChart.update();
                 }
             }
-            
-            // Kickoff
             window.onload = init;
         })();
     </script>
