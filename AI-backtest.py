@@ -35,18 +35,13 @@ logging.basicConfig(
 
 # ========================= CORE FUNCTIONS =========================
 def get_all_dates(months_total: int = 6) -> List[str]:
-    """Generates a list of the last calendar days for exactly N months backward."""
     dates = []
     current = datetime.now()
     for _ in range(months_total):
-        # Find the last day of the currently evaluated month
         next_month = current.replace(day=28) + relativedelta(days=4)
         last_day = next_month - relativedelta(days=next_month.day)
         dates.append(last_day.strftime("%d-%b-%Y"))
-        # Move back one month
         current -= relativedelta(months=1)
-    
-    # Reverse to make it chronological (oldest to newest)
     return dates[::-1]
 
 def load_progress() -> Dict[str, list]:
@@ -113,7 +108,6 @@ def generate_analysis(cutoff_date_str: str, prev_month_data: str) -> Optional[Di
             )
             
             raw_text = response.text
-            
             cb = chr(96) * 3 
             pattern = rf'{cb}(?:json)?\s*(.*?)\s*{cb}'
             json_match = re.search(pattern, raw_text, re.DOTALL)
@@ -169,46 +163,43 @@ def generate_dashboard():
         logging.error("🛑 dashboard_template.html not found! Cannot build visual dashboard.")
         return
 
+    # Properly inject the data string into the HTML
     final_html = html_template.replace("__PYTHON_INJECT_DATA_HERE__", json_data_str)
 
     with open("dashboard.html", "w", encoding="utf-8") as f:
         f.write(final_html)
         
-    logging.info("✅ Successfully created 'dashboard.html'! Open this file in your browser to view.")
+    logging.info("✅ Successfully created 'dashboard.html'! Data injected properly.")
 
 # ========================= MAIN SEQUENTIAL LOOP =========================
 if __name__ == "__main__":
     logging.info("🚀 Starting CONTINUOUS STATEFUL Indian Market Backtest...")
     
-    # Strictly limits backtest to 6 months
     all_dates = get_all_dates(months_total=6)
     progress = load_progress()
     completed = progress.get("completed", [])
     
     months_processed_this_run = 0
-    MAX_MONTHS_PER_RUN = 6 # Set to 6 to process all in one go safely
+    MAX_MONTHS_PER_RUN = 6 
     
     for date_str in all_dates:
         if date_str in completed:
             continue 
             
         if months_processed_this_run >= MAX_MONTHS_PER_RUN:
-            logging.info(f"🛑 Reached safe run limit. Shutting down cleanly so GitHub can commit the data.")
+            logging.info(f"🛑 Reached safe run limit. Shutting down cleanly.")
             break
             
         logging.info(f"\n➡️ Processing {date_str}...")
         
-        # 1. Get memory state
         prev_state = get_previous_month_state(date_str, all_dates)
         
         if prev_state == "ERROR_MISSING_PREVIOUS":
             logging.error(f"🛑 FATAL: Cannot process {date_str} because the previous month's JSON is missing.")
             break 
             
-        # 2. Call API
         analysis = generate_analysis(date_str, prev_state)
         
-        # 3. Save and Commit
         if analysis:
             filename = OUTPUT_DIR / f"{date_str.replace('-', '_')}.json"
             with open(filename, "w", encoding="utf-8") as f:
@@ -229,7 +220,7 @@ if __name__ == "__main__":
 
     logging.info("🎉 RUN COMPLETE. Checking for data to build Dashboard...")
     
-    # Looks inside the folder directly to guarantee the dashboard gets built using your separate HTML template
+    # Check folder directly and force build
     json_files = list(OUTPUT_DIR.glob("*.json")) if OUTPUT_DIR.exists() else []
     
     if len(json_files) > 0:
