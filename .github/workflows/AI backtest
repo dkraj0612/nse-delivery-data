@@ -1,0 +1,36 @@
+name: Self-Resuming Market Backtest (Manual Only)
+
+on:
+  workflow_dispatch:     # Only manual trigger
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: pip install google-generativeai python-dateutil
+
+      - name: Create Reports Directory
+        run: mkdir -p reports
+
+      - name: Run Automatic Backtest
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python AI-backtest.py
+
+      - name: Commit Progress & Reports
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add reports/ progress.json *.json
+          git commit -m "📊 Backtest Update - $(date +'%d-%b-%Y')" || echo "No changes"
+          git push
