@@ -15,7 +15,7 @@ from google.genai import types
 
 # ========================= CONFIGURATION =========================
 client = genai.Client()
-MODEL_ID = 'gemini-2.5-flash' 
+MODEL_ID = 'gemini-2.5-flash-lite' 
 
 OUTPUT_DIR = Path("reports")
 PROGRESS_FILE = Path("progress.json")
