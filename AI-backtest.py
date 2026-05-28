@@ -2,6 +2,7 @@ import os
 import json
 import time
 import random
+import logging
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
@@ -16,11 +17,25 @@ MODEL_ID = 'gemini-2.5-pro'
 
 OUTPUT_DIR = "reports"
 PROGRESS_FILE = "progress.json"
+LOG_FILE = "backtest_run.log"
 BATCH_SIZE = 8                    # Number of months per batch
 SLEEP_BETWEEN_BATCHES_MINUTES = 5 # 5 minutes as requested
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
+# ========================= LOGGING SETUP =========================
+# This sets up logging to BOTH the console and a permanent log file
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s [%(levelname)s] %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S',
+    handlers=[
+        logging.FileHandler(LOG_FILE, encoding='utf-8'),
+        logging.StreamHandler() # Still print to console
+    ]
+)
+
+# ========================= CORE FUNCTIONS =========================
 def load_progress():
     if os.path.exists(PROGRESS_FILE):
         with open(PROGRESS_FILE, "r", encoding="utf-8") as f:
@@ -40,6 +55,7 @@ def generate_analysis(cutoff_date_str: str, max_retries=5):
 
     for attempt in range(max_retries):
         try:
+            logging.info(f"    Requesting Gemini API for {cutoff_date_str} (Attempt {attempt+1}/{max_retries})...")
             response = client.models.generate_content(
                 model=MODEL_ID,
                 contents=prompt,
@@ -61,17 +77,20 @@ def generate_analysis(cutoff_date_str: str, max_retries=5):
                 text = text[:-3]
                 
             text = text.strip()
+            logging.info(f"    â Success for {cutoff_date_str}")
             return json.loads(text)
             
         except Exception as e:
             error_str = str(e).lower()
             if any(k in error_str for k in ["rate limit", "429", "quota", "resource exhausted"]):
                 wait = 45 * (attempt + 1)
-                print(f"â ï¸ Rate limit â Waiting {wait}s...")
+                logging.warning(f"    â ï¸ Rate limit hit. Waiting {wait}s...")
                 time.sleep(wait)
             else:
-                print(f"â ï¸ Unexpected API Error: {e}")
+                logging.error(f"    â Unexpected API Error for {cutoff_date_str}: {e}")
                 break
+    
+    logging.error(f"    ð¨ Failed completely for {cutoff_date_str} after {max_retries} attempts.")
     return {"cutoff_date": cutoff_date_str, "error": "Failed"}
 
 def get_all_dates(years_back=5):
@@ -87,7 +106,7 @@ def get_all_dates(years_back=5):
 
 # ========================= DASHBOARD GENERATOR =========================
 def generate_dashboard():
-    print("\nð Compiling results and generating Institutional Dashboard...")
+    logging.info("ð Compiling results and generating Institutional Dashboard...")
     
     compiled_data = {}
     if os.path.exists(OUTPUT_DIR):
@@ -99,10 +118,10 @@ def generate_dashboard():
                     with open(filepath, "r", encoding="utf-8") as f:
                         compiled_data[date_key] = json.load(f)
                 except Exception as e:
-                    print(f"  â ï¸ Error loading {filename}: {e}")
+                    logging.error(f"  â ï¸ Error loading {filename}: {e}")
 
     if not compiled_data:
-        print("  â ï¸ No data found to generate dashboard.")
+        logging.warning("  â ï¸ No data found to generate dashboard.")
         return
 
     json_data_str = json.dumps(compiled_data)
@@ -495,11 +514,11 @@ def generate_dashboard():
     with open("dashboard.html", "w", encoding="utf-8") as f:
         f.write(final_html)
         
-    print("â Successfully created 'dashboard.html'! Open this file in your browser to view.")
+    logging.info("â Successfully created 'dashboard.html'! Open this file in your browser to view.")
 
 # ========================= MAIN =========================
 if __name__ == "__main__":
-    print("ð Starting FULLY AUTOMATIC SELF-RESUMING Indian Market Backtest...\n")
+    logging.info("ð Starting FULLY AUTOMATIC SELF-RESUMING Indian Market Backtest...")
     
     all_dates = get_all_dates(years_back=5)
     progress = load_progress()
@@ -508,19 +527,19 @@ if __name__ == "__main__":
     remaining = [d for d in all_dates if d not in completed]
     
     if not remaining:
-        print("â All dates already processed!")
+        logging.info("â All dates already processed!")
     else:
-        print(f"Total remaining months: {len(remaining)}\n")
+        logging.info(f"Total remaining months: {len(remaining)}")
         
         while remaining:
             current_batch = remaining[:BATCH_SIZE]
-            print(f"\nð Processing new batch of {len(current_batch)} months...")
+            logging.info(f"ð Processing new batch of {len(current_batch)} months...")
 
             results = {}
             newly_completed = []
 
             for i, date_str in enumerate(current_batch):
-                print(f"  [{i+1:2d}/{len(current_batch)}] â {date_str}")
+                logging.info(f"  [{i+1:2d}/{len(current_batch)}] â Processing {date_str}...")
                 
                 analysis = generate_analysis(date_str, max_retries=5)
                 results[date_str] = analysis
@@ -531,7 +550,9 @@ if __name__ == "__main__":
                 
                 newly_completed.append(date_str)
                 
-                time.sleep(35 + random.uniform(8, 15))   # Safe delay between individual calls
+                delay = 35 + random.uniform(8, 15)
+                logging.info(f"    Sleeping for {delay:.2f}s before next call...")
+                time.sleep(delay)
 
             # Update progress
             completed.extend(newly_completed)
@@ -544,11 +565,11 @@ if __name__ == "__main__":
             remaining = [d for d in all_dates if d not in completed]
             
             if remaining:
-                print(f"\nâ³ Batch completed. Sleeping for {SLEEP_BETWEEN_BATCHES_MINUTES} minutes before next batch...\n")
+                logging.info(f"â³ Batch completed. Sleeping for {SLEEP_BETWEEN_BATCHES_MINUTES} minutes before next batch...")
                 time.sleep(SLEEP_BETWEEN_BATCHES_MINUTES * 60)
 
-    print(f"\nð FULL BACKTEST COMPLETED!")
-    print(f"Total Months Processed: {len(completed)}")
+    logging.info("ð FULL BACKTEST COMPLETED!")
+    logging.info(f"Total Months Processed: {len(completed)}")
 
     # Automatically generate the dashboard if files were successfully processed
     if len(completed) > 0:
