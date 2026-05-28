@@ -1,37 +1,52 @@
-name: Self-Resuming Market Backtest (Manual Only)
+name: Institutional AI Backtest
 
+# This allows you to run it manually from the Actions tab
 on:
-  workflow_dispatch:     # Only manual trigger
+  workflow_dispatch:
+
+# CRITICAL: This gives the GitHub Action permission to push code back to your repo
+permissions:
+  contents: write
 
 jobs:
-  backtest:
+  run-backtest:
     runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
 
-      - name: Setup Python
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          # Fetches full history so we can commit cleanly
+          fetch-depth: 0 
+
+      - name: Set up Python 3.10
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.10'
 
       - name: Install Dependencies
-        run: pip install google-genai
-            python-dateutil
-
-      - name: Create Reports Directory
-        run: mkdir -p reports
-
-      - name: Run Automatic Backtest
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: python AI-backtest.py
-
-      - name: Commit Progress & Reports
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add reports/ progress.json *.json
-          git commit -m "📊 Backtest Update - $(date +'%d-%b-%Y')" || echo "No changes"
+          python -m pip install --upgrade pip
+          pip install google-genai python-dateutil
+
+      - name: Run Backtest Script
+        env:
+          # Make sure this secret is set in your GitHub Repo Settings > Secrets
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python AI_backtest_final.py
+
+      - name: Commit and Push Progress (Auto-Save)
+        # The 'if: always()' ensures this runs even if the Python script throws an error/rate limit
+        if: always() 
+        run: |
+          git config --global user.name "GitHub Action Bot"
+          git config --global user.email "action@github.com"
+          
+          # Add the generated files to staging
+          git add progress.json reports/ dashboard.html backtest_run.log || true
+          
+          # Only commit if there are actually changes to save
+          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-save backtest progress [skip ci]"
+          
+          # Push back to the main branch
           git push
