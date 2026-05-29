@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
@@ -20,15 +21,28 @@
 <body class="bg-zinc-950 text-zinc-200 min-h-screen pb-20">
     <!-- Top Header -->
     <div class="bg-zinc-900 border-b border-zinc-800 sticky top-0 z-50">
-        <div class="px-4 py-4 flex items-center justify-between">
+        <div class="px-4 py-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div class="flex items-center gap-3">
                 <div class="w-9 h-9 bg-emerald-500 text-black font-bold rounded-2xl flex items-center justify-center text-2xl">P</div>
                 <div>
                     <h1 class="text-2xl font-semibold">PMS Dashboard</h1>
-                    <p class="text-xs text-emerald-400">30+ Years Experience</p>
+                    <p class="text-xs text-emerald-400">Quantitative Strategy</p>
                 </div>
             </div>
-            <select id="date-select" class="bg-zinc-800 text-sm border border-zinc-700 rounded-2xl px-4 py-2.5 focus:outline-none"></select>
+            
+            <!-- Controls (Nav Buttons & Dropdown) -->
+            <div class="flex items-center gap-3 w-full md:w-auto justify-between">
+                <div class="flex items-center bg-zinc-800 rounded-xl border border-zinc-700 overflow-hidden shrink-0">
+                    <button id="btn-prev" onclick="navigateReport(-1)" class="px-3 md:px-4 py-2 text-zinc-400 hover:text-white hover:bg-zinc-700 disabled:opacity-30 disabled:hover:bg-transparent disabled:cursor-not-allowed transition-colors" title="Previous Month">
+                        <i class="fa-solid fa-chevron-left text-sm"></i>
+                    </button>
+                    <div class="w-px h-5 bg-zinc-700"></div>
+                    <button id="btn-next" onclick="navigateReport(1)" class="px-3 md:px-4 py-2 text-zinc-400 hover:text-white hover:bg-zinc-700 disabled:opacity-30 disabled:hover:bg-transparent disabled:cursor-not-allowed transition-colors" title="Next Month">
+                        <i class="fa-solid fa-chevron-right text-sm"></i>
+                    </button>
+                </div>
+                <select id="date-select" class="bg-zinc-800 text-sm border border-zinc-700 rounded-xl px-3 md:px-4 py-2 focus:outline-none w-full md:w-auto"></select>
+            </div>
         </div>
         
         <!-- Mobile Tabs -->
@@ -43,180 +57,251 @@
 
     <script>
         let currentData = null;
-        let availableReports = ["28_Feb_2026.json","30_Apr_2026.json","31_Dec_2025.json","31_Jan_2026.json","31_Mar_2026.json","31_May_2026.json"];
-        let currentIndex = 5;
+        let availableReports = [
+            "28_Feb_2026.json",
+            "30_Apr_2026.json",
+            "31_Dec_2025.json",
+            "31_Jan_2026.json",
+            "31_Mar_2026.json",
+            "31_May_2026.json"
+        ];
+        
+        // Sort the dates chronologically (Oldest to Newest)
+        availableReports.sort((a, b) => {
+            let dateA = new Date(a.replace(/_/g, '-').replace('.json', ''));
+            let dateB = new Date(b.replace(/_/g, '-').replace('.json', ''));
+            return dateA - dateB; 
+        });
+
+        // Default to newest
+        let currentIndex = availableReports.length - 1;
         let chart = null;
 
         async function loadReport(filename) {
             try {
-                const url = `https://raw.githubusercontent.com/dkraj0612/nse-delivery-data/main/reports/${filename}`;
+                const url = \`https://raw.githubusercontent.com/dkraj0612/nse-delivery-data/main/reports/\${filename}?t=\${Date.now()}\`;
                 const res = await fetch(url);
                 currentData = await res.json();
-                showTab(0); // Default to Overview
+                
+                // Get the currently active tab so it doesn't jump back to Overview if you use next/prev inside a tab
+                let activeTabEl = document.querySelector('.nav-active');
+                let activeTabIdx = activeTabEl ? parseInt(activeTabEl.id.split('-')[1]) : 0;
+                
+                showTab(activeTabIdx); 
                 updateDateSelector();
             } catch(e) {
                 console.error("Load failed", e);
+                document.getElementById("dashboard-content").innerHTML = \`<p class="text-rose-500 text-center mt-10">Error loading data. Check console.</p>\`;
+            }
+        }
+
+        // --- NEW NAVIGATION LOGIC ---
+        function navigateReport(direction) {
+            let newIndex = currentIndex + direction;
+            // Prevent out of bounds
+            if(newIndex >= 0 && newIndex < availableReports.length) {
+                currentIndex = newIndex;
+                loadReport(availableReports[currentIndex]);
             }
         }
 
         function renderOverview() {
-            const html = `
+            if(!currentData) return;
+            const html = \`
                 <div class="space-y-6">
                     <div class="glass border border-zinc-700 rounded-3xl p-6">
-                        <h2 class="font-semibold text-lg mb-4 flex items-center gap-2"><i class="fas fa-chart-line"></i> Market Snapshot</h2>
-                        <p class="text-zinc-300 leading-relaxed whitespace-pre-line">${currentData.market_snapshot?.text_summary || ''}</p>
+                        <h2 class="font-semibold text-lg mb-4 flex items-center gap-2"><i class="fas fa-chart-line text-emerald-500"></i> Market Snapshot</h2>
+                        <p class="text-zinc-300 leading-relaxed whitespace-pre-line">\${currentData.market_snapshot?.text_summary || ''}</p>
                     </div>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="glass border border-zinc-700 rounded-3xl p-6">
-                            <h2 class="text-amber-400 mb-4">KEY DRIVERS</h2>
-                            <p class="text-zinc-300">${currentData.key_drivers?.text_summary || ''}</p>
+                            <h2 class="text-amber-400 mb-4 text-sm font-bold tracking-widest uppercase">Key Drivers</h2>
+                            <p class="text-zinc-300 text-sm leading-relaxed">\${currentData.key_drivers?.text_summary || ''}</p>
                         </div>
                         <div class="glass border border-zinc-700 rounded-3xl p-6">
-                            <h2 class="text-sky-400 mb-4">MIDCP ANALYSIS</h2>
-                            <p class="text-zinc-300">${currentData.midcp_analysis?.text_summary || ''}</p>
+                            <h2 class="text-sky-400 mb-4 text-sm font-bold tracking-widest uppercase">Midcap Analysis</h2>
+                            <p class="text-zinc-300 text-sm leading-relaxed">\${currentData.midcp_analysis?.text_summary || ''}</p>
                         </div>
                     </div>
                     
-                    <div class="glass border border-zinc-700 rounded-3xl p-6">
-                        <h2 class="text-rose-400 mb-4">SECTORAL OPTION FLOWS</h2>
-                        <p class="text-zinc-300">${currentData.sectoral_option_flows?.text_summary || ''}</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="glass border border-zinc-700 rounded-3xl p-6">
+                            <h2 class="text-rose-400 mb-4 text-sm font-bold tracking-widest uppercase">Sectoral Option Flows</h2>
+                            <p class="text-zinc-300 text-sm leading-relaxed">\${currentData.sectoral_option_flows?.text_summary || ''}</p>
+                        </div>
+                        
+                        <div class="glass border border-zinc-700 rounded-3xl p-6">
+                            <h2 class="text-emerald-400 mb-4 text-sm font-bold tracking-widest uppercase">X Sentiment</h2>
+                            <p class="text-zinc-300 text-sm leading-relaxed">\${currentData.x_sentiment?.text_summary || ''}</p>
+                        </div>
                     </div>
-                    
+
                     <div class="glass border border-zinc-700 rounded-3xl p-6">
-                        <h2 class="text-sky-400 mb-4">X SENTIMENT</h2>
-                        <p class="text-zinc-300">${currentData.x_sentiment?.text_summary || ''}</p>
+                        <h2 class="text-purple-400 mb-4 text-sm font-bold tracking-widest uppercase"><i class="fa-solid fa-clock-rotate-left mr-2"></i>Consistency Check</h2>
+                        <p class="text-zinc-300 leading-relaxed">\${currentData.consistency_check?.text_summary || ''}</p>
                     </div>
                 </div>
-            `;
+            \`;
             document.getElementById("dashboard-content").innerHTML = html;
         }
 
         function renderPortfolio() {
-            const holdings = currentData.model_portfolio?.portfolio_holdings || [];
+            if(!currentData) return;
+            const holdings = currentData.model_portfolio?.open_positions || [];
             const metrics = currentData.model_portfolio?.metrics || {};
+            const cash = currentData.model_portfolio?.cash_balance_pct || 0;
             
-            let holdingsHTML = holdings.map(h => `
+            let holdingsHTML = holdings.map(h => {
+                let pnlColor = h.unrealized_pnl_pct >= 0 ? 'text-emerald-400' : 'text-rose-400';
+                
+                return \`
                 <div class="border-b border-zinc-800 py-5 last:border-none">
-                    <div class="flex justify-between">
-                        <div>
-                            <div class="font-semibold">${h.stock_name}</div>
-                            <div class="text-emerald-400 font-mono text-sm">${h.ticker}</div>
+                    <div class="flex justify-between items-start">
+                        <div class="flex-1">
+                            <div class="font-semibold text-lg text-emerald-400 tracking-wider">\${h.ticker}</div>
+                            
+                            <div class="flex flex-wrap gap-2 mt-2 mb-2">
+                                <span class="bg-zinc-800 text-zinc-300 text-xs px-2 py-1 rounded border border-zinc-700 font-mono">In: ₹\${h.entry_price || '--'}</span>
+                                <span class="bg-zinc-800 text-zinc-300 text-xs px-2 py-1 rounded border border-zinc-700 font-mono">CMP: ₹\${h.current_price || '--'}</span>
+                                <span class="bg-zinc-800 text-zinc-300 text-xs px-2 py-1 rounded border border-zinc-700 font-mono">SL: ₹\${h.stop_loss || '--'}</span>
+                                <span class="\${pnlColor} bg-zinc-900 text-xs font-bold px-2 py-1 rounded border border-zinc-800 font-mono">PnL: \${h.unrealized_pnl_pct > 0 ? '+' : ''}\${h.unrealized_pnl_pct || 0}%</span>
+                            </div>
+                            
                         </div>
-                        <div class="text-right">
-                            <div class="text-xl font-bold">${h.allocation_pct}%</div>
+                        <div class="text-right ml-4">
+                            <div class="text-xs text-zinc-500 uppercase">Alloc</div>
+                            <div class="text-2xl font-bold">\${h.allocation_pct}%</div>
                         </div>
                     </div>
-                    <div class="text-xs text-zinc-400 mt-2">${h.rationale || ''}</div>
+                    <div class="text-xs text-zinc-400 mt-2 border-l-2 border-emerald-900/50 pl-3 italic">\${h.rationale || ''}</div>
                 </div>
-            `).join('');
+            \`}).join('');
 
-            const html = `
+            const html = \`
                 <div class="space-y-8">
                     <!-- Portfolio Level Metrics -->
-                    <div class="glass border border-zinc-700 rounded-3xl p-6">
+                    <div class="glass border border-zinc-700 rounded-3xl p-6 relative overflow-hidden">
                         <h2 class="text-xl font-semibold mb-6">Portfolio Performance Metrics</h2>
                         <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
                             <div class="text-center">
-                                <div class="text-xs text-zinc-400">TOTAL RETURN</div>
-                                <div class="text-3xl font-bold text-emerald-400">${metrics.total_return_pct || 0}%</div>
+                                <div class="text-xs text-zinc-400 uppercase tracking-widest">Cumulative Return</div>
+                                <div class="text-3xl font-bold \${metrics.cumulative_return_pct >= 0 ? 'text-emerald-400' : 'text-rose-400'}">\${metrics.cumulative_return_pct !== undefined ? metrics.cumulative_return_pct + '%' : '--'}</div>
                             </div>
                             <div class="text-center">
-                                <div class="text-xs text-zinc-400">CAGR</div>
-                                <div class="text-3xl font-bold">${metrics.cagr_pct || 0}%</div>
+                                <div class="text-xs text-zinc-400 uppercase tracking-widest">CAGR</div>
+                                <div class="text-3xl font-bold">\${metrics.cagr_pct || '--'}%</div>
                             </div>
                             <div class="text-center">
-                                <div class="text-xs text-zinc-400">MAX DRAWDOWN</div>
-                                <div class="text-3xl font-bold text-rose-400">${metrics.max_drawdown_pct || 0}%</div>
+                                <div class="text-xs text-zinc-400 uppercase tracking-widest">Current Drawdown</div>
+                                <div class="text-3xl font-bold text-rose-400">\${metrics.current_drawdown_pct !== undefined ? metrics.current_drawdown_pct + '%' : '--'}</div>
                             </div>
                             <div class="text-center">
-                                <div class="text-xs text-zinc-400">SHARPE RATIO</div>
-                                <div class="text-3xl font-bold">${metrics.sharpe_ratio || 'N/A'}</div>
+                                <div class="text-xs text-zinc-400 uppercase tracking-widest">Win Rate</div>
+                                <div class="text-3xl font-bold">\${metrics.win_rate_pct !== undefined ? metrics.win_rate_pct + '%' : '--'}</div>
                             </div>
                             <div class="text-center">
-                                <div class="text-xs text-zinc-400">VOLATILITY</div>
-                                <div class="text-3xl font-bold">${metrics.volatility || 0}%</div>
+                                <div class="text-xs text-zinc-400 uppercase tracking-widest">Cash Balance</div>
+                                <div class="text-3xl font-bold text-sky-400">\${cash}%</div>
                             </div>
                             <div class="text-center">
-                                <div class="text-xs text-zinc-400">BETA TO NIFTY</div>
-                                <div class="text-3xl font-bold">${metrics.beta_to_nifty || 0}</div>
+                                <div class="text-xs text-zinc-400 uppercase tracking-widest">Peak Value Date</div>
+                                <div class="text-lg font-bold font-mono mt-2">\${metrics.peak_portfolio_value_date || '--'}</div>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Context -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="glass border border-zinc-700 rounded-3xl p-6">
+                            <h2 class="text-amber-400 mb-3 text-sm font-bold tracking-widest uppercase">Benchmark Comparison</h2>
+                            <p class="text-zinc-300 text-sm leading-relaxed">\${currentData.model_portfolio?.benchmark_comparison || '--'}</p>
+                        </div>
+                        <div class="glass border border-zinc-700 rounded-3xl p-6">
+                            <h2 class="text-sky-400 mb-3 text-sm font-bold tracking-widest uppercase">Rebalancing Suggestion</h2>
+                            <p class="text-zinc-300 text-sm leading-relaxed">\${currentData.model_portfolio?.rebalancing_suggestion || '--'}</p>
                         </div>
                     </div>
 
                     <!-- Holdings -->
                     <div class="glass border border-zinc-700 rounded-3xl p-6">
-                        <h2 class="text-xl font-semibold mb-6">Model Portfolio Holdings</h2>
-                        <div class="space-y-1">${holdingsHTML}</div>
+                        <h2 class="text-xl font-semibold mb-6">Open Positions</h2>
+                        <div class="space-y-1">\${holdingsHTML}</div>
                     </div>
 
-                    <!-- Sector Allocation -->
+                    <!-- Allocation Chart -->
                     <div class="glass border border-zinc-700 rounded-3xl p-6">
-                        <h2 class="text-xl font-semibold mb-6">Sector Allocation</h2>
-                        <canvas id="sectorChart" class="h-64"></canvas>
+                        <h2 class="text-xl font-semibold mb-6">Asset Allocation</h2>
+                        <div class="relative h-64 max-w-sm mx-auto">
+                            <canvas id="allocationChart"></canvas>
+                        </div>
                     </div>
                 </div>
-            `;
+            \`;
             document.getElementById("dashboard-content").innerHTML = html;
 
-            // Render Sector Chart
+            // Render Chart (Ticker Allocations instead of sectors)
             if (chart) chart.destroy();
-            const ctx = document.getElementById('sectorChart');
-            if (ctx) {
-                const sectorAlloc = metrics.sector_allocation || {};
+            const ctx = document.getElementById('allocationChart');
+            if (ctx && holdings.length > 0) {
+                const labels = holdings.map(h => h.ticker);
+                const data = holdings.map(h => h.allocation_pct);
+                
                 chart = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
-                        labels: Object.keys(sectorAlloc),
-                        datasets: [{ data: Object.values(sectorAlloc), backgroundColor: ['#22c55e','#eab308','#3b82f6','#a855f7','#ec4899','#f43f5e'] }]
+                        labels: labels,
+                        datasets: [{ data: data, backgroundColor: ['#10b981','#f59e0b','#3b82f6','#8b5cf6','#ec4899','#f43f5e', '#06b6d4', '#14b8a6', '#84cc16', '#6366f1'], borderWidth: 0 }]
                     },
-                    options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { color: '#ddd', padding: 20 } } } }
+                    options: { responsive: true, maintainAspectRatio: false, cutout: '75%', plugins: { legend: { position: 'bottom', labels: { color: '#a1a1aa', padding: 15, font: {size: 10} } } } }
                 });
             }
         }
 
         function renderOutlook() {
+            if(!currentData) return;
             const outlook = currentData.one_week_outlook || {};
-            const ideasHTML = (outlook.high_conviction_ideas || []).map(idea => `<li class="py-2 text-zinc-300">• ${idea}</li>`).join('');
+            const ideasHTML = (outlook.high_conviction_ideas || []).map(idea => \`<li class="py-2 text-zinc-300 text-sm border-b border-zinc-800 last:border-0">• \${idea}</li>\`).join('');
             
-            const html = `
+            const html = \`
                 <div class="glass border border-zinc-700 rounded-3xl p-6 space-y-8">
                     <div>
                         <h2 class="text-2xl font-semibold mb-6">One Week Outlook</h2>
                         <div class="grid grid-cols-3 gap-4">
-                            <div class="bg-zinc-900 p-5 rounded-2xl text-center">
-                                <div class="text-xs text-zinc-400">BIAS</div>
-                                <div class="text-3xl font-bold text-emerald-400">${outlook.directional_bias || 'N/A'}</div>
+                            <div class="bg-zinc-900 p-5 rounded-2xl text-center shadow-inner">
+                                <div class="text-xs text-zinc-500 font-bold tracking-widest mb-1">BIAS</div>
+                                <div class="text-xl md:text-3xl font-bold text-emerald-400">\${outlook.directional_bias || '--'}</div>
                             </div>
-                            <div class="bg-zinc-900 p-5 rounded-2xl text-center">
-                                <div class="text-xs text-zinc-400">CONFIDENCE</div>
-                                <div class="text-3xl font-bold">${outlook.confidence_percent || 0}%</div>
+                            <div class="bg-zinc-900 p-5 rounded-2xl text-center shadow-inner">
+                                <div class="text-xs text-zinc-500 font-bold tracking-widest mb-1">CONFIDENCE</div>
+                                <div class="text-xl md:text-3xl font-bold">\${outlook.confidence_percent || '--'}%</div>
                             </div>
-                            <div class="bg-zinc-900 p-5 rounded-2xl text-center">
-                                <div class="text-xs text-zinc-400">RANGE</div>
-                                <div class="font-medium">${outlook.expected_nifty_range || 'N/A'}</div>
+                            <div class="bg-zinc-900 p-5 rounded-2xl text-center shadow-inner">
+                                <div class="text-xs text-zinc-500 font-bold tracking-widest mb-1">RANGE</div>
+                                <div class="text-sm md:text-xl font-medium mt-1 md:mt-0 font-mono">\${outlook.expected_nifty_range || '--'}</div>
                             </div>
                         </div>
                     </div>
                     <div class="space-y-6">
-                        <div><strong class="text-emerald-400">BASE CASE</strong><p class="mt-2">${outlook.base_case || ''}</p></div>
+                        <div class="bg-zinc-900/50 p-5 rounded-xl border border-zinc-800"><strong class="text-emerald-400 text-sm tracking-widest"><i class="fa-solid fa-bullseye mr-2"></i>BASE CASE</strong><p class="mt-2 text-sm text-zinc-300 leading-relaxed">\${outlook.base_case || '--'}</p></div>
+                        
                         <div class="grid md:grid-cols-2 gap-6">
-                            <div><strong class="text-amber-400">BULL CASE</strong><p class="mt-2">${outlook.bull_case || ''}</p></div>
-                            <div><strong class="text-rose-400">BEAR CASE</strong><p class="mt-2">${outlook.bear_case || ''}</p></div>
+                            <div class="bg-zinc-900/50 p-5 rounded-xl border border-zinc-800"><strong class="text-amber-400 text-sm tracking-widest"><i class="fa-solid fa-arrow-trend-up mr-2"></i>BULL CASE</strong><p class="mt-2 text-sm text-zinc-300 leading-relaxed">\${outlook.bull_case || '--'}</p></div>
+                            <div class="bg-zinc-900/50 p-5 rounded-xl border border-zinc-800"><strong class="text-rose-400 text-sm tracking-widest"><i class="fa-solid fa-arrow-trend-down mr-2"></i>BEAR CASE</strong><p class="mt-2 text-sm text-zinc-300 leading-relaxed">\${outlook.bear_case || '--'}</p></div>
                         </div>
                     </div>
                     <div>
-                        <strong>HIGH CONVICTION IDEAS</strong>
-                        <ul class="mt-4 pl-5 space-y-3 list-disc">${ideasHTML}</ul>
+                        <strong class="text-sky-400 tracking-widest text-sm"><i class="fa-solid fa-lightbulb mr-2"></i>HIGH CONVICTION IDEAS</strong>
+                        <ul class="mt-4 pl-2 space-y-1">\${ideasHTML}</ul>
                     </div>
                 </div>
-            `;
+            \`;
             document.getElementById("dashboard-content").innerHTML = html;
         }
 
         function showTab(tab) {
             document.querySelectorAll('[id^="tab-"]').forEach(el => el.classList.remove('nav-active'));
-            document.getElementById(`tab-${tab}`).classList.add('nav-active');
+            document.getElementById(\`tab-\${tab}\`).classList.add('nav-active');
             
             if (tab === 1) renderPortfolio();
             else if (tab === 2) renderOutlook();
@@ -226,6 +311,7 @@
         function updateDateSelector() {
             const select = document.getElementById("date-select");
             select.innerHTML = '';
+            
             availableReports.forEach((file, i) => {
                 const option = document.createElement("option");
                 option.value = i;
@@ -233,13 +319,21 @@
                 if (i === currentIndex) option.selected = true;
                 select.appendChild(option);
             });
+            
             select.onchange = () => {
                 currentIndex = parseInt(select.value);
                 loadReport(availableReports[currentIndex]);
             };
+
+            // Update disabled state for Previous/Next buttons
+            document.getElementById('btn-prev').disabled = (currentIndex === 0);
+            document.getElementById('btn-next').disabled = (currentIndex === availableReports.length - 1);
         }
 
         window.onload = () => loadReport(availableReports[currentIndex]);
     </script>
 </body>
 </html>
+
+
+```
