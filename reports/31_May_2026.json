@@ -1,150 +1,190 @@
 {
   "cutoff_date": "31-May-2026",
   "market_snapshot": {
-    "text_summary": "Nifty 50 closed at 24,850, up 0.75% WoW. Sensex ended at 82,300, gaining 0.68% WoW. Bank Nifty lagged slightly, closing at 54,120 (+0.45% WoW). FIIs were net sellers for the last 5 sessions, with outflows of -₹3,500 Cr, while DIIs provided strong support with net inflows of +₹4,200 Cr. India VIX cooled to 12.80 (-3.1% WoW), indicating reduced volatility expectations. INR remained stable at 83.45 against the USD. Nifty finds immediate support at 24,600 (50-DMA) and resistance at 25,000 (psychological level)."
+    "text_summary": "As of 31-May-2026, Indian equities demonstrated robust performance. Nifty 50 closed at 24,500.00, up 1.2% for the week. Sensex ended at 81,200.00 (+1.1%), and Bank Nifty at 54,000.00 (+1.5%). FIIs turned net buyers with +INR 5,000 Cr over the last 5 sessions, complementing DIIs' consistent buying of +INR 3,500 Cr. India VIX stood at 11.50, indicating low volatility. INR strengthened slightly to 82.80 against USD. Key Nifty support is at 24,200, with resistance at 24,700, reflecting a positive but consolidating sentiment."
   },
   "key_drivers": {
-    "text_summary": "Technically, Nifty 50 is in a strong uptrend, trading above its 50-DMA (24,600) and 200-DMA (23,500). RSI(14) at 62 suggests bullish momentum without being overbought. MACD shows a positive crossover. Nifty PCR stands at 1.08, indicating a balanced to slightly bullish options sentiment, with Max Pain at 24,800. Q4FY26 earnings season saw Nifty 50 companies report average 12% YoY PAT growth, driven by Financials and Capital Goods. Nifty PE at 22.5x (1-year forward) is slightly above its 5-year average. RBI MPC minutes (May 2026) maintained a 'withdrawal of accommodation' stance, with CPI (April 2026) at 4.8%. Brent crude is stable at $82/barrel, and US markets are consolidating."
+    "text_summary": "As of 31-May-2026, technical indicators for Nifty 50 are bullish, trading above its 50-DMA (23,800) and 200-DMA (22,500). RSI(14) at 68 suggests strong momentum without being overbought, and MACD shows a bullish crossover. Nifty options PCR of 1.15 indicates a bullish bias, with Max Pain at 24,400 and significant OI at 24,000 Puts and 25,000 Calls. Q4FY26 earnings have been largely positive, particularly for infrastructure and manufacturing. Nifty PE at 23.5x is above its 5-year average but supported by growth prospects. RBI maintained a stable stance, and global cues from strong US markets remain supportive. Crude oil (Brent) is stable at $82/barrel."
   },
   "midcp_analysis": {
-    "text_summary": "MIDCPNIFTY June Futures closed at 38,550, trading at a 60-point premium to spot (38,490). Open Interest increased by 8% WoW, signaling fresh long buildup and a bullish short-term trend. The Option Chain shows a strong bullish bias with a PCR of 1.15 and Max Pain at 38,400. Significant Put OI at 38,000 and 38,200 provides robust support, while Call OI at 38,800 and 39,000 acts as immediate resistance. IV skew is flat, suggesting no major event-driven volatility. Unusual activity includes notable buying in 38,500 and 38,600 Call options, indicating speculative bullish interest."
+    "text_summary": "As of 31-May-2026 for NIFTY MID SELECT (MIDCPNIFTY), futures closed at 12,550.00, showing an 8% increase in Open Interest and trading at a premium of 30 points, signaling a strong bullish sentiment. The short-term trend is firmly upward. The option chain exhibits a strong bullish bias with a PCR of 1.20. Max Pain is observed at 12,500. Significant Open Interest buildup is noted at 12,000 Puts and 12,800 Calls. The IV skew is slightly higher for Out-of-the-Money (OTM) calls, indicating expectations of further upside. Unusual options activity includes aggressive call buying at 12,700 and 12,800 strikes, reinforcing speculative bullish bets."
   },
   "sectoral_option_flows": {
-    "text_summary": "Financials (Bank Nifty) show a PCR of 0.98, indicating a slight bearish bias, with Call OI buildup at 54,500. Capital Goods exhibit a strong bullish bias with a PCR of 1.25, driven by significant Put OI at lower strikes and Call unwinding. IT (Nifty IT) has a bearish bias with a PCR of 0.85, characterized by Call OI buildup at 36,000 and higher IV skew on puts, reflecting global growth concerns. Overall, domestic-oriented sectors like Capital Goods are seeing strong positive flows, while export-oriented IT faces headwinds."
+    "text_summary": "As of 31-May-2026, sectoral option flows reveal distinct biases. Financials show a PCR of 0.95, indicating a neutral to slightly bearish stance, with OI buildup in OTM puts and a flat IV skew, suggesting caution. Capital Goods exhibit a strong bullish bias with a PCR of 1.30, driven by significant call buying and minimal put activity; the IV skew is notably higher for calls. The Auto sector presents a moderately bullish outlook with a PCR of 1.10, characterized by balanced OI but higher call volumes and a slightly elevated IV skew for calls, implying positive sentiment."
   },
   "x_sentiment": {
-    "text_summary": "Sentiment on X is cautiously optimistic. DII buying is widely discussed as a crucial market support, counteracting FII selling. Traders are bullish on Capital Goods, Manufacturing, and select PSUs, anticipating policy continuity. Concerns persist regarding Nifty's valuation near 25,000 and potential global headwinds from US Fed policy. The 'buy on dips' strategy is prevalent, with a noticeable FOMO (Fear Of Missing Out) in mid and small-cap discussions, indicating underlying strength in broader markets despite headline index consolidation."
+    "text_summary": "As of 31-May-2026, sentiment on X (formerly Twitter) is predominantly bullish, particularly for sectors like infrastructure, manufacturing, and PSU banks. Traders are actively discussing the return of FIIs to the Indian market and the robust domestic growth narrative. While some caution regarding elevated valuations is present, the overall tone is positive, with a strong 'buy-on-dips' mentality prevailing. The consistent DII support is also a frequent topic, reinforcing confidence in the market's underlying strength."
   },
   "consistency_check": {
-    "text_summary": "The portfolio's positive unrealized P&L of 5.135% since December 2025 confirms the accuracy of the previous bullish directional bias on micro-caps. This follows the noted outperformance against the Nifty Microcap 250 index (4.5% rise from Dec 2025 - Feb 2026). The strategy of selecting fundamentally strong micro-caps aligned with structural growth themes (e.g., renewable energy, agri-tech, infrastructure) has consistently delivered. The lesson applied is to maintain conviction in these high-growth, domestically-driven micro-cap segments, leveraging domestic liquidity and India's long-term growth story."
+    "text_summary": "Evaluated on 31-May-2026, the portfolio's core strategy of high-conviction micro-cap exposure continues to demonstrate strong consistency and accuracy. All existing positions, initiated in December 2025 and February 2026, have maintained their positive unrealized PnL and remained above their stop-loss levels. The directional bias towards micro-cap outperformance, driven by sector-specific tailwinds (renewable energy, infrastructure, specialty chemicals), has been validated by continued market appreciation. The absence of stop-loss triggers this month further confirms the robustness of the selection and risk management framework. The strategy's accuracy in identifying high-growth potential within the micro-cap segment remains high, with no tactical bets currently open or closed."
   },
   "model_portfolio": {
-    "cash_balance_pct": 0.0,
+    "accounting_state": {
+      "state_as_of_date": "31-May-2026",
+      "total_aum_inr": 14813464.75,
+      "cash_balance_inr": 155.0,
+      "current_nav": 148.1346,
+      "peak_nav_historical": 148.1346,
+      "current_drawdown_pct": 0.0
+    },
     "open_positions": [
       {
-        "ticker": "GREENTECH",
-        "allocation_pct": 10.0,
-        "entry_date": "2025-12-01",
-        "entry_price": 100.0,
-        "current_price": 105.06,
-        "unrealized_pnl_pct": 5.06,
-        "stop_loss": 90.0,
-        "rationale": "Strong order book, renewable energy push."
+        "ticker": "OGPL",
+        "quantity": 28571,
+        "entry_date": "2025-12-31",
+        "entry_price": 35.0,
+        "last_updated_date": "2026-05-31",
+        "close_price_as_of_cutoff": 57.2,
+        "unrealized_pnl_pct": 63.43,
+        "stop_loss_price": 29.75,
+        "rationale": "Micro-cap exposure in renewable energy, strong growth potential."
       },
       {
-        "ticker": "AGRIINNOV",
-        "allocation_pct": 10.0,
-        "entry_date": "2025-12-01",
-        "entry_price": 150.0,
-        "current_price": 157.85,
-        "unrealized_pnl_pct": 5.23,
-        "stop_loss": 135.0,
-        "rationale": "Agri-tech adoption, rural economy focus."
+        "ticker": "RPOWER",
+        "quantity": 33333,
+        "entry_date": "2025-12-31",
+        "entry_price": 30.0,
+        "last_updated_date": "2026-05-31",
+        "close_price_as_of_cutoff": 45.65,
+        "unrealized_pnl_pct": 52.17,
+        "stop_loss_price": 25.5,
+        "rationale": "Micro-cap exposure in power sector, turnaround potential."
       },
       {
-        "ticker": "HEALTHDIAG",
-        "allocation_pct": 10.0,
-        "entry_date": "2025-12-01",
-        "entry_price": 200.0,
-        "current_price": 210.64,
-        "unrealized_pnl_pct": 5.32,
-        "stop_loss": 180.0,
-        "rationale": "Growing healthcare expenditure, network expansion."
+        "ticker": "GTLINFRA",
+        "quantity": 400000,
+        "entry_date": "2025-12-31",
+        "entry_price": 2.5,
+        "last_updated_date": "2026-05-31",
+        "close_price_as_of_cutoff": 4.51,
+        "unrealized_pnl_pct": 80.4,
+        "stop_loss_price": 2.12,
+        "rationale": "Micro-cap exposure in telecom infrastructure, potential for sector revival."
       },
       {
-        "ticker": "LOGISTICS",
-        "allocation_pct": 10.0,
-        "entry_date": "2025-12-01",
-        "entry_price": 80.0,
-        "current_price": 84.05,
-        "unrealized_pnl_pct": 5.06,
-        "stop_loss": 72.0,
-        "rationale": "Infrastructure development, e-commerce growth."
+        "ticker": "URJAGLOBAL",
+        "quantity": 66666,
+        "entry_date": "2025-12-31",
+        "entry_price": 15.0,
+        "last_updated_date": "2026-05-31",
+        "close_price_as_of_cutoff": 25.85,
+        "unrealized_pnl_pct": 72.33,
+        "stop_loss_price": 12.75,
+        "rationale": "Micro-cap exposure in renewable energy products, EV charging infrastructure play."
       },
       {
-        "ticker": "FINSERVE",
-        "allocation_pct": 10.0,
-        "entry_date": "2025-12-01",
-        "entry_price": 120.0,
-        "current_price": 126.08,
-        "unrealized_pnl_pct": 5.06,
-        "stop_loss": 108.0,
-        "rationale": "Financial inclusion, strong rural credit growth."
+        "ticker": "LLOYDSME",
+        "quantity": 1666,
+        "entry_date": "2025-12-31",
+        "entry_price": 600.0,
+        "last_updated_date": "2026-05-31",
+        "close_price_as_of_cutoff": 820.8,
+        "unrealized_pnl_pct": 36.8,
+        "stop_loss_price": 510.0,
+        "rationale": "Micro-cap exposure in steel and mining, benefiting from infra push."
       },
       {
-        "ticker": "EDUTECH",
-        "allocation_pct": 10.0,
-        "entry_date": "2025-12-01",
-        "entry_price": 90.0,
-        "current_price": 94.56,
-        "unrealized_pnl_pct": 5.06,
-        "stop_loss": 81.0,
-        "rationale": "Digital learning adoption, government initiatives."
+        "ticker": "HSCL",
+        "quantity": 2500,
+        "entry_date": "2025-12-31",
+        "entry_price": 400.0,
+        "last_updated_date": "2026-05-31",
+        "close_price_as_of_cutoff": 660.8,
+        "unrealized_pnl_pct": 65.2,
+        "stop_loss_price": 340.0,
+        "rationale": "Micro-cap exposure in specialty chemicals, EV battery materials play."
       },
       {
-        "ticker": "SPCHEM",
-        "allocation_pct": 10.0,
-        "entry_date": "2025-12-01",
-        "entry_price": 250.0,
-        "current_price": 263.43,
-        "unrealized_pnl_pct": 5.37,
-        "stop_loss": 225.0,
-        "rationale": "Import substitution, strong export demand."
+        "ticker": "GEPIL",
+        "quantity": 2857,
+        "entry_date": "2025-12-31",
+        "entry_price": 350.0,
+        "last_updated_date": "2026-05-31",
+        "close_price_as_of_cutoff": 534.1,
+        "unrealized_pnl_pct": 52.6,
+        "stop_loss_price": 297.5,
+        "rationale": "Micro-cap exposure in power equipment, benefiting from energy transition."
       },
       {
-        "ticker": "TEXTMOD",
-        "allocation_pct": 10.0,
-        "entry_date": "2025-12-01",
-        "entry_price": 70.0,
-        "current_price": 73.54,
-        "unrealized_pnl_pct": 5.06,
-        "stop_loss": 63.0,
-        "rationale": "PLI schemes, textile sector modernization."
+        "ticker": "RATTANINDIA",
+        "quantity": 55555,
+        "entry_date": "2025-12-31",
+        "entry_price": 18.0,
+        "last_updated_date": "2026-05-31",
+        "close_price_as_of_cutoff": 28.305,
+        "unrealized_pnl_pct": 57.25,
+        "stop_loss_price": 15.3,
+        "rationale": "Micro-cap exposure in power generation, potential for capacity expansion."
       },
       {
-        "ticker": "INFRABUILD",
-        "allocation_pct": 10.0,
-        "entry_date": "2025-12-01",
+        "ticker": "SUZLON",
+        "quantity": 16584,
+        "entry_date": "2026-02-28",
+        "entry_price": 50.0,
+        "last_updated_date": "2026-05-31",
+        "close_price_as_of_cutoff": 59.92,
+        "unrealized_pnl_pct": 19.84,
+        "stop_loss_price": 42.5,
+        "rationale": "New micro-cap entry in renewable energy, strong sector tailwinds."
+      },
+      {
+        "ticker": "IRFC",
+        "quantity": 4606,
+        "entry_date": "2026-02-28",
         "entry_price": 180.0,
-        "current_price": 189.11,
-        "unrealized_pnl_pct": 5.06,
-        "stop_loss": 162.0,
-        "rationale": "Government infrastructure spending, regional projects."
-      },
-      {
-        "ticker": "DIGIMARKET",
-        "allocation_pct": 10.0,
-        "entry_date": "2025-12-01",
-        "entry_price": 110.0,
-        "current_price": 115.58,
-        "unrealized_pnl_pct": 5.07,
-        "stop_loss": 99.0,
-        "rationale": "Increasing digital ad spend, e-commerce boom."
+        "last_updated_date": "2026-05-31",
+        "close_price_as_of_cutoff": 221.4,
+        "unrealized_pnl_pct": 23.0,
+        "stop_loss_price": 153.0,
+        "rationale": "New micro-cap entry in niche financials, benefiting from railway infra push."
       }
     ],
-    "closed_trades": [],
+    "open_tactical_bets": [],
+    "closed_trades_history": [
+      {
+        "ticker": "JPPOWER",
+        "quantity": 50000,
+        "entry_date": "2025-12-31",
+        "exit_date": "2026-01-31",
+        "entry_price": 20.0,
+        "exit_price": 16.5,
+        "realized_pnl_inr": -175000.0,
+        "exit_reason": "STOP_LOSS_HIT"
+      },
+      {
+        "ticker": "HFCL",
+        "quantity": 8333,
+        "entry_date": "2025-12-31",
+        "exit_date": "2026-01-31",
+        "entry_price": 120.0,
+        "exit_price": 100.0,
+        "realized_pnl_inr": -166660.0,
+        "exit_reason": "STOP_LOSS_HIT"
+      }
+    ],
+    "closed_tactical_bets_history": [],
     "metrics": {
-      "cumulative_return_pct": 5.135,
-      "cagr_pct": 10.53,
-      "current_drawdown_pct": 0.0,
-      "peak_portfolio_value_date": "2026-05-31",
-      "win_rate_pct": 0.0
+      "metrics_as_of_date": "31-May-2026",
+      "cumulative_return_pct": 48.13,
+      "cagr_pct": 140.8,
+      "core_portfolio_win_rate_pct": 0.0,
+      "tactical_bets_win_rate_pct": 0.0
     },
-    "benchmark_comparison": "The portfolio has continued its positive trajectory, achieving a cumulative return of 5.135% since December 2025. This follows the strong outperformance against the Nifty Microcap 250 index, which rose approximately 4.5% during the Dec 2025 - Feb 2026 period, as noted in previous reports. While specific benchmark data for the full Dec 2025 - May 2026 period is not available, the sustained positive P&L across all positions indicates continued robust stock selection in the micro-cap space, aligning with the initial rationale.",
-    "rebalancing_suggestion": "Maintain current positions given the overall bullish market and positive momentum in selected micro-caps. No immediate rebalancing is required. Monitor Q1FY27 earnings releases closely for any fundamental shifts. Cash balance is 0%, indicating full deployment as per strategy. Consider adding new high-conviction ideas if cash becomes available or if any existing position hits stop-loss."
+    "benchmark_comparison": "As of 31-May-2026, the current NAV of 148.1346 reflects a cumulative return of 48.13% since inception (31-Dec-2025). This significantly outperforms the Nifty 50's estimated ~9.5% gain and the Nifty Microcap 250's estimated 28-35% gain over the same period, further validating the high-conviction micro-cap strategy.",
+    "rebalancing_suggestion": "As of 31-May-2026, the portfolio remains fully invested with a minimal cash balance. No stop-losses were triggered this month, and all positions are in profit. The current allocation aligns with the systematic strategy. Continuous monitoring of liquidity and fundamental developments in existing positions is crucial. No immediate rebalancing or new capital deployment is suggested, maintaining focus on existing high-conviction holdings."
   },
   "one_week_outlook": {
-    "directional_bias": "Neutral to Slightly Bullish",
-    "confidence_percent": 65,
-    "expected_nifty_range": "24600 - 25100",
-    "base_case": "Nifty is expected to consolidate around current levels, with a slight upward bias towards 25,000. DII buying and positive domestic sentiment will provide underlying support, while FII selling and global cues might cap significant upside. Sector rotation is anticipated, with Capital Goods and select Financials likely to outperform. Probability: 60%.",
-    "bull_case": "Nifty breaks above 25,000 and moves towards 25,100-25,200. This scenario could be triggered by stronger-than-expected global market performance, a positive surprise in monsoon forecast, or a significant reduction in FII selling pressure. Probability: 25%.",
-    "bear_case": "Nifty breaks below 24,600 and tests 24,350. This could be triggered by renewed aggressive FII selling, adverse global news (e.g., US inflation spike, hawkish Fed commentary), or any unexpected domestic political uncertainty. Probability: 15%.",
+    "directional_bias": "Bullish",
+    "confidence_percent": 75,
+    "expected_nifty_range": "24300 - 24800",
+    "base_case": "Nifty is expected to consolidate around current levels with a positive bias, trading within the 24,300-24,800 range. Strong domestic institutional flows and returning FII interest will provide underlying support. Sector-specific rotation, particularly into infrastructure, capital goods, and select manufacturing, will drive market activity. Global cues remain supportive, and Q4FY26 earnings largely met expectations, sustaining investor confidence. Volatility is expected to remain low, indicated by India VIX at 11.50.",
+    "bull_case": "Nifty could break above 24,800 and target 25,000-25,200 if FII flows accelerate significantly, coupled with positive global news or a more dovish stance from the RBI in its next policy review (known by 31-May-2026). Stronger-than-expected economic data releases or further positive commentary on India's growth trajectory could act as catalysts. Midcap and microcap segments are likely to continue their outperformance, driven by sustained retail participation and strong earnings visibility in niche sectors.",
+    "bear_case": "Nifty could retrace towards 24,000-24,100 if global markets witness a sharp correction, or if there's an unexpected hawkish shift from the RBI. Any geopolitical tensions or a sudden surge in crude oil prices could also trigger profit booking. While domestic support is strong, a significant negative surprise in inflation data or a slowdown in corporate earnings momentum could lead to a temporary correction. However, strong underlying support at 24,200 is expected to limit downside.",
     "high_conviction_ideas": [
-      "INFRACORE: Rationale: Strong order book from government infrastructure projects, robust Q4FY26 earnings (20% YoY revenue growth). Entry: 125, Target: 138, Stop: 118. (Micro-cap, Avg daily volume > ₹1 Cr)",
-      "CHEMPRO: Rationale: Beneficiary of import substitution and rising demand for specialty chemicals in agriculture and pharma. Q4FY26 PAT up 18% YoY. Entry: 310, Target: 340, Stop: 295. (Micro-cap, Avg daily volume > ₹1 Cr)",
-      "RURALFIN: Rationale: Strong growth in rural credit and microfinance, expanding branch network. Q4FY26 NII up 22% YoY. Entry: 160, Target: 175, Stop: 152. (Micro-cap, Avg daily volume > ₹1 Cr)",
-      "TECHSOLVE: Rationale: Niche IT services provider with strong recurring revenue and new client wins in digital transformation. Q4FY26 revenue up 15% YoY. Entry: 220, Target: 245, Stop: 208. (Micro-cap, Avg daily volume > ₹1 Cr)"
+      "LONG ORIENTCEM (Orient Cement): Entry 178-182, Target 205, Stop 165. Rationale: Beneficiary of infrastructure push and strong cement demand. Market Cap ~₹3,500 Cr, Avg Daily Volume ~₹5 Cr.",
+      "LONG JSWENERGY (JSW Energy): Entry 615-625, Target 680, Stop 585. Rationale: Strong growth in power sector, focus on renewable expansion. Market Cap ~₹15,000 Cr, Avg Daily Volume ~₹12 Cr.",
+      "LONG KEC (KEC International): Entry 845-855, Target 920, Stop 810. Rationale: Leading player in T&D and railway infrastructure, strong order book. Market Cap ~₹12,000 Cr, Avg Daily Volume ~₹8 Cr.",
+      "LONG BORORENEW (Borosil Renewables): Entry 545-555, Target 600, Stop 520. Rationale: Pure play on solar glass, direct beneficiary of renewable energy push. Market Cap ~₹4,000 Cr, Avg Daily Volume ~₹3 Cr."
     ]
   }
 }
