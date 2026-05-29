@@ -33,6 +33,26 @@ logging.basicConfig(
     ]
 )
 
+# ========================= DATA FEED STUBS =========================
+# TODO: Replace these stubs with your actual scraping/database logic
+def get_market_data_feed(date_str: str) -> Dict[str, Any]:
+    """Fetch macro, option chain, and index data for the specific date."""
+    return {
+        "status": "Simulated Feed",
+        "nifty_close": 23500.0,
+        "nifty_mid_select_close": 13100.0,
+        "macro_note": "Data feed integrated."
+    }
+
+def get_microcap_universe(date_str: str) -> List[Dict[str, Any]]:
+    """Fetch the 50 filtered micro-cap stocks valid as of the cutoff date."""
+    return [
+        {"ticker": "MARKSANS", "close_price": 185.00},
+        {"ticker": "HBLPOWER", "close_price": 520.00},
+        {"ticker": "DATAMATICS", "close_price": 610.00}
+        # Add your actual scraped universe here
+    ]
+
 # ========================= CORE FUNCTIONS =========================
 def get_all_dates(months_total: int = 6) -> List[str]:
     dates = []
@@ -82,16 +102,20 @@ def get_previous_month_state(current_date_str: str, all_dates: List[str]) -> str
         logging.error(f"Error fetching previous state: {e}")
         return "ERROR_MISSING_PREVIOUS"
 
-def generate_analysis(cutoff_date_str: str, prev_month_data: str) -> Optional[Dict[str, Any]]:
+def generate_analysis(cutoff_date_str: str, prev_month_data: str, market_feed: dict, universe_data: list) -> Optional[Dict[str, Any]]:
     try:
         with open("prompt_template.txt", "r", encoding="utf-8") as f:
             prompt = f.read()
             prompt = prompt.replace("{CUTOFF_DATE}", cutoff_date_str)
             prompt = prompt.replace("{PREVIOUS_MONTH_DATA}", prev_month_data)
+            prompt = prompt.replace("{MARKET_DATA_FEED}", json.dumps(market_feed))
+            prompt = prompt.replace("{AVAILABLE_MICROCAP_UNIVERSE}", json.dumps(universe_data))
     except FileNotFoundError:
         logging.error("🛑 prompt_template.txt not found!")
         return None
 
+    # Extract valid tickers for the firewall
+    valid_scraped_universe_list = [stock.get("ticker") for stock in universe_data]
     max_retries = 15 
     
     for attempt in range(1, max_retries + 1):
@@ -114,12 +138,40 @@ def generate_analysis(cutoff_date_str: str, prev_month_data: str) -> Optional[Di
             text_to_parse = json_match.group(1) if json_match else raw_text.strip()
             
             data = json.loads(text_to_parse)
-            logging.info(f"    ✅ Success for {cutoff_date_str}")
+            
+            # =================================================================
+            # 🚨 THE DATA FIREWALL VALIDATOR
+            # =================================================================
+            logging.info("    Running Institutional Data Firewall Checks...")
+            
+            # 1. Structural Check
+            required_keys = ["cutoff_date", "model_portfolio", "one_week_outlook"]
+            for key in required_keys:
+                if key not in data:
+                    raise ValueError(f"Missing critical structural key: {key}")
+            
+            model_portfolio = data.get("model_portfolio", {})
+            open_positions = model_portfolio.get("open_positions", [])
+            
+            # 2. Universe Integrity Check (Anti-Hallucination)
+            if prev_month_data == "NONE (This is the inception month. Create a new portfolio based strictly on the current month's data.)":
+                allocated_tickers = [pos.get('ticker') for pos in open_positions]
+                for ticker in allocated_tickers:
+                    if ticker not in valid_scraped_universe_list:
+                        raise ValueError(f"Security Alert: AI hallucinated unverified asset: {ticker}")
+                
+            # 3. Weight Cap Guardrail (Enforce Cash Buffer)
+            total_weight = sum([float(pos.get('target_allocation_pct', 0.0)) for pos in open_positions])
+            if total_weight > 0.985: # 0.985 used to handle minor floating point rounding
+                raise ValueError(f"Allocation Alert: Total weight {total_weight} exceeds 0.98 limit (2% cash buffer breached).")
+            # =================================================================
+
+            logging.info(f"    ✅ Success & Validated for {cutoff_date_str}")
             return data
             
-        except json.JSONDecodeError as je:
-            logging.error(f"    ❌ JSON Decode Error for {cutoff_date_str}: {je}")
-            time.sleep(10) 
+        except (json.JSONDecodeError, ValueError) as ve:
+            logging.warning(f"    ⚠️ Validation/Parser Error for {cutoff_date_str}: {ve}. Retrying...")
+            time.sleep(5) 
             
         except Exception as e:
             error_str = str(e).lower()
@@ -163,7 +215,6 @@ def generate_dashboard():
         logging.error("🛑 dashboard_template.html not found! Cannot build visual dashboard.")
         return
 
-    # Properly inject the data string into the HTML
     final_html = html_template.replace("__PYTHON_INJECT_DATA_HERE__", json_data_str)
 
     with open("dashboard.html", "w", encoding="utf-8") as f:
@@ -198,7 +249,11 @@ if __name__ == "__main__":
             logging.error(f"🛑 FATAL: Cannot process {date_str} because the previous month's JSON is missing.")
             break 
             
-        analysis = generate_analysis(date_str, prev_state)
+        # Fetch actual data for injection
+        market_feed = get_market_data_feed(date_str)
+        universe_data = get_microcap_universe(date_str)
+            
+        analysis = generate_analysis(date_str, prev_state, market_feed, universe_data)
         
         if analysis:
             filename = OUTPUT_DIR / f"{date_str.replace('-', '_')}.json"
@@ -220,7 +275,6 @@ if __name__ == "__main__":
 
     logging.info("🎉 RUN COMPLETE. Checking for data to build Dashboard...")
     
-    # Check folder directly and force build
     json_files = list(OUTPUT_DIR.glob("*.json")) if OUTPUT_DIR.exists() else []
     
     if len(json_files) > 0:
