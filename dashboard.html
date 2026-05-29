@@ -34,7 +34,6 @@
                 </div>
             </div>
             <select id="date-select" class="bg-zinc-800 text-xs md:text-sm font-mono border border-zinc-700 rounded-xl px-3 py-2 outline-none focus:border-emerald-500 transition-colors">
-                <option>Loading dates...</option>
             </select>
         </div>
         
@@ -50,64 +49,54 @@
     <div class="p-4 max-w-5xl mx-auto" id="dashboard-content">
         <div class="flex flex-col justify-center items-center h-64 text-zinc-500">
             <i class="fa-solid fa-circle-notch fa-spin text-3xl mb-4 text-emerald-500"></i>
-            <p class="text-sm font-mono tracking-wide">Syncing with GitHub Repository...</p>
+            <p class="text-sm font-mono tracking-wide">Loading Dashboard...</p>
         </div>
     </div>
 
     <script>
         let currentData = null;
-        let availableReports = [];
-        let currentIndex = 0;
         let chartInstance = null;
+        
+        // Exact hardcoded array from your working HTML to ensure 100% stability
+        let availableReports = [
+            "28_Feb_2026.json",
+            "30_Apr_2026.json",
+            "31_Dec_2025.json",
+            "31_Jan_2026.json",
+            "31_Mar_2026.json",
+            "31_May_2026.json"
+        ];
+        
+        // Sort chronologically based on the filename strings
+        availableReports.sort((a, b) => {
+            let dateA = new Date(a.replace(/_/g, '-').replace('.json', ''));
+            let dateB = new Date(b.replace(/_/g, '-').replace('.json', ''));
+            return dateA - dateB; 
+        });
 
-        // Auto-discover files using GitHub's free public API with a hardcoded fallback
-        async function fetchAvailableReports() {
-            try {
-                const res = await fetch('https://api.github.com/repos/dkraj0612/nse-delivery-data/contents/reports');
-                if (!res.ok) throw new Error("API Rate Limit");
-                
-                const files = await res.json();
-                availableReports = files.filter(f => f.name.endsWith('.json')).map(f => f.name);
-            } catch (e) {
-                console.warn("GitHub API limit reached. Using fallback list.");
-                // Fallback list just in case GitHub API blocks the request
-                availableReports = ["28_Feb_2026.json","30_Apr_2026.json","31_Dec_2025.json","31_Jan_2026.json","31_Mar_2026.json","31_May_2026.json"];
-            }
-
-            // Sort chronologically (Oldest to Newest)
-            availableReports.sort((a, b) => {
-                let dateA = new Date(a.replace(/_/g, '-').replace('.json', ''));
-                let dateB = new Date(b.replace(/_/g, '-').replace('.json', ''));
-                return dateA - dateB; 
-            });
-
-            if (availableReports.length > 0) {
-                // Default to the newest report (last in sorted array)
-                currentIndex = availableReports.length - 1; 
-                await loadReport(availableReports[currentIndex]);
-            } else {
-                document.getElementById("dashboard-content").innerHTML = `<div class="p-8 text-center text-rose-400 border border-rose-900 bg-rose-950/20 rounded-2xl"><i class="fa-solid fa-triangle-exclamation text-2xl mb-2"></i><br>No reports found in the repository.</div>`;
-            }
-        }
+        // Default to the newest report
+        let currentIndex = availableReports.length - 1;
 
         async function loadReport(filename) {
             document.getElementById('dashboard-content').innerHTML = `
                 <div class="flex flex-col justify-center items-center h-64 text-zinc-500">
                     <i class="fa-solid fa-cloud-arrow-down fa-bounce text-3xl mb-4 text-emerald-500"></i>
-                    <p class="text-sm font-mono tracking-wide">Downloading ${filename}...</p>
+                    <p class="text-sm font-mono tracking-wide">Downloading data...</p>
                 </div>`;
             
             try {
-                // Direct raw fetch (bypasses GitHub Pages routing issues)
-                const url = `https://raw.githubusercontent.com/dkraj0612/nse-delivery-data/main/reports/${filename}?t=${Date.now()}`;
+                // Exact raw URL pipeline from your working code
+                const url = \`https://raw.githubusercontent.com/dkraj0612/nse-delivery-data/main/reports/\${filename}\`;
                 const res = await fetch(url);
-                if(!res.ok) throw new Error("Failed to load file.");
+                
+                if(!res.ok) throw new Error("HTTP Error " + res.status);
                 
                 currentData = await res.json();
                 updateDateSelector();
                 showTab(0); // Default to Overview tab
+                
             } catch (e) {
-                document.getElementById("dashboard-content").innerHTML = `<div class="p-8 text-center text-rose-400 border border-rose-900 bg-rose-950/20 rounded-2xl">Error loading ${filename}: ${e.message}</div>`;
+                document.getElementById("dashboard-content").innerHTML = \`<div class="p-8 text-center text-rose-400 border border-rose-900 bg-rose-950/20 rounded-2xl">Error loading \${filename}: \${e.message}</div>\`;
             }
         }
 
@@ -122,7 +111,7 @@
             const dd = metrics.max_drawdown_pct;
             const ddColor = dd < 0 ? 'text-rose-400' : 'text-zinc-100';
 
-            const html = `
+            const html = \`
                 <div class="space-y-6 animate-[fadeIn_0.3s_ease-out]">
                     <div class="glass border border-zinc-800 rounded-3xl p-6 md:p-8 shadow-xl">
                         <h2 class="text-lg md:text-xl font-semibold mb-8 flex items-center"><i class="fa-solid fa-chart-line text-emerald-500 mr-3"></i> Strategy Performance Metrics</h2>
@@ -130,32 +119,32 @@
                         <div class="grid grid-cols-2 md:grid-cols-3 gap-y-8 gap-x-4">
                             <div class="text-center">
                                 <div class="text-[10px] md:text-xs text-zinc-500 font-semibold tracking-widest uppercase mb-1">Total Return</div>
-                                <div class="text-3xl md:text-4xl font-bold font-mono tracking-tighter ${retColor}">${formatNum(ret)}%</div>
+                                <div class="text-3xl md:text-4xl font-bold font-mono tracking-tighter \${retColor}">\${formatNum(ret)}%</div>
                             </div>
                             <div class="text-center">
                                 <div class="text-[10px] md:text-xs text-zinc-500 font-semibold tracking-widest uppercase mb-1">Est. CAGR</div>
-                                <div class="text-3xl md:text-4xl font-bold font-mono tracking-tighter text-zinc-100">${formatNum(metrics.cagr_pct)}%</div>
+                                <div class="text-3xl md:text-4xl font-bold font-mono tracking-tighter text-zinc-100">\${formatNum(metrics.cagr_pct)}%</div>
                             </div>
                             <div class="text-center">
                                 <div class="text-[10px] md:text-xs text-zinc-500 font-semibold tracking-widest uppercase mb-1">Max Drawdown</div>
-                                <div class="text-3xl md:text-4xl font-bold font-mono tracking-tighter ${ddColor}">${formatNum(dd)}%</div>
+                                <div class="text-3xl md:text-4xl font-bold font-mono tracking-tighter \${ddColor}">\${formatNum(dd)}%</div>
                             </div>
                             <div class="text-center">
                                 <div class="text-[10px] md:text-xs text-zinc-500 font-semibold tracking-widest uppercase mb-1">Sharpe Ratio</div>
-                                <div class="text-3xl md:text-4xl font-bold font-mono tracking-tighter text-zinc-100">${formatNum(metrics.sharpe_ratio)}</div>
+                                <div class="text-3xl md:text-4xl font-bold font-mono tracking-tighter text-zinc-100">\${formatNum(metrics.sharpe_ratio)}</div>
                             </div>
                             <div class="text-center">
                                 <div class="text-[10px] md:text-xs text-zinc-500 font-semibold tracking-widest uppercase mb-1">Volatility</div>
-                                <div class="text-3xl md:text-4xl font-bold font-mono tracking-tighter text-zinc-100">${formatNum(metrics.volatility)}%</div>
+                                <div class="text-3xl md:text-4xl font-bold font-mono tracking-tighter text-zinc-100">\${formatNum(metrics.volatility)}%</div>
                             </div>
                             <div class="text-center">
                                 <div class="text-[10px] md:text-xs text-zinc-500 font-semibold tracking-widest uppercase mb-1">Beta (vs Nifty)</div>
-                                <div class="text-3xl md:text-4xl font-bold font-mono tracking-tighter text-zinc-100">${formatNum(metrics.beta_to_nifty)}</div>
+                                <div class="text-3xl md:text-4xl font-bold font-mono tracking-tighter text-zinc-100">\${formatNum(metrics.beta_to_nifty)}</div>
                             </div>
                         </div>
                     </div>
                 </div>
-            `;
+            \`;
             document.getElementById("dashboard-content").innerHTML = html;
         }
 
@@ -165,40 +154,40 @@
             const sectors = currentData.model_portfolio.metrics?.sector_allocation || {};
 
             let holdingsHTML = holdings.map(h => {
-                // True Data Badges logic
+                // Safeguard against old JSONs that don't have real_pnl_pct yet
                 let hasRealData = h.real_pnl_pct !== undefined;
-                let pnlColor = h.real_pnl_pct > 0 ? 'text-emerald-400 border-emerald-900 bg-emerald-950/30' : (h.real_pnl_pct < 0 ? 'text-rose-400 border-rose-900 bg-rose-950/30' : 'text-zinc-400 border-zinc-700 bg-zinc-800');
+                let pnlColor = hasRealData && h.real_pnl_pct > 0 ? 'text-emerald-400 border-emerald-900 bg-emerald-950/30' : (hasRealData && h.real_pnl_pct < 0 ? 'text-rose-400 border-rose-900 bg-rose-950/30' : 'text-zinc-400 border-zinc-700 bg-zinc-800');
                 
-                let entryBadge = h.entry_price_inr ? `<span class="bg-zinc-800/80 text-zinc-300 text-[10px] md:text-xs px-2 py-1 rounded border border-zinc-700/50 font-mono">In: ₹${h.entry_price_inr}</span>` : '';
-                let exitBadge = h.exit_price_inr ? `<span class="bg-zinc-800/80 text-zinc-300 text-[10px] md:text-xs px-2 py-1 rounded border border-zinc-700/50 font-mono">Out: ₹${h.exit_price_inr}</span>` : '';
-                let pnlBadge = hasRealData ? `<span class="${pnlColor} text-[10px] md:text-xs font-bold px-2 py-1 rounded border font-mono">PnL: ${h.real_pnl_pct > 0 ? '+' : ''}${h.real_pnl_pct}%</span>` : '';
-                let statusBadge = h.error ? `<span class="text-rose-400 text-[10px] border border-rose-900 bg-rose-950/30 px-2 py-1 rounded">${h.error}</span>` : '';
+                let entryBadge = h.entry_price_inr ? \`<span class="bg-zinc-800/80 text-zinc-300 text-[10px] md:text-xs px-2 py-1 rounded border border-zinc-700/50 font-mono">In: ₹\${h.entry_price_inr}</span>\` : '';
+                let exitBadge = h.exit_price_inr ? \`<span class="bg-zinc-800/80 text-zinc-300 text-[10px] md:text-xs px-2 py-1 rounded border border-zinc-700/50 font-mono">Out: ₹\${h.exit_price_inr}</span>\` : '';
+                let pnlBadge = hasRealData ? \`<span class="\${pnlColor} text-[10px] md:text-xs font-bold px-2 py-1 rounded border font-mono">PnL: \${h.real_pnl_pct > 0 ? '+' : ''}\${h.real_pnl_pct}%</span>\` : '';
+                let statusBadge = h.error ? \`<span class="text-rose-400 text-[10px] border border-rose-900 bg-rose-950/30 px-2 py-1 rounded">\${h.error}</span>\` : '';
 
-                return `
+                return \`
                 <div class="border-b border-zinc-800/50 py-5 last:border-0 hover:bg-zinc-800/20 transition-colors px-2 rounded-xl">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                         <div class="flex-1 w-full">
                             <div class="flex items-center justify-between md:justify-start gap-3">
-                                <div class="font-semibold text-base md:text-lg text-zinc-100">${h.stock_name}</div>
-                                <div class="text-emerald-500/80 font-mono text-xs border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 rounded">${h.ticker}</div>
+                                <div class="font-semibold text-base md:text-lg text-zinc-100">\${h.stock_name}</div>
+                                <div class="text-emerald-500/80 font-mono text-xs border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 rounded">\${h.ticker}</div>
                             </div>
                             
                             <!-- True Price Badges Row -->
                             <div class="flex flex-wrap gap-2 mt-3 mb-3">
-                                ${entryBadge} ${exitBadge} ${pnlBadge} ${statusBadge}
+                                \${entryBadge} \${exitBadge} \${pnlBadge} \${statusBadge}
                             </div>
                             
-                            <p class="text-xs md:text-sm text-zinc-400 leading-relaxed border-l-2 border-zinc-700 pl-3 italic">${h.rationale || 'No rationale provided.'}</p>
+                            <p class="text-xs md:text-sm text-zinc-400 leading-relaxed border-l-2 border-zinc-700 pl-3 italic">\${h.rationale || 'No rationale provided.'}</p>
                         </div>
                         <div class="text-left md:text-right shrink-0 mt-2 md:mt-0 w-full md:w-auto flex flex-row md:flex-col justify-between md:justify-start items-center md:items-end">
                             <div class="text-[10px] uppercase tracking-widest text-zinc-500 font-semibold mb-1">Target Weight</div>
-                            <div class="text-2xl md:text-3xl font-bold text-zinc-100 font-mono">${h.allocation_pct}%</div>
+                            <div class="text-2xl md:text-3xl font-bold text-zinc-100 font-mono">\${h.allocation_pct}%</div>
                         </div>
                     </div>
                 </div>
-            `}).join('');
+            \`}).join('');
 
-            const html = `
+            const html = \`
                 <div class="space-y-6 animate-[fadeIn_0.3s_ease-out]">
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         <!-- Sector Doughnut -->
@@ -213,15 +202,12 @@
                         <div class="glass border border-zinc-800 rounded-3xl p-6 shadow-xl lg:col-span-2">
                             <h2 class="text-lg font-semibold mb-6 flex justify-between items-center border-b border-zinc-800 pb-4">
                                 <span>Constituents</span>
-                                <span class="text-[10px] bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-1 rounded flex items-center font-mono uppercase tracking-wider">
-                                    <i class="fa-solid fa-server mr-1.5"></i> YF Market Sync
-                                </span>
                             </h2>
-                            <div class="space-y-1">${holdingsHTML}</div>
+                            <div class="space-y-1">\${holdingsHTML}</div>
                         </div>
                     </div>
                 </div>
-            `;
+            \`;
 
             document.getElementById("dashboard-content").innerHTML = html;
 
@@ -229,7 +215,6 @@
             if (chartInstance) chartInstance.destroy();
             const ctx = document.getElementById('sectorChart');
             if (ctx && Object.keys(sectors).length > 0) {
-                // Professional color palette
                 const colors = ['#10b981', '#3b82f6', '#f59e0b', '#8b5cf6', '#ec4899', '#06b6d4', '#f97316', '#64748b'];
                 chartInstance = new Chart(ctx, {
                     type: 'doughnut',
@@ -265,30 +250,28 @@
             const sentiment = currentData.x_sentiment || {};
             const review = currentData.consistency_check || {};
 
-            // Helper to build cards to avoid massive HTML string
             const buildCard = (title, icon, content) => {
                 if(!content || content === '') return '';
-                return `
+                return \`
                 <div class="bg-zinc-900/50 border border-zinc-800/50 rounded-2xl p-5">
-                    <h3 class="text-sm font-semibold text-emerald-400 uppercase tracking-widest mb-3 flex items-center"><i class="${icon} mr-2 opacity-80"></i> ${title}</h3>
-                    <p class="text-sm text-zinc-300 leading-relaxed">${content}</p>
-                </div>`;
+                    <h3 class="text-sm font-semibold text-emerald-400 uppercase tracking-widest mb-3 flex items-center"><i class="\${icon} mr-2 opacity-80"></i> \${title}</h3>
+                    <p class="text-sm text-zinc-300 leading-relaxed">\${content}</p>
+                </div>\`;
             };
 
-            const html = `
+            const html = \`
                 <div class="space-y-6 animate-[fadeIn_0.3s_ease-out]">
-                    
                     <!-- Forward Outlook Banner -->
                     <div class="glass border-l-4 border-l-emerald-500 border-t border-b border-r border-zinc-800 rounded-r-3xl rounded-l-none p-6 shadow-xl relative overflow-hidden">
                         <div class="absolute -right-4 -top-4 text-emerald-500/5 text-9xl"><i class="fa-solid fa-bullseye"></i></div>
                         <h2 class="text-xl font-semibold mb-5 relative z-10">Forward Strategy Outlook</h2>
                         <div class="flex flex-wrap gap-4 mb-5 relative z-10">
-                            <div class="bg-zinc-950/50 border border-zinc-800 px-4 py-2 rounded-xl text-sm flex items-center shadow-inner"><span class="text-zinc-500 mr-2 text-xs uppercase tracking-widest">Bias</span> <span class="font-bold font-mono text-emerald-400">${outlook.directional_bias || '--'}</span></div>
-                            <div class="bg-zinc-950/50 border border-zinc-800 px-4 py-2 rounded-xl text-sm flex items-center shadow-inner"><span class="text-zinc-500 mr-2 text-xs uppercase tracking-widest">Confidence</span> <span class="font-bold font-mono text-zinc-100">${outlook.confidence_percent || '--'}%</span></div>
-                            <div class="bg-zinc-950/50 border border-zinc-800 px-4 py-2 rounded-xl text-sm flex items-center shadow-inner hidden md:flex"><span class="text-zinc-500 mr-2 text-xs uppercase tracking-widest">Nifty Range</span> <span class="font-bold font-mono text-zinc-100">${outlook.expected_nifty_range || '--'}</span></div>
+                            <div class="bg-zinc-950/50 border border-zinc-800 px-4 py-2 rounded-xl text-sm flex items-center shadow-inner"><span class="text-zinc-500 mr-2 text-xs uppercase tracking-widest">Bias</span> <span class="font-bold font-mono text-emerald-400">\${outlook.directional_bias || '--'}</span></div>
+                            <div class="bg-zinc-950/50 border border-zinc-800 px-4 py-2 rounded-xl text-sm flex items-center shadow-inner"><span class="text-zinc-500 mr-2 text-xs uppercase tracking-widest">Confidence</span> <span class="font-bold font-mono text-zinc-100">\${outlook.confidence_percent || '--'}%</span></div>
+                            <div class="bg-zinc-950/50 border border-zinc-800 px-4 py-2 rounded-xl text-sm flex items-center shadow-inner hidden md:flex"><span class="text-zinc-500 mr-2 text-xs uppercase tracking-widest">Nifty Range</span> <span class="font-bold font-mono text-zinc-100">\${outlook.expected_nifty_range || '--'}</span></div>
                         </div>
                         <div class="bg-zinc-950/30 border border-zinc-800/50 p-4 rounded-xl relative z-10">
-                            <p class="text-sm text-zinc-200 leading-relaxed"><strong class="text-emerald-500 font-semibold mr-1">Base Case:</strong> ${outlook.base_case || 'No base case provided.'}</p>
+                            <p class="text-sm text-zinc-200 leading-relaxed"><strong class="text-emerald-500 font-semibold mr-1">Base Case:</strong> \${outlook.base_case || 'No base case provided.'}</p>
                         </div>
                     </div>
 
@@ -296,32 +279,29 @@
                     <div class="glass border border-zinc-800 rounded-3xl p-6 shadow-xl">
                         <h2 class="text-lg font-semibold mb-6 border-b border-zinc-800 pb-4">Macro & Sentiment Analysis</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            ${buildCard('Market Snapshot', 'fa-solid fa-camera', snap.text_summary)}
-                            ${buildCard('Key Catalysts', 'fa-solid fa-bolt', drivers.text_summary)}
-                            ${buildCard('Midcap Context', 'fa-solid fa-layer-group', midcap.text_summary)}
-                            ${buildCard('F&O / Flows', 'fa-solid fa-water', options.text_summary)}
-                            ${buildCard('Market Sentiment', 'fa-solid fa-users', sentiment.text_summary)}
-                            ${buildCard('Consistency Review', 'fa-solid fa-clock-rotate-left', review.text_summary)}
+                            \${buildCard('Market Snapshot', 'fa-solid fa-camera', snap.text_summary)}
+                            \${buildCard('Key Catalysts', 'fa-solid fa-bolt', drivers.text_summary)}
+                            \${buildCard('Midcap Context', 'fa-solid fa-layer-group', midcap.text_summary)}
+                            \${buildCard('F&O / Flows', 'fa-solid fa-water', options.text_summary)}
+                            \${buildCard('Market Sentiment', 'fa-solid fa-users', sentiment.text_summary)}
+                            \${buildCard('Consistency Review', 'fa-solid fa-clock-rotate-left', review.text_summary)}
                         </div>
                     </div>
                 </div>
-            `;
+            \`;
             document.getElementById("dashboard-content").innerHTML = html;
         }
 
         function showTab(tab) {
-            // Reset styles
             document.querySelectorAll('[id^="tab-"]').forEach(el => {
                 el.classList.remove('nav-active', 'text-zinc-200');
                 el.classList.add('text-zinc-400');
             });
             
-            // Activate selected tab
-            const activeTab = document.getElementById(`tab-${tab}`);
+            const activeTab = document.getElementById(\`tab-\${tab}\`);
             activeTab.classList.remove('text-zinc-400');
             activeTab.classList.add('nav-active');
             
-            // Render specific view
             if (tab === 1) renderPortfolio();
             else if (tab === 2) renderOutlook();
             else renderOverview();
@@ -331,35 +311,30 @@
             const select = document.getElementById("date-select");
             select.innerHTML = '';
             
-            // Re-populate dropdown
             availableReports.forEach((file, i) => {
                 const opt = document.createElement("option");
                 opt.value = i;
-                
-                // Make date prettier: '31_May_2026.json' -> '31 May 2026'
-                let cleanName = file.replace(".json", "").replace(/_/g, " ");
-                opt.textContent = cleanName;
-                
+                opt.textContent = file.replace(".json", "").replace(/_/g, " ");
                 if (i === currentIndex) opt.selected = true;
                 select.appendChild(opt);
             });
             
-            // Handle dropdown changes
             select.onchange = () => { 
                 currentIndex = parseInt(select.value); 
                 loadReport(availableReports[currentIndex]); 
             };
         }
 
-        // Add a simple fade-in animation to Tailwind via JS insertion
+        // Add fade-in animation styles
         const style = document.createElement('style');
-        style.innerHTML = `@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }`;
+        style.innerHTML = \`@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }\`;
         document.head.appendChild(style);
 
         // Start the engine
-        window.onload = () => fetchAvailableReports();
+        window.onload = () => loadReport(availableReports[currentIndex]);
     </script>
 </body>
 </html>
+
 
 ```
