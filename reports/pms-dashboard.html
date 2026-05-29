@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PMS • NSE Delivery Intelligence</title>
+    <title>PMS Dashboard • NSE Delivery</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -11,64 +11,67 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body { font-family: 'Inter', system-ui, sans-serif; }
         .glass { background: rgba(255,255,255,0.06); backdrop-filter: blur(16px); }
-        .nav-active { border-bottom: 3px solid #22c55e; color: #22c55e; }
-        .card-hover:hover { transform: translateY(-6px); }
+        .nav-active { border-bottom: 3px solid #22c55e; color: #22c55e !important; }
+        .card-hover:hover { transform: translateY(-4px); }
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0 !important; }
+        }
     </style>
 </head>
-<body class="bg-zinc-950 text-zinc-200 min-h-screen">
-    <div class="flex h-screen overflow-hidden">
-        <!-- Sidebar -->
-        <div class="w-72 bg-zinc-900 border-r border-zinc-800 flex flex-col">
-            <div class="p-6 border-b border-zinc-800">
+<body class="bg-zinc-950 text-zinc-200">
+    <div class="min-h-screen">
+        <!-- Top Navbar (Mobile Friendly) -->
+        <div class="bg-zinc-900 border-b border-zinc-800 p-4 sticky top-0 z-50">
+            <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-emerald-500 rounded-2xl flex items-center justify-center text-black font-bold text-2xl">P</div>
+                    <div class="w-9 h-9 bg-emerald-500 rounded-2xl flex items-center justify-center text-black font-bold">P</div>
                     <div>
-                        <h1 class="text-2xl font-semibold tracking-tight">PMS Dashboard</h1>
+                        <h1 class="text-xl font-semibold">PMS Dashboard</h1>
                         <p class="text-xs text-zinc-500">30+ Years Experience</p>
                     </div>
                 </div>
-            </div>
-
-            <div class="p-6">
-                <label class="text-xs font-medium text-zinc-400 mb-2 block">REPORT DATE</label>
-                <select id="date-select" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-4 py-3 focus:outline-none focus:border-emerald-500"></select>
-            </div>
-
-            <div class="px-6 flex gap-3">
-                <button onclick="prevDate()" class="flex-1 bg-zinc-800 hover:bg-zinc-700 py-3 rounded-2xl flex items-center justify-center gap-2">
-                    <i class="fas fa-chevron-left"></i> Prev
-                </button>
-                <button onclick="nextDate()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 py-3 rounded-2xl flex items-center justify-center gap-2 font-semibold">
-                    Next <i class="fas fa-chevron-right"></i>
-                </button>
-            </div>
-
-            <div class="mt-8 px-6 overflow-auto">
-                <div class="text-xs font-mono text-zinc-500 mb-3">AVAILABLE REPORTS</div>
-                <div id="date-list" class="space-y-1"></div>
+                <select id="date-select-mobile" class="bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-sm"></select>
             </div>
         </div>
 
-        <!-- Main -->
-        <div class="flex-1 overflow-auto">
-            <div class="sticky top-0 bg-zinc-900 border-b border-zinc-800 px-8 py-5 flex items-center justify-between z-50">
-                <div class="flex gap-8 text-sm font-medium">
-                    <div onclick="showTab(0)" id="tab-0" class="nav-active cursor-pointer pb-1">OVERVIEW</div>
-                    <div onclick="showTab(1)" id="tab-1" class="cursor-pointer pb-1 text-zinc-400 hover:text-white">PORTFOLIO</div>
-                    <div onclick="showTab(2)" id="tab-2" class="cursor-pointer pb-1 text-zinc-400 hover:text-white">OUTLOOK</div>
+        <div class="flex">
+            <!-- Sidebar (Desktop) -->
+            <div class="w-72 bg-zinc-900 border-r border-zinc-800 hidden md:flex flex-col h-screen overflow-auto">
+                <div class="p-6 space-y-6">
+                    <div>
+                        <label class="text-xs font-medium text-zinc-400 block mb-2">REPORT DATE</label>
+                        <select id="date-select" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-4 py-3"></select>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="prevDate()" class="flex-1 bg-zinc-800 hover:bg-zinc-700 py-3 rounded-2xl text-sm">← Prev</button>
+                        <button onclick="nextDate()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 py-3 rounded-2xl text-sm font-semibold">Next →</button>
+                    </div>
                 </div>
-                <div id="current-date" class="text-right"></div>
+                <div class="px-6">
+                    <div class="text-xs font-mono text-zinc-500 mb-3">REPORTS</div>
+                    <div id="date-list" class="space-y-1"></div>
+                </div>
             </div>
 
-            <div class="p-8" id="dashboard-content"></div>
+            <!-- Main Content -->
+            <div class="flex-1 p-4 md:p-8 main-content">
+                <div class="flex gap-4 mb-6 border-b border-zinc-800 pb-4 overflow-x-auto">
+                    <button onclick="showTab(0)" id="tab-0" class="nav-active px-5 py-2 whitespace-nowrap">Overview</button>
+                    <button onclick="showTab(1)" id="tab-1" class="px-5 py-2 whitespace-nowrap text-zinc-400 hover:text-white">Portfolio</button>
+                    <button onclick="showTab(2)" id="tab-2" class="px-5 py-2 whitespace-nowrap text-zinc-400 hover:text-white">Outlook</button>
+                </div>
+
+                <div id="dashboard-content" class="space-y-8"></div>
+            </div>
         </div>
     </div>
 
     <script>
         let currentData = null;
         let availableReports = ["28_Feb_2026.json","30_Apr_2026.json","31_Dec_2025.json","31_Jan_2026.json","31_Mar_2026.json","31_May_2026.json"];
-        let currentIndex = 0;
-        let allocationChart = null;
+        let currentIndex = 5; // Default to latest
+        let chartInstance = null;
 
         async function loadReport(filename) {
             try {
@@ -76,182 +79,167 @@
                 const res = await fetch(url);
                 currentData = await res.json();
                 renderOverview();
-                updateDateSelector();
-            } catch (e) {
+                updateSelectors();
+            } catch(e) {
                 console.error(e);
-                alert("Failed to load: " + filename);
             }
         }
 
         function renderOverview() {
             const html = `
-                <div class="grid grid-cols-12 gap-6">
-                    <div class="col-span-12 lg:col-span-8">
-                        <div class="glass border border-zinc-700 rounded-3xl p-8 card-hover">
-                            <h2 class="text-xl font-semibold mb-4">Market Snapshot</h2>
-                            <p class="text-zinc-300 leading-relaxed whitespace-pre-line">${currentData.market_snapshot?.text_summary || 'No data'}</p>
-                        </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="glass border border-zinc-700 rounded-3xl p-6">
+                        <h2 class="text-lg font-semibold mb-4">Market Snapshot</h2>
+                        <p class="text-zinc-300 text-[15px] leading-relaxed whitespace-pre-line">${currentData.market_snapshot?.text_summary || ''}</p>
                     </div>
-                    <div class="col-span-12 lg:col-span-4">
-                        <div class="glass border border-zinc-700 rounded-3xl p-8 h-full card-hover">
-                            <h2 class="text-amber-400 mb-4">KEY DRIVERS</h2>
-                            <p class="text-zinc-300 whitespace-pre-line">${currentData.key_drivers?.text_summary || ''}</p>
-                        </div>
+                    <div class="glass border border-zinc-700 rounded-3xl p-6">
+                        <h2 class="text-amber-400 text-sm mb-4">KEY DRIVERS</h2>
+                        <p class="text-zinc-300 text-[15px]">${currentData.key_drivers?.text_summary || ''}</p>
                     </div>
-                    <div class="col-span-12 lg:col-span-6">
-                        <div class="glass border border-zinc-700 rounded-3xl p-8 card-hover">
-                            <h2 class="mb-4">MIDCP NIFTY</h2>
-                            <p class="text-zinc-300 whitespace-pre-line">${currentData.midcp_analysis?.text_summary || ''}</p>
-                        </div>
+                    <div class="glass border border-zinc-700 rounded-3xl p-6 md:col-span-2">
+                        <h2 class="text-sky-400 text-sm mb-4">MIDCP + SECTOR FLOWS</h2>
+                        <p class="text-zinc-300">${currentData.midcp_analysis?.text_summary || ''}</p>
+                        <p class="text-zinc-300 mt-4">${currentData.sectoral_option_flows?.text_summary || ''}</p>
                     </div>
-                    <div class="col-span-12 lg:col-span-6">
-                        <div class="glass border border-zinc-700 rounded-3xl p-8 card-hover">
-                            <h2 class="text-rose-400 mb-4">SECTORAL FLOWS</h2>
-                            <p class="text-zinc-300 whitespace-pre-line">${currentData.sectoral_option_flows?.text_summary || ''}</p>
-                        </div>
-                    </div>
-                    <div class="col-span-12">
-                        <div class="glass border border-zinc-700 rounded-3xl p-8 card-hover">
-                            <h2 class="text-sky-400 mb-4">X SENTIMENT</h2>
-                            <p class="text-zinc-300 whitespace-pre-line">${currentData.x_sentiment?.text_summary || ''}</p>
-                        </div>
+                    <div class="glass border border-zinc-700 rounded-3xl p-6">
+                        <h2 class="text-sky-400 text-sm mb-4">X SENTIMENT</h2>
+                        <p class="text-zinc-300">${currentData.x_sentiment?.text_summary || ''}</p>
                     </div>
                 </div>
             `;
             document.getElementById("dashboard-content").innerHTML = html;
-            document.getElementById("current-date").innerHTML = `
-                <div class="text-emerald-400 text-xl font-semibold">${currentData.cutoff_date}</div>
-            `;
         }
 
         function renderPortfolio() {
             const holdings = currentData.model_portfolio?.portfolio_holdings || [];
-            let rows = '';
-            holdings.forEach(h => {
-                rows += `
-                    <tr class="border-b border-zinc-800 hover:bg-zinc-900">
-                        <td class="py-6">
-                            <div class="font-semibold">${h.stock_name}</div>
-                            <div class="text-emerald-400 font-mono">${h.ticker}</div>
-                        </td>
-                        <td class="py-6 text-right font-bold text-xl">${h.allocation_pct}%</td>
-                        <td class="py-6 text-zinc-400">${h.rationale || ''}</td>
-                    </tr>
-                `;
-            });
+            let rows = holdings.map(h => `
+                <tr class="border-b border-zinc-800">
+                    <td class="py-4">
+                        <div class="font-medium">${h.stock_name}</div>
+                        <div class="text-emerald-400 text-sm font-mono">${h.ticker}</div>
+                    </td>
+                    <td class="py-4 text-right font-bold">${h.allocation_pct}%</td>
+                    <td class="py-4 text-xs text-zinc-400">${h.rationale || ''}</td>
+                </tr>
+            `).join('');
 
             const metrics = currentData.model_portfolio?.metrics || {};
-            const sectorAlloc = metrics.sector_allocation || {};
+            const sectors = metrics.sector_allocation || {};
 
-            let sectorHTML = '';
-            Object.keys(sectorAlloc).forEach(sector => {
-                sectorHTML += `<div class="flex justify-between py-1"><span>${sector}</span><span class="font-medium">${sectorAlloc[sector]}%</span></div>`;
-            });
+            let sectorRows = Object.entries(sectors).map(([name, pct]) => `
+                <div class="flex justify-between py-2">
+                    <span>${name}</span>
+                    <span class="font-medium">${pct}%</span>
+                </div>
+            `).join('');
 
             const html = `
-                <div class="space-y-8">
-                    <div class="glass border border-zinc-700 rounded-3xl p-8">
-                        <h2 class="text-2xl font-semibold mb-6">Model Portfolio</h2>
-                        <table class="w-full">${rows ? `<thead><tr class="text-xs text-zinc-400 border-b"><th class="text-left py-4">Stock</th><th class="text-right py-4">Alloc</th><th class="text-left pl-8 py-4">Rationale</th></tr></thead><tbody>${rows}</tbody>` : '<p>No holdings</p>'}</table>
+                <div class="glass border border-zinc-700 rounded-3xl p-6">
+                    <h2 class="text-2xl font-semibold mb-6">Model Portfolio Holdings</h2>
+                    <div class="overflow-x-auto">
+                        <table class="w-full min-w-full">${rows}</table>
                     </div>
+                </div>
 
-                    <div class="grid grid-cols-12 gap-6">
-                        <div class="col-span-12 lg:col-span-5 glass border border-zinc-700 rounded-3xl p-8">
-                            <h3 class="font-semibold mb-6">Portfolio Metrics</h3>
-                            <div class="grid grid-cols-2 gap-6 text-sm">
-                                <div>Sharpe Ratio: <span class="font-bold">${metrics.sharpe_ratio || 'N/A'}</span></div>
-                                <div>Beta to Nifty: <span class="font-bold">${metrics.beta_to_nifty || 'N/A'}</span></div>
-                                <div>Volatility: <span class="font-bold">${metrics.volatility || 'N/A'}%</span></div>
-                                <div>Max Drawdown: <span class="font-bold">${metrics.max_drawdown_pct || 'N/A'}%</span></div>
-                            </div>
-                        </div>
-                        <div class="col-span-12 lg:col-span-7 glass border border-zinc-700 rounded-3xl p-8">
-                            <h3 class="font-semibold mb-6">Sector Allocation</h3>
-                            <div class="grid grid-cols-2 gap-x-8">${sectorHTML}</div>
-                            <canvas id="alloc-chart" class="mt-6" height="180"></canvas>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+                    <div class="glass border border-zinc-700 rounded-3xl p-6">
+                        <h3 class="font-semibold mb-6">Portfolio Metrics</h3>
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <div>Sharpe: <span class="font-bold">${metrics.sharpe_ratio || 'N/A'}</span></div>
+                            <div>Beta: <span class="font-bold">${metrics.beta_to_nifty || 'N/A'}</span></div>
+                            <div>Volatility: <span class="font-bold">${metrics.volatility || 'N/A'}%</span></div>
+                            <div>Max DD: <span class="font-bold">${metrics.max_drawdown_pct || 'N/A'}%</span></div>
                         </div>
                     </div>
-
-                    <div class="glass border border-zinc-700 rounded-3xl p-8">
-                        <h3 class="font-medium mb-3">Rebalancing Suggestion</h3>
-                        <p class="text-zinc-300">${currentData.model_portfolio?.rebalancing_suggestion || ''}</p>
+                    <div class="glass border border-zinc-700 rounded-3xl p-6">
+                        <h3 class="font-semibold mb-6">Sector Allocation</h3>
+                        <div class="space-y-2">${sectorRows}</div>
+                        <canvas id="sector-chart" class="mt-6 h-52"></canvas>
                     </div>
                 </div>
             `;
             document.getElementById("dashboard-content").innerHTML = html;
 
-            // Allocation Chart
-            if (allocationChart) allocationChart.destroy();
-            const ctx = document.getElementById('alloc-chart');
+            // Draw Chart
+            if (chartInstance) chartInstance.destroy();
+            const ctx = document.getElementById('sector-chart');
             if (ctx) {
-                allocationChart = new Chart(ctx, {
+                chartInstance = new Chart(ctx, {
                     type: 'doughnut',
-                    data: {
-                        labels: Object.keys(sectorAlloc),
-                        datasets: [{ data: Object.values(sectorAlloc), backgroundColor: ['#22c55e','#eab308','#3b82f6','#a855f7','#ec4899'] }]
-                    },
-                    options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { color: '#ddd' } } } }
+                    data: { labels: Object.keys(sectors), datasets: [{ data: Object.values(sectors), backgroundColor: ['#22c55e','#eab308','#3b82f6','#a855f7','#ec4899','#f43f5e'] }] },
+                    options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { color: '#a1a1aa' } } } }
                 });
             }
         }
 
         function renderOutlook() {
-            const outlook = currentData.one_week_outlook || {};
-            let ideasHTML = (outlook.high_conviction_ideas || []).map(idea => `<li class="pl-2 py-1 text-zinc-300">• ${idea}</li>`).join('');
-            const html = `
-                <div class="glass border border-zinc-700 rounded-3xl p-8">
-                    <h2 class="text-2xl font-semibold mb-8">One Week Outlook</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                        <div class="bg-zinc-900 p-6 rounded-2xl"><div class="text-xs text-zinc-400">BIAS</div><div class="text-4xl font-bold text-emerald-400">${outlook.directional_bias}</div></div>
-                        <div class="bg-zinc-900 p-6 rounded-2xl"><div class="text-xs text-zinc-400">CONFIDENCE</div><div class="text-4xl font-bold">${outlook.confidence_percent}%</div></div>
-                        <div class="bg-zinc-900 p-6 rounded-2xl"><div class="text-xs text-zinc-400">RANGE</div><div class="text-xl font-medium">${outlook.expected_nifty_range}</div></div>
-                    </div>
-                    <div class="space-y-10">
-                        <div><h3 class="text-emerald-400 mb-2">BASE CASE</h3><p>${outlook.base_case}</p></div>
-                        <div class="grid md:grid-cols-2 gap-8">
-                            <div><h3 class="text-amber-400 mb-2">BULL CASE</h3><p>${outlook.bull_case}</p></div>
-                            <div><h3 class="text-rose-400 mb-2">BEAR CASE</h3><p>${outlook.bear_case}</p></div>
+            const o = currentData.one_week_outlook || {};
+            const ideas = (o.high_conviction_ideas || []).map(i => `<li class="text-zinc-300 py-1">• ${i}</li>`).join('');
+            document.getElementById("dashboard-content").innerHTML = `
+                <div class="glass border border-zinc-700 rounded-3xl p-6">
+                    <h2 class="text-2xl font-semibold mb-6">One Week Outlook</h2>
+                    <div class="grid grid-cols-3 gap-4 mb-8">
+                        <div class="bg-zinc-900 p-5 rounded-2xl text-center">
+                            <div class="text-xs text-zinc-400">BIAS</div>
+                            <div class="text-3xl font-bold text-emerald-400">${o.directional_bias}</div>
                         </div>
-                        <div><h3 class="mb-4">HIGH CONVICTION IDEAS</h3><ul class="space-y-3">${ideasHTML}</ul></div>
+                        <div class="bg-zinc-900 p-5 rounded-2xl text-center">
+                            <div class="text-xs text-zinc-400">CONFIDENCE</div>
+                            <div class="text-3xl font-bold">${o.confidence_percent}%</div>
+                        </div>
+                        <div class="bg-zinc-900 p-5 rounded-2xl text-center">
+                            <div class="text-xs text-zinc-400">RANGE</div>
+                            <div class="text-lg">${o.expected_nifty_range}</div>
+                        </div>
+                    </div>
+                    <div class="space-y-8">
+                        <div><strong class="text-emerald-400">BASE CASE:</strong> ${o.base_case}</div>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div><strong class="text-amber-400">BULL CASE:</strong> ${o.bull_case}</div>
+                            <div><strong class="text-rose-400">BEAR CASE:</strong> ${o.bear_case}</div>
+                        </div>
+                        <div><strong>HIGH CONVICTION IDEAS</strong><ul class="list-disc pl-5 mt-3 space-y-2">${ideas}</ul></div>
                     </div>
                 </div>
             `;
-            document.getElementById("dashboard-content").innerHTML = html;
         }
 
-        function showTab(tab) {
-            document.querySelectorAll('[id^="tab-"]').forEach(el => el.classList.remove('nav-active'));
-            document.getElementById(`tab-${tab}`).classList.add('nav-active');
-            if (tab === 1) renderPortfolio();
-            else if (tab === 2) renderOutlook();
+        function showTab(n) {
+            document.querySelectorAll('[id^="tab-"]').forEach(t => t.classList.remove('nav-active'));
+            document.getElementById(`tab-${n}`).classList.add('nav-active');
+            if (n === 1) renderPortfolio();
+            else if (n === 2) renderOutlook();
             else renderOverview();
         }
 
-        function updateDateSelector() {
-            const select = document.getElementById("date-select");
-            const list = document.getElementById("date-list");
-            select.innerHTML = ''; list.innerHTML = '';
-
-            availableReports.forEach((file, i) => {
-                const dateStr = file.replace(".json","").replace(/_/g, " ");
-                const opt = new Option(dateStr, i);
-                if (i === currentIndex) opt.selected = true;
-                select.appendChild(opt);
-
-                const div = document.createElement('div');
-                div.className = `px-4 py-3 rounded-2xl cursor-pointer ${i===currentIndex ? 'bg-emerald-900 text-emerald-300' : 'hover:bg-zinc-800'}`;
-                div.textContent = dateStr;
-                div.onclick = () => { currentIndex = i; loadReport(file); };
-                list.appendChild(div);
+        function updateSelectors() {
+            const dateStr = currentData.cutoff_date;
+            document.getElementById("current-date") && (document.getElementById("current-date").innerHTML = dateStr);
+            
+            // Update both selects
+            ['date-select', 'date-select-mobile'].forEach(id => {
+                const sel = document.getElementById(id);
+                if (sel) {
+                    sel.innerHTML = '';
+                    availableReports.forEach((f, i) => {
+                        const opt = document.createElement('option');
+                        opt.value = i;
+                        opt.textContent = f.replace('.json','').replace(/_/g,' ');
+                        if (i === currentIndex) opt.selected = true;
+                        sel.appendChild(opt);
+                    });
+                    sel.onchange = () => {
+                        currentIndex = +sel.value;
+                        loadReport(availableReports[currentIndex]);
+                    };
+                }
             });
-
-            select.onchange = () => { currentIndex = +select.value; loadReport(availableReports[currentIndex]); };
         }
 
-        function prevDate() { if (currentIndex > 0) { currentIndex--; loadReport(availableReports[currentIndex]); } }
-        function nextDate() { if (currentIndex < availableReports.length-1) { currentIndex++; loadReport(availableReports[currentIndex]); } }
+        function prevDate() { if (currentIndex > 0) { currentIndex--; loadReport(availableReports[currentIndex]); }}
+        function nextDate() { if (currentIndex < availableReports.length-1) { currentIndex++; loadReport(availableReports[currentIndex]); }}
 
-        window.onload = () => loadReport(availableReports[0]);
+        window.onload = () => loadReport(availableReports[currentIndex]);
     </script>
 </body>
 </html>
