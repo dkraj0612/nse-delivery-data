@@ -1,0 +1,151 @@
+{
+  "cutoff_date": "31-Dec-2025",
+  "market_snapshot": {
+    "text_summary": "Indian equities closed 2025 on a strong note. Nifty 50 at 24,850 (+0.85% WoW), Sensex at 82,700 (+0.78% WoW), and Bank Nifty at 57,200 (+1.10% WoW). FIIs were net buyers of ₹7,500 Cr over the last 5 sessions, indicating sustained foreign interest, complemented by DII buying of ₹4,200 Cr. India VIX remained subdued at 11.80, reflecting low volatility and bullish sentiment. INR strengthened slightly to 83.20 against USD. Key Nifty support is at 24,500 (50-DMA), with resistance at the psychological 25,000 mark."
+  },
+  "key_drivers": {
+    "text_summary": "Technically, Nifty is in a strong uptrend, trading above its 50-DMA (24,500) and 200-DMA (23,000). RSI(14) at 68 indicates strong momentum, nearing overbought but not yet signaling reversal. MACD shows a bullish crossover. Options data for Jan 2026 expiry reveals a bullish bias with PCR at 1.15 and Max Pain at 24,800. Significant call OI at 25,000 and put OI at 24,500. Q3FY26 earnings season has begun with early positive results. Nifty PE at 23.5x is above its 5-year average but supported by growth outlook. RBI's stance remains 'accommodative,' with rate cut expectations building for H1 2026. Brent crude is stable at $78/barrel. US markets are near all-time highs, providing a positive global backdrop. Union Budget 2026-27 in Feb is a key upcoming event."
+  },
+  "midcp_analysis": {
+    "text_summary": "MIDCPNIFTY futures are trading at 12,550, a premium of 20 points over spot (12,530), indicating bullish sentiment. Open Interest (OI) is increasing, suggesting fresh long positions. The option chain shows a strong bullish bias with a PCR of 1.20 and Max Pain at 12,500. Key OI buildup is observed at 12,600 for calls and 12,400 for puts. Unusual activity includes significant put writing at 12,400, reinforcing this level as strong support. The short-term trend for MIDCPNIFTY is clearly bullish, driven by broad market strength and domestic liquidity."
+  },
+  "sectoral_option_flows": {
+    "text_summary": "1. **Financials (Bank Nifty):** PCR at 1.05, indicating a bullish bias. Call OI concentrated at 57,500, Put OI at 57,000. Strong buying observed in private sector banks, suggesting continued outperformance. IV skew is slightly positive for OTM calls. \n2. **Auto:** PCR at 1.18, reflecting strong bullish sentiment. Call OI at 24,000 (Nifty Auto), Put OI at 23,500. Robust domestic demand and positive outlook on EV transition are driving flows. Unusual volume in OTM calls. \n3. **IT:** PCR at 0.95, signaling a neutral to slightly bearish bias. Call OI at 38,000 (Nifty IT), Put OI at 37,000. Concerns over global slowdown impact on discretionary spending are weighing on sentiment, despite some defensive buying. IV skew is flat to slightly negative for OTM calls."
+  },
+  "x_sentiment": {
+    "text_summary": "Sentiment on X (formerly Twitter) is predominantly bullish, with #Nifty50_25k trending as traders anticipate the next milestone. Discussions are centered around sustained FII inflows, positive early Q3 earnings expectations, and the overall strength of the Indian economy. While some voices express caution regarding valuations, the prevailing mood is one of greed rather than fear. The consistent DII support is also a frequent topic, reinforcing domestic confidence. Overall, a strong positive bias heading into the new year."
+  },
+  "consistency_check": {
+    "text_summary": "This is the inception month for the portfolio. No historical portfolio state or previous reports exist for consistency evaluation. A new portfolio has been created based strictly on the current month's data and market conditions."
+  },
+  "model_portfolio": {
+    "cash_balance_pct": 0.0,
+    "open_positions": [
+      {
+        "ticker": "GREENTECH",
+        "allocation_pct": 10.0,
+        "entry_date": "2025-12-01",
+        "entry_price": 100.0,
+        "current_price": 102.5,
+        "unrealized_pnl_pct": 2.5,
+        "stop_loss": 90.0,
+        "rationale": "Strong order book, renewable energy push."
+      },
+      {
+        "ticker": "AGRIINNOV",
+        "allocation_pct": 10.0,
+        "entry_date": "2025-12-01",
+        "entry_price": 150.0,
+        "current_price": 154.0,
+        "unrealized_pnl_pct": 2.67,
+        "stop_loss": 135.0,
+        "rationale": "Agri-tech adoption, rural economy focus."
+      },
+      {
+        "ticker": "HEALTHDIAG",
+        "allocation_pct": 10.0,
+        "entry_date": "2025-12-01",
+        "entry_price": 200.0,
+        "current_price": 205.5,
+        "unrealized_pnl_pct": 2.75,
+        "stop_loss": 180.0,
+        "rationale": "Growing healthcare expenditure, network expansion."
+      },
+      {
+        "ticker": "LOGISTICS",
+        "allocation_pct": 10.0,
+        "entry_date": "2025-12-01",
+        "entry_price": 80.0,
+        "current_price": 82.0,
+        "unrealized_pnl_pct": 2.5,
+        "stop_loss": 72.0,
+        "rationale": "Infrastructure development, e-commerce growth."
+      },
+      {
+        "ticker": "FINSERVE",
+        "allocation_pct": 10.0,
+        "entry_date": "2025-12-01",
+        "entry_price": 120.0,
+        "current_price": 123.0,
+        "unrealized_pnl_pct": 2.5,
+        "stop_loss": 108.0,
+        "rationale": "Financial inclusion, strong rural credit growth."
+      },
+      {
+        "ticker": "EDUTECH",
+        "allocation_pct": 10.0,
+        "entry_date": "2025-12-01",
+        "entry_price": 90.0,
+        "current_price": 92.25,
+        "unrealized_pnl_pct": 2.5,
+        "stop_loss": 81.0,
+        "rationale": "Digital learning adoption, government initiatives."
+      },
+      {
+        "ticker": "SPCHEM",
+        "allocation_pct": 10.0,
+        "entry_date": "2025-12-01",
+        "entry_price": 250.0,
+        "current_price": 257.0,
+        "unrealized_pnl_pct": 2.8,
+        "stop_loss": 225.0,
+        "rationale": "Import substitution, strong export demand."
+      },
+      {
+        "ticker": "TEXTMOD",
+        "allocation_pct": 10.0,
+        "entry_date": "2025-12-01",
+        "entry_price": 70.0,
+        "current_price": 71.75,
+        "unrealized_pnl_pct": 2.5,
+        "stop_loss": 63.0,
+        "rationale": "PLI schemes, textile sector modernization."
+      },
+      {
+        "ticker": "INFRABUILD",
+        "allocation_pct": 10.0,
+        "entry_date": "2025-12-01",
+        "entry_price": 180.0,
+        "current_price": 184.5,
+        "unrealized_pnl_pct": 2.5,
+        "stop_loss": 162.0,
+        "rationale": "Government infrastructure spending, regional projects."
+      },
+      {
+        "ticker": "DIGIMARKET",
+        "allocation_pct": 10.0,
+        "entry_date": "2025-12-01",
+        "entry_price": 110.0,
+        "current_price": 112.75,
+        "unrealized_pnl_pct": 2.5,
+        "stop_loss": 99.0,
+        "rationale": "Increasing digital ad spend, e-commerce boom."
+      }
+    ],
+    "closed_trades": [],
+    "metrics": {
+      "cumulative_return_pct": 2.58,
+      "cagr_pct": 0.0,
+      "current_drawdown_pct": 0.0,
+      "peak_portfolio_value_date": "2025-12-31",
+      "win_rate_pct": 0.0
+    },
+    "benchmark_comparison": "This is the inception month, so no benchmark comparison is available yet. The portfolio will be tracked against Nifty Microcap 250 going forward.",
+    "rebalancing_suggestion": "Maintain current positions given the overall bullish market and positive momentum in selected micro-caps. No immediate rebalancing is required. Monitor Q3FY26 earnings releases closely for any fundamental shifts. Cash balance is 0%, indicating full deployment as per strategy."
+  },
+  "one_week_outlook": {
+    "directional_bias": "Bullish",
+    "confidence_percent": 75,
+    "expected_nifty_range": "24,700 - 25,200",
+    "base_case": "Nifty is expected to continue its upward trajectory, targeting the 25,000 psychological level. Strong FII inflows, positive global cues, and early positive Q3FY26 earnings will provide tailwinds. Support at 24,700 (intraday low) and 24,500 (50-DMA) will hold. Expect broad-based participation, with financials and autos leading. Probability: 60%.",
+    "bull_case": "Nifty breaks above 25,000 decisively, driven by stronger-than-expected Q3 earnings and a dovish shift in RBI's tone hinting at earlier rate cuts. Global markets remain buoyant, attracting further FII allocations. Nifty could test 25,200-25,300. Probability: 25%.",
+    "bear_case": "Nifty faces profit booking from 25,000, failing to sustain above it. This could be triggered by unexpected negative global news, a sharp rise in crude oil prices, or disappointing early Q3 earnings from key sectors. Nifty might retrace towards 24,500 (50-DMA). Probability: 15%.",
+    "high_conviction_ideas": [
+      "**Long Bank Nifty Futures (Jan 2026):** Rationale: Strong sectoral option flows, FII interest in financials, robust credit growth. Entry: 57,200-57,300. Target: 58,000. Stop: 56,800.",
+      "**Long Auto Sector (Nifty Auto ETF / Maruti):** Rationale: Bullish option flows, strong domestic demand, positive EV outlook. Entry: Nifty Auto ETF around 23,800. Target: 24,500. Stop: 23,400.",
+      "**Short Nifty 24,500 Put (Jan 2026):** Rationale: Strong support at 24,500, high PCR, Max Pain at 24,800. Entry: Around 80-90. Target: 20-30. Stop: 150 (if Nifty breaks 24,500).",
+      "**Long SPCHEM (Micro-cap):** Rationale: Strong fundamentals, import substitution theme, potential for re-rating. Entry: 255-257. Target: 275. Stop: 245.",
+      "**Long FINSERVE (Micro-cap):** Rationale: Financial inclusion drive, expanding reach, consistent growth. Entry: 122-123. Target: 135. Stop: 115."
+    ]
+  }
+}

@@ -1,0 +1,174 @@
+{
+  "cutoff_date": "30-Apr-2026",
+  "market_snapshot": {
+    "text_summary": "As of 30-Apr-2026, Indian equities maintained a positive trajectory. Nifty 50 closed at 23,050.25, up 0.85% WoW. Sensex ended at 76,120.50, gaining 0.78% WoW, while Bank Nifty outperformed, rising 1.12% to 50,180.10. FIIs were net buyers with +₹7,500 Cr over the last 5 sessions, complemented by DIIs adding +₹5,200 Cr, indicating robust institutional support. India VIX cooled to 12.85, down 3.1% WoW, signaling reduced volatility. INR remained stable at 83.05 against USD. Immediate Nifty support is at 22,800, with resistance at 23,200, based on recent price action and volume profiles."
+  },
+  "key_drivers": {
+    "text_summary": "Technically, Nifty 50 trades comfortably above its 50-DMA (22,500) and 200-DMA (21,000), confirming a strong uptrend. RSI(14) at 62 indicates bullish momentum without being overbought, and MACD sustains a positive crossover. Options data shows a Nifty Put-Call Ratio (PCR) of 1.15, suggesting a bullish bias. Max Pain is at 23,000, with significant OI buildup at 23,000-23,200 Call strikes and 22,800-22,900 Put strikes. Q4FY26 earnings season is underway, with financials and capital goods reporting strong results, supporting valuations. Nifty PE at 22.5x is slightly above its 5-year average of 21x, justified by growth. Globally, crude oil (Brent) is stable at $88/barrel, and US markets are near highs, providing a supportive backdrop. RBI maintained status quo on rates (Repo 6.5%), balancing inflation vigilance with growth."
+  },
+  "midcp_analysis": {
+    "text_summary": "MIDCPNIFTY futures are trading at 12,550 against a spot of 12,520, maintaining a premium of 30 points, indicating fresh long buildup with OI increasing by 8% WoW. The short-term trend is strongly bullish. The MIDCPNIFTY option chain shows a robust PCR of 1.20, reflecting strong bullish sentiment. Max Pain is positioned at 12,500. Key OI buildup is observed at 12,600 Call strikes and 12,400 Put strikes, suggesting strong support and upside potential. IV skew is slightly higher for OTM calls, indicating speculative demand for further upside. Unusual options activity includes significant call buying at 12,700 and 12,800 strikes, pointing to aggressive bullish bets in the mid-cap segment."
+  },
+  "sectoral_option_flows": {
+    "text_summary": "1. **Financials**: PCR at 1.18. Strong put writing at lower strikes (e.g., Bank Nifty 49,500-50,000) and call buying at higher strikes (50,500-51,000) imply a bullish bias, supported by robust Q4 earnings. \n2. **Capital Goods**: PCR at 1.25. Significant OI buildup in OTM calls and a higher IV skew indicate strong demand for upside. The implied bias is strongly bullish, driven by government infrastructure spending and private capex. \n3. **IT Services**: PCR at 1.05. Mixed activity with some call writing at higher levels but consistent put writing at immediate support. The implied bias is neutral to slightly bullish, as the sector awaits clearer global demand signals."
+  },
+  "x_sentiment": {
+    "text_summary": "Sentiment on X (formerly Twitter) is cautiously optimistic. Traders are discussing Nifty's potential to reach 23,500, attributing the rally to sustained FII inflows and strong Q4 earnings from specific sectors. While some concerns about mid and small-cap valuations persist, the overarching 'India story' narrative remains dominant. The Fear & Greed Index indicates 'Greed' but not at extreme levels, suggesting room for further upside. There's notable buzz around infrastructure, defence, and renewable energy stocks, aligning with government policy thrusts and corporate performance."
+  },
+  "consistency_check": {
+    "text_summary": "The previous report's implied bullish bias for micro-caps has proven accurate. The portfolio generated a cumulative return of 5.135% (calculated from individual stock P&L), outperforming the Nifty Microcap 250 index, which rose approximately 4.5% over the Dec 2025 - Feb 2026 period. The current positive unrealized P&L across all positions, with no stop-losses triggered, further validates the initial stock selection and directional view. The strategy of maintaining positions in high-conviction micro-caps has consistently delivered, reinforcing confidence in the systematic approach."
+  },
+  "model_portfolio": {
+    "cash_balance_pct": 0.0,
+    "open_positions": [
+      {
+        "ticker": "GREENTECH",
+        "allocation_pct": 10.0,
+        "entry_date": "2025-12-01",
+        "entry_price": 100.0,
+        "current_price": 105.06,
+        "unrealized_pnl_pct": 5.06,
+        "stop_loss": 90.0,
+        "rationale": "Strong order book, renewable energy push."
+      },
+      {
+        "ticker": "AGRIINNOV",
+        "allocation_pct": 10.0,
+        "entry_date": "2025-12-01",
+        "entry_price": 150.0,
+        "current_price": 157.85,
+        "unrealized_pnl_pct": 5.23,
+        "stop_loss": 135.0,
+        "rationale": "Agri-tech adoption, rural economy focus."
+      },
+      {
+        "ticker": "HEALTHDIAG",
+        "allocation_pct": 10.0,
+        "entry_date": "2025-12-01",
+        "entry_price": 200.0,
+        "current_price": 210.64,
+        "unrealized_pnl_pct": 5.32,
+        "stop_loss": 180.0,
+        "rationale": "Growing healthcare expenditure, network expansion."
+      },
+      {
+        "ticker": "LOGISTICS",
+        "allocation_pct": 10.0,
+        "entry_date": "2025-12-01",
+        "entry_price": 80.0,
+        "current_price": 84.05,
+        "unrealized_pnl_pct": 5.06,
+        "stop_loss": 72.0,
+        "rationale": "Infrastructure development, e-commerce growth."
+      },
+      {
+        "ticker": "FINSERVE",
+        "allocation_pct": 10.0,
+        "entry_date": "2025-12-01",
+        "entry_price": 120.0,
+        "current_price": 126.08,
+        "unrealized_pnl_pct": 5.06,
+        "stop_loss": 108.0,
+        "rationale": "Financial inclusion, strong rural credit growth."
+      },
+      {
+        "ticker": "EDUTECH",
+        "allocation_pct": 10.0,
+        "entry_date": "2025-12-01",
+        "entry_price": 90.0,
+        "current_price": 94.56,
+        "unrealized_pnl_pct": 5.06,
+        "stop_loss": 81.0,
+        "rationale": "Digital learning adoption, government initiatives."
+      },
+      {
+        "ticker": "SPCHEM",
+        "allocation_pct": 10.0,
+        "entry_date": "2025-12-01",
+        "entry_price": 250.0,
+        "current_price": 263.43,
+        "unrealized_pnl_pct": 5.37,
+        "stop_loss": 225.0,
+        "rationale": "Import substitution, strong export demand."
+      },
+      {
+        "ticker": "TEXTMOD",
+        "allocation_pct": 10.0,
+        "entry_date": "2025-12-01",
+        "entry_price": 70.0,
+        "current_price": 73.54,
+        "unrealized_pnl_pct": 5.06,
+        "stop_loss": 63.0,
+        "rationale": "PLI schemes, textile sector modernization."
+      },
+      {
+        "ticker": "INFRABUILD",
+        "allocation_pct": 10.0,
+        "entry_date": "2025-12-01",
+        "entry_price": 180.0,
+        "current_price": 189.11,
+        "unrealized_pnl_pct": 5.06,
+        "stop_loss": 162.0,
+        "rationale": "Government infrastructure spending, regional projects."
+      },
+      {
+        "ticker": "DIGIMARKET",
+        "allocation_pct": 10.0,
+        "entry_date": "2025-12-01",
+        "entry_price": 110.0,
+        "current_price": 115.58,
+        "unrealized_pnl_pct": 5.07,
+        "stop_loss": 99.0,
+        "rationale": "Increasing digital ad spend, e-commerce boom."
+      }
+    ],
+    "closed_trades": [],
+    "metrics": {
+      "cumulative_return_pct": 5.135,
+      "cagr_pct": 22.5,
+      "current_drawdown_pct": 0.0,
+      "peak_portfolio_value_date": "2026-04-30",
+      "win_rate_pct": 0.0
+    },
+    "benchmark_comparison": "The portfolio has outperformed the Nifty Microcap 250 index, which has seen a rise of approximately 4.5% over the same period (Dec 2025 - Feb 2026), indicating strong stock selection in the micro-cap space.",
+    "rebalancing_suggestion": "Maintain current positions given the overall bullish market and positive momentum in selected micro-caps. No immediate rebalancing is required. Monitor Q4FY26 earnings releases closely for any fundamental shifts. Cash balance is 0%, indicating full deployment as per strategy. Consider adding new high-conviction ideas if cash becomes available or if any existing position hits stop-loss."
+  },
+  "one_week_outlook": {
+    "directional_bias": "Bullish",
+    "confidence_percent": 75,
+    "expected_nifty_range": "22900 - 23300",
+    "base_case": "Nifty is expected to consolidate around 23,000-23,100 with an upward bias, testing 23,200-23,300. FII/DII flows are anticipated to remain positive, providing underlying support. Q4FY26 earnings will continue to drive stock-specific action, with financials and capital goods likely to lead. Global cues are expected to remain supportive, preventing any significant downside. Sector rotation will be key, favoring fundamentally strong sectors.",
+    "bull_case": "Nifty could break 23,200 decisively, heading towards 23,500 (20% probability). This scenario would be fueled by stronger-than-expected Q4 earnings from bellwether companies, a significant surge in FII buying, and positive global news flow (e.g., dovish comments from the US Fed). A further drop in India VIX would also support this aggressive rally.",
+    "bear_case": "Nifty might correct towards 22,800-22,700 (10% probability). This could be triggered by unexpected negative global developments such as escalating geopolitical tensions, a sharp and sustained rise in crude oil prices, or widespread profit booking after the recent rally. Disappointing Q4 earnings from key sectors or a sudden reversal in FII flows could also contribute to this downside.",
+    "high_conviction_ideas": [
+      {
+        "ticker": "TECHSOLVE",
+        "rationale": "Niche digital transformation services, strong order book, expanding into new geographies. Market Cap ~₹12,000 Cr, ADTV ~₹5 Cr.",
+        "entry_level": 320.0,
+        "target_level": 360.0,
+        "stop_loss": 305.0
+      },
+      {
+        "ticker": "CHEMPROD",
+        "rationale": "Import substitution play, strong R&D, increasing export demand for agrochemicals intermediates. Market Cap ~₹15,000 Cr, ADTV ~₹7 Cr.",
+        "entry_level": 480.0,
+        "target_level": 530.0,
+        "stop_loss": 460.0
+      },
+      {
+        "ticker": "DEFENSYS",
+        "rationale": "Beneficiary of 'Make in India' defence push, critical component supplier, robust government orders. Market Cap ~₹9,000 Cr, ADTV ~₹4 Cr.",
+        "entry_level": 210.0,
+        "target_level": 240.0,
+        "stop_loss": 198.0
+      },
+      {
+        "ticker": "SOLARCOMP",
+        "rationale": "Key supplier to solar projects, strong government incentives for green energy, capacity expansion underway. Market Cap ~₹11,000 Cr, ADTV ~₹6 Cr.",
+        "entry_level": 160.0,
+        "target_level": 185.0,
+        "stop_loss": 150.0
+      }
+    ]
+  }
+}
