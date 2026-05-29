@@ -1,170 +1,80 @@
 {
   "cutoff_date": "31-Dec-2025",
   "market_snapshot": {
-    "text_summary": "As of 31-Dec-2025, the Indian market concluded the year on a positive note. Nifty 50 closed at 25850, up +0.85% for the week. Sensex followed suit at 85500, gaining +0.78%, while Bank Nifty outperformed with a +1.10% weekly rise to 57500. FIIs demonstrated strong buying interest, injecting a net +₹7,500 Cr over the last five sessions, signaling sustained foreign confidence. DIIs also contributed positively with +₹4,200 Cr. India VIX remained subdued at 11.80, indicating low volatility expectations. INR held steady at 82.50 against the USD. Key support for Nifty is identified at 25600 and 25400, with immediate resistance at 26000 and 26250."
+    "text_summary": "As of 31-Dec-2025, the Nifty closed at 23500.0 and the Nifty Mid Select index closed at 13100.0. Critical market indicators such as 1-week changes, FII/DII flows, VIX, and USDINR data are not available in the system feed for comprehensive analysis. The market appears to be in a holding pattern given the limited data."
   },
   "key_drivers": {
-    "text_summary": "As of 31-Dec-2025, technical indicators for Nifty 50 are firmly bullish. The index trades comfortably above its 50-DMA (25500) and 200-DMA (24000), confirming an uptrend. RSI(14) at 68 suggests strong momentum without being overtly overbought. MACD shows a bullish crossover, with the MACD line above its signal line. For options data (PCR, Max Pain, specific strike OI), verifiable data is not available as of 31-Dec-2025. Nifty PE stands at 23.5x, slightly above its 5-year average of 21x, indicating rich valuations but justified by robust earnings growth expectations. Macro-wise, RBI maintains a neutral stance with a hawkish bias, closely monitoring inflation. Brent crude oil is stable at $78/barrel. US markets, particularly the S&P 500, are near all-time highs, providing a positive global backdrop."
+    "text_summary": "As of 31-Dec-2025, specific technical indicators like RSI, MACD, and DMA, along with detailed macroeconomic headlines, are not available in the system feed. The analysis of key market drivers is therefore constrained to the available index closing prices, indicating a lack of immediate catalysts or significant shifts."
   },
   "midcp_analysis": {
-    "text_summary": "As of 31-Dec-2025 for NIFTY MID SELECT (MIDCPNIFTY), the index closed at 13500, registering a strong +1.5% gain for the week, outperforming the Nifty 50. Futures are trading at a slight premium of 13520, with increasing Open Interest, suggesting continued long buildup and positive sentiment. The short-term trend for MIDCPNIFTY is clearly bullish, supported by broad-based participation. For specific option chain data (PCR, Max Pain, key strikes OI buildup, IV skew) and unusual options activity, verifiable data is not available as of 31-Dec-2025. However, the strong price action and futures premium indicate underlying strength and investor appetite for mid-cap stocks, driven by domestic growth narratives."
+    "text_summary": "As of 31-Dec-2025 for NIFTY MID SELECT, the index closed at 13100.0. Derivative data including PCR, Max Pain, and specific strike OI layers for NIFTY MID SELECT are not available in the system feed. This absence of data limits any detailed options chain analysis or identification of support/resistance levels from the derivatives segment."
   },
   "sectoral_option_flows": {
-    "text_summary": "As of 31-Dec-2025, verifiable option flow data for specific sectors (PCR, OI buildup, unusual volume, IV skew) is not available. However, based on price action and broader market sentiment, the top three most active sectors are likely to be Financials, Capital Goods, and Auto. Financials are expected to show a positive bias due to robust credit growth and stable asset quality. Capital Goods are benefiting from government infrastructure spending and private capex revival, implying a bullish outlook. The Auto sector is seeing renewed interest driven by festive demand and new model launches, suggesting a moderately bullish to neutral bias. These inferences are drawn from general market trends rather than specific option chain data."
+    "text_summary": "As of 31-Dec-2025, specific sectoral options flow data is not available in the system feed. Consequently, no insights into sector-specific derivative positioning, implied volatility, or potential outperformers/underperformers can be derived from options activity at this time."
   },
   "x_sentiment": {
-    "text_summary": "As of 31-Dec-2025, prevailing trader sentiment on X (formerly Twitter) is largely bullish, reflecting the positive year-end close. Discussions are dominated by optimism regarding India's economic growth trajectory and corporate earnings outlook for the upcoming quarters. There's a strong buzz around continued FII inflows, seen as a key driver for market stability and upward momentum. While some caution exists regarding stretched valuations in specific pockets, the overall mood leans towards 'greed' rather than 'fear'. Mid-cap and small-cap stocks are frequently mentioned as potential outperformers, with specific discussions around infrastructure and manufacturing themes. The consensus points to a constructive start to the new year."
+    "text_summary": "As of 31-Dec-2025, aggregated social sentiment data or market buzz is not available in the system feed. Therefore, market sentiment cannot be quantified or integrated into the current analysis from the provided information, necessitating reliance solely on price action."
   },
   "consistency_check": {
-    "text_summary": "Evaluated on 31-Dec-2025: This is the inception month for the portfolio. As such, there are no previous reports or historical portfolio states to evaluate for consistency in bias, accuracy, or lessons applied. The current portfolio and outlook are established based strictly on the market data and conditions simulated for 31-Dec-2025, adhering to the systematic fund manager's principles from the outset."
+    "text_summary": "Evaluated on 31-Dec-2025: This is the inception month for the portfolio. There are no past decisions, open positions, or tactical bets to audit for consistency or performance against actual asset movements. The ledger commences fresh as of this cut-off date."
   },
   "model_portfolio": {
     "accounting_state": {
       "state_as_of_date": "31-Dec-2025",
-      "total_aum_inr": 10000000.0,
-      "cash_balance_inr": 135.0,
+      "total_aum_inr": 0.0,
+      "cash_balance_inr": 0.0,
       "current_nav": 100.0,
       "peak_nav_historical": 100.0,
       "current_drawdown_pct": 0.0
     },
-    "open_positions": [
+    "open_positions": [],
+    "open_tactical_bets": [
       {
-        "ticker": "OGPL",
-        "quantity": 28571,
-        "entry_date": "2025-12-31",
-        "entry_price": 35.0,
-        "last_updated_date": "2025-12-31",
-        "close_price_as_of_cutoff": 35.0,
-        "unrealized_pnl_pct": 0.0,
-        "stop_loss_price": 29.75,
-        "rationale": "Micro-cap exposure in renewable energy, strong growth potential. Simulated price and volume as of 31-Dec-2025."
-      },
-      {
-        "ticker": "RPOWER",
-        "quantity": 33333,
-        "entry_date": "2025-12-31",
-        "entry_price": 30.0,
-        "last_updated_date": "2025-12-31",
-        "close_price_as_of_cutoff": 30.0,
-        "unrealized_pnl_pct": 0.0,
-        "stop_loss_price": 25.5,
-        "rationale": "Micro-cap exposure in power sector, turnaround potential. Simulated price and volume as of 31-Dec-2025."
-      },
-      {
-        "ticker": "JPPOWER",
-        "quantity": 50000,
-        "entry_date": "2025-12-31",
-        "entry_price": 20.0,
-        "last_updated_date": "2025-12-31",
-        "close_price_as_of_cutoff": 20.0,
-        "unrealized_pnl_pct": 0.0,
-        "stop_loss_price": 17.0,
-        "rationale": "Micro-cap exposure in power generation, debt restructuring benefits. Simulated price and volume as of 31-Dec-2025."
-      },
-      {
-        "ticker": "GTLINFRA",
-        "quantity": 400000,
-        "entry_date": "2025-12-31",
-        "entry_price": 2.5,
-        "last_updated_date": "2025-12-31",
-        "close_price_as_of_cutoff": 2.5,
-        "unrealized_pnl_pct": 0.0,
-        "stop_loss_price": 2.12,
-        "rationale": "Micro-cap exposure in telecom infrastructure, potential for sector revival. Simulated price and volume as of 31-Dec-2025."
-      },
-      {
-        "ticker": "URJAGLOBAL",
-        "quantity": 66666,
-        "entry_date": "2025-12-31",
-        "entry_price": 15.0,
-        "last_updated_date": "2025-12-31",
-        "close_price_as_of_cutoff": 15.0,
-        "unrealized_pnl_pct": 0.0,
-        "stop_loss_price": 12.75,
-        "rationale": "Micro-cap exposure in renewable energy products, EV charging infrastructure play. Simulated price and volume as of 31-Dec-2025."
-      },
-      {
-        "ticker": "LLOYDSME",
-        "quantity": 1666,
-        "entry_date": "2025-12-31",
-        "entry_price": 600.0,
-        "last_updated_date": "2025-12-31",
-        "close_price_as_of_cutoff": 600.0,
-        "unrealized_pnl_pct": 0.0,
-        "stop_loss_price": 510.0,
-        "rationale": "Micro-cap exposure in steel and mining, benefiting from infra push. Simulated price and volume as of 31-Dec-2025."
-      },
-      {
-        "ticker": "HFCL",
-        "quantity": 8333,
-        "entry_date": "2025-12-31",
-        "entry_price": 120.0,
-        "last_updated_date": "2025-12-31",
-        "close_price_as_of_cutoff": 120.0,
-        "unrealized_pnl_pct": 0.0,
-        "stop_loss_price": 102.0,
-        "rationale": "Micro-cap exposure in telecom equipment, 5G rollout beneficiary. Simulated price and volume as of 31-Dec-2025."
-      },
-      {
-        "ticker": "HSCL",
-        "quantity": 2500,
-        "entry_date": "2025-12-31",
-        "entry_price": 400.0,
-        "last_updated_date": "2025-12-31",
-        "close_price_as_of_cutoff": 400.0,
-        "unrealized_pnl_pct": 0.0,
-        "stop_loss_price": 340.0,
-        "rationale": "Micro-cap exposure in specialty chemicals, EV battery materials play. Simulated price and volume as of 31-Dec-2025."
-      },
-      {
-        "ticker": "GEPIL",
-        "quantity": 2857,
-        "entry_date": "2025-12-31",
-        "entry_price": 350.0,
-        "last_updated_date": "2025-12-31",
-        "close_price_as_of_cutoff": 350.0,
-        "unrealized_pnl_pct": 0.0,
-        "stop_loss_price": 297.5,
-        "rationale": "Micro-cap exposure in power equipment, benefiting from energy transition. Simulated price and volume as of 31-Dec-2025."
-      },
-      {
-        "ticker": "RATTANINDIA",
-        "quantity": 55555,
-        "entry_date": "2025-12-31",
-        "entry_price": 18.0,
-        "last_updated_date": "2025-12-31",
-        "close_price_as_of_cutoff": 18.0,
-        "unrealized_pnl_pct": 0.0,
-        "stop_loss_price": 15.3,
-        "rationale": "Micro-cap exposure in power generation, potential for capacity expansion. Simulated price and volume as of 31-Dec-2025."
+        "bet_id": "NIFTY_FUT_LONG_DEC25",
+        "instrument": "NIFTY_FUTURES_DEC_25",
+        "direction": "LONG_FUTURES",
+        "entry_value_or_premium": 23500.0,
+        "target_value_or_premium": 23750.0,
+        "stop_loss_value_or_premium": 23300.0,
+        "expiry_date": "2025-12-31",
+        "last_updated_date": "31-Dec-2025",
+        "price_or_premium_as_of_cutoff": 23500.0,
+        "rationale": "Initiating a long Nifty Futures position based on current index close, anticipating minor upside in the absence of negative catalysts. No derivative data available to refine levels, hence conservative targets and stops."
       }
     ],
-    "open_tactical_bets": [],
     "closed_trades_history": [],
     "closed_tactical_bets_history": [],
     "metrics": {
-      "metrics_as_of_date": "2025-12-31",
+      "metrics_as_of_date": "31-Dec-2025",
       "cumulative_return_pct": 0.0,
       "cagr_pct": 0.0,
       "core_portfolio_win_rate_pct": 0.0,
       "tactical_bets_win_rate_pct": 0.0
     },
-    "benchmark_comparison": "As of 31-Dec-2025, this is the inception month. The current NAV of 100.0000 will be compared against the Nifty 50 and Nifty Microcap 250 indices from the next reporting period. Initial performance is flat as positions were just initiated.",
-    "rebalancing_suggestion": "As of 31-Dec-2025, this is the initial portfolio setup. No rebalancing is suggested at this stage. Capital allocation is equal-weighted across 10 micro-cap stocks to capture broad-based growth in the segment. Future rebalancing will be based on performance, fundamental shifts, and market conditions."
+    "benchmark_comparison": "Comparison of NAV vs Nifty 50 and Nifty Smallcap 250 strictly as of 31-Dec-2025. As this is the inception month with no active core portfolio, direct benchmark comparison is not applicable. The NAV remains at its base of 100.0000.",
+    "rebalancing_suggestions": [
+      "Strategic change entry 1 valid as of 31-Dec-2025: Due to the strict mandate to select exactly 10 stocks for the core portfolio and only 3 eligible stocks being available in the provided universe, no new core portfolio positions can be initiated at this time. The system requires a minimum of 10 eligible stocks to form a diversified core portfolio.",
+      "Strategic change entry 2 valid as of 31-Dec-2025: Monitor for expansion of the eligible stock universe in future feeds to enable core portfolio construction and diversification as per the mandate."
+    ]
   },
   "one_week_outlook": {
-    "directional_bias": "Bullish",
-    "confidence_percent": 70,
-    "expected_nifty_range": "25700 - 26200",
-    "base_case": "Nifty is expected to continue its upward momentum, driven by sustained FII inflows and positive global cues. Strong domestic economic data and robust corporate earnings expectations will provide underlying support. The index is likely to test the 26000-26100 levels, with minor profit booking around resistance. Sector rotation into financials and capital goods will keep the broader market buoyant. Probability: 60%.",
-    "bull_case": "A stronger-than-expected start to the new year, potentially fueled by further policy announcements or a significant uptick in global liquidity, could propel Nifty towards 26200-26250. A breakout above 26000 with high volumes would confirm this scenario. Mid-cap and small-cap indices would likely outperform significantly. Probability: 25%.",
-    "bear_case": "Unexpected negative global news, such as a sharp correction in US markets or a sudden hawkish shift by the RBI due to inflation concerns, could trigger profit booking. Nifty might retrace towards its immediate support of 25600, and potentially 25400. Increased volatility (VIX spike) and FII outflows would be key indicators. Probability: 15%.",
+    "directional_bias": "Neutral",
+    "confidence_percent": 50,
+    "expected_nifty_range": "23300 - 23750",
+    "base_case_points": [
+      "Point 1 based on factors exactly as of 31-Dec-2025: Nifty is expected to consolidate around current levels (23500) in the absence of significant market-moving data or events, reflecting a year-end lull.",
+      "Point 2 based on factors exactly as of 31-Dec-2025: Nifty Mid Select (13100) may mirror Nifty's movement, showing limited independent directional bias without specific derivative or fundamental data."
+    ],
+    "bull_case_points": [
+      "Catalyst 1 exactly as of 31-Dec-2025: Any positive news flow, not currently available in the feed, could trigger a minor upside towards 23750 for Nifty.",
+      "Catalyst 2 exactly as of 31-Dec-2025: Potential for short covering or institutional buying in the final trading sessions of the year could provide a slight upward push."
+    ],
+    "bear_case_points": [
+      "Catalyst 1 exactly as of 31-Dec-2025: Any unexpected negative global cues, not currently available in the feed, could lead to a dip towards 23300 for Nifty.",
+      "Catalyst 2 exactly as of 31-Dec-2025: Profit booking at year-end, if it materializes, could exert downward pressure on the indices, especially in the absence of fresh buying impetus."
+    ],
     "high_conviction_ideas": [
-      "LONG Nifty 50 Futures: Entry around 25800-25850, Target 26150, Stop Loss 25650. Rationale: Strong technical setup, positive FII flows, and year-end momentum likely to extend into early Jan.",
-      "LONG Bank Nifty Futures: Entry around 57400-57500, Target 58200, Stop Loss 57000. Rationale: Outperforming index, strong credit growth, and stable asset quality outlook for banks.",
-      "LONG NIFTY MID SELECT Futures: Entry around 13500-13520, Target 13800, Stop Loss 13350. Rationale: Mid-cap outperformance, increasing OI in futures, indicating sustained institutional interest.",
-      "LONG Capital Goods Sector (e.g., L&T): Entry on dips, Target 10% upside, Stop Loss 5% downside. Rationale: Beneficiary of government capex and private sector investment cycle, strong order books.",
-      "LONG Renewable Energy stocks (e.g., Tata Power, Adani Green): Entry on dips, Target 12% upside, Stop Loss 6% downside. Rationale: Favorable policy environment, increasing focus on green energy transition, long-term structural growth."
+      "Idea 1 matching tactical bet exactly: Long Nifty Futures (DEC_25) at 23500, targeting 23750 with a stop loss at 23300. Rationale: Anticipating minor upside in the absence of negative catalysts, managing risk with defined levels."
     ]
   }
 }

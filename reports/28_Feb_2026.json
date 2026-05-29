@@ -1,190 +1,89 @@
 {
   "cutoff_date": "28-Feb-2026",
   "market_snapshot": {
-    "text_summary": "As of 28-Feb-2026, Indian equities continued their upward trajectory. Nifty 50 closed at 22,850.00, up 1.25% for the week, while Sensex gained 1.10% to 75,500.00. Bank Nifty outperformed, rising 1.50% to 49,000.00. FIIs remained net buyers, injecting INR 8,500 Cr over the last five sessions, complemented by DIIs with INR 6,200 Cr, indicating robust domestic and foreign confidence. India VIX remained stable at 12.50, signaling low volatility. INR strengthened slightly to 82.80 against the USD. Key support for Nifty is at 22,600, with resistance at 23,000."
+    "text_summary": "As of 28-Feb-2026, the Nifty 50 closed at 23500.0, indicating a stable market from the last reported price. The Nifty Mid Select index closed at 13100.0. Comprehensive market data including 1-week changes, FII/DII flows, India VIX, and USDINR levels are not available in the system feed for this period. The market appears to be in a holding pattern based solely on the provided closing prices, lacking any immediate directional catalysts from the limited data."
   },
   "key_drivers": {
-    "text_summary": "As of 28-Feb-2026, Nifty 50 technicals are strongly bullish, trading above its 50-DMA (22,300) and 200-DMA (21,000). RSI(14) at 68 indicates strength without being overbought, and MACD shows a clear bullish crossover. Options data reveals a Nifty PCR of 1.15, suggesting a slight bullish bias, with Max Pain at 22,800. Nifty PE stands at 23.5x, slightly above historical averages but justified by growth expectations. Macro factors remain supportive: RBI maintains a neutral stance, crude oil (Brent) is stable at $83/barrel, and US markets are at new highs, fostering positive global sentiment. No major domestic events are scheduled for the immediate week."
+    "text_summary": "As of 28-Feb-2026, an analysis of key market drivers is severely constrained by the absence of critical data. Technical indicators such as RSI, MACD, and DMA are not available. Furthermore, no specific macroeconomic headlines or fundamental catalysts have been provided in the system feed beyond a general 'Data feed integrated' note. Consequently, no definitive key drivers can be identified or assessed for the current market sentiment or future direction."
   },
   "midcp_analysis": {
-    "text_summary": "As of 28-Feb-2026 for NIFTY MID SELECT, the index closed at 12,500.00. Futures traded at a premium of 30 points (12,530), with an 8% increase in Open Interest, indicating fresh long buildup. The Option Chain shows a strong bullish bias with a PCR of 1.20 and Max Pain at 12,400. Significant put writing is observed at 12,300, providing strong support, while call writing at 12,600 acts as immediate resistance. IV skew is slightly higher for OTM calls, reflecting bullish expectations. Unusual options activity includes large block trades in 12,500 CE and 12,400 PE, suggesting both directional bets and hedging interest."
+    "text_summary": "As of 28-Feb-2026 for NIFTY MID SELECT, the index closed at 13100.0. Derivative data, including Put-Call Ratio (PCR), Max Pain levels, and specific strike Open Interest (OI) layers for NIFTY MID SELECT, is not available in the system feed. Without this crucial options data, a comprehensive derivative-based analysis of support, resistance, and potential directional bias for the NIFTY MID SELECT index cannot be performed. The current close provides a static snapshot without actionable insights."
   },
   "sectoral_option_flows": {
-    "text_summary": "As of 28-Feb-2026, sectoral option flows highlight distinct biases. Financial Services show a balanced PCR of 1.05, with some call buying in private banks, indicating a neutral to slightly bullish outlook. The IT sector exhibits a bearish bias with a PCR of 0.90, characterized by call writing at higher strikes and put buying at lower strikes, and higher IV for puts. Conversely, the Auto sector displays a strong bullish bias with a PCR of 1.30, driven by aggressive put writing and significant call buying, with higher IV for OTM calls, signaling robust positive sentiment and potential for further upside."
+    "text_summary": "As of 28-Feb-2026, data pertaining to top 3 sectoral options flows is not available in the system feed. Therefore, it is not possible to identify any sector-specific bullish or bearish sentiment, implied volatility shifts, or significant institutional activity that would typically be derived from such option flow analysis. The absence of this data limits the ability to pinpoint potential outperformers or underperformers based on derivative positioning."
   },
   "x_sentiment": {
-    "text_summary": "As of 28-Feb-2026, X (formerly Twitter) sentiment is predominantly bullish, with traders widely discussing Nifty's potential to reach 23,000. FII buying is frequently cited as a key catalyst for the market's strength. While micro-cap momentum continues to be a hot topic, some analysts are beginning to voice caution regarding stretched valuations in certain pockets. Overall, the mood is optimistic, with a focus on large-cap breakouts and continued sector-specific rallies, though underlying concerns about sustainability are starting to surface in niche discussions."
+    "text_summary": "As of 28-Feb-2026, aggregated social sentiment text or buzz from platform X (formerly Twitter) is not available in the system feed. Consequently, an assessment of retail investor sentiment, trending market narratives, or any significant shifts in public perception that could influence short-term market movements cannot be provided. The market sentiment remains unquantified from this data source."
   },
   "consistency_check": {
-    "text_summary": "Evaluated on 28-Feb-2026, the previous core portfolio decisions have shown strong consistency. All 8 open micro-cap positions from the 31-Jan-2026 report have continued to appreciate, validating the conviction in the selected themes (renewable energy, infrastructure, specialty chemicals). The stop-loss levels were not breached for any of these positions. The initial win rate of 80% for the core portfolio (8 profitable out of 10 initial trades) remains consistent, as the two closed trades were losses. The strategy of focusing on high-growth micro-caps with strong tailwinds has proven effective, outperforming broader indices. Lessons learned from previous stop-loss exits reinforce the importance of strict risk management."
+    "text_summary": "Evaluated on 28-Feb-2026, the tactical bet 'NIFTY_FUT_LONG_FEB26' entered at 23500.0 with an expiry of 2026-02-07 has been settled. Given the Nifty close was 23500.0 on 31-Jan-2026 and the current feed provides Nifty at 23500.0 on 28-Feb-2026, and lacking intermediate price data, the bet is deemed to have expired at the entry level. This resulted in a 0.0% realized PnL, indicating a neutral outcome for the short-term directional call."
   },
   "model_portfolio": {
     "accounting_state": {
       "state_as_of_date": "28-Feb-2026",
-      "total_aum_inr": 11761038.0,
-      "cash_balance_inr": 155.0,
-      "current_nav": 117.6104,
-      "peak_nav_historical": 117.6104,
+      "total_aum_inr": 0.0,
+      "cash_balance_inr": 0.0,
+      "current_nav": 100.0,
+      "peak_nav_historical": 100.0,
       "current_drawdown_pct": 0.0
     },
-    "open_positions": [
-      {
-        "ticker": "OGPL",
-        "quantity": 28571,
-        "entry_date": "2025-12-31",
-        "entry_price": 35.0,
-        "last_updated_date": "2026-02-28",
-        "close_price_as_of_cutoff": 45.0,
-        "unrealized_pnl_pct": 28.57,
-        "stop_loss_price": 29.75,
-        "rationale": "Micro-cap exposure in renewable energy, strong growth potential."
-      },
-      {
-        "ticker": "RPOWER",
-        "quantity": 33333,
-        "entry_date": "2025-12-31",
-        "entry_price": 30.0,
-        "last_updated_date": "2026-02-28",
-        "close_price_as_of_cutoff": 36.0,
-        "unrealized_pnl_pct": 20.0,
-        "stop_loss_price": 25.5,
-        "rationale": "Micro-cap exposure in power sector, turnaround potential."
-      },
-      {
-        "ticker": "GTLINFRA",
-        "quantity": 400000,
-        "entry_date": "2025-12-31",
-        "entry_price": 2.5,
-        "last_updated_date": "2026-02-28",
-        "close_price_as_of_cutoff": 3.5,
-        "unrealized_pnl_pct": 40.0,
-        "stop_loss_price": 2.12,
-        "rationale": "Micro-cap exposure in telecom infrastructure, potential for sector revival."
-      },
-      {
-        "ticker": "URJAGLOBAL",
-        "quantity": 66666,
-        "entry_date": "2025-12-31",
-        "entry_price": 15.0,
-        "last_updated_date": "2026-02-28",
-        "close_price_as_of_cutoff": 20.0,
-        "unrealized_pnl_pct": 33.33,
-        "stop_loss_price": 12.75,
-        "rationale": "Micro-cap exposure in renewable energy products, EV charging infrastructure play."
-      },
-      {
-        "ticker": "LLOYDSME",
-        "quantity": 1666,
-        "entry_date": "2025-12-31",
-        "entry_price": 600.0,
-        "last_updated_date": "2026-02-28",
-        "close_price_as_of_cutoff": 680.0,
-        "unrealized_pnl_pct": 13.33,
-        "stop_loss_price": 510.0,
-        "rationale": "Micro-cap exposure in steel and mining, benefiting from infra push."
-      },
-      {
-        "ticker": "HSCL",
-        "quantity": 2500,
-        "entry_date": "2025-12-31",
-        "entry_price": 400.0,
-        "last_updated_date": "2026-02-28",
-        "close_price_as_of_cutoff": 520.0,
-        "unrealized_pnl_pct": 30.0,
-        "stop_loss_price": 340.0,
-        "rationale": "Micro-cap exposure in specialty chemicals, EV battery materials play."
-      },
-      {
-        "ticker": "GEPIL",
-        "quantity": 2857,
-        "entry_date": "2025-12-31",
-        "entry_price": 350.0,
-        "last_updated_date": "2026-02-28",
-        "close_price_as_of_cutoff": 430.0,
-        "unrealized_pnl_pct": 22.86,
-        "stop_loss_price": 297.5,
-        "rationale": "Micro-cap exposure in power equipment, benefiting from energy transition."
-      },
-      {
-        "ticker": "RATTANINDIA",
-        "quantity": 55555,
-        "entry_date": "2025-12-31",
-        "entry_price": 18.0,
-        "last_updated_date": "2026-02-28",
-        "close_price_as_of_cutoff": 22.0,
-        "unrealized_pnl_pct": 22.22,
-        "stop_loss_price": 15.3,
-        "rationale": "Micro-cap exposure in power generation, potential for capacity expansion."
-      },
-      {
-        "ticker": "SUZLON",
-        "quantity": 16584,
-        "entry_date": "2026-02-28",
-        "entry_price": 50.0,
-        "last_updated_date": "2026-02-28",
-        "close_price_as_of_cutoff": 50.0,
-        "unrealized_pnl_pct": 0.0,
-        "stop_loss_price": 42.5,
-        "rationale": "New micro-cap entry in renewable energy, strong sector tailwinds."
-      },
-      {
-        "ticker": "IRFC",
-        "quantity": 4606,
-        "entry_date": "2026-02-28",
-        "entry_price": 180.0,
-        "last_updated_date": "2026-02-28",
-        "close_price_as_of_cutoff": 180.0,
-        "unrealized_pnl_pct": 0.0,
-        "stop_loss_price": 153.0,
-        "rationale": "New micro-cap entry in niche financials, benefiting from railway infra push."
-      }
-    ],
+    "open_positions": [],
     "open_tactical_bets": [],
-    "closed_trades_history": [
+    "closed_trades_history": [],
+    "closed_tactical_bets_history": [
       {
-        "ticker": "JPPOWER",
-        "quantity": 50000,
-        "entry_date": "2025-12-31",
-        "exit_date": "2026-01-31",
-        "entry_price": 20.0,
-        "exit_price": 16.5,
-        "realized_pnl_inr": -175000.0,
-        "exit_reason": "STOP_LOSS_HIT"
+        "bet_id": "NIFTY_FUT_LONG_DEC25",
+        "instrument": "NIFTY_FUTURES_DEC_25",
+        "direction": "LONG_FUTURES",
+        "entry_level_or_premium": 23500.0,
+        "exit_level_or_premium": 23500.0,
+        "exit_date": "2025-12-31",
+        "realized_pnl_pct": 0.0,
+        "outcome": "EXPIRED"
       },
       {
-        "ticker": "HFCL",
-        "quantity": 8333,
-        "entry_date": "2025-12-31",
-        "exit_date": "2026-01-31",
-        "entry_price": 120.0,
-        "exit_price": 100.0,
-        "realized_pnl_inr": -166660.0,
-        "exit_reason": "STOP_LOSS_HIT"
+        "bet_id": "NIFTY_FUT_LONG_FEB26",
+        "instrument": "NIFTY_FUTURES_FEB_26",
+        "direction": "LONG_FUTURES",
+        "entry_level_or_premium": 23500.0,
+        "exit_level_or_premium": 23500.0,
+        "exit_date": "2026-02-07",
+        "realized_pnl_pct": 0.0,
+        "outcome": "EXPIRED"
       }
     ],
-    "closed_tactical_bets_history": [],
     "metrics": {
-      "metrics_as_of_date": "2026-02-28",
-      "cumulative_return_pct": 17.61,
-      "cagr_pct": 168.0,
-      "core_portfolio_win_rate_pct": 80.0,
+      "metrics_as_of_date": "28-Feb-2026",
+      "cumulative_return_pct": 0.0,
+      "cagr_pct": 0.0,
+      "core_portfolio_win_rate_pct": 0.0,
       "tactical_bets_win_rate_pct": 0.0
     },
-    "benchmark_comparison": "As of 28-Feb-2026, the current NAV of 117.6104 reflects a cumulative return of 17.61% since inception (31-Dec-2025). This significantly outperforms the Nifty 50's ~5.3% gain and the Nifty Microcap 250's estimated 10-12% gain over the same period, validating the high-conviction micro-cap strategy.",
-    "rebalancing_suggestion": "As of 28-Feb-2026, the cash balance of INR 1,658,435 from previous stop-loss exits has been fully redeployed into two new high-conviction micro-cap positions, SUZLON and IRFC, maintaining the equal-weighted allocation strategy. The portfolio now holds 10 core positions. No further rebalancing is suggested for the immediate term, but continuous monitoring of liquidity and fundamental developments in existing positions is crucial. Focus remains on sectors with strong tailwinds and robust growth potential."
+    "benchmark_comparison": "Comparison of NAV vs Nifty 50 and Nifty Smallcap 250 strictly as of 28-Feb-2026. As this is the inception period with no active core portfolio and tactical bets expired at entry, direct benchmark comparison is not applicable. The NAV remains at its base of 100.0000.",
+    "rebalancing_suggestions": [
+      "Strategic change entry 1 valid as of 28-Feb-2026: Due to the strict mandate to select exactly 10 stocks for the core portfolio and only 3 eligible stocks being available in the provided universe (MARKSANS, HBLPOWER, DATAMATICS), no new core portfolio positions can be initiated at this time.",
+      "Strategic change entry 2 valid as of 28-Feb-2026: Monitor for expansion of the eligible stock universe in future feeds to enable core portfolio construction and diversification as per the mandate. No high-conviction tactical bets can be formulated due to the absence of comprehensive market and derivative data."
+    ]
   },
   "one_week_outlook": {
-    "directional_bias": "Bullish",
-    "confidence_percent": 75,
-    "expected_nifty_range": "22,700 - 23,200",
-    "base_case": "Nifty is expected to continue its upward momentum, driven by sustained FII/DII inflows and positive global cues. Technicals are strong, with Nifty comfortably above key moving averages. We anticipate Nifty to test 23,000 and potentially move towards 23,100-23,150. Sector rotation will be key, with Auto and Financials likely leading. Support at 22,700 should hold.",
-    "bull_case": "Should global markets remain buoyant and FII flows intensify, Nifty could break past 23,000 decisively, targeting 23,200-23,250. Strong Q4 earnings (known by 28-Feb-2026) from key sectors like manufacturing and infrastructure could provide additional impetus. A sharp decline in crude oil prices or a more dovish stance from the RBI (unlikely but possible) could act as strong catalysts.",
-    "bear_case": "A sudden reversal in FII sentiment or unexpected negative global news (e.g., US inflation spike, geopolitical escalation) could trigger profit booking. Nifty could retrace towards 22,600-22,500. Increased volatility (VIX spike) or significant call writing at 23,000 could cap upside. Any domestic political uncertainty, though low probability, could also lead to a correction.",
+    "directional_bias": "Neutral",
+    "confidence_percent": 0,
+    "expected_nifty_range": "23500 - 23500",
+    "base_case_points": [
+      "Nifty 50 is currently at 23500.0 with no discernible technical or macro drivers from the provided feed. Expect range-bound movement in the absence of new information.",
+      "The lack of FII/DII flows, VIX, USDINR, and derivative data prevents any informed directional bias or range projection beyond the current static close."
+    ],
+    "bull_case_points": [
+      "Data not available in system feed as of 28-Feb-2026. No specific bullish catalysts can be identified from the limited information provided.",
+      "Absence of negative news could theoretically support current levels, but this is not a data-backed catalyst."
+    ],
+    "bear_case_points": [
+      "Data not available in system feed as of 28-Feb-2026. No specific bearish catalysts can be identified from the limited information provided.",
+      "Lack of positive momentum or fresh buying interest could lead to stagnation, but no explicit bearish triggers are present."
+    ],
     "high_conviction_ideas": [
-      "Nifty 50 March 2026 Bull Call Spread: Buy 22,900 CE @ 150, Sell 23,100 CE @ 70 (Net Debit: 80). Target: Nifty 23,100. Stop Loss: Nifty below 22,750.",
-      "NIFTY MID SELECT March 2026 Long Strangle: Buy 12,300 PE @ 80, Buy 12,700 CE @ 70 (Net Debit: 150). Target: MIDCPNIFTY moves beyond 12,850 or below 12,150. Stop Loss: MIDCPNIFTY stays range-bound between 12,350-12,650 for 3 days.",
-      "SUZLON (Long): Entry around 50.0. Target: 58.0. Stop Loss: 45.0. Rationale: Renewable energy tailwinds, technical breakout potential.",
-      "IRFC (Long): Entry around 180.0. Target: 205.0. Stop Loss: 165.0. Rationale: Beneficiary of railway infrastructure spending, stable business."
+      "No high-conviction ideas can be formulated due to the absence of comprehensive market and derivative data in the system feed as of 28-Feb-2026. Any tactical bet would be purely speculative.",
+      "The current data only provides static closing prices for Nifty 50 and Nifty Mid Select, which is insufficient for generating actionable trade ideas with defined risk-reward parameters."
     ]
   }
 }
