@@ -9,32 +9,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        
-        body {
-            font-family: 'Inter', system-ui, sans-serif;
-        }
-        
-        .glass {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-        }
-        
-        .nav-active {
-            border-bottom: 3px solid #22c55e;
-        }
-        
-        .card-hover {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .card-hover:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-        }
-        
-        .ticker {
-            animation: ticker 30s linear infinite;
-        }
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .glass { background: rgba(255,255,255,0.05); backdrop-filter: blur(12px); }
+        .nav-active { border-bottom: 3px solid #22c55e; }
+        .card-hover:hover { transform: translateY(-4px); }
     </style>
 </head>
 <body class="bg-zinc-950 text-zinc-200 min-h-screen">
@@ -45,485 +23,211 @@
                 <div class="flex items-center gap-3">
                     <div class="w-9 h-9 bg-emerald-500 rounded-xl flex items-center justify-center text-black font-bold text-xl">P</div>
                     <div>
-                        <h1 class="text-2xl font-semibold tracking-tight">PMS Dashboard</h1>
-                        <p class="text-xs text-zinc-500">30+ Years • NSE Delivery</p>
+                        <h1 class="text-2xl font-semibold">PMS Dashboard</h1>
+                        <p class="text-xs text-zinc-500">30+ Years Experience</p>
                     </div>
                 </div>
             </div>
             
-            <!-- Date Selector -->
             <div class="p-6">
                 <label class="text-xs font-medium text-zinc-400 mb-2 block">REPORT DATE</label>
-                <select id="date-select" 
-                        class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-emerald-500 transition-colors">
+                <select id="date-select" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-emerald-500">
                 </select>
             </div>
-            
-            <!-- Navigation -->
-            <div class="px-6">
-                <button onclick="prevDate()" 
-                        class="flex-1 w-full bg-zinc-800 hover:bg-zinc-700 text-zinc-300 py-3 rounded-xl flex items-center justify-center gap-2 transition-colors">
-                    <i class="fas fa-chevron-left"></i>
-                    <span class="text-sm font-medium">Previous</span>
+
+            <div class="px-6 space-y-2">
+                <button onclick="prevDate()" class="w-full bg-zinc-800 hover:bg-zinc-700 py-3 rounded-xl flex items-center justify-center gap-2">
+                    <i class="fas fa-chevron-left"></i> Previous
                 </button>
             </div>
-            
+
             <div class="mt-8 px-6">
                 <div class="text-xs font-mono text-zinc-500 mb-3">AVAILABLE REPORTS</div>
-                <div id="date-list" class="space-y-1 max-h-[calc(100vh-380px)] overflow-auto pr-2">
-                    <!-- Populated by JS -->
-                </div>
-            </div>
-            
-            <div class="mt-auto p-6 border-t border-zinc-800">
-                <div class="flex items-center gap-3 text-xs text-zinc-500">
-                    <div class="flex-1 h-px bg-zinc-800"></div>
-                    <span>DATA INTEGRITY</span>
-                    <div class="flex-1 h-px bg-zinc-800"></div>
-                </div>
-                <div id="consistency-status" class="mt-4 text-emerald-400 text-sm flex items-center gap-2">
-                    <i class="fas fa-check-circle"></i>
-                    <span>Consistent across periods</span>
-                </div>
+                <div id="date-list" class="space-y-1 max-h-[400px] overflow-auto"></div>
             </div>
         </div>
-        
+
         <!-- Main Content -->
         <div class="flex-1 overflow-auto">
-            <!-- Top Bar -->
             <div class="bg-zinc-900 border-b border-zinc-800 px-8 py-5 flex items-center justify-between sticky top-0 z-50">
-                <div class="flex items-center gap-8">
-                    <div onclick="showTab(0)" id="tab-0" 
-                         class="nav-active cursor-pointer pb-1 text-emerald-400 font-medium flex items-center gap-2">
-                        <i class="fas fa-chart-line"></i>
-                        <span>OVERVIEW</span>
-                    </div>
-                    <div onclick="showTab(1)" id="tab-1" 
-                         class="cursor-pointer pb-1 text-zinc-400 hover:text-zinc-200 font-medium flex items-center gap-2">
-                        <i class="fas fa-briefcase"></i>
-                        <span>PORTFOLIO</span>
-                    </div>
-                    <div onclick="showTab(2)" id="tab-2" 
-                         class="cursor-pointer pb-1 text-zinc-400 hover:text-zinc-200 font-medium flex items-center gap-2">
-                        <i class="fas fa-exchange-alt"></i>
-                        <span>FLOWS &amp; SENTIMENT</span>
-                    </div>
+                <div class="flex gap-8">
+                    <div onclick="showTab(0)" id="tab-0" class="nav-active cursor-pointer pb-1 text-emerald-400 font-medium">OVERVIEW</div>
+                    <div onclick="showTab(1)" id="tab-1" class="cursor-pointer pb-1 text-zinc-400 hover:text-zinc-200 font-medium">PORTFOLIO</div>
+                    <div onclick="showTab(2)" id="tab-2" class="cursor-pointer pb-1 text-zinc-400 hover:text-zinc-200 font-medium">FLOWS & SENTIMENT</div>
                 </div>
                 
                 <div class="flex items-center gap-6">
-                    <div id="current-date" class="text-right">
-                        <div class="text-sm font-medium text-emerald-400">28 Feb 2026</div>
-                        <div class="text-xs text-zinc-500">Market Snapshot</div>
-                    </div>
-                    
-                    <button onclick="nextDate()" 
-                            class="bg-emerald-600 hover:bg-emerald-500 px-6 py-2.5 rounded-2xl text-sm font-semibold flex items-center gap-2 transition-all active:scale-95">
-                        NEXT REPORT
-                        <i class="fas fa-chevron-right"></i>
+                    <div id="current-date" class="text-right"></div>
+                    <button onclick="nextDate()" class="bg-emerald-600 hover:bg-emerald-500 px-6 py-2.5 rounded-2xl text-sm font-semibold flex items-center gap-2">
+                        NEXT <i class="fas fa-chevron-right"></i>
                     </button>
                 </div>
             </div>
-            
-            <!-- Dashboard Content -->
+
             <div class="p-8" id="dashboard-content">
-                <!-- OVERVIEW TAB -->
-                <div id="tab-content-0">
-                    <div class="grid grid-cols-12 gap-6">
-                        <!-- Market Snapshot -->
-                        <div class="col-span-12 lg:col-span-8">
-                            <div class="glass border border-zinc-700 rounded-3xl p-8 card-hover">
-                                <div class="flex justify-between items-start mb-6">
-                                    <div>
-                                        <div class="uppercase tracking-widest text-xs text-zinc-500">MARKET SNAPSHOT</div>
-                                        <div id="market-title" class="text-3xl font-semibold mt-1">Nifty Analysis • 28 Feb 2026</div>
-                                    </div>
-                                    <div class="text-right">
-                                        <div id="market-change" class="text-emerald-400 text-xl font-medium">+1.24%</div>
-                                        <div class="text-xs text-zinc-500">NIFTY 50</div>
-                                    </div>
-                                </div>
-                                <div id="market-summary" class="text-zinc-300 leading-relaxed text-[15px]">
-                                    <!-- Filled by JS -->
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Key Drivers -->
-                        <div class="col-span-12 lg:col-span-4">
-                            <div class="glass border border-zinc-700 rounded-3xl p-8 h-full card-hover">
-                                <div class="uppercase tracking-widest text-xs text-amber-400 mb-4">KEY DRIVERS</div>
-                                <div id="key-drivers" class="text-zinc-300 leading-relaxed text-[15px]">
-                                    <!-- Filled by JS -->
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- MIDCP Analysis -->
-                        <div class="col-span-12 lg:col-span-6">
-                            <div class="glass border border-zinc-700 rounded-3xl p-8 card-hover">
-                                <div class="flex items-center gap-3 mb-6">
-                                    <i class="fas fa-chart-bar text-sky-400"></i>
-                                    <div class="uppercase tracking-widest text-xs">MIDCP NIFTY ANALYSIS</div>
-                                </div>
-                                <div id="midcp-summary" class="text-zinc-300 leading-relaxed">
-                                    <!-- Filled by JS -->
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Consistency -->
-                        <div class="col-span-12 lg:col-span-6">
-                            <div class="glass border border-zinc-700 rounded-3xl p-8 card-hover">
-                                <div class="flex items-center gap-3 mb-6">
-                                    <i class="fas fa-shield-alt text-violet-400"></i>
-                                    <div class="uppercase tracking-widest text-xs">CONSISTENCY CHECK</div>
-                                </div>
-                                <div id="consistency-summary" class="text-zinc-300 leading-relaxed">
-                                    <!-- Filled by JS -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- PORTFOLIO TAB -->
-                <div id="tab-content-1" class="hidden">
-                    <div class="grid grid-cols-12 gap-6">
-                        <!-- Portfolio Holdings -->
-                        <div class="col-span-12 lg:col-span-8">
-                            <div class="glass border border-zinc-700 rounded-3xl p-8">
-                                <div class="flex justify-between mb-6">
-                                    <div class="text-xl font-semibold">Model Portfolio Holdings</div>
-                                    <div class="text-emerald-400 font-mono text-sm" id="total-allocation">100.00%</div>
-                                </div>
-                                
-                                <table class="w-full">
-                                    <thead>
-                                        <tr class="border-b border-zinc-700 text-xs text-zinc-400">
-                                            <th class="text-left py-4 font-normal">STOCK</th>
-                                            <th class="text-left py-4 font-normal">SYMBOL</th>
-                                            <th class="text-right py-4 font-normal">ALLOCATION</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="portfolio-table" class="text-sm">
-                                        <!-- Populated by JS -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        
-                        <!-- Allocation Chart -->
-                        <div class="col-span-12 lg:col-span-4">
-                            <div class="glass border border-zinc-700 rounded-3xl p-8 h-full">
-                                <div class="text-lg font-medium mb-6">Allocation Breakdown</div>
-                                <canvas id="allocation-chart" class="w-full" height="280"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- FLOWS & SENTIMENT TAB -->
-                <div id="tab-content-2" class="hidden">
-                    <div class="grid grid-cols-12 gap-6">
-                        <div class="col-span-12 lg:col-span-7">
-                            <div class="glass border border-zinc-700 rounded-3xl p-8">
-                                <div class="uppercase text-xs text-rose-400 tracking-widest mb-4">SECTORAL OPTION FLOWS</div>
-                                <div id="sector-flows" class="text-zinc-300 leading-relaxed text-[15px]">
-                                    <!-- Filled by JS -->
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-span-12 lg:col-span-5">
-                            <div class="glass border border-zinc-700 rounded-3xl p-8">
-                                <div class="uppercase text-xs text-sky-400 tracking-widest mb-4">X (TWITTER) SENTIMENT</div>
-                                <div id="x-sentiment" class="text-zinc-300 leading-relaxed text-[15px]">
-                                    <!-- Filled by JS -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- Content populated by JS -->
             </div>
         </div>
     </div>
 
     <script>
-        // Sample data structure - will be replaced when real JSONs are loaded
         let currentData = null;
         let availableReports = [
-            "28_Feb_2026.json",
-            "30_Apr_2026.json",
-            "31_Dec_2025.json",
-            "31_Jan_2026.json",
-            "31_Mar_2026.json",
-            "31_May_2026.json"
+            "28_Feb_2026.json", "30_Apr_2026.json", "31_Dec_2025.json",
+            "31_Jan_2026.json", "31_Mar_2026.json", "31_May_2026.json"
         ];
-        
         let currentIndex = 0;
-        
-        // Tailwind script already loaded
-        function initTailwind() {
-            // Already configured via CDN
-        }
-        
+
         async function loadReport(filename) {
             try {
-                // Try to load from same directory
-                const response = await fetch(filename);
-                if (!response.ok) {
-                    throw new Error("File not found");
-                }
-                currentData = await response.json();
+                const url = `https://raw.githubusercontent.com/dkraj0612/nse-delivery-data/main/reports/${filename}`;
+                const res = await fetch(url);
+                currentData = await res.json();
                 renderDashboard();
             } catch (e) {
-                // Fallback to demo data if file not accessible locally
-                console.warn("Could not load " + filename + ", using demo data");
-                currentData = getDemoData(filename);
-                renderDashboard();
+                console.error("Failed to load", filename);
+                alert("Could not load report. Please refresh.");
             }
         }
-        
-        function getDemoData(filename) {
-            const date = filename.replace(".json", "").replace(/_/g, " ");
-            return {
-                "cutoff_date": date,
-                "market_snapshot": {
-                    "text_summary": "As of " + date + ", the Indian equity market showed resilience with Nifty trading above key support levels. FIIs turned net buyers after three weeks of selling."
-                },
-                "key_drivers": {
-                    "text_summary": "Technically, Nifty is holding above 24,800 with RSI in neutral zone. Global cues are mixed with US indices at all-time highs."
-                },
-                "midcp_analysis": {
-                    "text_summary": "MIDCPNIFTY futures showing strong upward momentum with PCR at comfortable levels. Good addition in IT and Auto stocks."
-                },
-                "sectoral_option_flows": {
-                    "text_summary": "Banking: PCR at 0.82 (neutral). IT: Long build-up seen. Realty showing short covering."
-                },
-                "x_sentiment": {
-                    "text_summary": "Trader sentiment on X is bullish on midcaps. High engagement on PSU banks and capital goods."
-                },
-                "consistency_check": {
-                    "text_summary": "Portfolio allocation remains disciplined. No major deviation from previous month."
-                },
-                "model_portfolio": {
-                    "portfolio_holdings": [
-                        {
-                            "stock_name": "Aarti Industries",
-                            "symbol": "AARTIIND",
-                            "allocation_pct": 10.0
-                        },
-                        {
-                            "stock_name": "Bajaj Finance",
-                            "symbol": "BAJFINANCE",
-                            "allocation_pct": 12.5
-                        },
-                        {
-                            "stock_name": "HDFC Bank",
-                            "symbol": "HDFCBANK",
-                            "allocation_pct": 15.0
-                        },
-                        {
-                            "stock_name": "TCS",
-                            "symbol": "TCS",
-                            "allocation_pct": 8.0
-                        },
-                        {
-                            "stock_name": "Reliance Industries",
-                            "symbol": "RELIANCE",
-                            "allocation_pct": 9.5
-                        }
-                    ]
-                }
-            };
-        }
-        
+
         function renderDashboard() {
             if (!currentData) return;
-            
-            // Update header
+
             document.getElementById("current-date").innerHTML = `
-                <div class="text-sm font-medium text-emerald-400">${currentData.cutoff_date}</div>
+                <div class="text-emerald-400 font-medium">${currentData.cutoff_date}</div>
                 <div class="text-xs text-zinc-500">NSE Delivery Report</div>
             `;
-            
-            // Overview Tab
-            document.getElementById("market-summary").innerHTML = currentData.market_snapshot?.text_summary || "No data available.";
-            document.getElementById("key-drivers").innerHTML = currentData.key_drivers?.text_summary || "";
-            document.getElementById("midcp-summary").innerHTML = currentData.midcp_analysis?.text_summary || "";
-            document.getElementById("consistency-summary").innerHTML = currentData.consistency_check?.text_summary || "";
-            document.getElementById("sector-flows").innerHTML = currentData.sectoral_option_flows?.text_summary || "";
-            document.getElementById("x-sentiment").innerHTML = currentData.x_sentiment?.text_summary || "";
-            
-            // Portfolio
-            renderPortfolio();
-            
-            // Update date selector
+
+            let html = `
+                <div class="grid grid-cols-12 gap-6">
+                    <!-- Market Snapshot -->
+                    <div class="col-span-12 lg:col-span-8">
+                        <div class="glass border border-zinc-700 rounded-3xl p-8">
+                            <h2 class="text-xl font-semibold mb-4">Market Snapshot</h2>
+                            <p class="text-zinc-300 leading-relaxed">${currentData.market_snapshot?.text_summary || ''}</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Key Drivers -->
+                    <div class="col-span-12 lg:col-span-4">
+                        <div class="glass border border-zinc-700 rounded-3xl p-8 h-full">
+                            <h2 class="text-amber-400 text-sm tracking-widest mb-4">KEY DRIVERS</h2>
+                            <p class="text-zinc-300">${currentData.key_drivers?.text_summary || ''}</p>
+                        </div>
+                    </div>
+
+                    <!-- MIDCP -->
+                    <div class="col-span-12 lg:col-span-6">
+                        <div class="glass border border-zinc-700 rounded-3xl p-8">
+                            <h2 class="mb-4 flex items-center gap-2"><i class="fas fa-chart-bar text-sky-400"></i> MIDCP NIFTY</h2>
+                            <p class="text-zinc-300">${currentData.midcp_analysis?.text_summary || ''}</p>
+                        </div>
+                    </div>
+
+                    <!-- Consistency -->
+                    <div class="col-span-12 lg:col-span-6">
+                        <div class="glass border border-zinc-700 rounded-3xl p-8">
+                            <h2 class="mb-4 flex items-center gap-2"><i class="fas fa-shield-alt text-violet-400"></i> CONSISTENCY CHECK</h2>
+                            <p class="text-zinc-300">${currentData.consistency_check?.text_summary || ''}</p>
+                        </div>
+                    </div>
+
+                    <!-- Sector Flows & Sentiment -->
+                    <div class="col-span-12 lg:col-span-7">
+                        <div class="glass border border-zinc-700 rounded-3xl p-8">
+                            <h2 class="text-rose-400 text-sm tracking-widest mb-4">SECTORAL OPTION FLOWS</h2>
+                            <p class="text-zinc-300">${currentData.sectoral_option_flows?.text_summary || ''}</p>
+                        </div>
+                    </div>
+                    <div class="col-span-12 lg:col-span-5">
+                        <div class="glass border border-zinc-700 rounded-3xl p-8">
+                            <h2 class="text-sky-400 text-sm tracking-widest mb-4">X SENTIMENT</h2>
+                            <p class="text-zinc-300">${currentData.x_sentiment?.text_summary || ''}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Section -->
+                <div class="mt-10">
+                    <h2 class="text-2xl font-semibold mb-6">Model Portfolio Holdings</h2>
+                    <div class="glass border border-zinc-700 rounded-3xl p-8">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="border-b border-zinc-700 text-xs text-zinc-400">
+                                    <th class="text-left py-4">Stock</th>
+                                    <th class="text-left py-4">Ticker</th>
+                                    <th class="text-right py-4">Allocation</th>
+                                </tr>
+                            </thead>
+                            <tbody id="portfolio-body" class="text-sm"></tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById("dashboard-content").innerHTML = html;
+            renderPortfolioTable();
             updateDateSelector();
         }
-        
-        function renderPortfolio() {
+
+        function renderPortfolioTable() {
+            const tbody = document.getElementById("portfolio-body");
             const holdings = currentData.model_portfolio?.portfolio_holdings || [];
-            let html = "";
-            
-            let total = 0;
-            
-            holdings.forEach(holding => {
-                total += holding.allocation_pct || 0;
-                html += `
-                    <tr class="border-b border-zinc-800 hover:bg-zinc-900 transition-colors">
-                        <td class="py-5 font-medium">${holding.stock_name}</td>
-                        <td class="py-5 text-emerald-400 font-mono text-xs">${holding.symbol}</td>
-                        <td class="py-5 text-right font-semibold">${holding.allocation_pct}%</td>
+            let rows = '';
+
+            holdings.forEach(h => {
+                rows += `
+                    <tr class="border-b border-zinc-800 hover:bg-zinc-900">
+                        <td class="py-5 font-medium">${h.stock_name}</td>
+                        <td class="py-5 text-emerald-400 font-mono">${h.ticker || h.symbol || '-'}</td>
+                        <td class="py-5 text-right font-semibold">${h.allocation_pct}%</td>
                     </tr>
                 `;
             });
-            
-            document.getElementById("portfolio-table").innerHTML = html;
-            document.getElementById("total-allocation").textContent = total.toFixed(2) + "%";
-            
-            // Render Chart
-            renderAllocationChart(holdings);
+
+            tbody.innerHTML = rows;
         }
-        
-        let allocationChartInstance = null;
-        
-        function renderAllocationChart(holdings) {
-            const ctx = document.getElementById("allocation-chart");
-            
-            if (allocationChartInstance) {
-                allocationChartInstance.destroy();
-            }
-            
-            const labels = holdings.map(h => h.symbol);
-            const data = holdings.map(h => h.allocation_pct);
-            
-            allocationChartInstance = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        data: data,
-                        backgroundColor: [
-                            '#10b981', '#14b8a6', '#22d3ee', '#a78bfa', '#f472b6'
-                        ],
-                        borderColor: '#18181b',
-                        borderWidth: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                color: '#a1a1aa',
-                                font: { size: 12 },
-                                padding: 20,
-                                usePointStyle: true
-                            }
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: (ctx) => ctx.raw + "%"
-                            }
-                        }
-                    },
-                    cutout: "70%"
-                }
-            });
-        }
-        
+
         function updateDateSelector() {
             const select = document.getElementById("date-select");
             select.innerHTML = "";
-            
-            availableReports.forEach((file, index) => {
-                const dateStr = file.replace(".json", "").replace(/_/g, " ");
-                const option = document.createElement("option");
-                option.value = index;
-                option.textContent = dateStr;
-                if (index === currentIndex) option.selected = true;
-                select.appendChild(option);
-            });
-            
-            // Date list sidebar
-            const listContainer = document.getElementById("date-list");
-            listContainer.innerHTML = "";
-            
+            const list = document.getElementById("date-list");
+
             availableReports.forEach((file, i) => {
                 const dateStr = file.replace(".json", "").replace(/_/g, " ");
-                const isActive = i === currentIndex;
-                
+                const option = new Option(dateStr, i);
+                if (i === currentIndex) option.selected = true;
+                select.appendChild(option);
+
                 const div = document.createElement("div");
-                div.className = `px-4 py-3 rounded-2xl cursor-pointer transition-all flex justify-between items-center text-sm ${isActive ? 'bg-emerald-900 text-emerald-300' : 'hover:bg-zinc-800'}`;
-                div.innerHTML = `
-                    <span>${dateStr}</span>
-                    ${isActive ? '<span class="text-[10px] bg-emerald-500 text-black px-2 py-0.5 rounded-full">CURRENT</span>' : ''}
-                `;
-                div.onclick = () => {
-                    currentIndex = i;
-                    loadReport(availableReports[i]);
-                };
-                listContainer.appendChild(div);
+                div.className = `px-4 py-3 rounded-2xl cursor-pointer ${i === currentIndex ? 'bg-emerald-900 text-emerald-300' : 'hover:bg-zinc-800'}`;
+                div.textContent = dateStr;
+                div.onclick = () => { currentIndex = i; loadReport(file); };
+                list.appendChild(div);
             });
         }
-        
-        function showTab(tabIndex) {
-            // Hide all tabs
-            for (let i = 0; i < 3; i++) {
-                const content = document.getElementById(`tab-content-${i}`);
-                const tab = document.getElementById(`tab-${i}`);
-                if (content) content.classList.add("hidden");
-                if (tab) tab.classList.remove("nav-active");
-            }
-            
-            // Show selected
-            document.getElementById(`tab-content-${tabIndex}`).classList.remove("hidden");
-            document.getElementById(`tab-${tabIndex}`).classList.add("nav-active");
+
+        function showTab(n) {
+            // For now all in one view. Can be expanded later.
         }
-        
+
         function prevDate() {
             if (currentIndex > 0) {
                 currentIndex--;
                 loadReport(availableReports[currentIndex]);
             }
         }
-        
+
         function nextDate() {
             if (currentIndex < availableReports.length - 1) {
                 currentIndex++;
                 loadReport(availableReports[currentIndex]);
             }
         }
-        
+
         // Initialize
-        window.onload = function() {
-            // Load first report
+        window.onload = () => {
             loadReport(availableReports[0]);
-            
-            // Date select listener
-            document.getElementById("date-select").addEventListener("change", function() {
-                currentIndex = parseInt(this.value);
-                loadReport(availableReports[currentIndex]);
-            });
-            
-            // Keyboard navigation
-            document.addEventListener("keydown", function(e) {
-                if (e.key === "ArrowLeft") prevDate();
-                if (e.key === "ArrowRight") nextDate();
-            });
-            
-            // Demo note
-            setTimeout(() => {
-                const note = document.createElement("div");
-                note.style.cssText = "position:fixed;bottom:20px;right:20px;background:#18181b;border:1px solid #3f3f46;padding:12px 20px;border-radius:9999px;font-size:13px;color:#a3a3a3;z-index:100;";
-                note.innerHTML = `📁 Place all <span class="font-mono text-amber-300">*.json</span> files in the same folder as this HTML for live loading`;
-                document.body.appendChild(note);
-                
-                setTimeout(() => note.style.opacity = "0", 8000);
-            }, 1500);
         };
     </script>
 </body>
