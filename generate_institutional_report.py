@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
 
 output_dir = "forensic_reports"
-prompts_dir = "prompts"
+prompts_dir = "Prompts"
 os.makedirs(output_dir, exist_ok=True)
 os.makedirs(prompts_dir, exist_ok=True)
 status_file = os.path.join(output_dir, "pipeline_status.json")
@@ -99,7 +99,7 @@ def generate_institutional_report(stock_name, max_retries=3):
             master_prompt = system_master_prompt_template.replace("{stock_name}", stock_name)
             
             response = client.models.generate_content(
-                model='gemini-2.5-pro',
+                model='gemini-2.5-flash',
                 contents=f"Execute the 8-module JSON master analysis strictly for: {stock_name}",
                 config=types.GenerateContentConfig(
                     system_instruction=master_prompt,
