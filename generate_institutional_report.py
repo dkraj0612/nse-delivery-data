@@ -21,16 +21,25 @@ logger = logging.getLogger(__name__)
 # ==============================================================================
 client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
 
+# The 5-Tier Stable Cascade
 GEMINI_MODEL_CASCADE = [
-    'gemini-2.5-pro',
-    'gemini-2.5-flash',
-    'gemini-2.5-flash-lite',
-    'gemini-1.5-pro',
-    'gemini-1.5-flash'
+    'gemini-2.5-pro',            # Tier 1: Heavyweight
+    'gemini-2.5-flash',          # Tier 2: Speedster
+    'gemini-2.5-flash-lite',     # Tier 3: Ultra-Lightweight
+    'gemini-1.5-pro',            # Tier 4: Legacy Heavyweight
+    'gemini-1.5-flash'           # Tier 5: Legacy Speedster
+]
+
+# Disable safety filters so forensic terms (fraud, siphoning) don't crash the script
+SAFETY_CONFIG = [
+    types.SafetySetting(category=types.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT, threshold=types.HarmBlockThreshold.BLOCK_NONE),
+    types.SafetySetting(category=types.HarmCategory.HARM_CATEGORY_HARASSMENT, threshold=types.HarmBlockThreshold.BLOCK_NONE),
+    types.SafetySetting(category=types.HarmCategory.HARM_CATEGORY_HATE_SPEECH, threshold=types.HarmBlockThreshold.BLOCK_NONE),
+    types.SafetySetting(category=types.HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT, threshold=types.HarmBlockThreshold.BLOCK_NONE)
 ]
 
 # ==============================================================================
-# 3. DIRECTORY & PROMPT LOADER
+# 3. DIRECTORY & PROMPT LOADER (Absolute Paths)
 # ==============================================================================
 script_dir = os.path.dirname(os.path.abspath(__file__))
 output_dir = os.path.join(script_dir, "forensic_reports")
@@ -38,12 +47,11 @@ prompts_dir = os.path.join(script_dir, "Prompts")
 status_file = os.path.join(output_dir, "pipeline_status.json")
 
 os.makedirs(output_dir, exist_ok=True)
-os.makedirs(prompts_dir, exist_ok=True)
 
 def load_prompt(filename):
     path = os.path.join(prompts_dir, filename)
     if not os.path.exists(path):
-        logger.error(f"CRITICAL: Missing prompt file at {path}")
+        logger.error(f"CRITICAL: Missing prompt file at {path}. Please create it.")
         exit(1)
     with open(path, 'r', encoding='utf-8') as f:
         return f.read()
@@ -51,7 +59,7 @@ def load_prompt(filename):
 def load_stock_queue(filename="target_stocks.txt"):
     path = os.path.join(prompts_dir, filename)
     if not os.path.exists(path):
-        logger.error(f"CRITICAL ERROR: {path} not found.")
+        logger.error(f"CRITICAL ERROR: {path} not found. Please create it.")
         exit(1)
         
     stocks = []
@@ -62,20 +70,9 @@ def load_stock_queue(filename="target_stocks.txt"):
                 stocks.append(clean_line)
     return stocks
 
-# Initialize variables to prevent reference errors
-system_master_prompt_template = ""
-validation_prompt_template = ""
-stock_list = []
-
-try:
-    system_master_prompt_template = load_prompt("master_prompt.txt")
-    validation_prompt_template = load_prompt("validation_prompt.txt")
-    stock_list = load_stock_queue("target_stocks.txt")
-except SystemExit:
-    exit(1)
-except Exception as e:
-    logger.error(f"Error loading configurations: {e}")
-    exit(1)
+system_master_prompt_template = load_prompt("master_prompt.txt")
+validation_prompt_template = load_prompt("validation_prompt.txt")
+stock_list = load_stock_queue("target_stocks.txt")
 
 # ==============================================================================
 # 4. STATE TRACKER
@@ -93,18 +90,23 @@ def save_status():
     with open(status_file, 'w', encoding='utf-8') as f:
         json.dump(status_tracker, f, indent=4)
 
-def extract_json_from_text(raw_text):
+def extract_json_from_text(raw_text, stock_name, attempt):
+    """Aggressively extracts JSON ignoring any conversational text around it."""
     if not raw_text:
-        raise ValueError("API returned an empty response.")
+        raise ValueError("API returned an empty response. (Safety filter block).")
         
-    raw_text = raw_text.strip()
-    if raw_text.startswith("```json"):
-        raw_text = raw_text[7:]
-    elif raw_text.startswith("```"):
-        raw_text = raw_text[3:]
-    if raw_text.endswith("```"):
-        raw_text = raw_text[:-3]
-    return raw_text.strip()
+    # Find the first '{' and the last '}' in the entire string
+    start_idx = raw_text.find('{')
+    end_idx = raw_text.rfind('}')
+    
+    if start_idx != -1 and end_idx != -1 and end_idx > start_idx:
+        return raw_text[start_idx:end_idx + 1]
+    else:
+        # Debugging: If it STILL fails, save exactly what the AI said so we can see it!
+        debug_filename = os.path.join(output_dir, f"ERROR_LOG_{stock_name.replace(' ', '_')}_Tier{attempt}.txt")
+        with open(debug_filename, 'w', encoding='utf-8') as f:
+            f.write(raw_text)
+        raise ValueError(f"No JSON brackets found. AI's raw output saved to {debug_filename} for debugging.")
 
 # ==============================================================================
 # 5. EXECUTION NODE
@@ -118,29 +120,31 @@ def generate_institutional_report(stock_name):
     
     for attempt, current_model in enumerate(GEMINI_MODEL_CASCADE, 1):
         try:
+            # ---------------------------------------------------------
+            # PASS 1: CORE DATA GENERATION
+            # ---------------------------------------------------------
             logger.info(f"[{stock_name}] Stage 1: Scrape & Synthesis using [{current_model}] (Tier {attempt}/{total_models})")
             
             master_prompt = system_master_prompt_template.replace("{stock_name}", stock_name)
             
-            search_tool = types.Tool(google_search=types.GoogleSearch())
-
             response = client.models.generate_content(
                 model=current_model,
                 contents=f"Execute the 8-module JSON master analysis strictly for: {stock_name}",
                 config=types.GenerateContentConfig(
                     system_instruction=master_prompt,
                     temperature=0.1, 
-                    tools=[search_tool]
+                    tools=[{"google_search": {}}],
+                    safety_settings=SAFETY_CONFIG # Apply safety overrides
                 )
             )
             
-            if response.text is None:
-                raise ValueError("Response text is None, possibly due to safety filters.")
-                
-            clean_text = extract_json_from_text(response.text)
+            clean_text = extract_json_from_text(response.text, stock_name, attempt)
             json_payload = json.loads(clean_text)
             
-            logger.info(f"[{stock_name}] Stage 2: Verification Audit using [{current_model}]")
+            # ---------------------------------------------------------
+            # PASS 2: VERIFICATION GATE (DUAL SCRAPING)
+            # ---------------------------------------------------------
+            logger.info(f"[{stock_name}] Stage 2: Independent Verification Audit using [{current_model}]")
             
             memory_metadata = json_payload.get("metadata", {})
             memory_kpis = json_payload.get("kpis", {})
@@ -156,25 +160,26 @@ def generate_institutional_report(stock_name):
                 contents=val_prompt,
                 config=types.GenerateContentConfig(
                     temperature=0.0, 
-                    tools=[search_tool]
+                    tools=[{"google_search": {}}],
+                    safety_settings=SAFETY_CONFIG
                 )
             )
             
-            if val_response.text is None:
-                raise ValueError("Validation response text is None.")
-
-            clean_val_text = extract_json_from_text(val_response.text)
-            
+            clean_val_text = extract_json_from_text(val_response.text, stock_name, attempt)
             try:
                 val_payload = json.loads(clean_val_text)
                 logger.info(f"[{stock_name}] Audit Result: {val_payload.get('status', 'UNKNOWN')}")
             except Exception as ve:
-                logger.warning(f"[{stock_name}] Audit failed to parse. Defaulting to FAIL. Error: {ve}")
+                logger.warning(f"[{stock_name}] Audit failed to parse correctly. Defaulting to FAIL.")
                 val_payload = {"status": "FAIL", "discrepancies": "Audit JSON parsing failed."}
             
+            # INJECT VERIFICATION STATUS
             json_payload["verification"] = val_payload
             
-            filename = os.path.join(output_dir, f"{stock_name.replace(' ', '_')}_Forensic_Report.json")
+            # ---------------------------------------------------------
+            # SAVE FINAL FILE
+            # ---------------------------------------------------------
+            filename = f"{output_dir}/{stock_name.replace(' ', '_')}_Forensic_Report.json"
             with open(filename, 'w', encoding='utf-8') as file:
                 json.dump(json_payload, file, indent=4)
                 
@@ -183,29 +188,22 @@ def generate_institutional_report(stock_name):
             status_tracker["completed"] += 1
             save_status()
             
-            return 
+            return # EXIT THE RETRY LOOP UPON SUCCESS
             
         except json.JSONDecodeError as je:
-            logger.warning(f"Tier {attempt} FAILED (JSON Error) using [{current_model}] for {stock_name}. Error: {je}")
+            logger.warning(f"Tier {attempt}/{total_models} FAILED (JSON Decoding Error) using [{current_model}] for {stock_name}. Error: {je}")
             if attempt < total_models:
+                logger.info(f"Parsing failure. Escaping to next model layer in 15 seconds...")
                 time.sleep(15)
             else:
-                status_tracker["stocks"][stock_name] = "Failed (JSON Parse Error on all models)"
-                status_tracker["failed"] += 1
-                save_status()
-                
-        except ValueError as ve:
-            logger.warning(f"Tier {attempt} FAILED (Value/Safety) using [{current_model}] for {stock_name}. Error: {ve}")
-            if attempt < total_models:
-                time.sleep(15)
-            else:
-                status_tracker["stocks"][stock_name] = "Failed (Safety/Value Error on all models)"
+                status_tracker["stocks"][stock_name] = f"Failed (JSON Parse Error on all models)"
                 status_tracker["failed"] += 1
                 save_status()
                 
         except Exception as e:
-            logger.warning(f"Tier {attempt} FAILED using [{current_model}] for {stock_name}. Error: {e}")
+            logger.warning(f"Tier {attempt}/{total_models} FAILED using [{current_model}] for {stock_name}. Error: {e}")
             if attempt < total_models:
+                logger.info(f"API/Network/Quota failure. Escaping to next model layer in 15 seconds...")
                 time.sleep(15)
             else:
                 status_tracker["stocks"][stock_name] = f"Failed (All Models Exhausted): {str(e)}"
@@ -227,6 +225,5 @@ if __name__ == "__main__":
             logger.info("Enforcing 30-second rate-limit cooling index...")
             time.sleep(30)
 
-    # 100% syntactically correct final line:
     logger.info(f"PIPELINE SUMMARY COMPLETE: {status_tracker['completed']} clean, {status_tracker['failed']} breaks.")
 
