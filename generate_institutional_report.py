@@ -290,7 +290,7 @@ def generate_institutional_report(stock_name, max_retries=3):
     for attempt in range(1, max_retries + 1):
         try:
             response = client.models.generate_content(
-                model='gemini-2.5-pro', 
+                model='gemini-2.5-flash', 
                 contents=f"Execute the 8-module JSON master analysis strictly for: {stock_name}",
                 config=types.GenerateContentConfig(
                     system_instruction=system_master_prompt,
