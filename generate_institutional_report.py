@@ -201,7 +201,7 @@ def generate_institutional_report(stock_name):
 # 6. WORKFLOW MAIN LOOP
 # ==============================================================================
 if __name__ == "__main__":
-    logger.info(f"PIPELINE INITIATED: Loaded {len(stock_list)} nodes into JSON queue.")
+    logger.info("PIPELINE INITIATED: Loaded {len(stock_list)} nodes into JSON queue.")
     save_status()
 
     for idx, stock in enumerate(stock_list, 1):
