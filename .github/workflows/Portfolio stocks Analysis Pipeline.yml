@@ -1,18 +1,24 @@
 name: Institutional Stock Analysis Pipeline
 
 on:
-  workflow_dispatch: # Enables a "Run Workflow" button for manual execution
+  workflow_dispatch: # Manual execution button
   schedule:
-    - cron: '0 2 * * 1' # Automatically runs every Monday at 02:00 UTC
+    - cron: '0 2 * * 1' # Runs every Monday at 02:00 UTC
+
+# CRITICAL: Grant the GitHub token permissions to modify repository contents
+permissions:
+  contents: write
 
 jobs:
   run-analysis:
     runs-on: ubuntu-latest
-    timeout-minutes: 180 # Provides a 3-hour window for 40 stocks
+    timeout-minutes: 180
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true # Crucial for allowing the runner to push back to git
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -20,17 +26,26 @@ jobs:
           python-version: '3.12'
 
       - name: Install Dependencies
-        run: pip install -r requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
       - name: Run Forensic Analysis Script
         env:
-          # Securely injects the API key at runtime
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python main.py
 
-      - name: Archive Forensic Reports
-        uses: actions/upload-artifact@v4
-        with:
-          name: institutional-forensic-reports
-          path: forensic_reports/
-          retention-days: 7
+      - name: Commit and Push Reports Directly to Repo
+        run: |
+          # Configure Git using the standard GitHub Actions bot credentials
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+          # Stage the newly created directory and files
+          git add forensic_reports/
+          
+          # Commit the changes. If no changes exist, prevent the script from crashing.
+          git commit -m "Automated Forensic Update: Added reports on $(date +'%Y-%m-%d')" || echo "No new reports or data modifications detected."
+          
+          # Push changes directly back to the main branch
+          git push origin HEAD
