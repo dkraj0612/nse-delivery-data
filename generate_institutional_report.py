@@ -303,7 +303,7 @@ class ForensicPipelineManager:
         for attempt in range(1, MAX_API_RETRIES + 1):
             try:
                 response = self.client.models.generate_content(
-                    model='gemini-2.5-pro',
+                    model='gemini-2.5-flash',
                     contents=f"Execute the 8-module JSON master analysis strictly for: {stock_name}",
                     config=types.GenerateContentConfig(
                         system_instruction=SYSTEM_MASTER_PROMPT,
