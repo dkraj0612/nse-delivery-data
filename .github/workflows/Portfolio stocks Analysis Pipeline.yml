@@ -33,7 +33,7 @@ jobs:
       - name: Run Forensic Analysis Script
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: python main.py
+        run: python generate_institutional_report.py
 
       - name: Commit and Push Reports Directly to Repo
         run: |
