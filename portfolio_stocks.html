@@ -1,93 +1,86 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Institutional Forensic Terminal</title>
+    <title>Terminal | Forensic Analysis</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .tab-panel { display: none; }
-        .tab-panel.active { display: block; }
-        .scrollbar-none::-webkit-scrollbar { display: none; }
-        .active-btn { border-bottom: 2px solid #38bdf8; color: #38bdf8; }
-    </style>
 </head>
-<body class="bg-gray-950 text-gray-200 min-h-screen">
+<body class="bg-slate-950 text-slate-300 font-sans">
 
-    <header class="p-4 border-b border-gray-800 bg-gray-900 sticky top-0 z-50">
-        <div class="max-w-5xl mx-auto flex items-center justify-between">
-            <h1 class="text-xs font-black uppercase tracking-widest text-emerald-500">Forensic Terminal v2.0</h1>
-            <select id="stockSelector" class="bg-gray-800 text-xs px-3 py-1 rounded border border-gray-700">
-                <option value="">SELECT ASSET...</option>
-                <option value="Acutaas_Chemicals">Acutaas Chemicals</option>
-                <option value="Lumax_Auto_Technologies">Lumax Auto Technologies</option>
+    <div class="max-w-7xl mx-auto p-4 md:p-8">
+        <!-- Search & Control -->
+        <div class="flex flex-col md:flex-row justify-between mb-8 gap-4">
+            <div>
+                <h1 class="text-2xl font-bold text-white tracking-tighter">Forensic Portfolio Terminal</h1>
+                <p class="text-xs text-slate-500 uppercase tracking-widest">Autonomous Data Engine v4.0</p>
+            </div>
+            <select id="stockSelector" class="bg-slate-900 border border-slate-700 text-white rounded-lg px-4 py-2 w-full md:w-80 cursor-pointer focus:ring-2 focus:ring-emerald-500 transition-all">
+                <option value="">-- SELECT ASSET --</option>
             </select>
         </div>
-    </header>
 
-    <main class="max-w-5xl mx-auto p-4">
-        <!-- KPI Row -->
-        <div id="kpiGrid" class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-6 hidden">
-            <div class="bg-gray-900 p-3 rounded border border-gray-800"><p class="text-[10px] text-gray-500 uppercase">P/E</p><p id="v-pe" class="font-mono text-sm font-bold"></p></div>
-            <div class="bg-gray-900 p-3 rounded border border-gray-800"><p class="text-[10px] text-gray-500 uppercase">ROCE</p><p id="v-roce" class="font-mono text-sm font-bold"></p></div>
-            <div class="bg-gray-900 p-3 rounded border border-gray-800"><p class="text-[10px] text-gray-500 uppercase">Pledge</p><p id="v-pledge" class="font-mono text-sm font-bold"></p></div>
-            <div class="bg-gray-900 p-3 rounded border border-gray-800"><p class="text-[10px] text-gray-500 uppercase">Verdict</p><p id="v-verdict" class="font-mono text-sm font-bold text-emerald-400"></p></div>
+        <div id="dashboard" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Sidebar Metrics -->
+            <aside class="lg:col-span-3 space-y-4" id="kpiSidebar"></aside>
+            <!-- Main Detail Pane -->
+            <main class="lg:col-span-9 space-y-6" id="detailPane"></main>
         </div>
-
-        <!-- Navigation -->
-        <div id="navTabs" class="flex space-x-4 border-b border-gray-800 pb-2 mb-6 overflow-x-auto scrollbar-none hidden">
-            <button onclick="showTab('gov')" class="tab-link active-btn text-[10px] font-bold uppercase py-1">Gov</button>
-            <button onclick="showTab('ops')" class="tab-link text-[10px] font-bold uppercase py-1 text-gray-500">Ops</button>
-            <button onclick="showTab('moat')" class="tab-link text-[10px] font-bold uppercase py-1 text-gray-500">Moat</button>
-            <button onclick="showTab('fin')" class="tab-link text-[10px] font-bold uppercase py-1 text-gray-500">Fin</button>
-            <button onclick="showTab('thesis')" class="tab-link text-[10px] font-bold uppercase py-1 text-gray-500">Thesis</button>
-            <button onclick="showTab('val')" class="tab-link text-[10px] font-bold uppercase py-1 text-gray-500">Val</button>
-            <button onclick="showTab('news')" class="tab-link text-[10px] font-bold uppercase py-1 text-gray-500">News</button>
-        </div>
-
-        <!-- Panels -->
-        <div id="panels" class="space-y-4">
-            <!-- Content will be injected here -->
-        </div>
-    </main>
+    </div>
 
     <script>
-        const stockSelector = document.getElementById('stockSelector');
-        
-        stockSelector.addEventListener('change', async (e) => {
-            const file = `forensic_reports/${e.target.value}_Forensic_Report.json`;
-            const res = await fetch(file);
-            const data = await res.json();
-            
-            document.getElementById('kpiGrid').classList.remove('hidden');
-            document.getElementById('navTabs').classList.remove('hidden');
-            
-            // Populate KPIs
-            document.getElementById('v-pe').innerText = data.kpis.trailing_pe;
-            document.getElementById('v-roce').innerText = data.kpis.roce_5yr_median + '%';
-            document.getElementById('v-pledge').innerText = data.kpis.promoter_pledging_pct + '%';
-            document.getElementById('v-verdict').innerText = data.kpis.final_verdict;
+        const CONFIG = {
+            assets: ["Acutaas_Chemicals", "BEL", "Bajajcon", "Bliss_GVS_Pharma", "CCL", "Lumax_Auto_Technologies", "Maithan_Alloys", "cgpower", "cupid", "dixon", "geship", "hdfcamc"]
+        };
 
-            // Build Panels
-            const panelsContainer = document.getElementById('panels');
-            panelsContainer.innerHTML = `
-                <div id="gov" class="tab-panel active"><h2 class="text-emerald-500 font-bold text-xs uppercase mb-2">Governance</h2><div class="text-xs text-gray-300 space-y-2">${Object.entries(data.governance).map(([k, v]) => `<p><strong>${k.replace('_', ' ')}:</strong> ${v}</p>`).join('')}</div></div>
-                <div id="ops" class="tab-panel"><h2 class="text-emerald-500 font-bold text-xs uppercase mb-2">Operations</h2><div class="text-xs text-gray-300 space-y-2">${Object.entries(data.operations).map(([k, v]) => `<p><strong>${k.replace('_', ' ')}:</strong> ${v}</p>`).join('')}</div></div>
-                <div id="moat" class="tab-panel"><h2 class="text-emerald-500 font-bold text-xs uppercase mb-2">Moat</h2><div class="text-xs text-gray-300 space-y-2">${Object.entries(data.moat_and_industry).map(([k, v]) => `<p><strong>${k.replace('_', ' ')}:</strong> ${v}</p>`).join('')}</div></div>
-                <div id="fin" class="tab-panel"><h2 class="text-emerald-500 font-bold text-xs uppercase mb-2">Financials</h2><div class="text-xs text-gray-300 space-y-2">${Object.entries(data.financial_forensics).map(([k, v]) => `<p><strong>${k.replace('_', ' ')}:</strong> ${v}</p>`).join('')}</div></div>
-                <div id="thesis" class="tab-panel"><h2 class="text-emerald-500 font-bold text-xs uppercase mb-2">Thesis</h2><div class="text-xs text-gray-300 space-y-2">${Object.entries(data.thesis_and_risks).map(([k, v]) => `<p><strong>${k.replace('_', ' ')}:</strong> ${v}</p>`).join('')}</div></div>
-                <div id="val" class="tab-panel"><h2 class="text-emerald-500 font-bold text-xs uppercase mb-2">Valuation</h2><div class="text-xs text-gray-300 space-y-2">${Object.entries(data.valuation_matrix).map(([k, v]) => typeof v === 'object' ? `<p><strong>${k}:</strong> ${JSON.stringify(v)}</p>` : `<p><strong>${k}:</strong> ${v}</p>`).join('')}</div></div>
-                <div id="news" class="tab-panel"><h2 class="text-emerald-500 font-bold text-xs uppercase mb-2">Catalysts</h2><div class="text-xs text-gray-300 space-y-2">${Object.entries(data.catalysts_and_sentiment).map(([k, v]) => `<p><strong>${k.replace('_', ' ')}:</strong> ${v}</p>`).join('')}</div></div>
-            `;
+        const selector = document.getElementById('stockSelector');
+        CONFIG.assets.forEach(s => selector.innerHTML += `<option value="${s}">${s.replace(/_/g, ' ')}</option>`);
+
+        selector.addEventListener('change', async (e) => {
+            if(!e.target.value) return;
+            const res = await fetch(`forensic_reports/${e.target.value}_Forensic_Report.json?t=${Date.now()}`);
+            const data = await res.json();
+            render(data);
         });
 
-        function showTab(id) {
-            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active-btn'));
-            document.getElementById(id).classList.add('active');
-            event.target.classList.add('active-btn');
+        function render(data) {
+            document.getElementById('dashboard').classList.remove('hidden');
+            
+            // Render KPI Sidebar with Forensic Highlighting
+            const sidebar = document.getElementById('kpiSidebar');
+            sidebar.innerHTML = `
+                <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800">
+                    <h3 class="text-xs uppercase font-bold text-slate-500 mb-4">Core Metrics</h3>
+                    <div class="space-y-4">
+                        ${Object.entries(data.kpis).map(([k, v]) => `
+                            <div>
+                                <p class="text-[10px] uppercase text-slate-500">${k.replace('_', ' ')}</p>
+                                <p class="text-lg font-bold text-white">${v}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            // Render Detail Pane
+            const pane = document.getElementById('detailPane');
+            pane.innerHTML = Object.entries(data).filter(([k]) => !['metadata', 'kpis'].includes(k)).map(([section, subData]) => `
+                <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+                    <h2 class="text-emerald-500 text-xs font-bold uppercase tracking-widest mb-4 border-b border-slate-800 pb-2">${section.replace('_', ' ')}</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        ${typeof subData === 'object' ? Object.entries(subData).map(([k, v]) => `
+                            <div>
+                                <h4 class="text-[10px] text-slate-500 uppercase font-bold mb-1">${k.replace(/_/g, ' ')}</h4>
+                                <p class="text-sm leading-relaxed text-slate-400">${v}</p>
+                            </div>
+                        `).join('') : `<p class="text-sm text-slate-400">${subData}</p>`}
+                    </div>
+                </section>
+            `).join('');
         }
     </script>
 </body>
 </html>
 
+```
