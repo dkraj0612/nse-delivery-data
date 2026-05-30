@@ -1,4 +1,3 @@
-```python
 import os
 import time
 import json
@@ -213,7 +212,5 @@ if __name__ == "__main__":
             logger.info("Enforcing 30-second rate-limit cooling index...")
             time.sleep(30)
 
-    logger.info(f"PIPELINE SUMMARY COMPLETE: {status_tracker['completed']} clean, {status_tracker['failed']} breaks.")
+    logger.info(f"PIPELINE SUMMARY COMPLETE: {status_tracker['completed']} clean, {status_tracker['failed']} breaks."
 
-
-```
