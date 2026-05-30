@@ -1,0 +1,12 @@
+{
+    "last_updated": "2026-05-30 09:26:08 UTC",
+    "total_stocks": 4,
+    "completed": 0,
+    "failed": 4,
+    "stocks": {
+        "Lumax Auto Technologies": "Failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': \"Tool use with a response mime type: 'application/json' is unsupported\", 'status': 'INVALID_ARGUMENT'}}",
+        "Acutaas Chemicals": "Failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': \"Tool use with a response mime type: 'application/json' is unsupported\", 'status': 'INVALID_ARGUMENT'}}",
+        "Bliss GVS Pharma": "Failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': \"Tool use with a response mime type: 'application/json' is unsupported\", 'status': 'INVALID_ARGUMENT'}}",
+        "Maithan Alloys": "Failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': \"Tool use with a response mime type: 'application/json' is unsupported\", 'status': 'INVALID_ARGUMENT'}}"
+    }
+}
