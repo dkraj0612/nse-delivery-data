@@ -1,4 +1,3 @@
-```python
 import os
 import time
 import json
@@ -231,4 +230,3 @@ if __name__ == "__main__":
     # 100% syntactically correct final line:
     logger.info(f"PIPELINE SUMMARY COMPLETE: {status_tracker['completed']} clean, {status_tracker['failed']} breaks.")
 
-```
