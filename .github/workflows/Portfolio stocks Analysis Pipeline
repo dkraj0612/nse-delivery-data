@@ -1,0 +1,36 @@
+name: Institutional Stock Analysis Pipeline
+
+on:
+  workflow_dispatch: # Enables a "Run Workflow" button for manual execution
+  schedule:
+    - cron: '0 2 * * 1' # Automatically runs every Monday at 02:00 UTC
+
+jobs:
+  run-analysis:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180 # Provides a 3-hour window for 40 stocks
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Forensic Analysis Script
+        env:
+          # Securely injects the API key at runtime
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python main.py
+
+      - name: Archive Forensic Reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: institutional-forensic-reports
+          path: forensic_reports/
+          retention-days: 7
