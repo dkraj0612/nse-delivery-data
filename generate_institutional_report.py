@@ -2,12 +2,23 @@ import os
 import time
 import json
 import logging
+import re
 from datetime import datetime, timezone
+from typing import List, Dict, Any
+
 from google import genai
 from google.genai import types
 
 # ==============================================================================
-# 1. SETUP STRUCTURED LOGGING
+# 1. GLOBAL CONSTANTS & CONFIGURATION
+# ==============================================================================
+BASE_COOLDOWN_SECONDS: int = 30
+MAX_API_RETRIES: int = 3
+OUTPUT_DIRECTORY: str = "forensic_reports"
+STATUS_FILE: str = os.path.join(OUTPUT_DIRECTORY, "pipeline_status.json")
+
+# ==============================================================================
+# 2. SETUP STRUCTURED LOGGING
 # ==============================================================================
 logging.basicConfig(
     level=logging.INFO,
@@ -17,45 +28,9 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # ==============================================================================
-# 2. INITIALIZE CLIENT & DIRECTORIES
+# 3. THE COMPLETE INSTITUTIONAL MASTER PROMPT + JSON SCHEMA
 # ==============================================================================
-client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
-
-output_dir = "forensic_reports"
-os.makedirs(output_dir, exist_ok=True)
-status_file = os.path.join(output_dir, "pipeline_status.json")
-
-# ==============================================================================
-# 3. TARGET SECURITIES QUEUE
-# ==============================================================================
-stock_list = [
-    "Lumax Auto Technologies", 
-    "Acutaas Chemicals", 
-    "Bliss GVS Pharma", 
-    "Maithan Alloys"
-    # Insert remaining 36 stocks here
-]
-
-# ==============================================================================
-# 4. INITIALIZE JSON STATE TRACKER
-# ==============================================================================
-status_tracker = {
-    "last_updated": datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC'),
-    "total_stocks": len(stock_list),
-    "completed": 0,
-    "failed": 0,
-    "stocks": {stock: "Pending" for stock in stock_list}
-}
-
-def save_status():
-    status_tracker["last_updated"] = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')
-    with open(status_file, 'w', encoding='utf-8') as f:
-        json.dump(status_tracker, f, indent=4)
-
-# ==============================================================================
-# 5. THE COMPLETE INSTITUTIONAL MASTER PROMPT + JSON SCHEMA
-# ==============================================================================
-system_master_prompt = """
+SYSTEM_MASTER_PROMPT: str = """
 You are a veteran Indian equity research analyst and a fund manager with 30 years of experience specializing exclusively in Indian Smallcaps (Market Cap ₹5,000 Cr to ₹25,000 Cr) and Microcaps (Market Cap below ₹5,000 Cr). Your investment philosophy is deeply rooted in identifying high-growth businesses, structural turnarounds, and overlooked niche leaders before the broader DII/FII (Domestic and Foreign Institutional Investors) community discovers them. You blend the scuttlebutt methodology of Philip Fisher, the margin of safety principles of Benjamin Graham, and the forensic skepticism of an auditor to protect capital while chasing 5x to 10x returns.
 
 ### CRITICAL METRIC & FORENSIC NOTES (NON-NEGOTIABLE):
@@ -280,65 +255,126 @@ Your output schema MUST perfectly mirror this JSON model structure exactly:
 """
 
 # ==============================================================================
-# 6. EXECUTION NODE (With Linear Backoff Retry Loop)
+# 4. PIPELINE ARCHITECTURE (OOP ENCAPSULATION)
 # ==============================================================================
-def generate_institutional_report(stock_name, max_retries=3):
-    logger.info(f"STARTING: Initiating structured JSON pipeline for: {stock_name}")
-    status_tracker["stocks"][stock_name] = "Processing..."
-    save_status()
+class ForensicPipelineManager:
+    """Manages the state and execution of the institutional equity research pipeline."""
     
-    for attempt in range(1, max_retries + 1):
-        try:
-            response = client.models.generate_content(
-                model='gemini-2.5-flash', 
-                contents=f"Execute the 8-module JSON master analysis strictly for: {stock_name}",
-                config=types.GenerateContentConfig(
-                    system_instruction=system_master_prompt,
-                    temperature=0.1, 
-                    response_mime_type="application/json", # Forces Gemini API to return strict, parseable JSON
-                    tools=[{"google_search": {}}]
+    def __init__(self, target_stocks: List[str]):
+        self.stocks: List[str] = target_stocks
+        self.client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
+        
+        # Initialize isolated state tracker
+        self.status_tracker: Dict[str, Any] = {
+            "last_updated": datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC'),
+            "total_stocks": len(self.stocks),
+            "completed": 0,
+            "failed": 0,
+            "stocks": {stock: "Pending" for stock in self.stocks}
+        }
+        
+        # Ensure output directory exists
+        os.makedirs(OUTPUT_DIRECTORY, exist_ok=True)
+
+    def _save_status(self) -> None:
+        """Saves the pipeline state using a strict atomic write to prevent disk corruption."""
+        self.status_tracker["last_updated"] = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')
+        temp_file = STATUS_FILE + ".tmp"
+        
+        with open(temp_file, 'w', encoding='utf-8') as f:
+            json.dump(self.status_tracker, f, indent=4)
+            
+        os.replace(temp_file, STATUS_FILE) # Atomic swap
+
+    def _extract_json_safely(self, raw_response_text: str) -> Dict[str, Any]:
+        """Uses Regex to aggressively extract JSON, avoiding literal backticks in the python code."""
+        tick = chr(96) # Dynamically generate backtick character to prevent UI renderer issues
+        pattern = rf'{tick}{{3}}(?:json)?(.*?){tick}{{3}}'
+        match = re.search(pattern, raw_response_text, re.DOTALL)
+        clean_text = match.group(1).strip() if match else raw_response_text.strip()
+        return json.loads(clean_text)
+
+    def process_stock(self, stock_name: str) -> None:
+        """Executes the analysis for a single stock with linear backoff retry logic."""
+        logger.info(f"STARTING: Initiating structured JSON pipeline for: {stock_name}")
+        self.status_tracker["stocks"][stock_name] = "Processing..."
+        self._save_status()
+        
+        for attempt in range(1, MAX_API_RETRIES + 1):
+            try:
+                response = self.client.models.generate_content(
+                    model='gemini-2.5-pro',
+                    contents=f"Execute the 8-module JSON master analysis strictly for: {stock_name}",
+                    config=types.GenerateContentConfig(
+                        system_instruction=SYSTEM_MASTER_PROMPT,
+                        temperature=0.1, 
+                        # response_mime_type left default so google_search tool works
+                        tools=[{"google_search": {}}]
+                    )
                 )
-            )
-            
-            # The API will return raw JSON due to response_mime_type
-            json_payload = json.loads(response.text)
-            
-            filename = f"{output_dir}/{stock_name.replace(' ', '_')}_Forensic_Report.json"
-            with open(filename, 'w', encoding='utf-8') as file:
-                json.dump(json_payload, file, indent=4)
                 
-            logger.info(f"SUCCESS: JSON data committed cleanly to {filename}")
-            status_tracker["stocks"][stock_name] = "Completed"
-            status_tracker["completed"] += 1
-            save_status()
-            return 
+                # Extract and validate the JSON payload
+                json_payload = self._extract_json_safely(response.text)
+                
+                filename = os.path.join(OUTPUT_DIRECTORY, f"{stock_name.replace(' ', '_')}_Forensic_Report.json")
+                with open(filename, 'w', encoding='utf-8') as file:
+                    json.dump(json_payload, file, indent=4)
+                    
+                logger.info(f"SUCCESS: JSON data committed cleanly to {filename}")
+                self.status_tracker["stocks"][stock_name] = "Completed"
+                self.status_tracker["completed"] += 1
+                self._save_status()
+                return # Break out of retry loop
+                
+            except json.JSONDecodeError as je:
+                logger.warning(f"Attempt {attempt}/{MAX_API_RETRIES} FAILED (JSON Parse Error) for {stock_name}. Error: {je}")
+                self._handle_failure(attempt, stock_name, f"Failed (JSON Parse Error): {str(je)}")
+                    
+            except Exception as e:
+                logger.warning(f"Attempt {attempt}/{MAX_API_RETRIES} FAILED for {stock_name}. Error: {e}")
+                self._handle_failure(attempt, stock_name, f"Failed: {str(e)}")
+
+    def _handle_failure(self, attempt: int, stock_name: str, error_msg: str) -> None:
+        """Handles the linear backoff cooldown or final failure logging."""
+        if attempt < MAX_API_RETRIES:
+            cooldown = BASE_COOLDOWN_SECONDS * attempt
+            logger.info(f"Retrying {stock_name} in {cooldown} seconds...")
+            time.sleep(cooldown)
+        else:
+            logger.error(f"FINAL PIPELINE FAILURE for {stock_name} after {MAX_API_RETRIES} cycles.")
+            self.status_tracker["stocks"][stock_name] = error_msg
+            self.status_tracker["failed"] += 1
+            self._save_status()
+
+    def run_pipeline(self) -> None:
+        """Iterates through the queue and enforces rate limit protocols."""
+        logger.info(f"PIPELINE INITIATED: Loaded {len(self.stocks)} nodes into JSON queue.")
+        self._save_status()
+
+        for idx, stock in enumerate(self.stocks, 1):
+            logger.info(f"--- Processing {idx}/{len(self.stocks)} ---")
+            self.process_stock(stock)
             
-        except Exception as e:
-            logger.warning(f"Attempt {attempt}/{max_retries} FAILED for {stock_name}. Error: {e}")
-            if attempt < max_retries:
-                cooldown = 30 * attempt
-                logger.info(f"Retrying {stock_name} in {cooldown} seconds...")
-                time.sleep(cooldown)
-            else:
-                logger.error(f"FINAL PIPELINE FAILURE for {stock_name} after {max_retries} cycles.")
-                status_tracker["stocks"][stock_name] = f"Failed: {str(e)}"
-                status_tracker["failed"] += 1
-                save_status()
+            if idx < len(self.stocks):
+                logger.info(f"Enforcing {BASE_COOLDOWN_SECONDS}-second rate-limit cooling index...")
+                time.sleep(BASE_COOLDOWN_SECONDS)
+
+        logger.info(f"PIPELINE SUMMARY COMPLETE: {self.status_tracker['completed']} clean, {self.status_tracker['failed']} breaks.")
 
 # ==============================================================================
-# 7. WORKFLOW MAIN LOOP
+# 5. EXECUTION ENTRY POINT
 # ==============================================================================
 if __name__ == "__main__":
-    logger.info(f"PIPELINE INITIATED: Loaded {len(stock_list)} nodes into JSON queue.")
-    save_status()
+    
+    # Define your institutional target queue here
+    target_list: List[str] = [
+        "Lumax Auto Technologies", 
+        "Acutaas Chemicals", 
+        "Bliss GVS Pharma", 
+        "Maithan Alloys"
+        # Add remaining stocks here
+    ]
+    
+    pipeline = ForensicPipelineManager(target_stocks=target_list)
+    pipeline.run_pipeline()
 
-    for idx, stock in enumerate(stock_list, 1):
-        logger.info(f"--- Processing {idx}/{len(stock_list)} ---")
-        generate_institutional_report(stock)
-        
-        # Apply standard delay between successful runs to respect API limits
-        if idx < len(stock_list):
-            logger.info("Enforcing 30-second rate-limit cooling index...")
-            time.sleep(30)
-
-    logger.info(f"PIPELINE SUMMARY COMPLETE: {status_tracker['completed']} clean, {status_tracker['failed']} breaks.")
