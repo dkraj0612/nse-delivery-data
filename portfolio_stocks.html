@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Institutional Forensic Equity Research Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        /* Custom markdown formatting overrides */
+        .prose table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        .prose th, .prose td { border: 1px solid #374151; padding: 0.75rem; text-align: left; }
+        .prose th { background-color: #1f2937; color: #f3f4f6; }
+        .prose h3 { font-size: 1.5rem; font-weight: 700; color: #3b82f6; margin-top: 2rem; border-bottom: 1px solid #374151; padding-bottom: 0.5rem;}
+        .prose h4 { font-size: 1.2rem; font-weight: 600; color: #10b981; margin-top: 1.5rem; }
+        .prose ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 1rem; }
+        .prose li { margin-bottom: 0.25rem; }
+        .prose strong { color: #f3f4f6; }
+    </style>
+</head>
+<body class="bg-gray-950 text-gray-100 min-h-screen font-sans">
+
+    <header class="bg-gray-900 border-b border-gray-800 p-4 sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="h-3 w-3 bg-emerald-500 rounded-full animate-pulse"></div>
+                <h1 class="text-xl font-bold tracking-tight text-white">Forensic Equity Research Deck</h1>
+            </div>
+            
+            <div class="flex items-center space-x-3 w-full sm:w-auto">
+                <label for="stockSelector" class="text-sm font-medium text-gray-400 whitespace-nowrap">Target Entity:</label>
+                <select id="stockSelector" class="bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2 w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all cursor-pointer">
+                    <option value="" disabled selected>Choose a stock to monitor...</option>
+                    <option value="Lumax_Auto">Lumax Auto</option>
+                    <option value="Acutaas_Chemicals">Acutaas Chemicals</option>
+                    <option value="Bliss_GVS_Pharma">Bliss GVS Pharma</option>
+                    <option value="Maithan_Allow_">Maithan Alloys</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+        
+        <div id="welcomeState" class="text-center py-20 border-2 border-dashed border-gray-800 rounded-2xl bg-gray-900/40">
+            <svg class="mx-auto h-12 w-12 text-gray-600 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            <h2 class="text-lg font-medium text-gray-300">No Target Active</h2>
+            <p class="text-gray-500 mt-1 max-w-md mx-auto text-sm">Select a security from the control room dropdown above to compile and parse its active 8-Module forensic report matrix.</p>
+        </div>
+
+        <div id="loadingState" class="hidden text-center py-20">
+            <div class="inline-block animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500 mb-4"></div>
+            <p class="text-gray-400 text-sm">Querying repository directories & parsing structural datasets...</p>
+        </div>
+
+        <article id="reportContent" class="hidden bg-gray-900 border border-gray-800 rounded-2xl p-6 sm:p-8 shadow-xl prose max-w-none text-gray-300">
+            </article>
+    </main>
+
+    <script>
+        const selector = document.getElementById('stockSelector');
+        const welcomeState = document.getElementById('welcomeState');
+        const loadingState = document.getElementById('loadingState');
+        const reportContent = document.getElementById('reportContent');
+
+        selector.addEventListener('change', async (e) => {
+            const stockKey = e.target.value;
+            if (!stockKey) return;
+
+            // Shift states to loading UI
+            welcomeState.classList.add('hidden');
+            reportContent.classList.add('hidden');
+            loadingState.classList.remove('hidden');
+
+            // Formulate target path matching python formatting output
+            const targetPath = `forensic_reports/${stockKey}_Forensic_Report.md`;
+
+            try {
+                const response = await fetch(targetPath);
+                
+                if (!response.ok) {
+                    throw new Error(`Report for key '${stockKey}' could not be located in directory paths.`);
+                }
+
+                const markdownText = await response.text();
+                
+                // Parse markdown content cleanly utilizing marked.js engine
+                reportContent.innerHTML = marked.parse(markdownText);
+                
+                // Transition to rendering view state
+                loadingState.classList.add('hidden');
+                reportContent.classList.remove('hidden');
+            } catch (error) {
+                loadingState.classList.add('hidden');
+                reportContent.classList.remove('hidden');
+                reportContent.innerHTML = `
+                    <div class="bg-red-950/40 border border-red-900 text-red-200 p-4 rounded-xl flex items-start space-x-3">
+                        <svg class="h-5 w-5 text-red-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                        <div>
+                            <h3 class="text-sm font-semibold text-red-400 mt-0! border-none pb-0!">Retrieval Vector Exception</h3>
+                            <p class="text-xs text-red-300 mt-1">Unable to locate files at path: <code class="bg-gray-950 px-1 py-0.5 rounded text-yellow-400 font-mono">${targetPath}</code>.</p>
+                            <p class="text-xs text-red-400 mt-2">Verify that the GitHub Actions automation workflow has successfully completed processing this specific security node and pushed files back to the target branch.</p>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
