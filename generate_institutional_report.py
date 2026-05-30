@@ -28,8 +28,19 @@ os.makedirs(prompts_dir, exist_ok=True)
 status_file = os.path.join(output_dir, "pipeline_status.json")
 
 # ==============================================================================
-# 3. PROMPT & QUEUE LOADER
+# 3. PROMPT & QUEUE LOADER (Absolute Paths)
 # ==============================================================================
+# Get the absolute path of the directory containing this script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Define absolute paths based on the script's location
+output_dir = os.path.join(script_dir, "forensic_reports")
+prompts_dir = os.path.join(script_dir, "Prompts")
+status_file = os.path.join(output_dir, "pipeline_status.json")
+
+# Ensure the output directory exists
+os.makedirs(output_dir, exist_ok=True)
+
 def load_prompt(filename):
     path = os.path.join(prompts_dir, filename)
     if not os.path.exists(path):
@@ -38,14 +49,15 @@ def load_prompt(filename):
     with open(path, 'r', encoding='utf-8') as f:
         return f.read()
 
-def load_stock_queue(filepath="target_stocks.txt"):
-    """Reads the stock list from an external text file, ignoring comments and blank lines."""
-    if not os.path.exists(filepath):
-        logger.error(f"CRITICAL ERROR: {filepath} not found. Please create it.")
+def load_stock_queue(filename="target_stocks.txt"):
+    """Reads the stock list from an external text file in the script's directory."""
+    path = os.path.join(script_dir, filename)
+    if not os.path.exists(path):
+        logger.error(f"CRITICAL ERROR: {path} not found. Please create it.")
         exit(1)
         
     stocks = []
-    with open(filepath, 'r', encoding='utf-8') as f:
+    with open(path, 'r', encoding='utf-8') as f:
         for line in f:
             clean_line = line.strip()
             if clean_line and not clean_line.startswith('#'):
@@ -55,6 +67,7 @@ def load_stock_queue(filepath="target_stocks.txt"):
 system_master_prompt_template = load_prompt("master_prompt.txt")
 validation_prompt_template = load_prompt("validation_prompt.txt")
 stock_list = load_stock_queue("target_stocks.txt")
+
 
 status_tracker = {
     "last_updated": datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC'),
