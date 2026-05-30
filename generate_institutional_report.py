@@ -1,3 +1,4 @@
+```python
 import os
 import time
 import json
@@ -17,25 +18,19 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # ==============================================================================
-# 2. INITIALIZE CLIENT & DIRECTORIES
+# 2. INITIALIZE CLIENT
 # ==============================================================================
 client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
 
-output_dir = "forensic_reports"
-prompts_dir = "Prompts"
-os.makedirs(output_dir, exist_ok=True)
-os.makedirs(prompts_dir, exist_ok=True)
-status_file = os.path.join(output_dir, "pipeline_status.json")
-
 # ==============================================================================
-# 3. PROMPT & QUEUE LOADER (Absolute Paths)
+# 3. DIRECTORY & PROMPT LOADER (Absolute Paths based on GitHub Structure)
 # ==============================================================================
 # Get the absolute path of the directory containing this script
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Define absolute paths based on the script's location
 output_dir = os.path.join(script_dir, "forensic_reports")
-prompts_dir = os.path.join(script_dir, "Prompts")
+prompts_dir = os.path.join(script_dir, "Prompts") # Capital 'P' matching your GitHub
 status_file = os.path.join(output_dir, "pipeline_status.json")
 
 # Ensure the output directory exists
@@ -50,8 +45,8 @@ def load_prompt(filename):
         return f.read()
 
 def load_stock_queue(filename="target_stocks.txt"):
-    """Reads the stock list from an external text file in the script's directory."""
-    path = os.path.join(script_dir, filename)
+    """Reads the stock list from the Prompts folder."""
+    path = os.path.join(prompts_dir, filename)
     if not os.path.exists(path):
         logger.error(f"CRITICAL ERROR: {path} not found. Please create it.")
         exit(1)
@@ -60,6 +55,7 @@ def load_stock_queue(filename="target_stocks.txt"):
     with open(path, 'r', encoding='utf-8') as f:
         for line in f:
             clean_line = line.strip()
+            # Ignore blank lines and comments starting with '#'
             if clean_line and not clean_line.startswith('#'):
                 stocks.append(clean_line)
     return stocks
@@ -68,7 +64,9 @@ system_master_prompt_template = load_prompt("master_prompt.txt")
 validation_prompt_template = load_prompt("validation_prompt.txt")
 stock_list = load_stock_queue("target_stocks.txt")
 
-
+# ==============================================================================
+# 4. STATE TRACKER
+# ==============================================================================
 status_tracker = {
     "last_updated": datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC'),
     "total_stocks": len(stock_list),
@@ -207,4 +205,4 @@ if __name__ == "__main__":
     logger.info(f"PIPELINE SUMMARY COMPLETE: {status_tracker['completed']} clean, {status_tracker['failed']} breaks.")
 
 
-
+```
