@@ -9,8 +9,10 @@
         .tab-btn.active { border-bottom: 2px solid #10b981; color: #10b981; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
-        .formatted-list { list-style-type: decimal; padding-left: 1.25rem; }
-        .formatted-list li { margin-bottom: 0.5rem; }
+        /* Professional list styling */
+        .pro-list { list-style: decimal inside; padding-left: 0.5rem; }
+        .pro-list li { margin-bottom: 0.75rem; line-height: 1.6; color: #cbd5e1; }
+        .pro-list li::marker { color: #10b981; font-weight: bold; }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-300 antialiased p-4 md:p-8">
@@ -24,13 +26,8 @@
         </header>
 
         <div id="dashboard" class="hidden space-y-6">
-            <!-- Metadata and KPIs Row -->
             <div id="metaKpi" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
-            
-            <!-- Dynamic Tab Navigation -->
             <div id="tabNav" class="flex space-x-6 overflow-x-auto pb-2 border-b border-slate-800"></div>
-            
-            <!-- Tab Content Area -->
             <div id="tabContainer" class="bg-slate-900 p-6 rounded-lg border border-slate-800 min-h-[300px]"></div>
         </div>
     </div>
@@ -41,29 +38,34 @@
         
         assets.forEach(a => selector.innerHTML += `<option value="${a}">${a.replace(/_/g, ' ')}</option>`);
 
-        // Formatter: Detects numbered patterns and formats them as lists
+        /**
+         * PRECISION FORMATTER
+         * Targets patterns like "1. ", "1)", or "1." and turns them into a clean <li> block.
+         */
         function formatSectionText(text) {
             if (typeof text !== 'string') return text;
-            const lines = text.split(/\n/);
-            const formatted = lines.map(line => {
-                if (/^\d+\./.test(line.trim())) return `<li>${line.replace(/^\d+\.\s*/, '')}</li>`;
-                return line.trim() ? `<p class="mb-2">${line}</p>` : '';
+            
+            // 1. Split into lines, filter out empty, then map to list items
+            const lines = text.split(/\n+/).filter(l => l.trim().length > 0);
+            
+            const listItems = lines.map(line => {
+                // Regex matches: "1. ", "1) ", "1. "
+                const cleanLine = line.replace(/^\s*\d+[\.\)]\s*/, '');
+                return `<li>${cleanLine.trim()}</li>`;
             }).join('');
-            return `<ul class="formatted-list">${formatted}</ul>`;
+
+            return `<ol class="pro-list">${listItems}</ol>`;
         }
 
         selector.addEventListener('change', async (e) => {
             if(!e.target.value) return;
-            // Standard pathing as confirmed functional
-            const path = `forensic_reports/${e.target.value}_Forensic_Report.json`;
-            const res = await fetch(path);
+            const res = await fetch(`forensic_reports/${e.target.value}_Forensic_Report.json`);
             render(await res.json());
         });
 
         function render(data) {
             document.getElementById('dashboard').classList.remove('hidden');
             
-            // Metadata + KPIs
             document.getElementById('metaKpi').innerHTML = `
                 <div class="bg-slate-900 p-4 rounded border border-slate-800">
                     <h3 class="text-[10px] uppercase text-emerald-500 font-bold mb-3">Metadata</h3>
@@ -78,7 +80,6 @@
                     </div>
                 </div>`;
 
-            // Tab Generation
             const nav = document.getElementById('tabNav');
             const container = document.getElementById('tabContainer');
             nav.innerHTML = ''; container.innerHTML = '';
@@ -94,7 +95,7 @@
                             ${typeof data[sec] === 'object' ? Object.entries(data[sec]).map(([k, v]) => `
                                 <div>
                                     <h4 class="text-[10px] font-bold text-emerald-500 uppercase">${k.replace(/_/g, ' ')}</h4>
-                                    <div class="text-sm text-slate-300 mt-1">${formatSectionText(v)}</div>
+                                    <div class="text-sm mt-2">${formatSectionText(v)}</div>
                                 </div>`).join('') : formatSectionText(data[sec])}
                         </div>
                     </div>`;
@@ -110,3 +111,4 @@
     </script>
 </body>
 </html>
+
