@@ -1,3 +1,4 @@
+```python
 import os
 import time
 import json
@@ -17,12 +18,37 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # ==============================================================================
-# 2. INITIALIZE CLIENT
+# 2. INITIALIZE CLIENT & AI MODEL CASCADE
 # ==============================================================================
 client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
 
+# The 12-Tier "Never Fail" Free-Tier Cascade
+GEMINI_MODEL_CASCADE = [
+    # --- TIER 1: The 2.5 Heavyweights (Best Reasoning) ---
+    'gemini-2.5-pro',
+    'gemini-2.5-pro-exp',
+    
+    # --- TIER 2: The 2.5 Workhorses (Fast & Capable) ---
+    'gemini-2.5-flash',
+    'gemini-2.5-flash-exp',
+    
+    # --- TIER 3: The 2.5 Lightweights (High Rate Limits) ---
+    'gemini-2.5-flash-lite',
+    
+    # --- TIER 4: The 2.0 Generation & Thinkers (Alternate Servers) ---
+    'gemini-2.0-pro-exp-02-05',
+    'gemini-2.0-flash-thinking-exp', 
+    'gemini-2.0-flash',
+    'gemini-2.0-flash-lite-preview',
+    
+    # --- TIER 5: The 1.5 Legacy Infrastructure (The Ultimate Backup) ---
+    'gemini-1.5-pro',
+    'gemini-1.5-flash',
+    'gemini-1.5-flash-8b'
+]
+
 # ==============================================================================
-# 3. DIRECTORY & PROMPT LOADER (Absolute Paths based on GitHub Structure)
+# 3. DIRECTORY & PROMPT LOADER (Absolute Paths)
 # ==============================================================================
 # Get the absolute path of the directory containing this script
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -91,25 +117,26 @@ def extract_json_from_text(raw_text):
     return raw_text.strip()
 
 # ==============================================================================
-# 5. EXECUTION NODE (With Dual-Scraping Verification)
+# 5. EXECUTION NODE (With 12-Tier Cascade & Dual-Scraping)
 # ==============================================================================
-def generate_institutional_report(stock_name, max_retries=3):
+def generate_institutional_report(stock_name):
     logger.info(f"STARTING: Initiating structured JSON pipeline for: {stock_name}")
     status_tracker["stocks"][stock_name] = "Processing..."
     save_status()
     
-    for attempt in range(1, max_retries + 1):
+    total_models = len(GEMINI_MODEL_CASCADE)
+    
+    for attempt, current_model in enumerate(GEMINI_MODEL_CASCADE, 1):
         try:
             # ---------------------------------------------------------
             # PASS 1: CORE DATA GENERATION
             # ---------------------------------------------------------
-            logger.info(f"[{stock_name}] Stage 1: Primary Web Scrape & Synthesis")
+            logger.info(f"[{stock_name}] Stage 1: Web Scrape & Synthesis using [{current_model}] (Tier {attempt}/{total_models})")
             
-            # Format the master prompt dynamically
             master_prompt = system_master_prompt_template.replace("{stock_name}", stock_name)
             
             response = client.models.generate_content(
-                model='gemini-2.5-flash',
+                model=current_model,
                 contents=f"Execute the 8-module JSON master analysis strictly for: {stock_name}",
                 config=types.GenerateContentConfig(
                     system_instruction=master_prompt,
@@ -124,7 +151,7 @@ def generate_institutional_report(stock_name, max_retries=3):
             # ---------------------------------------------------------
             # PASS 2: VERIFICATION GATE (DUAL SCRAPING)
             # ---------------------------------------------------------
-            logger.info(f"[{stock_name}] Stage 2: Independent Verification Audit")
+            logger.info(f"[{stock_name}] Stage 2: Independent Verification Audit using [{current_model}]")
             
             memory_metadata = json_payload.get("metadata", {})
             memory_kpis = json_payload.get("kpis", {})
@@ -136,7 +163,7 @@ def generate_institutional_report(stock_name, max_retries=3):
             )
             
             val_response = client.models.generate_content(
-                model='gemini-2.5-pro', 
+                model=current_model, 
                 contents=val_prompt,
                 config=types.GenerateContentConfig(
                     temperature=0.0, 
@@ -163,26 +190,29 @@ def generate_institutional_report(stock_name, max_retries=3):
                 json.dump(json_payload, file, indent=4)
                 
             logger.info(f"SUCCESS: JSON data committed cleanly to {filename}")
-            status_tracker["stocks"][stock_name] = f"Completed (Audit: {val_payload.get('status', 'N/A')})"
+            status_tracker["stocks"][stock_name] = f"Completed via {current_model} (Audit: {val_payload.get('status', 'N/A')})"
             status_tracker["completed"] += 1
             save_status()
-            return 
+            
+            return # EXIT THE RETRY LOOP UPON SUCCESS
             
         except json.JSONDecodeError as je:
-            logger.warning(f"Attempt {attempt}/{max_retries} FAILED (JSON Parse Error) for {stock_name}. Error: {je}")
-            if attempt < max_retries:
-                time.sleep(30 * attempt)
+            logger.warning(f"Tier {attempt}/{total_models} FAILED (JSON Error) using [{current_model}] for {stock_name}. Error: {je}")
+            if attempt < total_models:
+                logger.info(f"Parsing failure. Escaping to next model layer in 15 seconds...")
+                time.sleep(15)
             else:
-                status_tracker["stocks"][stock_name] = f"Failed (JSON Parse Error)"
+                status_tracker["stocks"][stock_name] = f"Failed (JSON Parse Error on all models)"
                 status_tracker["failed"] += 1
                 save_status()
                 
         except Exception as e:
-            logger.warning(f"Attempt {attempt}/{max_retries} FAILED for {stock_name}. Error: {e}")
-            if attempt < max_retries:
-                time.sleep(30 * attempt)
+            logger.warning(f"Tier {attempt}/{total_models} FAILED using [{current_model}] for {stock_name}. Error: {e}")
+            if attempt < total_models:
+                logger.info(f"API/Network/Quota failure. Escaping to next model layer in 15 seconds...")
+                time.sleep(15)
             else:
-                status_tracker["stocks"][stock_name] = f"Failed: {str(e)}"
+                status_tracker["stocks"][stock_name] = f"Failed (All 12 Models Exhausted): {str(e)}"
                 status_tracker["failed"] += 1
                 save_status()
 
@@ -204,4 +234,4 @@ if __name__ == "__main__":
     logger.info(f"PIPELINE SUMMARY COMPLETE: {status_tracker['completed']} clean, {status_tracker['failed']} breaks.")
 
 
-
+```
