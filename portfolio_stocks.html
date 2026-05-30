@@ -3,112 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Institutional Forensic Equity Research Dashboard</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <title>Institutional Forensic Terminal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Custom markdown formatting overrides */
-        .prose table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
-        .prose th, .prose td { border: 1px solid #374151; padding: 0.75rem; text-align: left; }
-        .prose th { background-color: #1f2937; color: #f3f4f6; }
-        .prose h3 { font-size: 1.5rem; font-weight: 700; color: #3b82f6; margin-top: 2rem; border-bottom: 1px solid #374151; padding-bottom: 0.5rem;}
-        .prose h4 { font-size: 1.2rem; font-weight: 600; color: #10b981; margin-top: 1.5rem; }
-        .prose ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 1rem; }
-        .prose li { margin-bottom: 0.25rem; }
-        .prose strong { color: #f3f4f6; }
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+        .scrollbar-none::-webkit-scrollbar { display: none; }
+        .active-btn { border-bottom: 2px solid #38bdf8; color: #38bdf8; }
     </style>
 </head>
-<body class="bg-gray-950 text-gray-100 min-h-screen font-sans">
+<body class="bg-gray-950 text-gray-200 min-h-screen">
 
-    <header class="bg-gray-900 border-b border-gray-800 p-4 sticky top-0 z-50 shadow-md">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div class="flex items-center space-x-3">
-                <div class="h-3 w-3 bg-emerald-500 rounded-full animate-pulse"></div>
-                <h1 class="text-xl font-bold tracking-tight text-white">Forensic Equity Research Deck</h1>
-            </div>
-            
-            <div class="flex items-center space-x-3 w-full sm:w-auto">
-                <label for="stockSelector" class="text-sm font-medium text-gray-400 whitespace-nowrap">Target Entity:</label>
-                <select id="stockSelector" class="bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2 w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all cursor-pointer">
-                    <option value="" disabled selected>Choose a stock to monitor...</option>
-                    <option value="Lumax_Auto">Lumax Auto</option>
-                    <option value="Acutaas_Chemicals">Acutaas Chemicals</option>
-                    <option value="Bliss_GVS_Pharma">Bliss GVS Pharma</option>
-                    <option value="Maithan_Allow_">Maithan Alloys</option>
-                </select>
-            </div>
+    <header class="p-4 border-b border-gray-800 bg-gray-900 sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto flex items-center justify-between">
+            <h1 class="text-xs font-black uppercase tracking-widest text-emerald-500">Forensic Terminal v2.0</h1>
+            <select id="stockSelector" class="bg-gray-800 text-xs px-3 py-1 rounded border border-gray-700">
+                <option value="">SELECT ASSET...</option>
+                <option value="Acutaas_Chemicals">Acutaas Chemicals</option>
+                <option value="Lumax_Auto_Technologies">Lumax Auto Technologies</option>
+            </select>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-        
-        <div id="welcomeState" class="text-center py-20 border-2 border-dashed border-gray-800 rounded-2xl bg-gray-900/40">
-            <svg class="mx-auto h-12 w-12 text-gray-600 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-            <h2 class="text-lg font-medium text-gray-300">No Target Active</h2>
-            <p class="text-gray-500 mt-1 max-w-md mx-auto text-sm">Select a security from the control room dropdown above to compile and parse its active 8-Module forensic report matrix.</p>
+    <main class="max-w-5xl mx-auto p-4">
+        <!-- KPI Row -->
+        <div id="kpiGrid" class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-6 hidden">
+            <div class="bg-gray-900 p-3 rounded border border-gray-800"><p class="text-[10px] text-gray-500 uppercase">P/E</p><p id="v-pe" class="font-mono text-sm font-bold"></p></div>
+            <div class="bg-gray-900 p-3 rounded border border-gray-800"><p class="text-[10px] text-gray-500 uppercase">ROCE</p><p id="v-roce" class="font-mono text-sm font-bold"></p></div>
+            <div class="bg-gray-900 p-3 rounded border border-gray-800"><p class="text-[10px] text-gray-500 uppercase">Pledge</p><p id="v-pledge" class="font-mono text-sm font-bold"></p></div>
+            <div class="bg-gray-900 p-3 rounded border border-gray-800"><p class="text-[10px] text-gray-500 uppercase">Verdict</p><p id="v-verdict" class="font-mono text-sm font-bold text-emerald-400"></p></div>
         </div>
 
-        <div id="loadingState" class="hidden text-center py-20">
-            <div class="inline-block animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500 mb-4"></div>
-            <p class="text-gray-400 text-sm">Querying repository directories & parsing structural datasets...</p>
+        <!-- Navigation -->
+        <div id="navTabs" class="flex space-x-4 border-b border-gray-800 pb-2 mb-6 overflow-x-auto scrollbar-none hidden">
+            <button onclick="showTab('gov')" class="tab-link active-btn text-[10px] font-bold uppercase py-1">Gov</button>
+            <button onclick="showTab('ops')" class="tab-link text-[10px] font-bold uppercase py-1 text-gray-500">Ops</button>
+            <button onclick="showTab('moat')" class="tab-link text-[10px] font-bold uppercase py-1 text-gray-500">Moat</button>
+            <button onclick="showTab('fin')" class="tab-link text-[10px] font-bold uppercase py-1 text-gray-500">Fin</button>
+            <button onclick="showTab('thesis')" class="tab-link text-[10px] font-bold uppercase py-1 text-gray-500">Thesis</button>
+            <button onclick="showTab('val')" class="tab-link text-[10px] font-bold uppercase py-1 text-gray-500">Val</button>
+            <button onclick="showTab('news')" class="tab-link text-[10px] font-bold uppercase py-1 text-gray-500">News</button>
         </div>
 
-        <article id="reportContent" class="hidden bg-gray-900 border border-gray-800 rounded-2xl p-6 sm:p-8 shadow-xl prose max-w-none text-gray-300">
-            </article>
+        <!-- Panels -->
+        <div id="panels" class="space-y-4">
+            <!-- Content will be injected here -->
+        </div>
     </main>
 
     <script>
-        const selector = document.getElementById('stockSelector');
-        const welcomeState = document.getElementById('welcomeState');
-        const loadingState = document.getElementById('loadingState');
-        const reportContent = document.getElementById('reportContent');
+        const stockSelector = document.getElementById('stockSelector');
+        
+        stockSelector.addEventListener('change', async (e) => {
+            const file = `forensic_reports/${e.target.value}_Forensic_Report.json`;
+            const res = await fetch(file);
+            const data = await res.json();
+            
+            document.getElementById('kpiGrid').classList.remove('hidden');
+            document.getElementById('navTabs').classList.remove('hidden');
+            
+            // Populate KPIs
+            document.getElementById('v-pe').innerText = data.kpis.trailing_pe;
+            document.getElementById('v-roce').innerText = data.kpis.roce_5yr_median + '%';
+            document.getElementById('v-pledge').innerText = data.kpis.promoter_pledging_pct + '%';
+            document.getElementById('v-verdict').innerText = data.kpis.final_verdict;
 
-        selector.addEventListener('change', async (e) => {
-            const stockKey = e.target.value;
-            if (!stockKey) return;
-
-            // Shift states to loading UI
-            welcomeState.classList.add('hidden');
-            reportContent.classList.add('hidden');
-            loadingState.classList.remove('hidden');
-
-            // Formulate target path matching python formatting output
-            const targetPath = `forensic_reports/${stockKey}_Forensic_Report.md`;
-
-            try {
-                const response = await fetch(targetPath);
-                
-                if (!response.ok) {
-                    throw new Error(`Report for key '${stockKey}' could not be located in directory paths.`);
-                }
-
-                const markdownText = await response.text();
-                
-                // Parse markdown content cleanly utilizing marked.js engine
-                reportContent.innerHTML = marked.parse(markdownText);
-                
-                // Transition to rendering view state
-                loadingState.classList.add('hidden');
-                reportContent.classList.remove('hidden');
-            } catch (error) {
-                loadingState.classList.add('hidden');
-                reportContent.classList.remove('hidden');
-                reportContent.innerHTML = `
-                    <div class="bg-red-950/40 border border-red-900 text-red-200 p-4 rounded-xl flex items-start space-x-3">
-                        <svg class="h-5 w-5 text-red-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                        </svg>
-                        <div>
-                            <h3 class="text-sm font-semibold text-red-400 mt-0! border-none pb-0!">Retrieval Vector Exception</h3>
-                            <p class="text-xs text-red-300 mt-1">Unable to locate files at path: <code class="bg-gray-950 px-1 py-0.5 rounded text-yellow-400 font-mono">${targetPath}</code>.</p>
-                            <p class="text-xs text-red-400 mt-2">Verify that the GitHub Actions automation workflow has successfully completed processing this specific security node and pushed files back to the target branch.</p>
-                        </div>
-                    </div>
-                `;
-            }
+            // Build Panels
+            const panelsContainer = document.getElementById('panels');
+            panelsContainer.innerHTML = `
+                <div id="gov" class="tab-panel active"><h2 class="text-emerald-500 font-bold text-xs uppercase mb-2">Governance</h2><div class="text-xs text-gray-300 space-y-2">${Object.entries(data.governance).map(([k, v]) => `<p><strong>${k.replace('_', ' ')}:</strong> ${v}</p>`).join('')}</div></div>
+                <div id="ops" class="tab-panel"><h2 class="text-emerald-500 font-bold text-xs uppercase mb-2">Operations</h2><div class="text-xs text-gray-300 space-y-2">${Object.entries(data.operations).map(([k, v]) => `<p><strong>${k.replace('_', ' ')}:</strong> ${v}</p>`).join('')}</div></div>
+                <div id="moat" class="tab-panel"><h2 class="text-emerald-500 font-bold text-xs uppercase mb-2">Moat</h2><div class="text-xs text-gray-300 space-y-2">${Object.entries(data.moat_and_industry).map(([k, v]) => `<p><strong>${k.replace('_', ' ')}:</strong> ${v}</p>`).join('')}</div></div>
+                <div id="fin" class="tab-panel"><h2 class="text-emerald-500 font-bold text-xs uppercase mb-2">Financials</h2><div class="text-xs text-gray-300 space-y-2">${Object.entries(data.financial_forensics).map(([k, v]) => `<p><strong>${k.replace('_', ' ')}:</strong> ${v}</p>`).join('')}</div></div>
+                <div id="thesis" class="tab-panel"><h2 class="text-emerald-500 font-bold text-xs uppercase mb-2">Thesis</h2><div class="text-xs text-gray-300 space-y-2">${Object.entries(data.thesis_and_risks).map(([k, v]) => `<p><strong>${k.replace('_', ' ')}:</strong> ${v}</p>`).join('')}</div></div>
+                <div id="val" class="tab-panel"><h2 class="text-emerald-500 font-bold text-xs uppercase mb-2">Valuation</h2><div class="text-xs text-gray-300 space-y-2">${Object.entries(data.valuation_matrix).map(([k, v]) => typeof v === 'object' ? `<p><strong>${k}:</strong> ${JSON.stringify(v)}</p>` : `<p><strong>${k}:</strong> ${v}</p>`).join('')}</div></div>
+                <div id="news" class="tab-panel"><h2 class="text-emerald-500 font-bold text-xs uppercase mb-2">Catalysts</h2><div class="text-xs text-gray-300 space-y-2">${Object.entries(data.catalysts_and_sentiment).map(([k, v]) => `<p><strong>${k.replace('_', ' ')}:</strong> ${v}</p>`).join('')}</div></div>
+            `;
         });
+
+        function showTab(id) {
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active-btn'));
+            document.getElementById(id).classList.add('active');
+            event.target.classList.add('active-btn');
+        }
     </script>
 </body>
 </html>
+
