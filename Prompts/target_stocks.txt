@@ -1,14 +1,14 @@
-Auto & Auto Ancillaries
+#Auto & Auto Ancillaries
 Lumax Auto Technologies
 BEL
 dixon
-Pharmaceuticals & Chemicals
+#Pharmaceuticals & Chemicals
 Acutaas Chemicals
 Bliss GVS Pharma
-Commodities & Materials
+#Commodities & Materials
 Maithan Alloys
 CCL
-Financials & Others
+#Financials & Others
 Bajajcon
 cgpower
 cupid
