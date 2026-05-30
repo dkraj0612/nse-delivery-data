@@ -43,7 +43,7 @@ os.makedirs(output_dir, exist_ok=True)
 def load_prompt(filename):
     path = os.path.join(prompts_dir, filename)
     if not os.path.exists(path):
-        logger.error(f"CRITICAL: Missing prompt file at {path}. Please create it.")
+        logger.error("CRITICAL: Missing prompt file at {path}. Please create it.")
         exit(1)
     with open(path, 'r', encoding='utf-8') as f:
         return f.read()
@@ -101,7 +101,7 @@ def extract_json_from_text(raw_text):
 # 5. EXECUTION NODE
 # ==============================================================================
 def generate_institutional_report(stock_name):
-    logger.info(f"STARTING: Initiating structured JSON pipeline for: {stock_name}")
+    logger.info("STARTING: Initiating structured JSON pipeline for: {stock_name}")
     status_tracker["stocks"][stock_name] = "Processing..."
     save_status()
     
@@ -112,7 +112,7 @@ def generate_institutional_report(stock_name):
             # ---------------------------------------------------------
             # PASS 1: CORE DATA GENERATION
             # ---------------------------------------------------------
-            logger.info(f"[{stock_name}] Stage 1: Web Scrape & Synthesis using [{current_model}] (Tier {attempt}/{total_models})")
+            logger.info("[{stock_name}] Stage 1: Web Scrape & Synthesis using [{current_model}] (Tier {attempt}/{total_models})")
             
             master_prompt = system_master_prompt_template.replace("{stock_name}", stock_name)
             
@@ -132,7 +132,7 @@ def generate_institutional_report(stock_name):
             # ---------------------------------------------------------
             # PASS 2: VERIFICATION GATE (DUAL SCRAPING)
             # ---------------------------------------------------------
-            logger.info(f"[{stock_name}] Stage 2: Independent Verification Audit using [{current_model}]")
+            logger.info("[{stock_name}] Stage 2: Independent Verification Audit using [{current_model}]")
             
             memory_metadata = json_payload.get("metadata", {})
             memory_kpis = json_payload.get("kpis", {})
@@ -155,7 +155,7 @@ def generate_institutional_report(stock_name):
             clean_val_text = extract_json_from_text(val_response.text)
             try:
                 val_payload = json.loads(clean_val_text)
-                logger.info(f"[{stock_name}] Audit Result: {val_payload.get('status', 'UNKNOWN')}")
+                logger.info("[{stock_name}] Audit Result: {val_payload.get('status', 'UNKNOWN')}")
             except Exception as ve:
                 logger.warning(f"[{stock_name}] Audit failed to parse correctly. Defaulting to FAIL.")
                 val_payload = {"status": "FAIL", "discrepancies": "Audit JSON parsing failed."}
@@ -170,7 +170,7 @@ def generate_institutional_report(stock_name):
             with open(filename, 'w', encoding='utf-8') as file:
                 json.dump(json_payload, file, indent=4)
                 
-            logger.info(f"SUCCESS: JSON data committed cleanly to {filename}")
+            logger.info("SUCCESS: JSON data committed cleanly to {filename}")
             status_tracker["stocks"][stock_name] = f"Completed via {current_model} (Audit: {val_payload.get('status', 'N/A')})"
             status_tracker["completed"] += 1
             save_status()
@@ -178,7 +178,7 @@ def generate_institutional_report(stock_name):
             return # EXIT THE RETRY LOOP UPON SUCCESS
             
         except json.JSONDecodeError as je:
-            logger.warning(f"Tier {attempt}/{total_models} FAILED (JSON Error) using [{current_model}] for {stock_name}. Error: {je}")
+            logger.warning("Tier {attempt}/{total_models} FAILED (JSON Error) using [{current_model}] for {stock_name}. Error: {je}")
             if attempt < total_models:
                 logger.info(f"Parsing failure. Escaping to next model layer in 15 seconds...")
                 time.sleep(15)
@@ -188,7 +188,7 @@ def generate_institutional_report(stock_name):
                 save_status()
                 
         except Exception as e:
-            logger.warning(f"Tier {attempt}/{total_models} FAILED using [{current_model}] for {stock_name}. Error: {e}")
+            logger.warning("Tier {attempt}/{total_models} FAILED using [{current_model}] for {stock_name}. Error: {e}")
             if attempt < total_models:
                 logger.info(f"API/Network/Quota failure. Escaping to next model layer in 15 seconds...")
                 time.sleep(15)
@@ -212,5 +212,5 @@ if __name__ == "__main__":
             logger.info("Enforcing 30-second rate-limit cooling index...")
             time.sleep(30)
 
-    logger.info(f"PIPELINE SUMMARY COMPLETE: {status_tracker['completed']} clean, {status_tracker['failed']} breaks."
+    logger.info("PIPELINE SUMMARY COMPLETE: {status_tracker['completed']} clean, {status_tracker['failed']} breaks."
 
