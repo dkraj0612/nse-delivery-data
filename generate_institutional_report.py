@@ -1,3 +1,4 @@
+```python
 import os
 import time
 import json
@@ -17,47 +18,27 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # ==============================================================================
-# 2. INITIALIZE CLIENT & AI MODEL CASCADE
+# 2. INITIALIZE CLIENT & STABLE MODEL CASCADE
 # ==============================================================================
 client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
 
-# The 12-Tier "Never Fail" Free-Tier Cascade
+# The 5-Tier Stable Cascade (Including Flash-Lite)
 GEMINI_MODEL_CASCADE = [
-    # --- TIER 1: The 2.5 Heavyweights (Best Reasoning) ---
-    'gemini-2.5-pro',
-    'gemini-2.5-pro-exp',
-    
-    # --- TIER 2: The 2.5 Workhorses (Fast & Capable) ---
-    'gemini-2.5-flash',
-    'gemini-2.5-flash-exp',
-    
-    # --- TIER 3: The 2.5 Lightweights (High Rate Limits) ---
-    'gemini-2.5-flash-lite',
-    
-    # --- TIER 4: The 2.0 Generation & Thinkers (Alternate Servers) ---
-    'gemini-2.0-pro-exp-02-05',
-    'gemini-2.0-flash-thinking-exp', 
-    'gemini-2.0-flash',
-    'gemini-2.0-flash-lite-preview',
-    
-    # --- TIER 5: The 1.5 Legacy Infrastructure (The Ultimate Backup) ---
-    'gemini-1.5-pro',
-    'gemini-1.5-flash',
-    'gemini-1.5-flash-8b'
+    'gemini-2.5-pro',            # Tier 1: Heavyweight (Deepest analysis, strict rate limits)
+    'gemini-2.5-flash',          # Tier 2: Speedster (Generous free quota, highly capable)
+    'gemini-2.5-flash-lite',     # Tier 3: Ultra-Lightweight (Massive rate limits, basic synthesis)
+    'gemini-1.5-pro',            # Tier 4: Legacy Heavyweight (Alternate quota bucket)
+    'gemini-1.5-flash'           # Tier 5: Legacy Speedster (Ultimate backup)
 ]
 
 # ==============================================================================
 # 3. DIRECTORY & PROMPT LOADER (Absolute Paths)
 # ==============================================================================
-# Get the absolute path of the directory containing this script
 script_dir = os.path.dirname(os.path.abspath(__file__))
-
-# Define absolute paths based on the script's location
 output_dir = os.path.join(script_dir, "forensic_reports")
-prompts_dir = os.path.join(script_dir, "Prompts") # Capital 'P' matching your GitHub
+prompts_dir = os.path.join(script_dir, "Prompts")
 status_file = os.path.join(output_dir, "pipeline_status.json")
 
-# Ensure the output directory exists
 os.makedirs(output_dir, exist_ok=True)
 
 def load_prompt(filename):
@@ -69,7 +50,6 @@ def load_prompt(filename):
         return f.read()
 
 def load_stock_queue(filename="target_stocks.txt"):
-    """Reads the stock list from the Prompts folder."""
     path = os.path.join(prompts_dir, filename)
     if not os.path.exists(path):
         logger.error(f"CRITICAL ERROR: {path} not found. Please create it.")
@@ -79,7 +59,6 @@ def load_stock_queue(filename="target_stocks.txt"):
     with open(path, 'r', encoding='utf-8') as f:
         for line in f:
             clean_line = line.strip()
-            # Ignore blank lines and comments starting with '#'
             if clean_line and not clean_line.startswith('#'):
                 stocks.append(clean_line)
     return stocks
@@ -106,6 +85,10 @@ def save_status():
 
 def extract_json_from_text(raw_text):
     """Strips markdown code blocks to safely parse JSON"""
+    # FIX: Safety check for empty/blocked responses
+    if not raw_text:
+        raise ValueError("API returned an empty response. (Likely a safety filter block).")
+        
     raw_text = raw_text.strip()
     if raw_text.startswith("```json"):
         raw_text = raw_text[7:]
@@ -116,7 +99,7 @@ def extract_json_from_text(raw_text):
     return raw_text.strip()
 
 # ==============================================================================
-# 5. EXECUTION NODE (With 12-Tier Cascade & Dual-Scraping)
+# 5. EXECUTION NODE
 # ==============================================================================
 def generate_institutional_report(stock_name):
     logger.info(f"STARTING: Initiating structured JSON pipeline for: {stock_name}")
@@ -175,7 +158,7 @@ def generate_institutional_report(stock_name):
                 val_payload = json.loads(clean_val_text)
                 logger.info(f"[{stock_name}] Audit Result: {val_payload.get('status', 'UNKNOWN')}")
             except Exception as ve:
-                logger.warning(f"[{stock_name}] Audit failed to parse correctly. Defaulting to FAIL. {ve}")
+                logger.warning(f"[{stock_name}] Audit failed to parse correctly. Defaulting to FAIL.")
                 val_payload = {"status": "FAIL", "discrepancies": "Audit JSON parsing failed."}
             
             # INJECT VERIFICATION STATUS
@@ -211,7 +194,7 @@ def generate_institutional_report(stock_name):
                 logger.info(f"API/Network/Quota failure. Escaping to next model layer in 15 seconds...")
                 time.sleep(15)
             else:
-                status_tracker["stocks"][stock_name] = f"Failed (All 12 Models Exhausted): {str(e)}"
+                status_tracker["stocks"][stock_name] = f"Failed (All Models Exhausted): {str(e)}"
                 status_tracker["failed"] += 1
                 save_status()
 
@@ -232,3 +215,5 @@ if __name__ == "__main__":
 
     logger.info(f"PIPELINE SUMMARY COMPLETE: {status_tracker['completed']} clean, {status_tracker['failed']} breaks.")
 
+
+```
