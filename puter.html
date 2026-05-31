@@ -3,155 +3,117 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Institutional Forensic Studio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forensic Studio (Offline/Cloud Ready)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'], } } } }
-    </script>
-    <style>
-        body { background-color: #09090b; color: #e4e4e7; -webkit-tap-highlight-color: transparent; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .message-enter { animation: fadeIn 0.3s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-        .modal-overlay { background-color: rgba(0, 0, 0, 0.8); backdrop-filter: blur(8px); }
-        .prose p { margin-bottom: 1em; line-height: 1.6; }
-        .prose h1, .prose h2, .prose h3 { color: #f4f4f5; font-weight: 700; margin: 1.5em 0 0.5em 0; font-family: 'JetBrains Mono', monospace; }
-        .prose code:not(pre code) { background-color: #27272a; padding: 0.2em 0.4em; border-radius: 0.25rem; font-size: 0.875em; color: #a78bfa; }
-    </style>
+    <style>body { background-color: #09090b; color: #e4e4e7; }</style>
 </head>
-<body class="h-screen flex flex-col font-sans text-sm overflow-hidden">
+<body class="h-screen flex flex-col font-sans overflow-hidden">
 
-    <!-- Auth Screen -->
-    <div id="auth-screen" class="fixed inset-0 z-[100] bg-zinc-950 flex items-center justify-center p-4">
-        <div class="w-full max-w-sm bg-zinc-900 border border-zinc-800 rounded-2xl p-8 shadow-2xl">
-            <div class="text-center mb-6">
-                <div class="w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <i class="ph ph-lock-key text-white text-2xl"></i>
-                </div>
-                <h2 id="auth-title" class="text-xl font-bold text-zinc-100">System Lock</h2>
-                <p class="text-xs text-zinc-500 font-mono mt-1 uppercase">Operator Authorization</p>
-            </div>
-            <form id="auth-form" class="space-y-4">
-                <div id="username-group"><input type="text" id="auth-username" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-sm text-zinc-100 font-mono" placeholder="OPERATOR ID"></div>
-                <input type="password" id="auth-password" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-sm text-zinc-100 font-mono" placeholder="PASSCODE" required>
-                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-lg text-sm transition-all">AUTHENTICATE</button>
-            </form>
-        </div>
+    <div id="auth-screen" class="fixed inset-0 z-50 bg-zinc-950 flex items-center justify-center p-4">
+        <form id="auth-form" class="w-full max-w-sm bg-zinc-900 border border-zinc-800 rounded-2xl p-8">
+            <h2 class="text-xl font-bold mb-6 text-center text-white">SYSTEM ACCESS</h2>
+            <input type="text" id="auth-username" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-3 mb-4 text-white" placeholder="OPERATOR ID" required>
+            <button type="submit" class="w-full bg-indigo-600 py-3 rounded-lg font-bold text-white">AUTHENTICATE</button>
+        </form>
     </div>
 
-    <!-- Main App -->
-    <div id="main-app" class="hidden h-screen w-full flex flex-col">
+    <div id="main-app" class="hidden h-screen flex flex-col">
         <header class="border-b border-zinc-800 p-4 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <button id="menu-btn" class="text-zinc-400 hover:text-white"><i class="ph ph-list text-xl"></i></button>
-                <h1 class="font-bold tracking-tight">AI STUDIO</h1>
+            <h1 class="font-bold tracking-tight">FORENSIC STUDIO</h1>
+            <div class="flex gap-2">
+                <button id="admin-panel-btn" class="hidden text-amber-500 hover:text-amber-300">ADMIN</button>
+                <button id="logout-btn" class="text-zinc-500 hover:text-rose-400">LOCK</button>
             </div>
-            <button id="settings-btn" class="text-zinc-400 hover:text-white"><i class="ph ph-sliders-horizontal text-lg"></i></button>
         </header>
-
-        <!-- Sidebar -->
-        <div id="sidebar-overlay" class="fixed inset-0 bg-black/50 z-30 hidden"></div>
-        <div id="sidebar" class="fixed inset-y-0 left-0 w-72 bg-zinc-950 border-r border-zinc-800 z-40 transform -translate-x-full transition-transform flex flex-col">
-            <div class="p-4 border-b border-zinc-800 flex justify-between">
-                <span class="font-bold text-xs uppercase" id="sidebar-username">OPERATOR</span>
-                <button id="close-sidebar-btn" class="text-zinc-500"><i class="ph ph-x"></i></button>
-            </div>
-            <div id="session-list" class="flex-1 overflow-y-auto p-2"></div>
-            
-            <!-- ADMIN HARVESTER -->
-            <div id="admin-vault-panel" class="hidden p-4 border-t border-zinc-800 bg-amber-950/10">
-                <p class="text-[10px] font-mono text-amber-500 mb-2 uppercase">Admin God Mode</p>
-                <button id="git-harvest-btn" class="w-full bg-amber-900/30 text-amber-400 p-3 rounded-lg text-xs font-mono border border-amber-800">HARVEST & PURGE</button>
-            </div>
-            <button id="logout-btn" class="w-full p-4 border-t border-zinc-800 text-zinc-500 hover:text-rose-400 text-xs font-mono uppercase">Lock System</button>
-        </div>
-
         <main id="chat-container" class="flex-1 overflow-y-auto p-4 space-y-4"></main>
-
         <footer class="p-4 border-t border-zinc-800">
             <form id="search-form" class="flex gap-2">
-                <input type="text" id="search-input" class="flex-1 bg-zinc-900 border border-zinc-700 rounded-lg px-4 py-3 text-sm text-zinc-100" placeholder="Analyze stock...">
-                <button type="submit" class="bg-indigo-600 px-6 rounded-lg text-white font-bold">RUN</button>
+                <input type="text" id="search-input" class="flex-1 bg-zinc-900 border border-zinc-700 rounded-lg px-4 py-3 text-white" placeholder="Analyze asset...">
+                <button type="submit" class="bg-indigo-600 px-6 rounded-lg font-bold text-white">RUN</button>
             </form>
         </footer>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, doc, setDoc, getDocs, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // DOM elements
-        const authScreen = document.getElementById('auth-screen'); const mainApp = document.getElementById('main-app');
-        const authForm = document.getElementById('auth-form'); const authUsername = document.getElementById('auth-username');
-        const chatContainer = document.getElementById('chat-container'); const searchForm = document.getElementById('search-form');
-        const searchInput = document.getElementById('search-input'); const adminVaultPanel = document.getElementById('admin-vault-panel');
-        const gitHarvestBtn = document.getElementById('git-harvest-btn');
+        const apiKey = "";
+        const configStr = typeof __firebase_config !== 'undefined' ? __firebase_config : '{}';
+        const isFirebaseReady = configStr !== '{}' && configStr !== "";
+        
+        let db, user, isMock = !isFirebaseReady;
 
-        let db, auth, currentUser, appId = 'forensic-studio-v1';
-        let operatorName = "";
-
-        // AUTH & INIT
-        authForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            operatorName = authUsername.value || "OPERATOR";
-            authScreen.classList.add('hidden'); mainApp.classList.remove('hidden');
-            if (operatorName.toUpperCase() === 'ADMIN') adminVaultPanel.classList.remove('hidden');
-            initCloud();
-        });
-
-        async function initCloud() {
-            const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
-            const app = initializeApp(firebaseConfig);
-            auth = getAuth(app); db = getFirestore(app);
-            await signInAnonymously(auth);
-            onAuthStateChanged(auth, (user) => { currentUser = user; });
+        if (isFirebaseReady) {
+            const app = initializeApp(JSON.parse(configStr));
+            db = getFirestore(app);
+            const auth = getAuth(app);
+            onAuthStateChanged(auth, (u) => { if (u) { user = u; showApp(); loadHistory(); } });
+            document.getElementById('auth-form').onsubmit = (e) => { e.preventDefault(); signInAnonymously(auth); };
+        } else {
+            document.getElementById('auth-form').onsubmit = (e) => { e.preventDefault(); showApp(); loadHistory(); };
         }
 
-        // TWIN-STORAGE LOGIC
-        async function saveCurrentSessionToCloud(sessionId, history) {
-            if (!currentUser) return;
+        function showApp() {
+            const id = document.getElementById('auth-username').value;
+            if (id.toUpperCase() === 'ADMIN') document.getElementById('admin-panel-btn').classList.remove('hidden');
+            document.getElementById('auth-screen').classList.add('hidden');
+            document.getElementById('main-app').classList.remove('hidden');
+        }
+
+        document.getElementById('search-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const input = document.getElementById('search-input');
+            const q = input.value;
+            addMessage("user", q);
+            input.value = "";
             try {
-                // 1. User Private Research (Untouchable)
-                await setDoc(doc(db, 'artifacts', appId, 'users', currentUser.uid, 'sessions', sessionId), { history, timestamp: Date.now() });
-                // 2. Disposable Telemetry Copy (Harvestable)
-                await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'global_telemetry', sessionId), { data: history[history.length-1], timestamp: Date.now() });
-            } catch(e) { console.error("Sync failed", e); }
+                const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ contents: [{ parts: [{ text: `Analyze: ${q}` }] }] })
+                });
+                const data = await res.json();
+                const a = data.candidates[0].content.parts[0].text;
+                addMessage("ai", a);
+                save(q, a);
+            } catch (err) { addMessage("ai", "Analysis failed (Check API Key)."); }
+        };
+
+        function save(q, a) {
+            const data = { q, a, t: Date.now() };
+            if (isMock) {
+                const history = JSON.parse(localStorage.getItem('forensic_mock') || '[]');
+                history.push(data);
+                localStorage.setItem('forensic_mock', JSON.stringify(history));
+            } else {
+                // Cloud logic would go here
+            }
         }
 
-        // ADMIN HARVESTER
-        gitHarvestBtn.addEventListener('click', async () => {
-            const token = localStorage.getItem('git_token'); const owner = localStorage.getItem('git_owner'); const repo = localStorage.getItem('git_repo');
-            if (!token || !owner || !repo) { alert("Missing GitHub Config"); return; }
-            const querySnapshot = await getDocs(collection(db, 'artifacts', appId, 'public', 'data', 'global_telemetry'));
-            if (querySnapshot.empty) { alert("Nothing to harvest."); return; }
-            
-            let data = []; let refs = [];
-            querySnapshot.forEach(d => { data.push(d.data()); refs.push(d.ref); });
-            
-            const b64 = btoa(JSON.stringify(data));
-            await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/harvest/dump_${Date.now()}.json`, {
-                method: 'PUT', headers: { 'Authorization': `Bearer ${token}` },
-                body: JSON.stringify({ message: "Harvester Sync", content: b64 })
-            });
+        function loadHistory() {
+            const container = document.getElementById('chat-container');
+            container.innerHTML = "";
+            const history = isMock ? JSON.parse(localStorage.getItem('forensic_mock') || '[]') : [];
+            history.forEach(d => { addMessage("user", d.q); addMessage("ai", d.a); });
+        }
 
-            for (const ref of refs) await deleteDoc(ref);
-            alert("Harvester success. Firebase telemetry cleared.");
-        });
+        function addMessage(role, text) {
+            const container = document.getElementById('chat-container');
+            const div = document.createElement('div');
+            div.className = `p-4 rounded-lg ${role === 'user' ? 'bg-zinc-800' : 'bg-indigo-900/20'}`;
+            div.innerHTML = marked.parse(text);
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
 
-        searchForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const msg = searchInput.value;
-            const div = document.createElement('div'); div.className = "text-zinc-200 p-4 bg-zinc-900 rounded-lg";
-            div.textContent = msg; chatContainer.appendChild(div);
-            saveCurrentSessionToCloud(Date.now().toString(), [{role: 'user', content: msg}]);
-            searchInput.value = '';
-        });
+        document.getElementById('logout-btn').onclick = () => location.reload();
     </script>
 </body>
 </html>
+
+
