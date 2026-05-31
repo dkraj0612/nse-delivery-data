@@ -1,28 +1,18 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mobile AI Search</title>
+    <title>AI Software Studio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://js.puter.com/v2/"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
-        body {
-            background-color: #f3f4f6;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        .message-enter {
-            animation: slideUp 0.3s ease-out forwards;
-        }
+        body { background-color: #f3f4f6; -webkit-tap-highlight-color: transparent; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .message-enter { animation: slideUp 0.3s ease-out forwards; }
         @keyframes slideUp {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -31,34 +21,55 @@
 </head>
 <body class="h-screen flex flex-col font-sans text-gray-800">
 
-    <header class="bg-white shadow-sm p-4 flex items-center justify-center sticky top-0 z-10">
-        <h1 class="text-xl font-semibold flex items-center gap-2 text-indigo-600">
-            <i class="ph ph-sparkle text-2xl"></i>
-            Claude Search
+    <header class="bg-gray-900 shadow-md p-4 flex items-center justify-between sticky top-0 z-10 text-white">
+        <h1 class="text-xl font-bold flex items-center gap-2 text-indigo-400">
+            <i class="ph ph-code text-2xl"></i>
+            Software Studio
         </h1>
+        <button id="reset-btn" class="p-2 rounded-full bg-gray-800 hover:bg-gray-700 active:scale-95 transition-transform" title="New Chat">
+            <i class="ph ph-trash text-xl text-gray-300"></i>
+        </button>
     </header>
 
-    <main id="chat-container" class="flex-1 overflow-y-auto p-4 space-y-4 no-scrollbar pb-24">
+    <main id="chat-container" class="flex-1 overflow-y-auto p-4 space-y-4 no-scrollbar pb-32">
         <div class="flex flex-col items-center justify-center h-full text-center space-y-3 opacity-60" id="welcome-screen">
-            <i class="ph ph-magnifying-glass text-5xl mb-2"></i>
-            <h2 class="text-lg font-medium">What do you want to know?</h2>
-            <p class="text-sm px-8">Powered by Puter.js</p>
+            <i class="ph ph-terminal-window text-5xl mb-2"></i>
+            <h2 class="text-lg font-medium">Ready to Build Software</h2>
+            <p class="text-sm px-8">Attach screenshots, error logs, and code files.</p>
         </div>
     </main>
 
-    <footer class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 pb-safe">
-        <form id="search-form" class="relative flex items-center gap-2 max-w-lg mx-auto">
+    <!-- Pinned Bottom Input Area -->
+    <footer class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 pb-safe">
+        
+        <!-- Attachment Preview Area -->
+        <div id="attachment-preview" class="hidden px-4 py-2 bg-gray-50 border-b border-gray-200 flex gap-2 overflow-x-auto no-scrollbar items-center">
+            <!-- Attached files/images will appear here -->
+        </div>
+
+        <form id="search-form" class="relative flex items-center gap-2 max-w-lg mx-auto p-3">
+            
+            <!-- CHANGED: Added image/* to accepted files -->
+            <input type="file" id="file-upload" class="hidden" accept="image/*,.txt,.csv,.json,.py,.js,.html,.css,.md,.cpp,.java" multiple>
+            
+            <button type="button" id="attach-btn" class="w-10 h-10 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-100 transition-colors active:scale-95">
+                <i class="ph ph-paperclip text-2xl"></i>
+            </button>
+
+            <!-- Text Input -->
             <input 
                 type="text" 
                 id="search-input" 
-                placeholder="Ask anything..." 
-                class="w-full bg-gray-100 rounded-full py-3 pl-5 pr-12 text-base focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                placeholder="Message AI..." 
+                class="w-full bg-gray-100 rounded-xl py-3 px-4 text-base focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 autocomplete="off"
             >
+            
+            <!-- Submit Button -->
             <button 
                 type="submit" 
                 id="submit-btn"
-                class="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center shadow-md active:scale-95 transition-transform disabled:opacity-50 disabled:bg-gray-400"
+                class="w-10 h-10 bg-indigo-600 text-white rounded-xl flex shrink-0 items-center justify-center shadow-md active:scale-95 transition-transform disabled:opacity-50 disabled:bg-gray-400"
             >
                 <i class="ph ph-paper-plane-right text-xl"></i>
             </button>
@@ -71,38 +82,150 @@
         const submitBtn = document.getElementById('submit-btn');
         const chatContainer = document.getElementById('chat-container');
         const welcomeScreen = document.getElementById('welcome-screen');
+        const resetBtn = document.getElementById('reset-btn');
+        
+        const attachBtn = document.getElementById('attach-btn');
+        const fileUpload = document.getElementById('file-upload');
+        const attachmentPreview = document.getElementById('attachment-preview');
+
+        let conversationHistory = [];
+        let attachedFilesContent = []; 
+        window.generatedFiles = {}; 
+
+        // ===================================================================
+        // 1. ADVANCED FILE & VISION ATTACHMENT LOGIC
+        // ===================================================================
+        attachBtn.addEventListener('click', () => {
+            fileUpload.click(); 
+        });
+
+        fileUpload.addEventListener('change', async (e) => {
+            const files = Array.from(e.target.files);
+            
+            for (const file of files) {
+                const isImage = file.type.startsWith('image/');
+                const reader = new FileReader();
+
+                reader.onload = (event) => {
+                    const content = event.target.result;
+                    
+                    // Save to payload memory
+                    attachedFilesContent.push({
+                        name: file.name,
+                        data: content,     // Base64 if image, raw text if code
+                        isImage: isImage
+                    });
+
+                    // Update UI Preview
+                    attachmentPreview.classList.remove('hidden');
+                    const pill = document.createElement('div');
+                    pill.className = "flex items-center gap-2 bg-indigo-50 text-indigo-700 px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap border border-indigo-200 shadow-sm";
+                    
+                    if (isImage) {
+                        // Display the actual image thumbnail!
+                        pill.innerHTML = `<img src="${content}" class="w-6 h-6 object-cover rounded shadow-sm border border-indigo-100"> <span>${file.name}</span>`;
+                    } else {
+                        // Display code icon
+                        pill.innerHTML = `<i class="ph ph-file-code text-lg"></i> <span>${file.name}</span>`;
+                    }
+                    
+                    attachmentPreview.appendChild(pill);
+                };
+
+                // CRITICAL: Read images as Base64 Data URLs so the AI can see them. Read code as raw text.
+                if (isImage) {
+                    reader.readAsDataURL(file); 
+                } else {
+                    reader.readAsText(file);
+                }
+            }
+            fileUpload.value = ''; 
+        });
+
+        // ===================================================================
+        // 2. FILE DOWNLOAD LOGIC
+        // ===================================================================
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+
+        function downloadFile(id, extension) {
+            const content = window.generatedFiles[id];
+            if (!content) return;
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `app_module_${Date.now()}.${extension}`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // ===================================================================
+        // 3. CORE CHAT & MULTIMODAL ROUTER
+        // ===================================================================
+        resetBtn.addEventListener('click', () => {
+            conversationHistory = []; 
+            attachedFilesContent = [];
+            attachmentPreview.innerHTML = '';
+            attachmentPreview.classList.add('hidden');
+            chatContainer.innerHTML = ''; 
+            chatContainer.appendChild(welcomeScreen); 
+            welcomeScreen.style.display = 'flex';
+        });
 
         function formatText(text) {
             if (!text) return '';
-            let safeText = typeof text === 'string' ? text : JSON.stringify(text);
-            let formatted = safeText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            formatted = formatted.replace(/\n/g, '<br>');
-            return formatted;
+            let safeText = typeof text === 'string' ? text : JSON.stringify(text, null, 2);
+            const codeBlocks = [];
+            
+            safeText = safeText.replace(/```([\w-]*)\n([\s\S]*?)```/g, (match, lang, code) => {
+                const id = 'file-' + Math.random().toString(36).substring(2, 11);
+                window.generatedFiles[id] = code.trim(); 
+                const ext = lang ? lang.split('-')[0] : 'txt';
+                const displayLang = lang || 'code';
+                
+                const html = `
+                <div class="bg-gray-800 rounded-lg my-3 overflow-hidden border border-gray-700 shadow-inner">
+                    <div class="flex justify-between items-center bg-gray-900 px-3 py-2">
+                        <span class="text-xs text-gray-400 font-mono uppercase">${displayLang}</span>
+                        <button onclick="downloadFile('${id}', '${ext}')" class="flex items-center gap-1 bg-indigo-600 hover:bg-indigo-500 text-white text-xs px-3 py-1.5 rounded transition-colors active:scale-95">
+                            <i class="ph ph-download-simple"></i> Download
+                        </button>
+                    </div>
+                    <div class="p-3 overflow-x-auto text-xs text-gray-300 font-mono leading-relaxed bg-[#1e1e1e]">
+                        <pre><code>${escapeHtml(code.trim())}</code></pre>
+                    </div>
+                </div>`;
+                codeBlocks.push(html);
+                return `__CODE_BLOCK_${codeBlocks.length - 1}__`;
+            });
+
+            safeText = safeText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            safeText = safeText.replace(/\n/g, '<br>');
+            codeBlocks.forEach((html, index) => safeText = safeText.replace(`__CODE_BLOCK_${index}__`, html));
+            return safeText;
         }
 
         function addMessage(text, isUser = false) {
             if (welcomeScreen) welcomeScreen.style.display = 'none';
-
             const msgDiv = document.createElement('div');
             msgDiv.className = `flex w-full message-enter ${isUser ? 'justify-end' : 'justify-start'}`;
-
             const bubble = document.createElement('div');
             
             if (isUser) {
-                bubble.className = 'bg-indigo-600 text-white px-5 py-3 rounded-2xl rounded-br-sm max-w-[85%] text-base shadow-sm';
-                bubble.textContent = text;
+                bubble.className = 'bg-gray-800 text-white px-5 py-3 rounded-xl rounded-br-sm max-w-[85%] text-base shadow-sm';
+                bubble.innerHTML = text; 
             } else {
-                bubble.className = 'bg-white border border-gray-200 text-gray-800 px-5 py-3 rounded-2xl rounded-bl-sm max-w-[90%] text-base shadow-sm leading-relaxed overflow-x-auto';
+                bubble.className = 'bg-white border border-gray-200 text-gray-800 px-4 py-3 rounded-xl rounded-bl-sm w-full text-sm shadow-sm leading-relaxed overflow-x-hidden';
                 bubble.innerHTML = formatText(text);
             }
 
             msgDiv.appendChild(bubble);
             chatContainer.appendChild(msgDiv);
-            
-            chatContainer.scrollTo({
-                top: chatContainer.scrollHeight,
-                behavior: 'smooth'
-            });
+            chatContainer.scrollTo({ top: chatContainer.scrollHeight, behavior: 'smooth' });
         }
 
         function showLoading() {
@@ -110,74 +233,115 @@
             loaderDiv.id = 'loading-indicator';
             loaderDiv.className = 'flex w-full justify-start message-enter';
             loaderDiv.innerHTML = `
-                <div class="bg-white border border-gray-200 px-4 py-3 rounded-2xl rounded-bl-sm shadow-sm flex items-center gap-2">
+                <div class="bg-white border border-gray-200 px-4 py-3 rounded-xl rounded-bl-sm shadow-sm flex items-center gap-2">
+                    <div class="text-xs text-gray-500 font-mono">Analyzing input...</div>
                     <div class="w-2 h-2 bg-indigo-400 rounded-full animate-bounce"></div>
                     <div class="w-2 h-2 bg-indigo-400 rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
-                    <div class="w-2 h-2 bg-indigo-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
                 </div>
             `;
             chatContainer.appendChild(loaderDiv);
             chatContainer.scrollTop = chatContainer.scrollHeight;
         }
 
-        function removeLoading() {
-            const loader = document.getElementById('loading-indicator');
-            if (loader) loader.remove();
-        }
-
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            const query = input.value.trim();
-            if (!query) return;
+            const rawUserInput = input.value.trim();
+            if (!rawUserInput && attachedFilesContent.length === 0) return;
 
-            addMessage(query, true);
+            // 1. UI Display Logic
+            let uiMessage = rawUserInput;
+            if (attachedFilesContent.length > 0) {
+                const fileTags = attachedFilesContent.map(f => {
+                    if (f.isImage) return `<br><span class="text-xs text-indigo-300">🖼️ ${f.name}</span>`;
+                    return `<br><span class="text-xs text-indigo-300">📄 ${f.name}</span>`;
+                }).join('');
+                uiMessage = rawUserInput ? `${rawUserInput}${fileTags}` : `Attached Files:${fileTags}`;
+            }
+
+            addMessage(uiMessage, true); 
             input.value = '';
             input.disabled = true;
             submitBtn.disabled = true;
+            attachBtn.disabled = true;
             input.blur(); 
             showLoading();
 
-            try {
-                if (typeof puter === 'undefined') {
-                    throw new Error("Puter.js script did not load.");
-                }
+            // 2. VISION API PAYLOAD CONSTRUCTION
+            const textFiles = attachedFilesContent.filter(f => !f.isImage);
+            const imageFiles = attachedFilesContent.filter(f => f.isImage);
 
-                const response = await puter.ai.chat(query);
-                removeLoading();
+            let textToSendToAI = rawUserInput || "Please review the attached files.";
+            
+            // Inject text-based code directly into the prompt
+            if (textFiles.length > 0) {
+                textToSendToAI += "\n\n--- ATTACHED CODE/TEXT ---\n";
+                textFiles.forEach(file => {
+                    textToSendToAI += `\nFile: ${file.name}\n\`\`\`\n${file.data}\n\`\`\`\n`;
+                });
+            }
+
+            let messagePayload;
+
+            // If images are attached, we MUST use the advanced Multimodal Array format
+            if (imageFiles.length > 0) {
+                messagePayload = [
+                    { type: "text", text: textToSendToAI }
+                ];
+                
+                // Add the Base64 image data to the AI's "vision" array
+                imageFiles.forEach(file => {
+                    messagePayload.push({
+                        type: "image_url",
+                        image_url: { url: file.data }
+                    });
+                });
+            } else {
+                // Standard text payload
+                messagePayload = textToSendToAI;
+            }
+
+            attachedFilesContent = [];
+            attachmentPreview.innerHTML = '';
+            attachmentPreview.classList.add('hidden');
+
+            conversationHistory.push({ role: "user", content: messagePayload });
+
+            try {
+                if (typeof puter === 'undefined') throw new Error("Puter.js script did not load.");
+
+                const response = await puter.ai.chat(conversationHistory);
+                
+                const loader = document.getElementById('loading-indicator');
+                if (loader) loader.remove();
                 
                 let finalMessage = "No text found.";
-                
-                // -------------------------------------------------------------
-                // THE CLAUDE EXTRACTOR: Perfectly handles Anthropic's new arrays
-                // -------------------------------------------------------------
-                if (typeof response === 'string') {
-                    finalMessage = response; 
-                } else if (response?.text) {
-                    finalMessage = response.text;
-                } else if (typeof response?.message === 'string') {
-                    finalMessage = response.message;
-                } else if (Array.isArray(response?.message?.content)) {
-                    // This catches the exact array structure Claude Haiku just sent us
-                    finalMessage = response.message.content.map(item => item.text).join('\n');
-                } else if (typeof response?.message?.content === 'string') {
-                    finalMessage = response.message.content;
-                } else {
-                    finalMessage = JSON.stringify(response); 
-                }
+                if (typeof response === 'string') finalMessage = response; 
+                else if (response?.text) finalMessage = response.text;
+                else if (typeof response?.message === 'string') finalMessage = response.message;
+                else if (Array.isArray(response?.message?.content)) finalMessage = response.message.content.map(i => i.text).join('\n');
+                else if (typeof response?.message?.content === 'string') finalMessage = response.message.content;
+                else finalMessage = JSON.stringify(response); 
 
+                // Store AI's response in memory as plain text to keep history light
+                conversationHistory.push({ role: "assistant", content: finalMessage });
                 addMessage(finalMessage, false);
 
             } catch (error) {
-                removeLoading();
+                const loader = document.getElementById('loading-indicator');
+                if (loader) loader.remove();
                 console.error("Detailed Error:", error);
-                addMessage(`⚠️ **Error:**<br>${error.message || "Something went wrong."}`, false);
+                conversationHistory.pop(); 
+                addMessage(`⚠️ **Error:**<br>${error.message || "The AI struggled to process this image format."}`, false);
             } finally {
                 input.disabled = false;
                 submitBtn.disabled = false;
+                attachBtn.disabled = false;
             }
         });
     </script>
 </body>
 </html>
 
+
+```
