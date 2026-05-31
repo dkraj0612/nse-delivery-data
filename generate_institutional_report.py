@@ -30,7 +30,7 @@ GEMINI_MODEL_CASCADE = [
     'gemini-1.5-flash'           # Tier 5: Legacy Speedster
 ]
 
-# Disable safety filters so forensic terms (fraud, siphoning) don't crash the script
+# Disable safety filters so forensic terms don't crash the script
 SAFETY_CONFIG = [
     types.SafetySetting(category=types.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT, threshold=types.HarmBlockThreshold.BLOCK_NONE),
     types.SafetySetting(category=types.HarmCategory.HARM_CATEGORY_HARASSMENT, threshold=types.HarmBlockThreshold.BLOCK_NONE),
@@ -93,7 +93,7 @@ def save_status():
 def extract_json_from_text(raw_text, stock_name, attempt):
     """Aggressively extracts JSON ignoring any conversational text around it."""
     if not raw_text:
-        raise ValueError("API returned an empty response. (Safety filter block).")
+        raise ValueError("API returned an empty response. (Safety filter block or model capacity failure).")
         
     # Find the first '{' and the last '}' in the entire string
     start_idx = raw_text.find('{')
@@ -102,7 +102,6 @@ def extract_json_from_text(raw_text, stock_name, attempt):
     if start_idx != -1 and end_idx != -1 and end_idx > start_idx:
         return raw_text[start_idx:end_idx + 1]
     else:
-        # Debugging: If it STILL fails, save exactly what the AI said so we can see it!
         debug_filename = os.path.join(output_dir, f"ERROR_LOG_{stock_name.replace(' ', '_')}_Tier{attempt}.txt")
         with open(debug_filename, 'w', encoding='utf-8') as f:
             f.write(raw_text)
@@ -134,7 +133,8 @@ def generate_institutional_report(stock_name):
                     system_instruction=master_prompt,
                     temperature=0.1, 
                     tools=[{"google_search": {}}],
-                    safety_settings=SAFETY_CONFIG # Apply safety overrides
+                    safety_settings=SAFETY_CONFIG,
+                    response_mime_type="application/json" # <--- MAGIC FIX: FORCES NATIVE JSON MODE
                 )
             )
             
@@ -161,7 +161,8 @@ def generate_institutional_report(stock_name):
                 config=types.GenerateContentConfig(
                     temperature=0.0, 
                     tools=[{"google_search": {}}],
-                    safety_settings=SAFETY_CONFIG
+                    safety_settings=SAFETY_CONFIG,
+                    response_mime_type="application/json" # <--- FORCES NATIVE JSON MODE
                 )
             )
             
