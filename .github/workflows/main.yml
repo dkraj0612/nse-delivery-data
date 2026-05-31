@@ -1,0 +1,31 @@
+name: Puter AI Pipeline (Claude 3.5 Sonnet)
+
+on:
+  workflow_dispatch: # Allows you to manually trigger it from the Actions tab
+
+jobs:
+  run-puter-ai:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Inline Dependencies
+        run: |
+          # Installs packages directly without needing a package.json file
+          npm install puppeteer puppeteer-extra puppeteer-extra-plugin-stealth
+
+      - name: Execute Puter Bridge
+        run: node run_puter.js
+
+      - name: Upload Reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: Claude-AI-Reports
+          path: ./*_report.json
+
