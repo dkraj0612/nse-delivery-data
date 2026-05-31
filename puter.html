@@ -396,7 +396,7 @@
 
             conversationHistory.push({ role: "user", parts: currentMessageParts });
 
-            const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:streamGenerateContent?key=${apiKey}`;
+            const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?key=${apiKey}`;
 
             const requestPayload = {
                 contents: conversationHistory,
