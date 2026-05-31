@@ -25,7 +25,7 @@ async function runPuterAutomation() {
         console.error(`⚠️ [Network Block]: ${request.url()} failed. Reason: ${request.failure().errorText}`);
     });
 
-    const htmlPath = `file://${path.join(__dirname, 'index.html')}`;
+    const htmlPath = `file://${path.join(__dirname, 'puter.html')}`;
     await page.goto(htmlPath);
 
     console.log("⏳ Waiting for Puter.js to initialize...");
