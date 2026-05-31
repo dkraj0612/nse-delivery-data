@@ -95,7 +95,6 @@ def extract_json_from_text(raw_text, stock_name, attempt):
     if not raw_text:
         raise ValueError("API returned an empty response. (Safety filter block or model capacity failure).")
         
-    # Find the first '{' and the last '}' in the entire string
     start_idx = raw_text.find('{')
     end_idx = raw_text.rfind('}')
     
@@ -124,7 +123,9 @@ def generate_institutional_report(stock_name):
             # ---------------------------------------------------------
             logger.info(f"[{stock_name}] Stage 1: Scrape & Synthesis using [{current_model}] (Tier {attempt}/{total_models})")
             
-            master_prompt = system_master_prompt_template.replace("{stock_name}", stock_name)
+            # INJECT STRICT JSON ESCAPING RULES
+            json_enforcer = "\n\nCRITICAL JSON RULE: You MUST output valid, parseable JSON. NEVER use unescaped double quotes inside your text values. If you need to quote something, use single quotes ('like this') or escape them (\\\"like this\\\"). Do not break the JSON format."
+            master_prompt = system_master_prompt_template.replace("{stock_name}", stock_name) + json_enforcer
             
             response = client.models.generate_content(
                 model=current_model,
@@ -133,12 +134,15 @@ def generate_institutional_report(stock_name):
                     system_instruction=master_prompt,
                     temperature=0.1, 
                     tools=[{"google_search": {}}],
-                    safety_settings=SAFETY_CONFIG,
-                    response_mime_type="application/json" # <--- MAGIC FIX: FORCES NATIVE JSON MODE
+                    safety_settings=SAFETY_CONFIG
+                    # response_mime_type removed due to Google Search Tool conflict
                 )
             )
             
             clean_text = extract_json_from_text(response.text, stock_name, attempt)
+            
+            # Clean up common AI JSON escaping mistakes before parsing
+            clean_text = clean_text.replace('\n', ' ').replace('\r', '') 
             json_payload = json.loads(clean_text)
             
             # ---------------------------------------------------------
@@ -161,8 +165,7 @@ def generate_institutional_report(stock_name):
                 config=types.GenerateContentConfig(
                     temperature=0.0, 
                     tools=[{"google_search": {}}],
-                    safety_settings=SAFETY_CONFIG,
-                    response_mime_type="application/json" # <--- FORCES NATIVE JSON MODE
+                    safety_settings=SAFETY_CONFIG
                 )
             )
             
@@ -227,4 +230,5 @@ if __name__ == "__main__":
             time.sleep(30)
 
     logger.info(f"PIPELINE SUMMARY COMPLETE: {status_tracker['completed']} clean, {status_tracker['failed']} breaks.")
+
 
