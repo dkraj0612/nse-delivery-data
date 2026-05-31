@@ -72,8 +72,16 @@
         const chatContainer = document.getElementById('chat-container');
         const welcomeScreen = document.getElementById('welcome-screen');
 
+        // SAFEGUARDED Text Formatter
         function formatText(text) {
-            let formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            // 1. If text is completely empty or null, return empty string
+            if (text === null || text === undefined) return '';
+            
+            // 2. If Puter sent an object instead of text, stringify it safely
+            let safeText = typeof text === 'string' ? text : JSON.stringify(text);
+            
+            // 3. Apply formatting
+            let formatted = safeText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
             formatted = formatted.replace(/\n/g, '<br>');
             return formatted;
         }
@@ -90,7 +98,7 @@
                 bubble.className = 'bg-indigo-600 text-white px-5 py-3 rounded-2xl rounded-br-sm max-w-[85%] text-base shadow-sm';
                 bubble.textContent = text;
             } else {
-                bubble.className = 'bg-white border border-gray-200 text-gray-800 px-5 py-3 rounded-2xl rounded-bl-sm max-w-[90%] text-base shadow-sm leading-relaxed';
+                bubble.className = 'bg-white border border-gray-200 text-gray-800 px-5 py-3 rounded-2xl rounded-bl-sm max-w-[90%] text-base shadow-sm leading-relaxed overflow-x-auto';
                 bubble.innerHTML = formatText(text);
             }
 
@@ -141,22 +149,33 @@
                     throw new Error("Puter.js script did not load.");
                 }
 
-                // Call AI (Default model first to test connection)
-                const response = await puter.ai.chat(query);
+                // Request Claude 3.5 Sonnet
+                const response = await puter.ai.chat(query, { model: 'claude-3-5-sonnet' });
 
                 removeLoading();
                 
-                if (response && response.message) {
-                    addMessage(response.message, false);
+                // INTELLIGENT RESPONSE EXTRACTOR
+                // Puter's API response structure changes occasionally. This catches all of them:
+                let finalMessage = "";
+                
+                if (typeof response === 'string') {
+                    finalMessage = response; // If it's already a string, great.
+                } else if (response && typeof response.message === 'string') {
+                    finalMessage = response.message; 
+                } else if (response && response.message && typeof response.message.content === 'string') {
+                    finalMessage = response.message.content;
+                } else if (response && typeof response.text === 'string') {
+                    finalMessage = response.text;
                 } else {
-                    addMessage("Received empty response from AI.", false);
+                    // Fallback if the object structure is completely unknown
+                    finalMessage = response; 
                 }
+
+                addMessage(finalMessage, false);
 
             } catch (error) {
                 removeLoading();
                 console.error("Detailed Error:", error);
-                
-                // Print the EXACT error message to the screen so we can debug it
                 addMessage(`⚠️ **Error Details:**<br>${error.message || JSON.stringify(error)}`, false);
             } finally {
                 input.disabled = false;
@@ -166,4 +185,3 @@
     </script>
 </body>
 </html>
-
