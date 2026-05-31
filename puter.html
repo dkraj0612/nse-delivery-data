@@ -14,17 +14,14 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /* Toast Notifications */
         #toast-container { z-index: 9999; pointer-events: none; }
         .toast-enter { animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         .toast-exit { animation: fadeOut 0.3s forwards; }
         @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         @keyframes fadeOut { to { opacity: 0; } }
 
-        /* iOS Safari Dropdown Reset */
         select { -webkit-appearance: none; -moz-appearance: none; appearance: none; }
 
-        /* Markdown Styling */
         .prose p { margin-bottom: 1em; line-height: 1.6; }
         .prose h1, .prose h2, .prose h3 { color: #f4f4f5; font-weight: 700; margin-top: 1.5em; margin-bottom: 0.5em; font-family: monospace; }
         .prose ul { list-style-type: disc; padding-left: 1.5em; margin-bottom: 1em; }
@@ -46,7 +43,8 @@
                 <h2 class="text-2xl font-bold text-zinc-100 tracking-tight">System Lock</h2>
                 <p class="text-xs text-zinc-400 mt-2 font-mono uppercase tracking-widest">Local Operator Auth</p>
             </div>
-            <input type="text" id="auth-username" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-4 mb-4 text-white font-mono focus:border-indigo-500 focus:outline-none transition-colors text-base" placeholder="OPERATOR ID" required autocomplete="off">
+            <!-- text-base prevents iOS Safari Zooming -->
+            <input type="text" id="auth-username" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-4 mb-4 text-white font-mono focus:border-indigo-500 focus:outline-none transition-colors text-base sm:text-sm" placeholder="OPERATOR ID" required autocomplete="off">
             <button type="submit" id="auth-submit-btn" class="w-full bg-indigo-600 hover:bg-indigo-500 py-4 rounded-xl font-bold text-white transition-colors active:scale-95 shadow-lg shadow-indigo-900/30">AUTHENTICATE</button>
         </form>
     </div>
@@ -78,7 +76,7 @@
                 <span class="text-[10px] text-zinc-500 font-semibold uppercase tracking-widest shrink-0 flex items-center gap-1 hidden sm:flex"><i class="ph ph-list-magnifying-glass text-sm"></i> Target</span>
                 
                 <div class="relative shrink-0 flex items-center">
-                    <select id="watchlist-dropdown" class="bg-zinc-950 border border-zinc-700 text-zinc-200 rounded-lg pl-3 pr-8 py-2 text-xs sm:text-sm font-mono focus:outline-none focus:border-indigo-500 shadow-inner w-32 sm:w-48 appearance-none cursor-pointer">
+                    <select id="watchlist-dropdown" class="bg-zinc-950 border border-zinc-700 text-zinc-200 rounded-lg pl-3 pr-8 py-2 text-base sm:text-sm font-mono focus:outline-none focus:border-indigo-500 shadow-inner w-32 sm:w-48 appearance-none cursor-pointer">
                         <option value="">-- Select --</option>
                     </select>
                     <i class="ph ph-caret-down absolute right-3 pointer-events-none text-zinc-500 text-xs"></i>
@@ -108,13 +106,13 @@
                 <div class="flex flex-col items-center justify-center flex-1 text-center space-y-4 opacity-50 py-10 mt-10 sm:mt-20" id="welcome-screen">
                     <i class="ph ph-terminal-window text-6xl text-zinc-600 mb-2"></i>
                     <h2 class="text-sm font-mono tracking-widest text-zinc-400 uppercase">Omni-Engine Ready</h2>
-                    <p class="text-xs text-zinc-500 mt-2 max-w-[250px] mx-auto leading-relaxed">Select a mode below to begin analysis. You can search for ANY target.</p>
+                    <p class="text-xs text-zinc-500 mt-2 max-w-[250px] mx-auto leading-relaxed">Select an AI model in settings, choose a mode below, and begin your analysis.</p>
                 </div>
             </main>
         </div>
 
         <!-- Footer / Input Area -->
-        <footer class="shrink-0 bg-zinc-950 border-t border-zinc-800 p-2 sm:p-3 pb-[max(0.5rem,env(safe-area-inset-bottom))] z-20">
+        <footer class="shrink-0 bg-zinc-950 border-t border-zinc-800 p-2 sm:p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] z-20">
             <form id="search-form" class="max-w-5xl mx-auto flex gap-2 w-full">
                 <!-- Mode Toggle -->
                 <button type="button" id="mode-toggle-btn" class="shrink-0 h-12 sm:h-14 px-3 sm:px-4 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center gap-2 text-zinc-400 transition-all font-mono text-xs focus:outline-none shadow-sm active:scale-95">
@@ -175,14 +173,14 @@
                 </div>
                 <div class="flex gap-3">
                     <button id="cancel-mode-btn" class="flex-1 bg-zinc-800 hover:bg-zinc-700 text-white font-bold py-3 rounded-xl transition-colors focus:outline-none text-sm active:scale-95">Cancel</button>
-                    <button id="confirm-mode-btn" class="flex-1 bg-indigo-600 hover:bg-indigo-50 text-white font-bold py-3 rounded-xl transition-colors focus:outline-none text-sm shadow-lg active:scale-95">Switch Mode</button>
+                    <button id="confirm-mode-btn" class="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl transition-colors focus:outline-none text-sm shadow-lg active:scale-95">Switch Mode</button>
                 </div>
             </div>
         </div>
 
         <!-- Omni-Model Settings Modal -->
         <div id="settings-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 w-full max-w-sm max-h-[90vh] overflow-y-auto no-scrollbar shadow-2xl">
+            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 w-full max-w-sm max-[90dvh] overflow-y-auto no-scrollbar shadow-2xl">
                 <div class="flex justify-between items-center mb-6">
                     <h3 class="text-sm font-mono uppercase tracking-widest text-zinc-300 flex items-center gap-2"><i class="ph ph-cpu text-indigo-500"></i> System Configuration</h3>
                     <button id="close-settings-btn" class="text-zinc-500 hover:text-white focus:outline-none p-1"><i class="ph ph-x text-lg"></i></button>
@@ -196,19 +194,23 @@
                         <div>
                             <label class="block text-[10px] text-zinc-500 mb-1">Select AI Provider & Model</label>
                             <div class="relative">
-                                <select id="api-model-select" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg pl-4 pr-8 py-3 text-sm text-zinc-100 font-mono focus:border-indigo-500 focus:outline-none shadow-inner appearance-none cursor-pointer">
-                                    <optgroup label="Google Gemini">
+                                <!-- Technical API identifiers explicitly mapped to UI marketing names -->
+                                <select id="api-model-select" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg pl-4 pr-8 py-3 text-base sm:text-sm text-zinc-100 font-mono focus:border-indigo-500 focus:outline-none shadow-inner appearance-none cursor-pointer">
+                                    <optgroup label="Google Gemini (Free/Paid Tier)">
+                                        <option value="google|gemini-3.5-flash">Gemini 3.5 Flash</option>
+                                        <option value="google|gemini-3.1-flash-lite">Gemini 3.1 Flash-Lite</option>
+                                        <option value="google|gemini-2.5-pro">Gemini 2.5 Pro</option>
                                         <option value="google|gemini-2.5-flash">Gemini 2.5 Flash</option>
-                                        <!-- CORRECTED: Exactly as requested -->
-                                        <option value="google|gemini-2.5-flash-lite">Gemini 2.5 Flash Lite</option>
                                         <option value="google|gemini-1.5-flash">Gemini 1.5 Flash</option>
+                                        <option value="google|gemini-1.5-flash-8b">Gemini 1.5 Flash Lite (8b)</option>
                                     </optgroup>
-                                    <optgroup label="OpenAI ChatGPT (Requires $5 API Credits)">
+                                    <optgroup label="OpenAI ChatGPT (Requires Billing Setup)">
                                         <option value="openai|gpt-4o-mini">GPT-4o Mini (Lowest Cost)</option>
-                                        <option value="openai|gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                                        <option value="openai|gpt-4o">GPT-4o (Advanced)</option>
                                     </optgroup>
-                                    <optgroup label="Anthropic Claude (Requires API Credits)">
-                                        <option value="anthropic|claude-3-5-haiku-20241022">Claude 3.5 Haiku (Lowest Cost)</option>
+                                    <optgroup label="Anthropic Claude (Requires Billing)">
+                                        <option value="anthropic|claude-3-5-haiku-20241022">Claude 3.5 Haiku</option>
+                                        <option value="anthropic|claude-3-5-sonnet-20241022">Claude 3.5 Sonnet</option>
                                     </optgroup>
                                 </select>
                                 <i class="ph ph-caret-down absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none text-zinc-500 text-xs"></i>
@@ -221,8 +223,8 @@
                             <input type="password" id="api-key-google" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm text-zinc-100 font-mono focus:border-indigo-500 focus:outline-none shadow-inner text-base sm:text-sm" placeholder="AIzaSy...">
                         </div>
                         <div id="key-container-openai" class="key-container hidden">
-                            <label class="block text-[10px] text-zinc-500 mb-1">OpenAI API Key</label>
-                            <input type="password" id="api-key-openai" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm text-zinc-100 font-mono focus:border-indigo-500 focus:outline-none shadow-inner text-base sm:text-sm" placeholder="sk-...">
+                            <label class="block text-[10px] text-zinc-500 mb-1">OpenAI API Key (Must have $5 balance)</label>
+                            <input type="password" id="api-key-openai" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm text-zinc-100 font-mono focus:border-indigo-500 focus:outline-none shadow-inner text-base sm:text-sm" placeholder="sk-proj-...">
                         </div>
                         <div id="key-container-anthropic" class="key-container hidden">
                             <label class="block text-[10px] text-zinc-500 mb-1">Anthropic API Key <span class="text-amber-500/80">(Requires CORS bypass)</span></label>
@@ -331,6 +333,7 @@
                 const storedLedger = await localforage.getItem('alpha_ledger');
                 if (storedLedger) alphaLedger = storedLedger;
 
+                // Load Prompts
                 try {
                     const promptRes = await fetch('Prompts/master_prompt.txt');
                     if (promptRes.ok) { SMART_MASTER_PROMPT = await promptRes.text() + "\n\n" + JSON_SCHEMA_ROUTER; }
@@ -438,7 +441,7 @@
                     showToast("Vault Push Successful!");
                     btn.innerHTML = `<i class="ph ph-check text-emerald-400"></i> Done`;
                 } else if (action === 'pull') {
-                    if (!sha) throw new Error("No backup found.");
+                    if (!sha) throw new Error("No backup found on GitHub.");
                     const payload = JSON.parse(atou(existingContent));
                     
                     if (payload.sessions) savedSessions = payload.sessions;
@@ -469,7 +472,7 @@
         document.getElementById('git-push-btn').onclick = () => gitSync('push'); document.getElementById('git-pull-btn').onclick = () => gitSync('pull');
 
         // ==========================================
-        // 5. OMNI-MODEL API ENGINE (OpenAI, Anthropic, Google)
+        // 5. OMNI-MODEL API ENGINE 
         // ==========================================
         async function fetchAIWithBackoff(contentsArray, sysInstruction) {
             const providerModelStr = localStorage.getItem('fs_api_model') || 'google|gemini-2.5-flash';
@@ -529,13 +532,13 @@
 
                     const res = await fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(bodyObj) });
                     
-                    // --- CATCH RATE LIMITS & QUOTA ERRORS DEEPLY ---
+                    // --- RATE LIMIT & QUOTA INTERCEPTOR ---
                     if (res.status === 429) {
                         const errorClone = await res.clone().json().catch(()=>({}));
                         
-                        // Catch OpenAI $0 Balance / Insufficient Quota explicitly
-                        if (errorClone?.error?.code === 'insufficient_quota' || errorClone?.error?.type === 'insufficient_quota') {
-                            throw new Error("OpenAI API Blocked: Insufficient Quota. You must add at least $5 in credits to your OpenAI developer billing account to use ChatGPT models.");
+                        // Strict check for OpenAI $0 Balance / Insufficient Quota
+                        if (errorClone?.error?.code === 'insufficient_quota' || errorClone?.error?.type === 'insufficient_quota' || errorClone?.error?.message?.includes('billing')) {
+                            throw new Error("OpenAI API Blocked: Insufficient Quota. You must add at least $5 in credits to your OpenAI developer billing dashboard to activate your key.");
                         }
 
                         if (i === maxRetries) throw new Error("Rate limit exceeded. Try again later.");
@@ -546,9 +549,9 @@
                         continue; 
                     }
 
-                    // Catch Google "Model Not Found" 
+                    // Catch Google "Model Not Found" (When public keys don't have access to unreleased strings)
                     if (res.status === 404 && provider === 'google') {
-                        throw new Error(`Google API Error: Model '${modelId}' is not found or not yet available for your specific API key region. Please switch to 'Gemini 2.5 Flash' in settings.`);
+                        throw new Error(`Google API Error: Model '${modelId}' is not found or not yet available for your specific API key. Please switch to 'Gemini 2.5 Flash' or 'Gemini 1.5 Flash' in settings.`);
                     }
 
                     const data = await res.json();
@@ -564,7 +567,7 @@
 
                 } catch (error) { 
                     if (i === maxRetries) throw error; 
-                    if (error.message.includes("API_KEY_MISSING") || error.message.includes("Insufficient Quota") || error.message.includes("Model '")) throw error;
+                    if (error.message.includes("API_KEY_MISSING") || error.message.includes("Insufficient Quota") || error.message.includes("Google API Error")) throw error;
                     await new Promise(r => setTimeout(r, delays[i])); 
                 }
             }
@@ -593,7 +596,7 @@
                 loadingMsg = "Executing Forensic Scan...";
             } else {
                 const historyArr = savedSessions[currentSessionId]?.history || [];
-                contentsArray = historyArr.slice(-4).map(msg => ({ role: msg.role, text: msg.text })); // Take last 4
+                contentsArray = historyArr.slice(-4).map(msg => ({ role: msg.role, text: msg.text })); 
                 contentsArray.push({ role: "user", text: q });
                 sysInstruction = "You are a general financial assistant. Use markdown formatting." + memoryContext;
             }
@@ -633,7 +636,7 @@
                     showToast("API Key is missing for selected provider.", "error");
                     document.getElementById('settings-modal').classList.remove('hidden');
                 } else {
-                    showToast("Analysis Failed.", "error");
+                    showToast("Analysis Error.", "error");
                     addMessageToDOM("ai", `**System Error:** ${escapeHTML(err.message)}`);
                 }
             } finally {
@@ -731,7 +734,7 @@
         function updateHeaderModelIndicator() {
             const select = document.getElementById('api-model-select');
             const selectedText = select.options[select.selectedIndex]?.text || "Gemini 2.5 Flash";
-            document.getElementById('header-model-indicator').innerText = selectedText;
+            document.getElementById('header-model-indicator').innerText = selectedText.toUpperCase();
         }
 
         // Settings / Omni-Engine Select UI
@@ -748,7 +751,7 @@
             document.getElementById('api-key-anthropic').value = localStorage.getItem('fs_api_key_anthropic') || "";
             
             modelSelect.value = localStorage.getItem('fs_api_model') || "google|gemini-2.5-flash";
-            modelSelect.dispatchEvent(new Event('change')); // Trigger visibility update
+            modelSelect.dispatchEvent(new Event('change')); 
 
             document.getElementById('git-token-input').value = localStorage.getItem('fs_git_token') || "";
             document.getElementById('git-user-input').value = localStorage.getItem('fs_git_user') || "";
@@ -921,4 +924,5 @@
     </script>
 </body>
 </html>
+
 
