@@ -34,7 +34,7 @@
     <header class="bg-white shadow-sm p-4 flex items-center justify-center sticky top-0 z-10">
         <h1 class="text-xl font-semibold flex items-center gap-2 text-indigo-600">
             <i class="ph ph-sparkle text-2xl"></i>
-            AI Search
+            Claude Search
         </h1>
     </header>
 
@@ -73,7 +73,7 @@
         const welcomeScreen = document.getElementById('welcome-screen');
 
         function formatText(text) {
-            if (text === null || text === undefined) return '';
+            if (!text) return '';
             let safeText = typeof text === 'string' ? text : JSON.stringify(text);
             let formatted = safeText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
             formatted = formatted.replace(/\n/g, '<br>');
@@ -143,22 +143,27 @@
                     throw new Error("Puter.js script did not load.");
                 }
 
-                // CHANGED: Removed the specific model constraint to use Puter's guaranteed default AI
                 const response = await puter.ai.chat(query);
-
                 removeLoading();
                 
-                let finalMessage = "";
+                let finalMessage = "No text found.";
+                
+                // -------------------------------------------------------------
+                // THE CLAUDE EXTRACTOR: Perfectly handles Anthropic's new arrays
+                // -------------------------------------------------------------
                 if (typeof response === 'string') {
                     finalMessage = response; 
-                } else if (response && typeof response.message === 'string') {
-                    finalMessage = response.message; 
-                } else if (response && response.message && typeof response.message.content === 'string') {
-                    finalMessage = response.message.content;
-                } else if (response && typeof response.text === 'string') {
+                } else if (response?.text) {
                     finalMessage = response.text;
+                } else if (typeof response?.message === 'string') {
+                    finalMessage = response.message;
+                } else if (Array.isArray(response?.message?.content)) {
+                    // This catches the exact array structure Claude Haiku just sent us
+                    finalMessage = response.message.content.map(item => item.text).join('\n');
+                } else if (typeof response?.message?.content === 'string') {
+                    finalMessage = response.message.content;
                 } else {
-                    finalMessage = response; 
+                    finalMessage = JSON.stringify(response); 
                 }
 
                 addMessage(finalMessage, false);
@@ -166,7 +171,7 @@
             } catch (error) {
                 removeLoading();
                 console.error("Detailed Error:", error);
-                addMessage(`⚠️ **Error Details:**<br>${error.message || JSON.stringify(error)}`, false);
+                addMessage(`⚠️ **Error:**<br>${error.message || "Something went wrong."}`, false);
             } finally {
                 input.disabled = false;
                 submitBtn.disabled = false;
@@ -175,6 +180,4 @@
     </script>
 </body>
 </html>
-
-
 
