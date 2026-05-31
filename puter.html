@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,24 +39,19 @@
         </div>
     </main>
 
-    <!-- Pinned Bottom Input Area -->
     <footer class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 pb-safe">
         
-        <!-- Attachment Preview Area -->
         <div id="attachment-preview" class="hidden px-4 py-2 bg-gray-50 border-b border-gray-200 flex gap-2 overflow-x-auto no-scrollbar items-center">
-            <!-- Attached files/images will appear here -->
         </div>
 
         <form id="search-form" class="relative flex items-center gap-2 max-w-lg mx-auto p-3">
             
-            <!-- CHANGED: Added image/* to accepted files -->
             <input type="file" id="file-upload" class="hidden" accept="image/*,.txt,.csv,.json,.py,.js,.html,.css,.md,.cpp,.java" multiple>
             
             <button type="button" id="attach-btn" class="w-10 h-10 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-100 transition-colors active:scale-95">
                 <i class="ph ph-paperclip text-2xl"></i>
             </button>
 
-            <!-- Text Input -->
             <input 
                 type="text" 
                 id="search-input" 
@@ -65,7 +60,6 @@
                 autocomplete="off"
             >
             
-            <!-- Submit Button -->
             <button 
                 type="submit" 
                 id="submit-btn"
@@ -92,12 +86,7 @@
         let attachedFilesContent = []; 
         window.generatedFiles = {}; 
 
-        // ===================================================================
-        // 1. ADVANCED FILE & VISION ATTACHMENT LOGIC
-        // ===================================================================
-        attachBtn.addEventListener('click', () => {
-            fileUpload.click(); 
-        });
+        attachBtn.addEventListener('click', () => fileUpload.click());
 
         fileUpload.addEventListener('change', async (e) => {
             const files = Array.from(e.target.files);
@@ -109,42 +98,30 @@
                 reader.onload = (event) => {
                     const content = event.target.result;
                     
-                    // Save to payload memory
                     attachedFilesContent.push({
                         name: file.name,
-                        data: content,     // Base64 if image, raw text if code
+                        data: content,
                         isImage: isImage
                     });
 
-                    // Update UI Preview
                     attachmentPreview.classList.remove('hidden');
                     const pill = document.createElement('div');
                     pill.className = "flex items-center gap-2 bg-indigo-50 text-indigo-700 px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap border border-indigo-200 shadow-sm";
                     
                     if (isImage) {
-                        // Display the actual image thumbnail!
                         pill.innerHTML = `<img src="${content}" class="w-6 h-6 object-cover rounded shadow-sm border border-indigo-100"> <span>${file.name}</span>`;
                     } else {
-                        // Display code icon
                         pill.innerHTML = `<i class="ph ph-file-code text-lg"></i> <span>${file.name}</span>`;
                     }
-                    
                     attachmentPreview.appendChild(pill);
                 };
 
-                // CRITICAL: Read images as Base64 Data URLs so the AI can see them. Read code as raw text.
-                if (isImage) {
-                    reader.readAsDataURL(file); 
-                } else {
-                    reader.readAsText(file);
-                }
+                if (isImage) reader.readAsDataURL(file); 
+                else reader.readAsText(file);
             }
             fileUpload.value = ''; 
         });
 
-        // ===================================================================
-        // 2. FILE DOWNLOAD LOGIC
-        // ===================================================================
         function escapeHtml(text) {
             return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
@@ -163,9 +140,6 @@
             URL.revokeObjectURL(url);
         }
 
-        // ===================================================================
-        // 3. CORE CHAT & MULTIMODAL ROUTER
-        // ===================================================================
         resetBtn.addEventListener('click', () => {
             conversationHistory = []; 
             attachedFilesContent = [];
@@ -249,7 +223,6 @@
             const rawUserInput = input.value.trim();
             if (!rawUserInput && attachedFilesContent.length === 0) return;
 
-            // 1. UI Display Logic
             let uiMessage = rawUserInput;
             if (attachedFilesContent.length > 0) {
                 const fileTags = attachedFilesContent.map(f => {
@@ -267,13 +240,11 @@
             input.blur(); 
             showLoading();
 
-            // 2. VISION API PAYLOAD CONSTRUCTION
             const textFiles = attachedFilesContent.filter(f => !f.isImage);
             const imageFiles = attachedFilesContent.filter(f => f.isImage);
 
             let textToSendToAI = rawUserInput || "Please review the attached files.";
             
-            // Inject text-based code directly into the prompt
             if (textFiles.length > 0) {
                 textToSendToAI += "\n\n--- ATTACHED CODE/TEXT ---\n";
                 textFiles.forEach(file => {
@@ -283,21 +254,29 @@
 
             let messagePayload;
 
-            // If images are attached, we MUST use the advanced Multimodal Array format
             if (imageFiles.length > 0) {
                 messagePayload = [
                     { type: "text", text: textToSendToAI }
                 ];
                 
-                // Add the Base64 image data to the AI's "vision" array
+                // ==========================================
+                // THE FIX: ANTHROPIC CLAUDE IMAGE FORMAT
+                // ==========================================
                 imageFiles.forEach(file => {
+                    // file.data looks like: "data:image/png;base64,iVBORw0KGgo..."
+                    const mediaType = file.data.substring(file.data.indexOf(':') + 1, file.data.indexOf(';'));
+                    const base64Data = file.data.split(',')[1];
+                    
                     messagePayload.push({
-                        type: "image_url",
-                        image_url: { url: file.data }
+                        type: "image",
+                        source: {
+                            type: "base64",
+                            media_type: mediaType,
+                            data: base64Data
+                        }
                     });
                 });
             } else {
-                // Standard text payload
                 messagePayload = textToSendToAI;
             }
 
@@ -323,8 +302,17 @@
                 else if (typeof response?.message?.content === 'string') finalMessage = response.message.content;
                 else finalMessage = JSON.stringify(response); 
 
-                // Store AI's response in memory as plain text to keep history light
+                // Store text only in memory so it doesn't get overloaded sending giant base64 images back and forth repeatedly
                 conversationHistory.push({ role: "assistant", content: finalMessage });
+                
+                // Strip images out of the USER prompt history now that they are processed, to save tokens on follow-up questions
+                if (imageFiles.length > 0) {
+                     const lastUserMsg = conversationHistory[conversationHistory.length - 2];
+                     if (Array.isArray(lastUserMsg.content)) {
+                         lastUserMsg.content = lastUserMsg.content[0].text; // Keep only text
+                     }
+                }
+
                 addMessage(finalMessage, false);
 
             } catch (error) {
@@ -332,7 +320,7 @@
                 if (loader) loader.remove();
                 console.error("Detailed Error:", error);
                 conversationHistory.pop(); 
-                addMessage(`⚠️ **Error:**<br>${error.message || "The AI struggled to process this image format."}`, false);
+                addMessage(`⚠️ **Error:**<br>${error.message || "An error occurred."}`, false);
             } finally {
                 input.disabled = false;
                 submitBtn.disabled = false;
@@ -342,6 +330,3 @@
     </script>
 </body>
 </html>
-
-
-```
