@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,9 +19,15 @@
             background-color: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(4px);
         }
+        .dark body { background-color: #111827; }
+        .dark .bg-white { background-color: #1f2937; }
+        .dark .border-gray-200 { border-color: #374151; }
+        .dark .text-gray-800 { color: #e5e7eb; }
+        .dark .bg-gray-100 { background-color: #374151; }
+        .dark .text-gray-500 { color: #9ca3af; }
     </style>
 </head>
-<body class="h-screen flex flex-col font-sans text-gray-800">
+<body class="h-screen flex flex-col font-sans text-gray-800 dark:text-gray-200">
 
     <header class="bg-gray-900 shadow-md p-4 flex items-center justify-between sticky top-0 z-10 text-white">
         <h1 class="text-xl font-bold flex items-center gap-2 text-blue-400">
@@ -30,6 +35,9 @@
             Free Studio
         </h1>
         <div class="flex gap-2">
+            <button id="theme-toggle" class="p-2 rounded-full bg-gray-800 hover:bg-gray-700 active:scale-95 transition-transform" title="Toggle Theme">
+                <i id="theme-icon" class="ph ph-moon text-xl text-gray-300"></i>
+            </button>
             <button id="settings-btn" class="p-2 rounded-full bg-gray-800 hover:bg-gray-700 active:scale-95 transition-transform" title="API Settings">
                 <i class="ph ph-gear text-xl text-gray-300"></i>
             </button>
@@ -47,14 +55,14 @@
         </div>
     </main>
 
-    <footer class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 pb-safe">
-        <div id="attachment-preview" class="hidden px-4 py-2 bg-gray-50 border-b border-gray-200 flex gap-2 overflow-x-auto no-scrollbar items-center">
+    <footer class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 dark:bg-gray-900 dark:border-gray-700 pb-safe">
+        <div id="attachment-preview" class="hidden px-4 py-2 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex gap-2 overflow-x-auto no-scrollbar items-center">
         </div>
 
         <form id="search-form" class="relative flex items-center gap-2 max-w-lg mx-auto p-3">
             <input type="file" id="file-upload" class="hidden" accept="image/*,.txt,.csv,.json,.py,.js,.html,.css,.md,.cpp,.java" multiple>
             
-            <button type="button" id="attach-btn" class="w-10 h-10 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-100 transition-colors active:scale-95">
+            <button type="button" id="attach-btn" class="w-10 h-10 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors active:scale-95">
                 <i class="ph ph-paperclip text-2xl"></i>
             </button>
 
@@ -62,7 +70,7 @@
                 type="text" 
                 id="search-input" 
                 placeholder="Message Gemini..." 
-                class="w-full bg-gray-100 rounded-xl py-3 px-4 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
+                class="w-full bg-gray-100 dark:bg-gray-700 rounded-xl py-3 px-4 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
                 autocomplete="off"
             >
             
@@ -78,7 +86,7 @@
 
     <!-- API Settings Modal -->
     <div id="settings-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center modal-overlay p-4">
-        <div class="bg-white rounded-2xl shadow-xl w-full max-w-sm overflow-hidden animate-[slideUp_0.2s_ease-out]">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl w-full max-w-sm overflow-hidden animate-[slideUp_0.2s_ease-out]">
             <div class="bg-gray-900 p-4 border-b border-gray-800 flex justify-between items-center">
                 <h3 class="text-lg font-bold text-white flex items-center gap-2">
                     <i class="ph ph-key text-blue-400"></i> Free API Setup
@@ -88,10 +96,10 @@
                 </button>
             </div>
             <div class="p-5 space-y-4">
-                <p class="text-sm text-gray-600">Get a free key from <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-blue-600 underline">Google AI Studio</a> to unlock unlimited access.</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Get a free key from <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-blue-600 underline">Google AI Studio</a> to unlock unlimited access.</p>
                 <div>
-                    <label class="block text-xs font-semibold text-gray-700 uppercase mb-1">Google Gemini API Key</label>
-                    <input type="password" id="api-key-input" class="w-full bg-gray-100 border border-gray-300 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="AIzaSy...">
+                    <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase mb-1">Google Gemini API Key</label>
+                    <input type="password" id="api-key-input" class="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="AIzaSy...">
                 </div>
                 <button id="save-settings-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-lg transition-colors">
                     Save Key Securely
@@ -117,6 +125,32 @@
         const closeSettingsBtn = document.getElementById('close-settings-btn');
         const saveSettingsBtn = document.getElementById('save-settings-btn');
         const apiKeyInput = document.getElementById('api-key-input');
+
+        // Dark mode
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                themeIcon.classList.remove('ph-moon');
+                themeIcon.classList.add('ph-sun');
+            }
+        }
+
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            if (document.documentElement.classList.contains('dark')) {
+                themeIcon.classList.remove('ph-moon');
+                themeIcon.classList.add('ph-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeIcon.classList.remove('ph-sun');
+                themeIcon.classList.add('ph-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        });
 
         let conversationHistory = [];
         let attachedFilesContent = []; 
@@ -165,7 +199,7 @@
                     
                     let dataToStore = content;
                     if (isImage) {
-                        dataToStore = content.split(',')[1]; // Gemini requires raw base64 without prefix
+                        dataToStore = content.split(',')[1];
                     }
 
                     attachedFilesContent.push({
@@ -178,7 +212,7 @@
 
                     attachmentPreview.classList.remove('hidden');
                     const pill = document.createElement('div');
-                    pill.className = "flex items-center gap-2 bg-blue-50 text-blue-700 px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap border border-blue-200 shadow-sm";
+                    pill.className = "flex items-center gap-2 bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap border border-blue-200 dark:border-blue-800 shadow-sm";
                     
                     if (isImage) {
                         pill.innerHTML = `<img src="${content}" class="w-6 h-6 object-cover rounded shadow-sm border border-blue-100"> <span>${file.name}</span>`;
@@ -196,6 +230,18 @@
 
         function escapeHtml(text) {
             return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+
+        function copyToClipboard(text, btn) {
+            navigator.clipboard.writeText(text).then(() => {
+                const original = btn.innerHTML;
+                btn.innerHTML = `<i class="ph ph-check"></i> Copied!`;
+                btn.classList.add('bg-green-600');
+                setTimeout(() => {
+                    btn.innerHTML = original;
+                    btn.classList.remove('bg-green-600');
+                }, 2000);
+            });
         }
 
         function downloadFile(id, extension) {
@@ -237,9 +283,14 @@
                 <div class="bg-gray-800 rounded-lg my-3 overflow-hidden border border-gray-700 shadow-inner">
                     <div class="flex justify-between items-center bg-gray-900 px-3 py-2">
                         <span class="text-xs text-gray-400 font-mono uppercase">${displayLang}</span>
-                        <button onclick="downloadFile('${id}', '${ext}')" class="flex items-center gap-1 bg-blue-600 hover:bg-blue-500 text-white text-xs px-3 py-1.5 rounded transition-colors active:scale-95">
-                            <i class="ph ph-download-simple"></i> Download
-                        </button>
+                        <div class="flex gap-2">
+                            <button onclick="copyToClipboard(window.generatedFiles['${id}'], this)" class="flex items-center gap-1 bg-gray-700 hover:bg-gray-600 text-white text-xs px-3 py-1.5 rounded transition-colors active:scale-95">
+                                <i class="ph ph-copy"></i> Copy
+                            </button>
+                            <button onclick="downloadFile('${id}', '${ext}')" class="flex items-center gap-1 bg-blue-600 hover:bg-blue-500 text-white text-xs px-3 py-1.5 rounded transition-colors active:scale-95">
+                                <i class="ph ph-download-simple"></i> Download
+                            </button>
+                        </div>
                     </div>
                     <div class="p-3 overflow-x-auto text-xs text-gray-300 font-mono leading-relaxed bg-[#1e1e1e]">
                         <pre><code>${escapeHtml(code.trim())}</code></pre>
@@ -265,7 +316,7 @@
                 bubble.className = 'bg-gray-800 text-white px-5 py-3 rounded-xl rounded-br-sm max-w-[85%] text-base shadow-sm';
                 bubble.innerHTML = text; 
             } else {
-                bubble.className = 'bg-white border border-gray-200 text-gray-800 px-4 py-3 rounded-xl rounded-bl-sm w-full text-sm shadow-sm leading-relaxed overflow-x-hidden';
+                bubble.className = 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200 px-4 py-3 rounded-xl rounded-bl-sm w-full text-sm shadow-sm leading-relaxed overflow-x-hidden';
                 bubble.innerHTML = formatText(text);
             }
 
@@ -279,8 +330,8 @@
             loaderDiv.id = 'loading-indicator';
             loaderDiv.className = 'flex w-full justify-start message-enter';
             loaderDiv.innerHTML = `
-                <div class="bg-white border border-gray-200 px-4 py-3 rounded-xl rounded-bl-sm shadow-sm flex items-center gap-2">
-                    <div class="text-xs text-gray-500 font-mono">Gemini is thinking...</div>
+                <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-4 py-3 rounded-xl rounded-bl-sm shadow-sm flex items-center gap-2">
+                    <div class="text-xs text-gray-500 dark:text-gray-400 font-mono">Gemini is thinking...</div>
                     <div class="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
                     <div class="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
                 </div>
@@ -290,7 +341,7 @@
         }
 
         // ===================================================================
-        // 3. GEMINI API INTEGRATION
+        // 3. STREAMING GEMINI API INTEGRATION
         // ===================================================================
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -319,7 +370,6 @@
             submitBtn.disabled = true;
             attachBtn.disabled = true;
             input.blur(); 
-            showLoading();
 
             const textFiles = attachedFilesContent.filter(f => !f.isImage);
             const imageFiles = attachedFilesContent.filter(f => f.isImage);
@@ -333,7 +383,6 @@
                 });
             }
 
-            // Construct Gemini Message Parts
             const currentMessageParts = [{ text: textToSendToAI }];
             
             imageFiles.forEach(file => {
@@ -347,19 +396,29 @@
 
             conversationHistory.push({ role: "user", parts: currentMessageParts });
 
-            // Using the fast, highly capable Gemini 2.5 Flash model
-            const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+            const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:streamGenerateContent?key=${apiKey}`;
 
             const requestPayload = {
                 contents: conversationHistory,
                 generationConfig: {
-                    temperature: 0.1, // Low temp for accurate coding
+                    temperature: 0.1,
                 }
             };
 
             attachedFilesContent = [];
             attachmentPreview.innerHTML = '';
             attachmentPreview.classList.add('hidden');
+
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'flex w-full message-enter justify-start';
+            const bubble = document.createElement('div');
+            bubble.className = 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200 px-4 py-3 rounded-xl rounded-bl-sm w-full text-sm shadow-sm leading-relaxed overflow-x-hidden min-h-[60px]';
+            bubble.id = 'streaming-bubble';
+            msgDiv.appendChild(bubble);
+            chatContainer.appendChild(msgDiv);
+            chatContainer.scrollTo({ top: chatContainer.scrollHeight, behavior: 'smooth' });
+
+            let fullResponse = '';
 
             try {
                 const response = await fetch(API_URL, {
@@ -368,49 +427,60 @@
                     body: JSON.stringify(requestPayload)
                 });
 
-                const data = await response.json();
-                
-                const loader = document.getElementById('loading-indicator');
-                if (loader) loader.remove();
-
                 if (!response.ok) {
-                    throw new Error(data.error?.message || "Gemini API Request Failed");
+                    throw new Error((await response.json()).error?.message || "API Request Failed");
                 }
-                
-                const responseText = data.candidates[0].content.parts[0].text;
 
-                conversationHistory.push({ role: "model", parts: [{ text: responseText }] });
-                
-                // Clear heavy images from previous history parts to prevent exceeding payload limits
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    const chunk = decoder.decode(value);
+                    const lines = chunk.split('\n');
+
+                    for (const line of lines) {
+                        if (line.trim() === '' || line.trim() === 'data: [DONE]') continue;
+                        if (line.startsWith('data: ')) {
+                            try {
+                                const jsonStr = line.replace('data: ', '');
+                                const data = JSON.parse(jsonStr);
+                                const delta = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+                                if (delta) {
+                                    fullResponse += delta;
+                                    bubble.innerHTML = formatText(fullResponse);
+                                    chatContainer.scrollTo({ top: chatContainer.scrollHeight, behavior: 'smooth' });
+                                }
+                            } catch (e) {}
+                        }
+                    }
+                }
+
+                conversationHistory.push({ role: "model", parts: [{ text: fullResponse }] });
+
                 if (imageFiles.length > 0) {
                     const lastUserMsg = conversationHistory[conversationHistory.length - 2];
-                    lastUserMsg.parts = lastUserMsg.parts.filter(p => !p.inlineData); 
+                    if (lastUserMsg) lastUserMsg.parts = lastUserMsg.parts.filter(p => !p.inlineData);
                 }
-
-                addMessage(responseText, false);
 
             } catch (error) {
-                const loader = document.getElementById('loading-indicator');
-                if (loader) loader.remove();
-                console.error("Detailed Error:", error);
-                
-                conversationHistory.pop(); 
-                
+                console.error("Error:", error);
                 let errorMsg = error.message;
                 if (errorMsg.includes("API key not valid")) {
-                    errorMsg = "Invalid API Key. Please click the gear icon to update it.";
-                    localStorage.removeItem('gemini_api_key'); 
+                    errorMsg = "Invalid API Key. Please update it.";
+                    localStorage.removeItem('gemini_api_key');
                 }
-                
-                addMessage(`⚠️ **System Error:**<br>${errorMsg}`, false);
+                bubble.innerHTML = `⚠️ <strong>System Error:</strong><br>${errorMsg}`;
             } finally {
                 input.disabled = false;
                 submitBtn.disabled = false;
                 attachBtn.disabled = false;
             }
         });
+
+        initTheme();
     </script>
 </body>
 </html>
-
-
