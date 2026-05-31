@@ -128,11 +128,9 @@ def generate_institutional_report(stock_name):
                     temperature=0.1, 
                     tools=[{"google_search": {}}],
                     safety_settings=SAFETY_CONFIG
-                    # REMOVED strict JSON mode to fix API conflict with search tools
                 )
             )
             
-            # Diagnostic check for empty response
             if not response.candidates or not response.candidates[0].content.parts:
                 finish_reason = response.candidates[0].finish_reason if response.candidates else "UNKNOWN"
                 raise ValueError(f"API returned empty text. Finish Reason: {finish_reason}")
@@ -145,11 +143,12 @@ def generate_institutional_report(stock_name):
             memory_metadata = json_payload.get("metadata", {})
             memory_kpis = json_payload.get("kpis", {})
             
-            val_prompt = validation_prompt_template.format(
-                stock_name=stock_name,
-                metadata=json.dumps(memory_metadata, indent=2),
-                kpis=json.dumps(memory_kpis, indent=2)
-            )
+            # ---------------------------------------------------------
+            # THE FIX: Use .replace() instead of .format() to avoid JSON bracket conflicts
+            # ---------------------------------------------------------
+            val_prompt = validation_prompt_template.replace("{stock_name}", stock_name)
+            val_prompt = val_prompt.replace("{metadata}", json.dumps(memory_metadata, indent=2))
+            val_prompt = val_prompt.replace("{kpis}", json.dumps(memory_kpis, indent=2))
             
             val_response = client.models.generate_content(
                 model=current_model, 
@@ -161,7 +160,6 @@ def generate_institutional_report(stock_name):
                 )
             )
             
-            # Diagnostic check for validation response
             if not val_response.candidates or not val_response.candidates[0].content.parts:
                 finish_reason = val_response.candidates[0].finish_reason if val_response.candidates else "UNKNOWN"
                 logger.warning(f"[{stock_name}] Audit failed (Empty API Response). Finish Reason: {finish_reason}")
@@ -221,5 +219,4 @@ if __name__ == "__main__":
             time.sleep(30)
 
     logger.info(f"PIPELINE SUMMARY COMPLETE: {status_tracker['completed']} clean, {status_tracker['failed']} breaks.")
-
 
