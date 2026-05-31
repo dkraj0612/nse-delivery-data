@@ -14,14 +14,17 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
+        /* Toast Notifications */
         #toast-container { z-index: 9999; pointer-events: none; }
         .toast-enter { animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         .toast-exit { animation: fadeOut 0.3s forwards; }
         @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         @keyframes fadeOut { to { opacity: 0; } }
 
+        /* iOS Safari Dropdown Reset */
         select { -webkit-appearance: none; -moz-appearance: none; appearance: none; }
 
+        /* Markdown Styling */
         .prose p { margin-bottom: 1em; line-height: 1.6; }
         .prose h1, .prose h2, .prose h3 { color: #f4f4f5; font-weight: 700; margin-top: 1.5em; margin-bottom: 0.5em; font-family: monospace; }
         .prose ul { list-style-type: disc; padding-left: 1.5em; margin-bottom: 1em; }
@@ -43,7 +46,6 @@
                 <h2 class="text-2xl font-bold text-zinc-100 tracking-tight">System Lock</h2>
                 <p class="text-xs text-zinc-400 mt-2 font-mono uppercase tracking-widest">Local Operator Auth</p>
             </div>
-            <!-- text-base prevents iOS Safari Zooming -->
             <input type="text" id="auth-username" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-4 mb-4 text-white font-mono focus:border-indigo-500 focus:outline-none transition-colors text-base sm:text-sm" placeholder="OPERATOR ID" required autocomplete="off">
             <button type="submit" id="auth-submit-btn" class="w-full bg-indigo-600 hover:bg-indigo-500 py-4 rounded-xl font-bold text-white transition-colors active:scale-95 shadow-lg shadow-indigo-900/30">AUTHENTICATE</button>
         </form>
@@ -99,20 +101,20 @@
             </div>
         </div>
 
-        <!-- Chat Area (Fluid Desktop Scaling) -->
+        <!-- Chat Area -->
         <div class="flex-1 overflow-y-auto relative w-full" id="scroll-container">
-            <main id="chat-container" class="max-w-5xl mx-auto w-full px-2 sm:px-4 py-6 space-y-6 flex flex-col justify-end min-h-full">
+            <main id="chat-container" class="max-w-5xl mx-auto w-full px-2 sm:px-4 py-6 space-y-6 flex flex-col justify-end min-h-full pb-8">
                 <!-- Welcome Screen -->
                 <div class="flex flex-col items-center justify-center flex-1 text-center space-y-4 opacity-50 py-10 mt-10 sm:mt-20" id="welcome-screen">
                     <i class="ph ph-terminal-window text-6xl text-zinc-600 mb-2"></i>
                     <h2 class="text-sm font-mono tracking-widest text-zinc-400 uppercase">Omni-Engine Ready</h2>
-                    <p class="text-xs text-zinc-500 mt-2 max-w-[250px] mx-auto leading-relaxed">Select an AI model in settings, choose a mode below, and begin your analysis.</p>
+                    <p class="text-xs text-zinc-500 mt-2 max-w-[250px] mx-auto leading-relaxed">Select a mode below to begin analysis. You can search for ANY target.</p>
                 </div>
             </main>
         </div>
 
         <!-- Footer / Input Area -->
-        <footer class="shrink-0 bg-zinc-950 border-t border-zinc-800 p-2 sm:p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] z-20">
+        <footer class="shrink-0 bg-zinc-950 border-t border-zinc-800 p-2 sm:p-3 pb-[max(0.5rem,env(safe-area-inset-bottom))] z-20">
             <form id="search-form" class="max-w-5xl mx-auto flex gap-2 w-full">
                 <!-- Mode Toggle -->
                 <button type="button" id="mode-toggle-btn" class="shrink-0 h-12 sm:h-14 px-3 sm:px-4 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center gap-2 text-zinc-400 transition-all font-mono text-xs focus:outline-none shadow-sm active:scale-95">
@@ -120,7 +122,6 @@
                     <span class="hidden sm:block font-bold uppercase tracking-widest" id="mode-text">General</span>
                 </button>
                 
-                <!-- Text-base prevents iOS Safari Zooming -->
                 <input type="text" id="search-input" class="flex-1 bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition-colors shadow-inner text-base sm:text-sm" placeholder="Ask anything or enter ticker..." autocomplete="off">
                 
                 <button type="submit" id="run-btn" class="shrink-0 h-12 sm:h-14 bg-indigo-600 hover:bg-indigo-500 w-12 sm:w-auto sm:px-8 rounded-xl font-bold text-white transition-colors disabled:opacity-50 flex items-center justify-center focus:outline-none shadow-md active:scale-95">
@@ -129,6 +130,53 @@
                 </button>
             </form>
         </footer>
+
+        <!-- IMMERSIVE ANALYSIS VIEW (The New Tab Feature) -->
+        <div id="analysis-overlay" class="fixed inset-0 z-[60] bg-[#09090b] flex flex-col transform translate-y-full transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]">
+            <!-- Overlay Header -->
+            <header class="shrink-0 border-b border-zinc-800 p-3 sm:p-4 flex justify-between items-center bg-zinc-950 z-20 shadow-md">
+                <button id="close-analysis-btn" class="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors font-bold text-sm tracking-widest uppercase focus:outline-none bg-zinc-900 hover:bg-zinc-800 px-4 py-2 rounded-lg border border-zinc-800">
+                    <i class="ph ph-arrow-left text-lg"></i> Back to Chat
+                </button>
+                <div class="text-right truncate ml-4">
+                    <h2 class="font-bold text-zinc-100 text-sm sm:text-base truncate" id="overlay-title">Company Name</h2>
+                    <p class="text-[10px] text-zinc-500 font-mono uppercase tracking-widest mt-0.5 truncate" id="overlay-ticker">TICKER • Sector</p>
+                </div>
+            </header>
+
+            <!-- Overlay Content (Scrollable) -->
+            <div class="flex-1 overflow-y-auto w-full" id="overlay-content-area">
+                <div class="max-w-6xl mx-auto w-full px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8">
+                    
+                    <!-- Top Action Bar (Verdict & Radar) -->
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-zinc-900/50 p-4 sm:p-6 rounded-2xl border border-zinc-800">
+                        <div>
+                            <h3 class="text-xs font-mono text-zinc-500 uppercase tracking-widest mb-1">Final Verdict</h3>
+                            <div id="overlay-verdict" class="text-xl sm:text-2xl font-bold font-mono tracking-tight text-white">N/A</div>
+                        </div>
+                        <button class="w-full sm:w-auto bg-zinc-950 border border-zinc-700 hover:bg-zinc-800 text-zinc-300 px-6 py-3 rounded-xl text-sm font-bold tracking-widest uppercase transition-colors shadow-inner flex items-center justify-center gap-2">
+                            <i class="ph ph-bookmark-simple"></i> Add to Watchlist
+                        </button>
+                    </div>
+
+                    <!-- KPI GRID (Modeled after screenshot request) -->
+                    <div>
+                        <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-4 border-b border-zinc-800 pb-2">Key Performance Indicators</h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4" id="overlay-kpi-grid">
+                            <!-- JS will populate cards here -->
+                        </div>
+                    </div>
+
+                    <!-- Detailed Text Sections -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6" id="overlay-sections">
+                        <!-- JS will populate text blocks here -->
+                    </div>
+                    
+                    <!-- Bottom Padding -->
+                    <div class="h-10"></div>
+                </div>
+            </div>
+        </div>
 
         <!-- Sidebar Drawer -->
         <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 z-30 hidden backdrop-blur-sm transition-opacity opacity-0 duration-300"></div>
@@ -180,27 +228,22 @@
 
         <!-- Omni-Model Settings Modal -->
         <div id="settings-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 w-full max-w-sm max-[90dvh] overflow-y-auto no-scrollbar shadow-2xl">
+            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 w-full max-w-sm max-h-[90dvh] overflow-y-auto no-scrollbar shadow-2xl">
                 <div class="flex justify-between items-center mb-6">
                     <h3 class="text-sm font-mono uppercase tracking-widest text-zinc-300 flex items-center gap-2"><i class="ph ph-cpu text-indigo-500"></i> System Configuration</h3>
                     <button id="close-settings-btn" class="text-zinc-500 hover:text-white focus:outline-none p-1"><i class="ph ph-x text-lg"></i></button>
                 </div>
                 <div class="space-y-6">
-                    
                     <!-- AI Engine Section -->
                     <div class="space-y-4">
                         <label class="block text-[10px] font-mono uppercase tracking-widest text-indigo-400 border-b border-zinc-800 pb-1">Omni-Model Engine</label>
-                        
                         <div>
                             <label class="block text-[10px] text-zinc-500 mb-1">Select AI Provider & Model</label>
                             <div class="relative">
-                                <!-- Technical API identifiers explicitly mapped to UI marketing names -->
                                 <select id="api-model-select" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg pl-4 pr-8 py-3 text-base sm:text-sm text-zinc-100 font-mono focus:border-indigo-500 focus:outline-none shadow-inner appearance-none cursor-pointer">
                                     <optgroup label="Google Gemini (Free/Paid Tier)">
-                                        <option value="google|gemini-3.5-flash">Gemini 3.5 Flash</option>
-                                        <option value="google|gemini-3.1-flash-lite">Gemini 3.1 Flash-Lite</option>
-                                        <option value="google|gemini-2.5-pro">Gemini 2.5 Pro</option>
                                         <option value="google|gemini-2.5-flash">Gemini 2.5 Flash</option>
+                                        <option value="google|gemini-2.5-pro">Gemini 2.5 Pro</option>
                                         <option value="google|gemini-1.5-flash">Gemini 1.5 Flash</option>
                                         <option value="google|gemini-1.5-flash-8b">Gemini 1.5 Flash Lite (8b)</option>
                                     </optgroup>
@@ -235,7 +278,6 @@
                     <!-- Git Vault Section -->
                     <div class="space-y-4">
                         <label class="block text-[10px] font-mono uppercase tracking-widest text-emerald-400 border-b border-zinc-800 pb-1">GitHub Vault Configuration</label>
-                        
                         <div>
                             <label class="block text-[10px] text-zinc-500 mb-1">Personal Access Token (PAT)</label>
                             <input type="password" id="git-token-input" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm text-zinc-100 font-mono focus:border-emerald-500 focus:outline-none shadow-inner text-base sm:text-sm" placeholder="ghp_...">
@@ -285,16 +327,15 @@
         let hasUnsyncedChanges = false;
         let alphaLedger = JSON.parse(localStorage.getItem('fs_alpha_ledger') || '[]');
 
-        // CORE ROUTING SCHEMA
+        // CORE ROUTING SCHEMA (UPDATED WITH EXTENDED KPIs)
         const JSON_SCHEMA_ROUTER = `
         [SYSTEM ROUTING RULES]:
         Evaluate the user's input. IF the input is a valid company name or stock ticker, OUTPUT STRICTLY VALID JSON matching Schema A:
-        { "type": "stock_analysis", "metadata": { "company_name": "", "ticker": "", "classification": "", "analysis_date": "" }, "kpis": { "market_cap": "", "pe_ratio": "", "roe": "", "debt_to_equity": "", "final_verdict": "STRONG BUY / HOLD / AVOID" }, "governance": { "promoter_integrity": "", "red_flags": "" }, "financial_forensics": { "revenue_quality": "", "hidden_debt": "" }, "catalysts_and_sentiment": { "upcoming_triggers": "" } }
+        { "type": "stock_analysis", "metadata": { "company_name": "", "ticker": "", "classification": "", "analysis_date": "" }, "kpis": { "market_cap": "", "current_price": "", "stock_pe": "", "book_value": "", "dividend_yield": "", "roce": "", "roe": "", "price_to_book": "", "evebitda": "", "croic": "", "final_verdict": "STRONG BUY / HOLD / AVOID" }, "governance": { "promoter_integrity": "", "red_flags": "" }, "financial_forensics": { "revenue_quality": "", "hidden_debt": "" }, "catalysts_and_sentiment": { "upcoming_triggers": "" } }
         
         IF the input is a general question, concept, or non-stock text, OUTPUT STRICTLY VALID JSON matching Schema B:
         { "type": "general_query", "response": "Your detailed answer formatted in Markdown" }`;
 
-        // FALLBACK PROMPTS
         let SMART_MASTER_PROMPT = `You are an elite Institutional Forensic Analyst. ` + JSON_SCHEMA_ROUTER;
         const RADAR_PROMPT = `Analyze the provided watchlist data based on the latest news (last 24-48 hrs). OUTPUT STRICTLY VALID JSON. Schema: { "type": "radar", "radar_date": "Today's Date", "market_sentiment_summary": "1-2 sentence overview", "stock_updates": [ { "ticker": "STOCK_NAME", "news_summary": "2-3 crisp bullet points", "sentiment": "Positive / Negative / Neutral", "severity": "High / Medium / Low" } ] }`;
 
@@ -322,7 +363,7 @@
         }
 
         // ==========================================
-        // 3. INITIALIZATION & FILE FETCHING
+        // 3. INITIALIZATION
         // ==========================================
         async function initApp() {
             try {
@@ -333,7 +374,6 @@
                 const storedLedger = await localforage.getItem('alpha_ledger');
                 if (storedLedger) alphaLedger = storedLedger;
 
-                // Load Prompts
                 try {
                     const promptRes = await fetch('Prompts/master_prompt.txt');
                     if (promptRes.ok) { SMART_MASTER_PROMPT = await promptRes.text() + "\n\n" + JSON_SCHEMA_ROUTER; }
@@ -381,7 +421,7 @@
         document.getElementById('logout-btn').onclick = () => { localStorage.removeItem('fs_operator'); location.reload(); };
 
         // ==========================================
-        // 4. GIT VAULT & ANTI-AMNESIA
+        // 4. GIT VAULT
         // ==========================================
         function triggerDirtyState() {
             hasUnsyncedChanges = true;
@@ -441,7 +481,7 @@
                     showToast("Vault Push Successful!");
                     btn.innerHTML = `<i class="ph ph-check text-emerald-400"></i> Done`;
                 } else if (action === 'pull') {
-                    if (!sha) throw new Error("No backup found on GitHub.");
+                    if (!sha) throw new Error("No backup found.");
                     const payload = JSON.parse(atou(existingContent));
                     
                     if (payload.sessions) savedSessions = payload.sessions;
@@ -535,8 +575,6 @@
                     // --- RATE LIMIT & QUOTA INTERCEPTOR ---
                     if (res.status === 429) {
                         const errorClone = await res.clone().json().catch(()=>({}));
-                        
-                        // Strict check for OpenAI $0 Balance / Insufficient Quota
                         if (errorClone?.error?.code === 'insufficient_quota' || errorClone?.error?.type === 'insufficient_quota' || errorClone?.error?.message?.includes('billing')) {
                             throw new Error("OpenAI API Blocked: Insufficient Quota. You must add at least $5 in credits to your OpenAI developer billing dashboard to activate your key.");
                         }
@@ -549,7 +587,6 @@
                         continue; 
                     }
 
-                    // Catch Google "Model Not Found" (When public keys don't have access to unreleased strings)
                     if (res.status === 404 && provider === 'google') {
                         throw new Error(`Google API Error: Model '${modelId}' is not found or not yet available for your specific API key. Please switch to 'Gemini 2.5 Flash' or 'Gemini 1.5 Flash' in settings.`);
                     }
@@ -557,7 +594,6 @@
                     const data = await res.json();
                     if (!res.ok) throw new Error(data.error?.message || data.error?.type || "API Connection Failed");
 
-                    // Parse Output uniformly
                     let responseText = "";
                     if (provider === 'google') responseText = data.candidates[0].content.parts[0].text;
                     if (provider === 'openai') responseText = data.choices[0].message.content;
@@ -628,7 +664,33 @@
                 const responseText = await fetchAIWithBackoff(contentsArray, sysInstruction);
                 removeLoader(loaderId);
                 
-                addMessageToDOM("ai", responseText);
+                // NEW: Intercept JSON and generate Summary Card instead of raw dump
+                const parsed = extractJSON(responseText);
+                if (parsed && parsed.parsed && parsed.parsed.type === 'stock_analysis') {
+                    // It's a Forensic Report. Generate a compact card.
+                    const payload = btoa(encodeURIComponent(JSON.stringify(parsed.parsed)));
+                    const cardHTML = `
+                        <div class="border border-zinc-700 bg-zinc-900 rounded-xl p-4 sm:p-5 shadow-sm">
+                            <div class="flex justify-between items-start gap-4">
+                                <div>
+                                    <h3 class="font-bold text-zinc-100 text-lg">${escapeHTML(parsed.parsed.metadata?.company_name || 'Analysis Complete')}</h3>
+                                    <p class="text-xs text-indigo-400 font-mono mt-1">${escapeHTML(parsed.parsed.metadata?.ticker || '')}</p>
+                                </div>
+                                <div class="px-3 py-1 bg-zinc-800 border border-zinc-700 rounded text-xs font-bold uppercase tracking-widest text-zinc-300">
+                                    ${escapeHTML(parsed.parsed.kpis?.final_verdict || 'N/A')}
+                                </div>
+                            </div>
+                            <button onclick="window.openAnalysisView('${payload}')" class="mt-4 w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2.5 rounded-lg text-sm transition-colors shadow focus:outline-none">
+                                Open Immersive Report
+                            </button>
+                        </div>
+                    `;
+                    addMessageToDOM("ai", cardHTML, true);
+                } else {
+                    // Normal text or radar
+                    addMessageToDOM("ai", responseText);
+                }
+
                 saveSessionLocal("ai", responseText);
             } catch (err) {
                 removeLoader(loaderId);
@@ -636,7 +698,7 @@
                     showToast("API Key is missing for selected provider.", "error");
                     document.getElementById('settings-modal').classList.remove('hidden');
                 } else {
-                    showToast("Analysis Error.", "error");
+                    showToast("Analysis Failed.", "error");
                     addMessageToDOM("ai", `**System Error:** ${escapeHTML(err.message)}`);
                 }
             } finally {
@@ -686,8 +748,36 @@
             
             savedSessions[id].history.forEach(msg => {
                 const isHtmlStr = msg.text.includes('<span') || msg.text.includes('<i class');
-                if (msg.role === 'user' && isHtmlStr) addMessageToDOM('user', msg.text, true); 
-                else addMessageToDOM(msg.role, msg.text);
+                if (msg.role === 'user' && isHtmlStr) {
+                    addMessageToDOM('user', msg.text, true); 
+                } else if (msg.role === 'ai') {
+                    // Check if it's JSON to render the summary card
+                    const parsed = extractJSON(msg.text);
+                    if (parsed && parsed.parsed && parsed.parsed.type === 'stock_analysis') {
+                        const payload = btoa(encodeURIComponent(JSON.stringify(parsed.parsed)));
+                        const cardHTML = `
+                            <div class="border border-zinc-700 bg-zinc-900 rounded-xl p-4 sm:p-5 shadow-sm">
+                                <div class="flex justify-between items-start gap-4">
+                                    <div>
+                                        <h3 class="font-bold text-zinc-100 text-lg">${escapeHTML(parsed.parsed.metadata?.company_name || 'Analysis Complete')}</h3>
+                                        <p class="text-xs text-indigo-400 font-mono mt-1">${escapeHTML(parsed.parsed.metadata?.ticker || '')}</p>
+                                    </div>
+                                    <div class="px-3 py-1 bg-zinc-800 border border-zinc-700 rounded text-xs font-bold uppercase tracking-widest text-zinc-300">
+                                        ${escapeHTML(parsed.parsed.kpis?.final_verdict || 'N/A')}
+                                    </div>
+                                </div>
+                                <button onclick="window.openAnalysisView('${payload}')" class="mt-4 w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2.5 rounded-lg text-sm transition-colors shadow focus:outline-none">
+                                    Open Immersive Report
+                                </button>
+                            </div>
+                        `;
+                        addMessageToDOM("ai", cardHTML, true);
+                    } else {
+                        addMessageToDOM(msg.role, msg.text);
+                    }
+                } else {
+                    addMessageToDOM(msg.role, msg.text);
+                }
             });
             closeSidebar();
             scrollToBottom();
@@ -737,7 +827,6 @@
             document.getElementById('header-model-indicator').innerText = selectedText.toUpperCase();
         }
 
-        // Settings / Omni-Engine Select UI
         const modelSelect = document.getElementById('api-model-select');
         modelSelect.addEventListener('change', () => {
             const provider = modelSelect.value.split('|')[0];
@@ -797,7 +886,6 @@
             });
         }
 
-        // --- Watchlist Dropdown UI ---
         function renderWatchlistDropdown() {
             const select = document.getElementById('watchlist-dropdown');
             select.innerHTML = '<option value="">-- Select --</option>';
@@ -853,7 +941,7 @@
             document.getElementById('welcome-screen').style.display = 'none';
             const container = document.getElementById('chat-container');
             const div = document.createElement('div');
-            // Desktop Width scaling applied here: sm:max-w-2xl lg:max-w-4xl
+            // Standard formatting for general chats/radar
             div.className = `p-4 sm:p-5 rounded-2xl w-full mx-auto ${role === 'user' ? 'bg-zinc-800/80 ml-auto max-w-[90%] sm:max-w-2xl lg:max-w-3xl rounded-tr-sm shadow-sm' : 'bg-zinc-950 border border-zinc-800/80 shadow-lg sm:max-w-2xl lg:max-w-4xl'}`;
             if (role === 'user') { div.innerHTML = `<div class="text-sm font-mono text-zinc-200">${isRawHtml ? text : escapeHTML(text)}</div>`; } 
             else { div.innerHTML = formatAIText(text); }
@@ -861,7 +949,7 @@
         }
 
         // ==========================================
-        // 8. FORENSIC JSON BUILDERS & SMART PARSER
+        // 8. IMMERSIVE REPORT VIEW LOGIC
         // ==========================================
         function extractJSON(text) {
             try {
@@ -882,31 +970,9 @@
                 const parsed = jsonExtraction.parsed;
                 if (parsed.type === 'general_query') return `<div class="prose prose-invert max-w-none text-sm leading-relaxed">${marked.parse(parsed.response)}</div>`;
                 if (parsed.type === 'radar' || parsed.stock_updates) return buildRadarHTML(parsed);
-                if (parsed.type === 'stock_analysis' || parsed.kpis) return buildForensicHTML(parsed);
+                // Note: stock_analysis is now caught BEFORE this function and rendered as a summary card
             }
             return `<div class="prose prose-invert max-w-none text-sm leading-relaxed">${marked.parse(text)}</div>`;
-        }
-
-        function buildForensicHTML(obj) {
-            let html = '<div class="flex flex-col gap-4 font-sans">';
-            if (obj.metadata) {
-                let verdictStyle = "border-zinc-700 text-zinc-300 bg-zinc-800";
-                if (obj.kpis?.final_verdict?.includes('BUY')) verdictStyle = "border-emerald-500/50 text-emerald-400 bg-emerald-950/40";
-                if (obj.kpis?.final_verdict?.includes('AVOID')) verdictStyle = "border-rose-500/50 text-rose-400 bg-rose-950/40";
-                html += `<div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4 sm:p-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3"><div class="flex-1"><h2 class="text-lg sm:text-2xl font-bold text-zinc-100">${escapeHTML(obj.metadata.company_name)}</h2><p class="text-xs font-mono text-indigo-400 mt-1">${escapeHTML(obj.metadata.ticker)} • ${escapeHTML(obj.metadata.classification)}</p></div><div class="px-4 py-2 border rounded-lg text-xs font-bold uppercase tracking-widest w-full sm:w-auto text-center ${verdictStyle}">${escapeHTML(obj.kpis?.final_verdict || 'N/A')}</div></div>`;
-            }
-            if (obj.kpis) {
-                html += `<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">`;
-                for (const [k, v] of Object.entries(obj.kpis)) { if (k === 'final_verdict') continue; html += `<div class="bg-zinc-900/50 border border-zinc-800 p-3 sm:p-4 rounded-lg shadow-sm"><div class="text-[9px] text-zinc-500 uppercase tracking-widest mb-1.5 font-bold">${escapeHTML(k.replace(/_/g, ' '))}</div><div class="text-sm sm:text-base font-mono text-zinc-200 truncate">${escapeHTML(String(v))}</div></div>`; }
-                html += `</div>`;
-            }
-            ['governance', 'financial_forensics', 'catalysts_and_sentiment'].forEach(sec => {
-                if (obj[sec]) {
-                    html += `<div class="border border-zinc-800 rounded-xl overflow-hidden shadow-sm"><div class="bg-zinc-900 px-4 py-3 border-b border-zinc-800"><h3 class="text-xs font-bold text-zinc-300 uppercase tracking-wider">${escapeHTML(sec.replace(/_/g, ' '))}</h3></div><div class="p-4 sm:p-5 space-y-4 bg-zinc-950/50">`;
-                    for (const [k, v] of Object.entries(obj[sec])) { html += `<div class="border-l-2 border-zinc-700 pl-4"><h4 class="text-[10px] font-mono text-zinc-500 uppercase mb-1 font-bold">${escapeHTML(k.replace(/_/g, ' '))}</h4><p class="text-sm text-zinc-300 whitespace-pre-wrap leading-relaxed">${escapeHTML(String(v))}</p></div>`; }
-                    html += `</div></div>`;
-                }
-            }); return html + '</div>';
         }
 
         function buildRadarHTML(obj) {
@@ -920,9 +986,76 @@
             } return html + '</div></div>';
         }
 
+        // --- NEW: THE FULL SCREEN IMMERSIVE VIEWER ---
+        window.openAnalysisView = function(base64Payload) {
+            try {
+                const obj = JSON.parse(decodeURIComponent(escape(atob(base64Payload))));
+                
+                // Populate Header
+                document.getElementById('overlay-title').innerText = obj.metadata?.company_name || 'Unknown Asset';
+                document.getElementById('overlay-ticker').innerText = `${obj.metadata?.ticker || 'N/A'} • ${obj.metadata?.classification || 'N/A'}`;
+                
+                // Populate Verdict
+                const verdictEl = document.getElementById('overlay-verdict');
+                verdictEl.innerText = obj.kpis?.final_verdict || 'N/A';
+                if (verdictEl.innerText.includes('BUY')) verdictEl.className = "text-xl sm:text-2xl font-bold font-mono tracking-tight text-emerald-400";
+                else if (verdictEl.innerText.includes('AVOID')) verdictEl.className = "text-xl sm:text-2xl font-bold font-mono tracking-tight text-rose-400";
+                else verdictEl.className = "text-xl sm:text-2xl font-bold font-mono tracking-tight text-white";
+
+                // Populate KPI Grid
+                let kpiHtml = '';
+                if (obj.kpis) {
+                    for (const [k, v] of Object.entries(obj.kpis)) {
+                        if (k === 'final_verdict') continue;
+                        kpiHtml += `
+                            <div class="bg-zinc-950 border border-zinc-800 p-4 rounded-xl flex flex-col justify-between shadow-inner">
+                                <span class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-2">${escapeHTML(k.replace(/_/g, ' '))}</span>
+                                <span class="text-lg font-mono text-zinc-100 truncate">${escapeHTML(String(v))}</span>
+                            </div>
+                        `;
+                    }
+                }
+                document.getElementById('overlay-kpi-grid').innerHTML = kpiHtml;
+
+                // Populate Text Sections
+                let sectionsHtml = '';
+                ['governance', 'financial_forensics', 'catalysts_and_sentiment'].forEach(sec => {
+                    if (obj[sec]) {
+                        sectionsHtml += `
+                            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden shadow-sm flex flex-col">
+                                <div class="bg-zinc-950 px-5 py-4 border-b border-zinc-800">
+                                    <h3 class="text-sm font-bold text-indigo-400 uppercase tracking-widest flex items-center gap-2">
+                                        <i class="ph ph-file-text"></i> ${escapeHTML(sec.replace(/_/g, ' '))}
+                                    </h3>
+                                </div>
+                                <div class="p-5 space-y-6 flex-1">
+                        `;
+                        for (const [k, v] of Object.entries(obj[sec])) { 
+                            sectionsHtml += `
+                                <div class="border-l-2 border-indigo-500/30 pl-4">
+                                    <h4 class="text-[10px] font-mono text-zinc-500 uppercase mb-2 font-bold tracking-widest">${escapeHTML(k.replace(/_/g, ' '))}</h4>
+                                    <p class="text-sm text-zinc-300 whitespace-pre-wrap leading-relaxed">${escapeHTML(String(v))}</p>
+                                </div>
+                            `; 
+                        }
+                        sectionsHtml += `</div></div>`;
+                    }
+                });
+                document.getElementById('overlay-sections').innerHTML = sectionsHtml;
+
+                // Slide up overlay
+                document.getElementById('analysis-overlay').classList.remove('translate-y-full');
+            } catch(e) {
+                showToast("Failed to parse report data.", "error");
+            }
+        };
+
+        document.getElementById('close-analysis-btn').onclick = () => {
+            document.getElementById('analysis-overlay').classList.add('translate-y-full');
+        };
+
         initApp();
     </script>
 </body>
 </html>
-
 
