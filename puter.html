@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- Viewport configured strictly to prevent iOS auto-zooming and handle the notch -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Institutional Forensic Studio</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -21,7 +22,7 @@
         @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         @keyframes fadeOut { to { opacity: 0; } }
 
-        /* iOS Safari Fixes */
+        /* iOS Safari Reset */
         select { -webkit-appearance: none; -moz-appearance: none; appearance: none; }
 
         /* Markdown Styling */
@@ -47,7 +48,7 @@
                 <h2 class="text-2xl font-bold text-zinc-100 tracking-tight">System Lock</h2>
                 <p class="text-xs text-zinc-400 mt-2 font-mono uppercase tracking-widest">Local Operator Auth</p>
             </div>
-            <!-- Text-base used here to prevent iOS input zoom -->
+            <!-- text-base prevents iOS Safari from zooming in on focus -->
             <input type="text" id="auth-username" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-4 mb-4 text-white font-mono focus:border-indigo-500 focus:outline-none transition-colors text-base" placeholder="OPERATOR ID" required autocomplete="off">
             <button type="submit" id="auth-submit-btn" class="w-full bg-indigo-600 hover:bg-indigo-500 py-4 rounded-xl font-bold text-white transition-colors active:scale-95 shadow-lg shadow-indigo-900/30">AUTHENTICATE</button>
         </form>
@@ -65,7 +66,7 @@
                 </button>
                 <div class="truncate">
                     <h1 class="font-bold tracking-tight flex items-center gap-2 text-sm sm:text-base truncate"><i class="ph ph-radar text-indigo-500 shrink-0"></i> <span class="truncate">FORENSIC STUDIO</span></h1>
-                    <p class="text-[10px] text-zinc-500 font-mono uppercase tracking-widest mt-0.5 truncate">Alpha Ledger Active</p>
+                    <p class="text-[10px] text-zinc-500 font-mono uppercase tracking-widest mt-0.5 truncate" id="header-model-indicator">Gemini 2.5 Flash</p>
                 </div>
             </div>
             <div class="flex gap-2 sm:gap-4 items-center shrink-0">
@@ -79,9 +80,9 @@
             <div class="max-w-5xl mx-auto w-full px-3 py-2 flex gap-2 sm:gap-3 overflow-x-auto no-scrollbar items-center">
                 <span class="text-[10px] text-zinc-500 font-semibold uppercase tracking-widest shrink-0 flex items-center gap-1 hidden sm:flex"><i class="ph ph-list-magnifying-glass text-sm"></i> Target</span>
                 
-                <!-- Dropdown -->
+                <!-- Dropdown Engine -->
                 <div class="relative shrink-0 flex items-center">
-                    <select id="watchlist-dropdown" class="bg-zinc-950 border border-zinc-700 text-zinc-200 rounded-lg pl-3 pr-8 py-2 text-xs sm:text-sm font-mono focus:outline-none focus:border-indigo-500 shadow-inner w-32 sm:w-40 appearance-none cursor-pointer">
+                    <select id="watchlist-dropdown" class="bg-zinc-950 border border-zinc-700 text-zinc-200 rounded-lg pl-3 pr-8 py-2 text-xs sm:text-sm font-mono focus:outline-none focus:border-indigo-500 shadow-inner w-32 sm:w-48 appearance-none cursor-pointer">
                         <option value="">-- Select --</option>
                     </select>
                     <i class="ph ph-caret-down absolute right-3 pointer-events-none text-zinc-500 text-xs"></i>
@@ -93,7 +94,7 @@
                 <div class="w-px h-5 bg-zinc-800 mx-1 shrink-0"></div>
 
                 <button id="open-add-stock-btn" class="shrink-0 flex items-center gap-1.5 bg-zinc-950 hover:bg-zinc-800 text-zinc-300 border border-zinc-700 px-3 py-2 rounded-lg sm:rounded-full text-xs transition-colors focus:outline-none shadow-sm active:scale-95">
-                    <i class="ph ph-plus"></i> <span class="hidden sm:inline">Add</span>
+                    <i class="ph ph-plus"></i> <span class="hidden sm:inline">Add Target</span>
                 </button>
                 
                 <div class="flex-1 min-w-[10px]"></div>
@@ -104,14 +105,14 @@
             </div>
         </div>
 
-        <!-- Chat Area (Flex-1 ensures dynamic sizing, scroll behavior fixed) -->
+        <!-- Chat Area -->
         <div class="flex-1 overflow-y-auto relative w-full" id="scroll-container">
             <main id="chat-container" class="max-w-5xl mx-auto w-full px-2 sm:px-4 py-6 space-y-6 flex flex-col justify-end min-h-full">
                 <!-- Welcome Screen -->
                 <div class="flex flex-col items-center justify-center flex-1 text-center space-y-4 opacity-50 py-10 mt-10 sm:mt-20" id="welcome-screen">
                     <i class="ph ph-terminal-window text-6xl text-zinc-600 mb-2"></i>
-                    <h2 class="text-sm font-mono tracking-widest text-zinc-400 uppercase">System Ready</h2>
-                    <p class="text-xs text-zinc-500 mt-2 max-w-[250px] mx-auto leading-relaxed">Memory Vault Active.<br>Select a mode below to begin analysis. You can search for ANY target.</p>
+                    <h2 class="text-sm font-mono tracking-widest text-zinc-400 uppercase">Omni-Engine Ready</h2>
+                    <p class="text-xs text-zinc-500 mt-2 max-w-[250px] mx-auto leading-relaxed">Select a mode below to begin analysis. You can search for ANY target.</p>
                 </div>
             </main>
         </div>
@@ -119,16 +120,11 @@
         <!-- Footer / Input Area -->
         <footer class="shrink-0 bg-zinc-950 border-t border-zinc-800 p-2 sm:p-3 pb-[max(0.5rem,env(safe-area-inset-bottom))] z-20">
             <form id="search-form" class="max-w-5xl mx-auto flex gap-2 w-full">
-                <!-- Mode Toggle -->
                 <button type="button" id="mode-toggle-btn" class="shrink-0 h-12 sm:h-14 px-3 sm:px-4 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center gap-2 text-zinc-400 transition-all font-mono text-xs focus:outline-none shadow-sm active:scale-95">
                     <i class="ph ph-chat-circle-dots text-lg sm:text-xl" id="mode-icon"></i>
                     <span class="hidden sm:block font-bold uppercase tracking-widest" id="mode-text">General</span>
                 </button>
-                
-                <!-- Input Box (text-base required for iOS Safari to stop auto-zoom) -->
-                <input type="text" id="search-input" class="flex-1 bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition-colors shadow-inner text-base sm:text-sm" placeholder="Ask anything..." autocomplete="off">
-                
-                <!-- Submit Button -->
+                <input type="text" id="search-input" class="flex-1 bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition-colors shadow-inner text-base sm:text-sm" placeholder="Ask anything or enter ticker..." autocomplete="off">
                 <button type="submit" id="run-btn" class="shrink-0 h-12 sm:h-14 bg-indigo-600 hover:bg-indigo-500 w-12 sm:w-auto sm:px-8 rounded-xl font-bold text-white transition-colors disabled:opacity-50 flex items-center justify-center focus:outline-none shadow-md active:scale-95">
                     <i class="ph ph-paper-plane-right sm:hidden text-xl"></i>
                     <span class="hidden sm:inline tracking-wider">RUN</span>
@@ -184,58 +180,77 @@
             </div>
         </div>
 
-        <!-- Settings Modal (API Key, Model Engine, & Git Vault) -->
+        <!-- Omni-Model Settings Modal -->
         <div id="settings-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 w-full max-w-sm max-h-[90vh] overflow-y-auto no-scrollbar shadow-2xl">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-sm font-mono uppercase tracking-widest text-zinc-300 flex items-center gap-2"><i class="ph ph-sliders-horizontal text-indigo-500"></i> System Engine</h3>
+                    <h3 class="text-sm font-mono uppercase tracking-widest text-zinc-300 flex items-center gap-2"><i class="ph ph-cpu text-indigo-500"></i> System Configuration</h3>
                     <button id="close-settings-btn" class="text-zinc-500 hover:text-white focus:outline-none p-1"><i class="ph ph-x text-lg"></i></button>
                 </div>
-                <div class="space-y-5">
+                <div class="space-y-6">
                     
-                    <!-- NEW: AI Engine Section -->
-                    <div class="space-y-3">
-                        <label class="block text-[10px] font-mono uppercase tracking-widest text-indigo-400 border-b border-zinc-800 pb-1">AI Engine & Auth</label>
+                    <!-- AI Engine Section -->
+                    <div class="space-y-4">
+                        <label class="block text-[10px] font-mono uppercase tracking-widest text-indigo-400 border-b border-zinc-800 pb-1">Omni-Model Engine</label>
                         
                         <div>
-                            <label class="block text-[10px] text-zinc-500 mb-1">API Key</label>
-                            <input type="password" id="api-key-input" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm text-zinc-100 font-mono focus:border-indigo-500 focus:outline-none shadow-inner" placeholder="AIzaSy...">
-                        </div>
-                        
-                        <div>
-                            <label class="block text-[10px] text-zinc-500 mb-1">Model Selection</label>
+                            <label class="block text-[10px] text-zinc-500 mb-1">Select AI Provider & Model</label>
                             <div class="relative">
-                                <select id="api-model-select" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg pl-4 pr-8 py-2.5 text-sm text-zinc-100 font-mono focus:border-indigo-500 focus:outline-none shadow-inner appearance-none cursor-pointer">
-                                    <option value="gemini-2.5-flash">Gemini 2.5 Flash (Recommended)</option>
-                                    <option value="gemini-2.5-flash-8b">Gemini 2.5 Flash Lite (Fastest)</option>
-                                    <option value="gemini-1.5-flash">Gemini 1.5 Flash (Legacy)</option>
+                                <select id="api-model-select" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg pl-4 pr-8 py-3 text-sm text-zinc-100 font-mono focus:border-indigo-500 focus:outline-none shadow-inner appearance-none cursor-pointer">
+                                    <optgroup label="Google (Gemini)">
+                                        <option value="google|gemini-2.5-flash">Gemini 2.5 Flash</option>
+                                        <option value="google|gemini-1.5-flash">Gemini 1.5 Flash</option>
+                                        <option value="google|gemini-1.5-flash-8b">Gemini 1.5 Flash Lite (8b)</option>
+                                    </optgroup>
+                                    <optgroup label="OpenAI (ChatGPT)">
+                                        <option value="openai|gpt-4o-mini">GPT-4o Mini</option>
+                                        <option value="openai|gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                                    </optgroup>
+                                    <optgroup label="Anthropic (Claude)">
+                                        <option value="anthropic|claude-3-5-haiku-20241022">Claude 3.5 Haiku</option>
+                                        <option value="anthropic|claude-3-haiku-20240307">Claude 3 Haiku</option>
+                                    </optgroup>
                                 </select>
                                 <i class="ph ph-caret-down absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none text-zinc-500 text-xs"></i>
                             </div>
                         </div>
+
+                        <!-- Dynamic Key Inputs -->
+                        <div id="key-container-google" class="key-container">
+                            <label class="block text-[10px] text-zinc-500 mb-1">Google API Key</label>
+                            <input type="password" id="api-key-google" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm text-zinc-100 font-mono focus:border-indigo-500 focus:outline-none shadow-inner text-base sm:text-sm" placeholder="AIzaSy...">
+                        </div>
+                        <div id="key-container-openai" class="key-container hidden">
+                            <label class="block text-[10px] text-zinc-500 mb-1">OpenAI API Key</label>
+                            <input type="password" id="api-key-openai" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm text-zinc-100 font-mono focus:border-indigo-500 focus:outline-none shadow-inner text-base sm:text-sm" placeholder="sk-...">
+                        </div>
+                        <div id="key-container-anthropic" class="key-container hidden">
+                            <label class="block text-[10px] text-zinc-500 mb-1">Anthropic API Key <span class="text-amber-500/80">(Requires CORS bypass setup)</span></label>
+                            <input type="password" id="api-key-anthropic" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm text-zinc-100 font-mono focus:border-indigo-500 focus:outline-none shadow-inner text-base sm:text-sm" placeholder="sk-ant-...">
+                        </div>
                     </div>
 
                     <!-- Git Vault Section -->
-                    <div class="pt-2 space-y-3">
-                        <label class="block text-[10px] font-mono uppercase tracking-widest text-emerald-400 border-b border-zinc-800 pb-1">GitHub Vault Backups</label>
+                    <div class="space-y-4">
+                        <label class="block text-[10px] font-mono uppercase tracking-widest text-emerald-400 border-b border-zinc-800 pb-1">GitHub Vault Configuration</label>
                         
                         <div>
                             <label class="block text-[10px] text-zinc-500 mb-1">Personal Access Token (PAT)</label>
-                            <input type="password" id="git-token-input" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm text-zinc-100 font-mono focus:border-emerald-500 focus:outline-none shadow-inner" placeholder="ghp_...">
+                            <input type="password" id="git-token-input" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm text-zinc-100 font-mono focus:border-emerald-500 focus:outline-none shadow-inner text-base sm:text-sm" placeholder="ghp_...">
                         </div>
                         <div class="grid grid-cols-2 gap-3">
                             <div>
                                 <label class="block text-[10px] text-zinc-500 mb-1">Username</label>
-                                <input type="text" id="git-user-input" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm text-zinc-100 font-mono focus:border-emerald-500 focus:outline-none shadow-inner" placeholder="User">
+                                <input type="text" id="git-user-input" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm text-zinc-100 font-mono focus:border-emerald-500 focus:outline-none shadow-inner text-base sm:text-sm" placeholder="User">
                             </div>
                             <div>
                                 <label class="block text-[10px] text-zinc-500 mb-1">Repo Name</label>
-                                <input type="text" id="git-repo-input" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm text-zinc-100 font-mono focus:border-emerald-500 focus:outline-none shadow-inner" placeholder="Repo">
+                                <input type="text" id="git-repo-input" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm text-zinc-100 font-mono focus:border-emerald-500 focus:outline-none shadow-inner text-base sm:text-sm" placeholder="Repo">
                             </div>
                         </div>
                     </div>
                     
-                    <button id="save-settings-btn" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3.5 rounded-xl text-sm transition-colors mt-4 shadow-lg focus:outline-none active:scale-95">Save System Config</button>
+                    <button id="save-settings-btn" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3.5 rounded-xl text-sm transition-colors shadow-lg focus:outline-none active:scale-95">Save System Config</button>
                 </div>
             </div>
         </div>
@@ -305,7 +320,7 @@
         }
 
         // ==========================================
-        // 3. INITIALIZATION & FILE FETCHING
+        // 3. INITIALIZATION
         // ==========================================
         async function initApp() {
             try {
@@ -319,9 +334,7 @@
                 // Load Prompts
                 try {
                     const promptRes = await fetch('Prompts/master_prompt.txt');
-                    if (promptRes.ok) {
-                        SMART_MASTER_PROMPT = await promptRes.text() + "\n\n" + JSON_SCHEMA_ROUTER;
-                    }
+                    if (promptRes.ok) { SMART_MASTER_PROMPT = await promptRes.text() + "\n\n" + JSON_SCHEMA_ROUTER; }
                 } catch(e) {}
 
                 try {
@@ -334,6 +347,7 @@
                 } catch(e) {}
 
                 updateModeUI();
+                updateHeaderModelIndicator();
             } catch (e) { console.error("DB Load Error", e); }
 
             if (operatorId) finalizeLogin();
@@ -365,7 +379,7 @@
         document.getElementById('logout-btn').onclick = () => { localStorage.removeItem('fs_operator'); location.reload(); };
 
         // ==========================================
-        // 4. GIT VAULT & ANTI-AMNESIA
+        // 4. GIT VAULT 
         // ==========================================
         function triggerDirtyState() {
             hasUnsyncedChanges = true;
@@ -425,7 +439,7 @@
                     showToast("Vault Push Successful!");
                     btn.innerHTML = `<i class="ph ph-check text-emerald-400"></i> Success`;
                 } else if (action === 'pull') {
-                    if (!sha) throw new Error("No backup found.");
+                    if (!sha) throw new Error("No backup found on GitHub.");
                     const payload = JSON.parse(atou(existingContent));
                     
                     if (payload.sessions) savedSessions = payload.sessions;
@@ -456,26 +470,90 @@
         document.getElementById('git-push-btn').onclick = () => gitSync('push'); document.getElementById('git-pull-btn').onclick = () => gitSync('pull');
 
         // ==========================================
-        // 5. API EXECUTION ENGINE (MODEL SELECTOR)
+        // 5. OMNI-MODEL API EXECUTION ENGINE
         // ==========================================
-        async function fetchGeminiWithBackoff(payload) {
-            const apiKeyConfig = localStorage.getItem('fs_api_key');
-            if (!apiKeyConfig) throw new Error("API_KEY_MISSING");
-
-            // Fetch the user's selected model, default to 2.5 Flash
-            const selectedModel = localStorage.getItem('fs_api_model') || 'gemini-2.5-flash';
+        async function fetchAIWithBackoff(contentsArray, sysInstruction) {
+            const providerModelStr = localStorage.getItem('fs_api_model') || 'google|gemini-2.5-flash';
+            const [provider, modelId] = providerModelStr.split('|');
+            
+            const apiKey = localStorage.getItem(`fs_api_key_${provider}`);
+            if (!apiKey) throw new Error(`API_KEY_MISSING_${provider.toUpperCase()}`);
 
             const maxRetries = 5; const delays = [1000, 2000, 4000, 8000, 16000];
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${apiKeyConfig}`;
-
+            
             for (let i = 0; i <= maxRetries; i++) {
                 try {
-                    const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                    let url, headers, bodyObj;
+
+                    if (provider === 'google') {
+                        url = `https://generativelanguage.googleapis.com/v1beta/models/${modelId}:generateContent?key=${apiKey}`;
+                        headers = { 'Content-Type': 'application/json' };
+                        
+                        const googleContents = contentsArray.map(msg => ({
+                            role: msg.role === 'ai' ? 'model' : 'user',
+                            parts: [{ text: msg.text }]
+                        }));
+
+                        bodyObj = {
+                            contents: googleContents,
+                            systemInstruction: { parts: [{ text: sysInstruction }] },
+                            generationConfig: { temperature: 0.1 }
+                        };
+                    } 
+                    else if (provider === 'openai') {
+                        url = `https://api.openai.com/v1/chat/completions`;
+                        headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` };
+                        
+                        const messages = [{ role: 'system', content: sysInstruction }];
+                        contentsArray.forEach(msg => {
+                            messages.push({ role: msg.role === 'ai' ? 'assistant' : 'user', content: msg.text });
+                        });
+
+                        bodyObj = { model: modelId, messages: messages, temperature: 0.1 };
+                    }
+                    else if (provider === 'anthropic') {
+                        url = `https://api.anthropic.com/v1/messages`;
+                        headers = { 
+                            'Content-Type': 'application/json', 
+                            'x-api-key': apiKey,
+                            'anthropic-version': '2023-06-01',
+                            'anthropic-dangerous-direct-browser-access': 'true' // Required for browser calls
+                        };
+                        
+                        const messages = contentsArray.map(msg => ({
+                            role: msg.role === 'ai' ? 'assistant' : 'user',
+                            content: msg.text
+                        }));
+
+                        bodyObj = { model: modelId, system: sysInstruction, messages: messages, max_tokens: 4000, temperature: 0.1 };
+                    }
+
+                    const res = await fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(bodyObj) });
+                    
+                    // Handle 429 Rate Limits Gracefully
+                    if (res.status === 429) {
+                        if (i === maxRetries) throw new Error("Rate limit exceeded. Try again later.");
+                        const retryAfter = res.headers.get('retry-after');
+                        const delay = retryAfter ? parseInt(retryAfter) * 1000 : delays[i];
+                        showLoadingUI(`Rate Limited. Pausing for ${Math.round(delay/1000)}s...`);
+                        await new Promise(r => setTimeout(r, delay));
+                        continue; // retry
+                    }
+
                     const data = await res.json();
-                    if (!res.ok) throw new Error(data.error?.message || "API Connection Failed");
-                    return data;
+                    if (!res.ok) throw new Error(data.error?.message || data.error?.type || "API Connection Failed");
+
+                    // Parse Output uniformly
+                    let responseText = "";
+                    if (provider === 'google') responseText = data.candidates[0].content.parts[0].text;
+                    if (provider === 'openai') responseText = data.choices[0].message.content;
+                    if (provider === 'anthropic') responseText = data.content[0].text;
+
+                    return responseText;
+
                 } catch (error) { 
                     if (i === maxRetries) throw error; 
+                    if (error.message.includes("API_KEY_MISSING")) throw error;
                     await new Promise(r => setTimeout(r, delays[i])); 
                 }
             }
@@ -485,12 +563,6 @@
             e.preventDefault();
             const q = document.getElementById('search-input').value.trim();
             if (!q) return;
-
-            if (!localStorage.getItem('fs_api_key')) { 
-                showToast("Missing API Key. Please Configure.", "error");
-                document.getElementById('settings-modal').classList.remove('hidden'); 
-                return; 
-            }
 
             addMessageToDOM("user", q);
             document.getElementById('search-input').value = "";
@@ -505,17 +577,13 @@
                 : "";
 
             if (isForensicMode) {
-                contentsArray = [{ role: "user", parts: [{ text: `Input: ${q}` }] }];
+                contentsArray = [{ role: "user", text: `Input: ${q}` }];
                 sysInstruction = SMART_MASTER_PROMPT + memoryContext;
                 loadingMsg = "Executing Forensic Scan...";
             } else {
                 const historyArr = savedSessions[currentSessionId]?.history || [];
-                const rollingHistory = historyArr.slice(-4).map(msg => ({
-                    role: msg.role === 'ai' ? 'model' : 'user',
-                    parts: [{ text: msg.text }]
-                }));
-                rollingHistory.push({ role: "user", parts: [{ text: q }] });
-                contentsArray = rollingHistory;
+                contentsArray = historyArr.slice(-4).map(msg => ({ role: msg.role, text: msg.text })); // Take last 4
+                contentsArray.push({ role: "user", text: q });
                 sysInstruction = "You are a general financial assistant. Use markdown formatting." + memoryContext;
             }
 
@@ -525,10 +593,6 @@
 
         document.getElementById('run-radar-btn').onclick = async () => {
             if (localStocks.length === 0) return showToast("Watchlist is empty.", "error");
-            if (!localStorage.getItem('fs_api_key')) {
-                showToast("Missing API Key.", "error");
-                return document.getElementById('settings-modal').classList.remove('hidden');
-            }
             
             isForensicMode = true; updateModeUI();
 
@@ -539,31 +603,23 @@
             saveSessionLocal("user", uiText);
 
             const memoryContext = alphaLedger.length > 0 ? `\n\n[PAST MEMORY CONTEXT]: ${JSON.stringify(alphaLedger.slice(-10))}` : "";
-            const contentsArray = [{ role: "user", parts: [{ text: promptText }] }];
+            const contentsArray = [{ role: "user", text: promptText }];
             
             await triggerAI(contentsArray, RADAR_PROMPT + memoryContext, "Scanning Pre-Market Radar...");
         };
 
         async function triggerAI(contentsArray, sysInstruction, loadingMsg) {
-            const payload = {
-                contents: contentsArray,
-                systemInstruction: { parts: [{ text: sysInstruction }] },
-                generationConfig: { temperature: 0.1 }
-                // NOTE: No tools array injected to prevent 404 on public models
-            };
-
             const loaderId = showLoadingUI(loadingMsg);
             try {
-                const data = await fetchGeminiWithBackoff(payload);
-                document.getElementById(loaderId)?.remove();
+                const responseText = await fetchAIWithBackoff(contentsArray, sysInstruction);
+                removeLoader(loaderId);
                 
-                const responseText = data.candidates[0].content.parts[0].text;
                 addMessageToDOM("ai", responseText);
                 saveSessionLocal("ai", responseText);
             } catch (err) {
-                document.getElementById(loaderId)?.remove();
-                if (err.message === "API_KEY_MISSING") {
-                    showToast("API Key is missing.", "error");
+                removeLoader(loaderId);
+                if (err.message.includes("API_KEY_MISSING")) {
+                    showToast("API Key is missing for selected provider.", "error");
                     document.getElementById('settings-modal').classList.remove('hidden');
                 } else {
                     showToast("Analysis Failed.", "error");
@@ -661,22 +717,46 @@
             }
         }
 
-        // Settings / Engine Select UI
+        function updateHeaderModelIndicator() {
+            const select = document.getElementById('api-model-select');
+            const selectedText = select.options[select.selectedIndex]?.text || "Gemini 2.5 Flash";
+            document.getElementById('header-model-indicator').innerText = selectedText;
+        }
+
+        // Settings / Omni-Engine Select UI
+        const modelSelect = document.getElementById('api-model-select');
+        modelSelect.addEventListener('change', () => {
+            const provider = modelSelect.value.split('|')[0];
+            document.querySelectorAll('.key-container').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`key-container-${provider}`).classList.remove('hidden');
+        });
+
         document.getElementById('settings-btn').onclick = () => {
-            document.getElementById('api-key-input').value = localStorage.getItem('fs_api_key') || "";
-            document.getElementById('api-model-select').value = localStorage.getItem('fs_api_model') || "gemini-2.5-flash";
+            document.getElementById('api-key-google').value = localStorage.getItem('fs_api_key_google') || "";
+            document.getElementById('api-key-openai').value = localStorage.getItem('fs_api_key_openai') || "";
+            document.getElementById('api-key-anthropic').value = localStorage.getItem('fs_api_key_anthropic') || "";
+            
+            modelSelect.value = localStorage.getItem('fs_api_model') || "google|gemini-2.5-flash";
+            modelSelect.dispatchEvent(new Event('change')); // Trigger visibility update
+
             document.getElementById('git-token-input').value = localStorage.getItem('fs_git_token') || "";
             document.getElementById('git-user-input').value = localStorage.getItem('fs_git_user') || "";
             document.getElementById('git-repo-input').value = localStorage.getItem('fs_git_repo') || "";
             document.getElementById('settings-modal').classList.remove('hidden');
         };
+
         document.getElementById('close-settings-btn').onclick = () => document.getElementById('settings-modal').classList.add('hidden');
         document.getElementById('save-settings-btn').onclick = () => {
-            localStorage.setItem('fs_api_key', document.getElementById('api-key-input').value.trim());
-            localStorage.setItem('fs_api_model', document.getElementById('api-model-select').value);
+            localStorage.setItem('fs_api_key_google', document.getElementById('api-key-google').value.trim());
+            localStorage.setItem('fs_api_key_openai', document.getElementById('api-key-openai').value.trim());
+            localStorage.setItem('fs_api_key_anthropic', document.getElementById('api-key-anthropic').value.trim());
+            localStorage.setItem('fs_api_model', modelSelect.value);
+            
             localStorage.setItem('fs_git_token', document.getElementById('git-token-input').value.trim());
             localStorage.setItem('fs_git_user', document.getElementById('git-user-input').value.trim());
             localStorage.setItem('fs_git_repo', document.getElementById('git-repo-input').value.trim());
+            
+            updateHeaderModelIndicator();
             document.getElementById('settings-modal').classList.add('hidden');
             showToast("System Config Saved.");
         };
@@ -746,8 +826,13 @@
             const id = 'loader-' + Date.now();
             const container = document.getElementById('chat-container');
             const div = document.createElement('div'); div.id = id; div.className = "flex justify-center my-4";
-            div.innerHTML = `<div class="bg-zinc-900 border border-zinc-800 px-5 py-3 rounded-full flex items-center gap-3 shadow-lg"><i class="ph ph-circle-notch animate-spin text-indigo-500"></i><span class="text-xs text-zinc-400 font-mono tracking-widest uppercase">${escapeHTML(msg)}</span></div>`;
+            div.innerHTML = `<div class="bg-zinc-900 border border-zinc-800 px-5 py-3 rounded-full flex items-center gap-3 shadow-lg"><i class="ph ph-circle-notch animate-spin text-indigo-500"></i><span class="text-xs text-zinc-400 font-mono tracking-widest uppercase" id="${id}-text">${escapeHTML(msg)}</span></div>`;
             container.appendChild(div); scrollToBottom(); return id;
+        }
+
+        function removeLoader(id) {
+            const loader = document.getElementById(id);
+            if (loader) loader.remove();
         }
 
         function addMessageToDOM(role, text, isRawHtml = false) {
@@ -804,14 +889,14 @@
             ['governance', 'financial_forensics', 'catalysts_and_sentiment'].forEach(sec => {
                 if (obj[sec]) {
                     html += `<div class="border border-zinc-800 rounded-xl overflow-hidden shadow-sm"><div class="bg-zinc-900 px-4 py-3 border-b border-zinc-800"><h3 class="text-xs font-bold text-zinc-300 uppercase tracking-wider">${escapeHTML(sec.replace(/_/g, ' '))}</h3></div><div class="p-4 sm:p-5 space-y-4 bg-zinc-950/50">`;
-                    for (const [k, v] of Object.entries(obj[sec])) { html += `<div class="border-l-2 border-zinc-700 pl-4"><h4 class="text-[10px] font-mono text-zinc-500 uppercase mb-1 font-bold">${escapeHTML(k.replace(/_/g, ' '))}</h4><p class="text-sm text-zinc-300 whitespace-pre-wrap leading-relaxed">${escapeHTML(String(v))}</p></div></div>`; }
+                    for (const [k, v] of Object.entries(obj[sec])) { html += `<div class="border-l-2 border-zinc-700 pl-4"><h4 class="text-[10px] font-mono text-zinc-500 uppercase mb-1 font-bold">${escapeHTML(k.replace(/_/g, ' '))}</h4><p class="text-sm text-zinc-300 whitespace-pre-wrap leading-relaxed">${escapeHTML(String(v))}</p></div>`; }
                     html += `</div></div>`;
                 }
             }); return html + '</div>';
         }
 
         function buildRadarHTML(obj) {
-            let html = `<div class="flex flex-col gap-4 font-sans"><div class="bg-indigo-950/20 border border-indigo-900/50 rounded-xl p-4 sm:p-6 shadow-sm"><h2 class="text-lg sm:text-xl font-bold text-indigo-300 flex items-center gap-2"><i class="ph ph-broadcast text-xl"></i> Pre-Market Radar: ${escapeHTML(obj.radar_date)}</h2><p class="text-sm text-indigo-200/80 mt-2">${escapeHTML(obj.market_sentiment_summary)}</p></div><div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">`;
+            let html = `<div class="flex flex-col gap-4 font-sans"><div class="bg-indigo-950/20 border border-indigo-900/50 rounded-xl p-4 sm:p-6 shadow-sm"><h2 class="text-lg sm:text-xl font-bold text-indigo-300 flex items-center gap-2"><i class="ph ph-broadcast text-xl"></i> Pre-Market Radar: ${escapeHTML(obj.radar_date)}</h2><p class="text-sm text-indigo-200/80 mt-2">${escapeHTML(obj.market_sentiment_summary)}</p></div><div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">`;
             if (obj.stock_updates) {
                 obj.stock_updates.forEach(s => {
                     let b = "bg-zinc-900 text-zinc-400 border-zinc-700", border = "border-zinc-800 bg-zinc-900/50";
@@ -825,5 +910,4 @@
     </script>
 </body>
 </html>
-
 
