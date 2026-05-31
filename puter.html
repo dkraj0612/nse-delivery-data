@@ -34,7 +34,7 @@
     <header class="bg-white shadow-sm p-4 flex items-center justify-center sticky top-0 z-10">
         <h1 class="text-xl font-semibold flex items-center gap-2 text-indigo-600">
             <i class="ph ph-sparkle text-2xl"></i>
-            Sonnet Search
+            AI Search
         </h1>
     </header>
 
@@ -72,15 +72,9 @@
         const chatContainer = document.getElementById('chat-container');
         const welcomeScreen = document.getElementById('welcome-screen');
 
-        // SAFEGUARDED Text Formatter
         function formatText(text) {
-            // 1. If text is completely empty or null, return empty string
             if (text === null || text === undefined) return '';
-            
-            // 2. If Puter sent an object instead of text, stringify it safely
             let safeText = typeof text === 'string' ? text : JSON.stringify(text);
-            
-            // 3. Apply formatting
             let formatted = safeText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
             formatted = formatted.replace(/\n/g, '<br>');
             return formatted;
@@ -149,17 +143,14 @@
                     throw new Error("Puter.js script did not load.");
                 }
 
-                // Request Claude 3.5 Sonnet
-                const response = await puter.ai.chat(query, { model: 'claude-3-5-sonnet' });
+                // CHANGED: Removed the specific model constraint to use Puter's guaranteed default AI
+                const response = await puter.ai.chat(query);
 
                 removeLoading();
                 
-                // INTELLIGENT RESPONSE EXTRACTOR
-                // Puter's API response structure changes occasionally. This catches all of them:
                 let finalMessage = "";
-                
                 if (typeof response === 'string') {
-                    finalMessage = response; // If it's already a string, great.
+                    finalMessage = response; 
                 } else if (response && typeof response.message === 'string') {
                     finalMessage = response.message; 
                 } else if (response && response.message && typeof response.message.content === 'string') {
@@ -167,7 +158,6 @@
                 } else if (response && typeof response.text === 'string') {
                     finalMessage = response.text;
                 } else {
-                    // Fallback if the object structure is completely unknown
                     finalMessage = response; 
                 }
 
@@ -185,3 +175,6 @@
     </script>
 </body>
 </html>
+
+
+
