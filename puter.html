@@ -269,7 +269,7 @@
         let activeChartInstances = [];
         let currentForensicTarget = null; 
         
-        // NEW: Isolated Vault for Raw Corporate Data
+        // Isolated Vault for Raw Corporate Data
         let forensicArchives = {};
 
         const JSON_SCHEMA_ROUTER = `
@@ -344,10 +344,10 @@
             } catch (e) { console.error("Failed to load NSE master list", e); }
         }
         
-        // NEW: Fetch Google App Script Data securely for Ghost Injection
+        // ⬇️ ⬇️ ⬇️ MULTIPLEXER GOOGLE SCRIPT URL GOES HERE ⬇️ ⬇️ ⬇️
         async function fetchStockDataFromGoogle(symbol) {
-            const scriptUrl = 'YOUR_GOOGLE_SCRIPT_WEB_APP_URL_HERE'; // <-- REPLACE THIS
-            if(scriptUrl === 'YOUR_GOOGLE_SCRIPT_WEB_APP_URL_HERE') return null; // Bypass if not configured
+            const scriptUrl = 'https://script.google.com/macros/s/AKfycbxV10byoDo3XKlYgYrMju6M5Cr7qh5sWurO8RcZ15zOL5gwOI_uCrdxa9BOl8SZRdc4_g/exec'; // <-- PASTE HERE
+            if(scriptUrl === 'YOUR_GOOGLE_SCRIPT_WEB_APP_URL_HERE') return null; 
             
             try {
                 const res = await fetch(`${scriptUrl}?symbol=${encodeURIComponent(symbol)}`);
@@ -355,6 +355,7 @@
             } catch(e) { console.warn("Google Script fetch failed", e); }
             return null;
         }
+        // ⬆️ ⬆️ ⬆️ --------------------------------------------- ⬆️ ⬆️ ⬆️
 
         async function initApp() {
             try {
@@ -367,7 +368,6 @@
                 const storedLedger = await localforage.getItem('alpha_ledger');
                 if (storedLedger) alphaLedger = storedLedger;
                 
-                // NEW: Load Vault Archives
                 const storedArchives = await localforage.getItem('forensic_archives');
                 if (storedArchives) forensicArchives = storedArchives;
 
@@ -417,7 +417,6 @@
         // ==========================================
         
         document.getElementById('download-db-btn').onclick = async () => {
-            // Context-Aware Download logic using locally stored Archives
             if (isForensicMode && currentForensicTarget && forensicArchives[currentForensicTarget]) {
                 const payload = forensicArchives[currentForensicTarget];
                 const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(payload, null, 2));
@@ -427,7 +426,6 @@
                 document.body.appendChild(dl); dl.click(); dl.remove();
                 showToast(`Exported Local Data for ${currentForensicTarget}`);
             } else {
-                // Not in forensic mode, or no data yet -> Download Master List
                 const btn = document.getElementById('download-db-btn');
                 const originalIcon = btn.innerHTML;
                 btn.innerHTML = '<i class="ph ph-circle-notch animate-spin text-lg text-emerald-400"></i>';
@@ -498,7 +496,6 @@
                 if (getRes.ok) { const data = await getRes.json(); sha = data.sha; existingContent = data.content; }
 
                 if (action === 'push') {
-                    // NEW: Package the forensic_archives along with history perfectly cleanly.
                     const payload = { 
                         sessions: savedSessions, 
                         stocks: localStocks, 
@@ -645,19 +642,15 @@
                 : "";
 
             if (isForensicMode) {
-                // Ghost Injection intercept
                 let injectedDataText = "";
                 const loaderId = showLoadingUI(`Extracting official filings for ${q.toUpperCase()}...`);
                 const fetchedData = await fetchStockDataFromGoogle(q);
                 removeLoader(loaderId);
 
                 if (fetchedData && !fetchedData.error) {
-                    // Segregated Archive Save
                     forensicArchives[q.toUpperCase()] = fetchedData;
                     await localforage.setItem('forensic_archives', forensicArchives);
                     triggerDirtyState();
-                    
-                    // Bundle for AI Prompt strictly
                     injectedDataText = `\n\n[OFFICIAL CORPORATE DATA]: Base your entire analysis strictly on this real-time JSON data:\n${JSON.stringify(fetchedData)}`;
                 } else {
                     injectedDataText = `\n\n[NOTE]: Real-time data sync skipped. Proceed with internal training data.`;
@@ -673,7 +666,6 @@
                 sysInstruction = "You are a general financial assistant. Use markdown formatting." + memoryContext;
             }
 
-            // Chat UI remains clean
             saveSessionLocal("user", q);
             await triggerAI(contentsArray, sysInstruction, loadingMsg);
         };
