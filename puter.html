@@ -8,7 +8,7 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.10.0/localforage.min.js"></script>
-    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+    <script src="https://unpkg.com/lightweight-charts@4.1.1/dist/lightweight-charts.standalone.production.js"></script>
     <style>
         body { background-color: #09090b; color: #e4e4e7; -webkit-tap-highlight-color: transparent; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -251,9 +251,7 @@
         </div>
 
     </div>
-    <!-- ========================================================== -->
-    // 💾 PASTE YOUR FIREBASE CODE HERE (BETWEEN THESE TWO BLOCKS)
-    <!-- ========================================================== -->
+   
     <script type="module">
       import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js';
       import { getFirestore } from 'https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js';
@@ -381,26 +379,56 @@
                 await localforage.setItem('nse_master_list', stocks);
             } catch (e) { console.error("Failed to load NSE master list", e); }
         }
-        
+        // ==========================================
+        // DYNAMIC BSE CODE RESOLVER
+        // ==========================================
+        async function getBseCodeDynamically(symbol) {
+            const yahooSearchUrl = `https://query2.finance.yahoo.com/v1/finance/search?q=${encodeURIComponent(symbol)}`;
+            
+            // Proxy rotation to bypass CORS limits
+            const proxies = [
+                `https://corsproxy.io/?${encodeURIComponent(yahooSearchUrl)}`,
+                `https://api.allorigins.win/raw?url=${encodeURIComponent(yahooSearchUrl)}`,
+                yahooSearchUrl // Direct fallback
+            ];
+
+            for (let proxyUrl of proxies) {
+                try {
+                    const response = await fetch(proxyUrl);
+                    if (response.ok) {
+                        const data = await response.json();
+                        
+                        // Find the BSE listing from the Yahoo search results
+                        const bseQuote = data.quotes.find(q => q.exchange === "BSE");
+                        
+                        if (bseQuote && bseQuote.symbol) {
+                            // Extract just the 6-digit number from strings like "532540.BO"
+                            const match = bseQuote.symbol.match(/\d{6}/);
+                            if (match) return match[0];
+                        }
+                    }
+                } catch (e) { 
+                    console.warn("Proxy failed, rotating to next for BSE resolution...");
+                }
+            }
+            return ""; // Return empty string if not found, allowing GAS to try the NSE fallback
+        }
                // ⬇️ ⬇️ ⬇️ MULTIPLEXER GOOGLE SCRIPT URL GOES HERE ⬇️ ⬇️ ⬇️
         async function fetchStockDataFromGoogle(symbol) {
-            const scriptUrl = 'https://script.google.com/macros/s/AKfycbx4X78LZ3cpk88sgJOwcsZrs1gy1JL-v7Co5_8F_3x3dASUfSW4esRH1PBseAWDOlnfcA/exec'; 
-            if(scriptUrl === 'YOUR_GOOGLE_SCRIPT_WEB_APP_URL_HERE') return null; 
+            // PASTE YOUR LIVE GOOGLE SCRIPT URL HERE
+            const scriptUrl = 'https://script.google.com/macros/s/YOUR_LONG_ID_HERE/exec'; 
             
             try {
-                // Hardcoded mapping for demonstration (You can expand this later)
-                const bseMapping = {
-                    "RELIANCE": "500325",
-                    "TCS": "532540",
-                    "INFY": "500209",
-                    "HDFCBANK": "500180"
-                };
+                // 1. Silently auto-resolve the BSE code via Yahoo Search
+                const bseCode = await getBseCodeDynamically(symbol);
                 
-                const bseCode = bseMapping[symbol.toUpperCase()] || "";
-                
+                // 2. Fetch the documents from the Google Apps Script
                 const res = await fetch(`${scriptUrl}?symbol=${encodeURIComponent(symbol)}&bseCode=${encodeURIComponent(bseCode)}`);
                 if(res.ok) return await res.json();
-            } catch(e) { console.warn("Google Script fetch failed", e); }
+                
+            } catch(e) { 
+                console.warn("Google Script fetch failed", e); 
+            }
             return null;
         }
         // ⬆️ ⬆️ ⬆️ --------------------------------------------- ⬆️ ⬆️ ⬆️
@@ -530,30 +558,44 @@
         // ==========================================
         
         document.getElementById('download-db-btn').onclick = async () => {
+            // 1. FORENSIC MODE: Download the specific stock's data
             if (isForensicMode && currentForensicTarget && forensicArchives[currentForensicTarget]) {
                 const payload = forensicArchives[currentForensicTarget];
                 const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(payload, null, 2));
                 const dl = document.createElement('a');
                 dl.href = dataStr;
                 dl.download = `${currentForensicTarget}_1Year_Forensic_Data.json`;
-                document.body.appendChild(dl); dl.click(); dl.remove();
+                document.body.appendChild(dl); 
+                dl.click(); 
+                dl.remove();
                 showToast(`Exported Local Data for ${currentForensicTarget}`);
-            } else {
+            } 
+            // 2. GENERAL MODE: Download the master list cache
+            else {
                 const btn = document.getElementById('download-db-btn');
                 const originalIcon = btn.innerHTML;
                 btn.innerHTML = '<i class="ph ph-circle-notch animate-spin text-lg text-emerald-400"></i>';
-                showToast("Extracting live database from NSE Servers...", "info");
+                showToast("Generating file from local memory...", "info");
 
                 try {
-                    const rawCsvText = await fetchNseCsv();
-                    const blob = new Blob([rawCsvText], { type: 'text/csv;charset=utf-8;' });
-                    const link = document.createElement("a");
-                    link.setAttribute("href", URL.createObjectURL(blob));
-                    link.setAttribute("download", `EQUITY_L_${new Date().toISOString().split('T')[0]}.csv`);
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    showToast("NSE Live Database Extracted.");
+                    if (nseMasterList && nseMasterList.length > 0) {
+                        let csvContent = "SYMBOL,NAME OF COMPANY\n";
+                        nseMasterList.forEach(stock => {
+                            const safeName = stock.name.replace(/,/g, ''); 
+                            csvContent += `${stock.symbol},${safeName}\n`;
+                        });
+                        
+                        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                        const link = document.createElement("a");
+                        link.setAttribute("href", URL.createObjectURL(blob));
+                        link.setAttribute("download", `EQUITY_L_LOCAL_CACHE_${new Date().toISOString().split('T')[0]}.csv`);
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        showToast("NSE Live Database Extracted.");
+                    } else {
+                        throw new Error("Memory cache is empty.");
+                    }
                 } catch (err) {
                     showToast("System Error: Failed to extract NSE Database.", "error");
                 } finally {
