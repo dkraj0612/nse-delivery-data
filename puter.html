@@ -251,7 +251,35 @@
         </div>
 
     </div>
+    <!-- ========================================================== -->
+    // 💾 PASTE YOUR FIREBASE CODE HERE (BETWEEN THESE TWO BLOCKS)
+    <!-- ========================================================== -->
+    <script type="module">
+      import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js';
+      import { getFirestore } from 'https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js';
+      import { getAuth } from 'https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js';
 
+      const firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_PROJECT_ID.appspot.com",
+        messagingSenderId: "YOUR_MESSAGING_ID",
+        appId: "YOUR_APP_ID"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+      const auth = getAuth(app);
+
+      // We map these to the window object so your main script below can access them
+      window.firebaseApp = app;
+      window.db = db;
+      window.auth = auth;
+      
+      console.log("Firebase Backend Initialized Successfully!");
+    </script>
+    <!-- ========================================================== -->
     <script>
         // ==========================================
         // 1. STATE & ARCHITECTURE
