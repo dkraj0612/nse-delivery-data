@@ -267,6 +267,10 @@
         let hasUnsyncedChanges = false;
         let alphaLedger = JSON.parse(localStorage.getItem('fs_alpha_ledger') || '[]');
         let activeChartInstances = [];
+        let currentForensicTarget = null; 
+        
+        // NEW: Isolated Vault for Raw Corporate Data
+        let forensicArchives = {};
 
         const JSON_SCHEMA_ROUTER = `
         [SYSTEM ROUTING RULES]:
@@ -303,50 +307,76 @@
         }
 
         // ==========================================
-        // 3. INITIALIZATION & FILE FETCHING
+        // 3. CORE FETCH ENGINE & ARCHIVES
         // ==========================================
+        async function fetchNseCsv() {
+            const nseUrl = 'https://nsearchives.nseindia.com/content/equities/EQUITY_L.csv';
+            const proxies = [
+                `https://api.allorigins.win/raw?url=${encodeURIComponent(nseUrl)}`,
+                `https://corsproxy.io/?${encodeURIComponent(nseUrl)}`,
+                `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(nseUrl)}`
+            ];
+            for (let proxyUrl of proxies) {
+                try {
+                    const response = await fetch(proxyUrl);
+                    if (response.ok) {
+                        const text = await response.text();
+                        if (text.includes("SYMBOL") && text.includes("NAME OF COMPANY")) return text; 
+                    }
+                } catch (e) { console.warn(`Proxy failed, attempting fallback...`); }
+            }
+            throw new Error("All proxy attempts failed.");
+        }
+
         async function loadNseMasterList() {
             try {
                 const cached = await localforage.getItem('nse_master_list');
-                if (cached && cached.length > 0) {
-                    nseMasterList = cached;
-                    return; 
-                }
-                const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent('https://nsearchives.nseindia.com/content/equities/EQUITY_L.csv')}`;
-                const response = await fetch(proxyUrl);
-                const csvText = await response.text();
-                
+                if (cached && cached.length > 0) { nseMasterList = cached; return; }
+                const csvText = await fetchNseCsv();
                 const lines = csvText.split('\n');
                 const stocks = [];
                 for (let i = 1; i < lines.length; i++) {
                     const cols = lines[i].split(',');
-                    if (cols[0] && cols[1]) {
-                        stocks.push({ symbol: cols[0].trim().toUpperCase(), name: cols[1].trim() });
-                    }
+                    if (cols[0] && cols[1]) stocks.push({ symbol: cols[0].trim().toUpperCase(), name: cols[1].trim() });
                 }
                 nseMasterList = stocks;
                 await localforage.setItem('nse_master_list', stocks);
-            } catch (e) {
-                console.error("Failed to load NSE master list", e);
-            }
+            } catch (e) { console.error("Failed to load NSE master list", e); }
+        }
+        
+        // NEW: Fetch Google App Script Data securely for Ghost Injection
+        async function fetchStockDataFromGoogle(symbol) {
+            const scriptUrl = 'YOUR_GOOGLE_SCRIPT_WEB_APP_URL_HERE'; // <-- REPLACE THIS
+            if(scriptUrl === 'YOUR_GOOGLE_SCRIPT_WEB_APP_URL_HERE') return null; // Bypass if not configured
+            
+            try {
+                const res = await fetch(`${scriptUrl}?symbol=${encodeURIComponent(symbol)}`);
+                if(res.ok) return await res.json();
+            } catch(e) { console.warn("Google Script fetch failed", e); }
+            return null;
         }
 
         async function initApp() {
             try {
                 const storedSessions = await localforage.getItem('sessions');
                 if (storedSessions) savedSessions = storedSessions;
+                
                 const storedStocks = await localforage.getItem('watchlist');
                 if (storedStocks) localStocks = storedStocks;
+                
                 const storedLedger = await localforage.getItem('alpha_ledger');
                 if (storedLedger) alphaLedger = storedLedger;
+                
+                // NEW: Load Vault Archives
+                const storedArchives = await localforage.getItem('forensic_archives');
+                if (storedArchives) forensicArchives = storedArchives;
 
                 try {
                     const promptRes = await fetch('Prompts/master_prompt.txt');
-                    if (promptRes.ok) { SMART_MASTER_PROMPT = await promptRes.text() + "\n\n" + JSON_SCHEMA_ROUTER; }
+                    if (promptRes.ok) SMART_MASTER_PROMPT = await promptRes.text() + "\n\n" + JSON_SCHEMA_ROUTER; 
                 } catch(e) {}
 
                 loadNseMasterList(); 
-
                 updateModeUI();
                 updateHeaderModelIndicator();
             } catch (e) { console.error("DB Load Error", e); }
@@ -383,49 +413,41 @@
         document.getElementById('logout-btn').onclick = () => { localStorage.removeItem('fs_operator'); location.reload(); };
 
         // ==========================================
-        // 4. DOWNLOAD & GIT VAULT 
+        // 4. CONTEXT-AWARE DOWNLOAD & GIT VAULT 
         // ==========================================
         
         document.getElementById('download-db-btn').onclick = async () => {
-            const originalIcon = document.getElementById('download-db-btn').innerHTML;
-            document.getElementById('download-db-btn').innerHTML = '<i class="ph ph-circle-notch animate-spin text-xl text-emerald-400"></i>';
-            showToast("Extracting live database from NSE Servers...", "info");
+            // Context-Aware Download logic using locally stored Archives
+            if (isForensicMode && currentForensicTarget && forensicArchives[currentForensicTarget]) {
+                const payload = forensicArchives[currentForensicTarget];
+                const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(payload, null, 2));
+                const dl = document.createElement('a');
+                dl.href = dataStr;
+                dl.download = `${currentForensicTarget}_1Year_Forensic_Data.json`;
+                document.body.appendChild(dl); dl.click(); dl.remove();
+                showToast(`Exported Local Data for ${currentForensicTarget}`);
+            } else {
+                // Not in forensic mode, or no data yet -> Download Master List
+                const btn = document.getElementById('download-db-btn');
+                const originalIcon = btn.innerHTML;
+                btn.innerHTML = '<i class="ph ph-circle-notch animate-spin text-lg text-emerald-400"></i>';
+                showToast("Extracting live database from NSE Servers...", "info");
 
-            try {
-                const nseUrl = 'https://nsearchives.nseindia.com/content/equities/EQUITY_L.csv';
-                const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(nseUrl)}`;
-                
-                const response = await fetch(proxyUrl);
-                if (!response.ok) throw new Error("NSE Archive Unreachable");
-                const rawCsvText = await response.text();
-
-                const lines = rawCsvText.split('\n');
-                const stocks = [];
-                for (let i = 1; i < lines.length; i++) {
-                    const cols = lines[i].split(',');
-                    if (cols[0] && cols[1]) {
-                        stocks.push({ symbol: cols[0].trim().toUpperCase(), name: cols[1].trim() });
-                    }
+                try {
+                    const rawCsvText = await fetchNseCsv();
+                    const blob = new Blob([rawCsvText], { type: 'text/csv;charset=utf-8;' });
+                    const link = document.createElement("a");
+                    link.setAttribute("href", URL.createObjectURL(blob));
+                    link.setAttribute("download", `EQUITY_L_${new Date().toISOString().split('T')[0]}.csv`);
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    showToast("NSE Live Database Extracted.");
+                } catch (err) {
+                    showToast("System Error: Failed to extract NSE Database.", "error");
+                } finally {
+                    btn.innerHTML = originalIcon;
                 }
-                
-                nseMasterList = stocks;
-                await localforage.setItem('nse_master_list', stocks);
-                
-                const blob = new Blob([rawCsvText], { type: 'text/csv;charset=utf-8;' });
-                const link = document.createElement("a");
-                const url = URL.createObjectURL(blob);
-                link.setAttribute("href", url);
-                link.setAttribute("download", `EQUITY_L_${new Date().toISOString().split('T')[0]}.csv`);
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-
-                showToast("NSE Live Database Extracted and Synced.");
-            } catch (err) {
-                console.error("Extraction failed:", err);
-                showToast("System Error: Failed to extract NSE Database.", "error");
-            } finally {
-                document.getElementById('download-db-btn').innerHTML = originalIcon;
             }
         };
 
@@ -476,7 +498,14 @@
                 if (getRes.ok) { const data = await getRes.json(); sha = data.sha; existingContent = data.content; }
 
                 if (action === 'push') {
-                    const payload = { sessions: savedSessions, stocks: localStocks, ledger: alphaLedger, timestamp: Date.now() };
+                    // NEW: Package the forensic_archives along with history perfectly cleanly.
+                    const payload = { 
+                        sessions: savedSessions, 
+                        stocks: localStocks, 
+                        ledger: alphaLedger, 
+                        forensic_archives: forensicArchives,
+                        timestamp: Date.now() 
+                    };
                     const body = { message: `Vault Sync`, content: utoa(JSON.stringify(payload)) };
                     if (sha) body.sha = sha;
 
@@ -493,10 +522,12 @@
                     if (payload.sessions) savedSessions = payload.sessions;
                     if (payload.stocks) localStocks = payload.stocks;
                     if (payload.ledger) alphaLedger = payload.ledger;
+                    if (payload.forensic_archives) forensicArchives = payload.forensic_archives;
                     
                     await localforage.setItem('sessions', savedSessions);
                     await localforage.setItem('watchlist', localStocks);
                     await localforage.setItem('alpha_ledger', alphaLedger);
+                    await localforage.setItem('forensic_archives', forensicArchives);
                     
                     renderSidebar(); 
                     renderWatchlistDropdownSkeleton();
@@ -561,7 +592,7 @@
                     if (res.status === 429) {
                         const errorClone = await res.clone().json().catch(()=>({}));
                         if (errorClone?.error?.code === 'insufficient_quota' || errorClone?.error?.type === 'insufficient_quota' || errorClone?.error?.message?.includes('billing')) {
-                            throw new Error("OpenAI API Blocked: Insufficient Quota. You must add at least $5 in credits to your OpenAI developer billing dashboard to activate your key.");
+                            throw new Error("OpenAI API Blocked: Insufficient Quota.");
                         }
                         if (i === maxRetries) throw new Error("Rate limit exceeded. Try again later.");
                         const retryAfter = res.headers.get('retry-after');
@@ -572,7 +603,7 @@
                     }
 
                     if (res.status === 404 && provider === 'google') {
-                        throw new Error(`Google API Error: Model '${modelId}' is not found or not yet available for your specific API key. Please switch to 'Gemini 2.5 Flash' or 'Gemini 1.5 Flash' in settings.`);
+                        throw new Error(`Google API Error: Model '${modelId}' is not found.`);
                     }
 
                     const data = await res.json();
@@ -593,6 +624,9 @@
             }
         }
 
+        // ==========================================
+        // GHOST INJECTION ENGINE
+        // ==========================================
         document.getElementById('search-form').onsubmit = async (e) => {
             e.preventDefault();
             const q = document.getElementById('search-input').value.trim();
@@ -607,11 +641,29 @@
             let loadingMsg = "Thinking...";
 
             const memoryContext = alphaLedger.length > 0 
-                ? `\n\n[PAST MEMORY CONTEXT]: You previously predicted the following. Maintain consistency: ${JSON.stringify(alphaLedger.slice(-10))}` 
+                ? `\n\n[PAST MEMORY CONTEXT]: Maintain consistency with past predictions: ${JSON.stringify(alphaLedger.slice(-10))}` 
                 : "";
 
             if (isForensicMode) {
-                contentsArray = [{ role: "user", text: `Input: ${q}` }];
+                // Ghost Injection intercept
+                let injectedDataText = "";
+                const loaderId = showLoadingUI(`Extracting official filings for ${q.toUpperCase()}...`);
+                const fetchedData = await fetchStockDataFromGoogle(q);
+                removeLoader(loaderId);
+
+                if (fetchedData && !fetchedData.error) {
+                    // Segregated Archive Save
+                    forensicArchives[q.toUpperCase()] = fetchedData;
+                    await localforage.setItem('forensic_archives', forensicArchives);
+                    triggerDirtyState();
+                    
+                    // Bundle for AI Prompt strictly
+                    injectedDataText = `\n\n[OFFICIAL CORPORATE DATA]: Base your entire analysis strictly on this real-time JSON data:\n${JSON.stringify(fetchedData)}`;
+                } else {
+                    injectedDataText = `\n\n[NOTE]: Real-time data sync skipped. Proceed with internal training data.`;
+                }
+                
+                contentsArray = [{ role: "user", text: `Target: ${q}${injectedDataText}` }];
                 sysInstruction = SMART_MASTER_PROMPT + memoryContext;
                 loadingMsg = "Executing Forensic Scan...";
             } else {
@@ -621,6 +673,7 @@
                 sysInstruction = "You are a general financial assistant. Use markdown formatting." + memoryContext;
             }
 
+            // Chat UI remains clean
             saveSessionLocal("user", q);
             await triggerAI(contentsArray, sysInstruction, loadingMsg);
         };
@@ -629,6 +682,7 @@
             if (localStocks.length === 0) return showToast("Watchlist is empty.", "error");
             
             isForensicMode = true; updateModeUI();
+            currentForensicTarget = null; 
 
             const promptText = `Watchlist: ${localStocks.join(', ')}. Date: ${new Date().toISOString().split('T')[0]}`;
             const uiText = `RUN RADAR: Scrape Data for ${localStocks.length} Stocks`;
@@ -695,6 +749,7 @@
 
         function clearChatBubbles() {
             activeChartInstances = []; 
+            currentForensicTarget = null; 
             const container = document.getElementById('chat-container');
             Array.from(container.children).forEach(child => { if (child.id !== 'welcome-screen') child.remove(); });
         }
@@ -1012,6 +1067,7 @@
 
             if (obj.metadata) {
                 targetTicker = obj.metadata.ticker;
+                currentForensicTarget = targetTicker; 
                 
                 let verdictStyle = "border-zinc-700 text-zinc-300 bg-zinc-800";
                 if (obj.kpis?.final_verdict?.includes('BUY')) verdictStyle = "border-emerald-500/50 text-emerald-400 bg-emerald-950/40";
