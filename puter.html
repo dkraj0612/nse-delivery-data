@@ -557,25 +557,32 @@
         // 4. CONTEXT-AWARE DOWNLOAD & GIT VAULT 
         // ==========================================
         
-        document.getElementById('download-db-btn').onclick = async () => {
-            // 1. FORENSIC MODE: Download the specific stock's data
-            if (isForensicMode && currentForensicTarget && forensicArchives[currentForensicTarget]) {
+       document.getElementById('download-db-btn').onclick = async () => {
+            // Check state conditions strictly
+            if (isForensicMode && currentForensicTarget) {
                 const payload = forensicArchives[currentForensicTarget];
-                const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(payload, null, 2));
-                const dl = document.createElement('a');
-                dl.href = dataStr;
-                dl.download = `${currentForensicTarget}_1Year_Forensic_Data.json`;
-                document.body.appendChild(dl); 
-                dl.click(); 
-                dl.remove();
-                showToast(`Exported Local Data for ${currentForensicTarget}`);
-            } 
-            // 2. GENERAL MODE: Download the master list cache
-            else {
+                
+                if (!payload) {
+                    showToast(`No local memory cache found for ${currentForensicTarget}. Run 'Analyze' first.`, "error");
+                    return;
+                }
+                
+                // Convert the cached data object to a JSON string blob
+                const dataStr = "data:text/json;charset=utf-8 Close," + encodeURIComponent(JSON.stringify(payload, null, 2));
+                const dlAnchor = document.createElement('a');
+                dlAnchor.setAttribute("href", dataStr);
+                dlAnchor.setAttribute("download", `${currentForensicTarget}_1Year_Forensic_Data.json`);
+                document.body.appendChild(dlAnchor); 
+                dlAnchor.click(); 
+                dlAnchor.remove();
+                
+                showToast(`Exported Forensic JSON for ${currentForensicTarget}`);
+            } else {
+                // General Mode: Fall back to generating the CSV file from local cache
                 const btn = document.getElementById('download-db-btn');
                 const originalIcon = btn.innerHTML;
                 btn.innerHTML = '<i class="ph ph-circle-notch animate-spin text-lg text-emerald-400"></i>';
-                showToast("Generating file from local memory...", "info");
+                showToast("Compiling master archive from memory...", "info");
 
                 try {
                     if (nseMasterList && nseMasterList.length > 0) {
@@ -588,16 +595,16 @@
                         const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
                         const link = document.createElement("a");
                         link.setAttribute("href", URL.createObjectURL(blob));
-                        link.setAttribute("download", `EQUITY_L_LOCAL_CACHE_${new Date().toISOString().split('T')[0]}.csv`);
+                        link.setAttribute("download", `EQUITY_MASTER_CACHE.csv`);
                         document.body.appendChild(link);
                         link.click();
                         document.body.removeChild(link);
-                        showToast("NSE Live Database Extracted.");
+                        showToast("Master List Exported Successfully.");
                     } else {
-                        throw new Error("Memory cache is empty.");
+                        throw new Error("Master database cache is empty.");
                     }
                 } catch (err) {
-                    showToast("System Error: Failed to extract NSE Database.", "error");
+                    showToast("Extraction Failed: Master list cache empty.", "error");
                 } finally {
                     btn.innerHTML = originalIcon;
                 }
@@ -797,6 +804,7 @@
                 : "";
 
             if (isForensicMode) {
+                currentForensicTarget = q.toUpperCase();
                 let injectedDataText = "";
                 const loaderId = showLoadingUI(`Extracting official filings for ${q.toUpperCase()}...`);
                 const fetchedData = await fetchStockDataFromGoogle(q);
@@ -1276,13 +1284,31 @@
                 const range = '1y';    
                 const interval = '1d'; 
                 const yahooUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${yahooTicker}?range=${range}&interval=${interval}`;
-                const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(yahooUrl)}`;
                 
-                const response = await fetch(proxyUrl);
-                if (!response.ok) throw new Error("Chart Data Offline");
+                // Rotational Proxies to prevent chart blocks
+                const proxies = [
+                    `https://api.allorigins.win/raw?url=${encodeURIComponent(yahooUrl)}`,
+                    `https://corsproxy.io/?${encodeURIComponent(yahooUrl)}`,
+                    `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(yahooUrl)}`
+                ];
                 
-                const rawData = await response.json();
-                if (!rawData.chart.result || rawData.chart.result.length === 0) throw new Error("No Data");
+                let rawData = null;
+                
+                for (let proxyUrl of proxies) {
+                    try {
+                        const response = await fetch(proxyUrl);
+                        if (response.ok) {
+                            rawData = await response.json();
+                            if (rawData.chart && rawData.chart.result) break;
+                        }
+                    } catch (e) {
+                        console.warn("Chart proxy failed, rotating...");
+                    }
+                }
+
+                if (!rawData || !rawData.chart.result || rawData.chart.result.length === 0) {
+                    throw new Error("Network blocked. All proxies failed.");
+                }
 
                 const result = rawData.chart.result[0];
                 const timestamps = result.timestamp;
