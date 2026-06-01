@@ -344,13 +344,23 @@
             } catch (e) { console.error("Failed to load NSE master list", e); }
         }
         
-        // ⬇️ ⬇️ ⬇️ MULTIPLEXER GOOGLE SCRIPT URL GOES HERE ⬇️ ⬇️ ⬇️
+               // ⬇️ ⬇️ ⬇️ MULTIPLEXER GOOGLE SCRIPT URL GOES HERE ⬇️ ⬇️ ⬇️
         async function fetchStockDataFromGoogle(symbol) {
-            const scriptUrl = 'https://script.google.com/macros/s/AKfycbxV10byoDo3XKlYgYrMju6M5Cr7qh5sWurO8RcZ15zOL5gwOI_uCrdxa9BOl8SZRdc4_g/exec'; // <-- PASTE HERE
+            const scriptUrl = 'https://script.google.com/macros/s/AKfycbx4X78LZ3cpk88sgJOwcsZrs1gy1JL-v7Co5_8F_3x3dASUfSW4esRH1PBseAWDOlnfcA/exec'; 
             if(scriptUrl === 'YOUR_GOOGLE_SCRIPT_WEB_APP_URL_HERE') return null; 
             
             try {
-                const res = await fetch(`${scriptUrl}?symbol=${encodeURIComponent(symbol)}`);
+                // Hardcoded mapping for demonstration (You can expand this later)
+                const bseMapping = {
+                    "RELIANCE": "500325",
+                    "TCS": "532540",
+                    "INFY": "500209",
+                    "HDFCBANK": "500180"
+                };
+                
+                const bseCode = bseMapping[symbol.toUpperCase()] || "";
+                
+                const res = await fetch(`${scriptUrl}?symbol=${encodeURIComponent(symbol)}&bseCode=${encodeURIComponent(bseCode)}`);
                 if(res.ok) return await res.json();
             } catch(e) { console.warn("Google Script fetch failed", e); }
             return null;
