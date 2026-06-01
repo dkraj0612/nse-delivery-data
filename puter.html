@@ -28,7 +28,6 @@
         .prose ol { list-style-type: decimal; padding-left: 1.5em; margin-bottom: 1em; }
         .prose code:not(pre code) { background-color: #27272a; padding: 0.2em 0.4em; border-radius: 0.25rem; font-family: monospace; color: #a78bfa; }
         
-        /* ADDED: Chart Container Styling */
         .tv-chart-container { width: 100%; height: 350px; border-radius: 8px; overflow: hidden; margin-top: 15px; border: 1px solid #27272a; }
     </style>
 </head>
@@ -52,18 +51,22 @@
 
     <div id="main-app" class="hidden flex-1 flex flex-col w-full h-full overflow-hidden relative">
         
-        <header class="shrink-0 border-b border-zinc-800 p-3 sm:p-4 flex justify-between items-center bg-zinc-950 z-20">
-            <div class="flex items-center gap-3">
-                <button id="menu-btn" class="relative text-zinc-400 hover:text-white transition-colors p-1 focus:outline-none">
+        <header class="shrink-0 border-b border-zinc-800 p-3 flex justify-between items-center bg-zinc-950 z-20 overflow-hidden">
+            <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+                <button id="menu-btn" class="relative text-zinc-400 hover:text-white transition-colors p-1 focus:outline-none shrink-0">
                     <i class="ph ph-list text-2xl"></i>
                     <span id="menu-warning-dot" class="hidden absolute top-1 right-1 w-2 h-2 bg-amber-500 rounded-full animate-pulse"></span>
                 </button>
-                <div class="truncate">
+                <div class="truncate min-w-0">
                     <h1 class="font-bold tracking-tight flex items-center gap-2 text-sm sm:text-base truncate"><i class="ph ph-radar text-indigo-500 shrink-0"></i> <span class="truncate">FORENSIC STUDIO</span></h1>
                     <p class="text-[10px] text-zinc-500 font-mono uppercase tracking-widest mt-0.5 truncate" id="header-model-indicator">Gemini 2.5 Flash</p>
                 </div>
             </div>
-            <div class="flex gap-2 sm:gap-4 items-center shrink-0">
+            
+            <div class="flex gap-2 sm:gap-3 items-center shrink-0 ml-2">
+                <button id="download-db-btn" class="text-zinc-400 hover:text-emerald-400 transition-colors focus:outline-none p-1 sm:p-2 bg-zinc-900 rounded-lg border border-zinc-800 flex items-center justify-center" title="Download System Data">
+                    <i class="ph ph-download-simple text-lg sm:text-xl pointer-events-none"></i>
+                </button>
                 <button id="settings-btn" class="text-zinc-400 hover:text-zinc-100 transition-colors focus:outline-none p-1"><i class="ph ph-sliders-horizontal text-xl"></i></button>
                 <button id="logout-btn" class="text-zinc-500 hover:text-rose-400 text-xs font-bold tracking-widest transition-colors focus:outline-none flex items-center gap-1"><i class="ph ph-lock-key text-lg"></i> <span class="hidden sm:inline">LOCK</span></button>
             </div>
@@ -85,8 +88,8 @@
 
                 <div class="w-px h-5 bg-zinc-800 mx-1 shrink-0"></div>
 
-                <button id="open-add-stock-btn" class="shrink-0 flex items-center gap-1.5 bg-zinc-950 hover:bg-zinc-800 text-zinc-300 border border-zinc-700 px-3 py-2 rounded-lg sm:rounded-full text-xs transition-colors focus:outline-none shadow-sm active:scale-95">
-                    <i class="ph ph-plus"></i> <span class="hidden sm:inline">Add Target</span>
+                <button id="open-add-stock-btn" onclick="document.getElementById('add-stock-modal').classList.remove('hidden')" class="shrink-0 flex items-center gap-1.5 bg-zinc-950 hover:bg-zinc-800 text-zinc-300 border border-zinc-700 px-3 py-2 rounded-lg sm:rounded-full text-xs transition-colors focus:outline-none shadow-sm active:scale-95">
+                    <i class="ph ph-plus pointer-events-none"></i> <span class="hidden sm:inline pointer-events-none">Add Target</span>
                 </button>
                 
                 <div class="flex-1 min-w-[10px]"></div>
@@ -113,9 +116,7 @@
                     <i class="ph ph-chat-circle-dots text-lg sm:text-xl" id="mode-icon"></i>
                     <span class="hidden sm:block font-bold uppercase tracking-widest" id="mode-text">General</span>
                 </button>
-                
                 <input type="text" id="search-input" class="flex-1 bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition-colors shadow-inner text-base sm:text-sm" placeholder="Ask anything or enter ticker..." autocomplete="off">
-                
                 <button type="submit" id="run-btn" class="shrink-0 h-12 sm:h-14 bg-indigo-600 hover:bg-indigo-500 w-12 sm:w-auto sm:px-8 rounded-xl font-bold text-white transition-colors disabled:opacity-50 flex items-center justify-center focus:outline-none shadow-md active:scale-95">
                     <i class="ph ph-paper-plane-right sm:hidden text-xl"></i>
                     <span class="hidden sm:inline tracking-wider">RUN</span>
@@ -137,12 +138,8 @@
                     <i class="ph ph-plus font-bold"></i> New Analysis
                 </button>
                 <div class="flex gap-2">
-                    <button id="git-push-btn" class="flex-1 flex items-center justify-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-emerald-400 border border-emerald-900/50 px-2 py-2.5 rounded-lg transition-all text-xs font-mono font-bold focus:outline-none active:scale-95">
-                        <i class="ph ph-upload-simple text-sm"></i> Push
-                    </button>
-                    <button id="git-pull-btn" class="flex-1 flex items-center justify-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-blue-400 border border-blue-900/50 px-2 py-2.5 rounded-lg transition-all text-xs font-mono font-bold focus:outline-none active:scale-95">
-                        <i class="ph ph-download-simple text-sm"></i> Pull
-                    </button>
+                    <button id="git-push-btn" class="flex-1 flex items-center justify-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-emerald-400 border border-emerald-900/50 px-2 py-2.5 rounded-lg transition-all text-xs font-mono font-bold focus:outline-none active:scale-95"><i class="ph ph-upload-simple text-sm"></i> Push</button>
+                    <button id="git-pull-btn" class="flex-1 flex items-center justify-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-blue-400 border border-blue-900/50 px-2 py-2.5 rounded-lg transition-all text-xs font-mono font-bold focus:outline-none active:scale-95"><i class="ph ph-download-simple text-sm"></i> Pull</button>
                 </div>
             </div>
             <div class="px-4 py-2.5 text-[10px] font-mono uppercase tracking-widest bg-zinc-950/50 border-b border-zinc-800/50 flex justify-between items-center">
@@ -154,9 +151,7 @@
 
         <div id="mode-info-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 w-full max-w-sm shadow-2xl">
-                <h3 class="text-lg font-bold text-zinc-100 mb-3 flex items-center gap-2">
-                    <i class="ph ph-arrows-left-right text-indigo-500"></i> Analysis Mode
-                </h3>
+                <h3 class="text-lg font-bold text-zinc-100 mb-3 flex items-center gap-2"><i class="ph ph-arrows-left-right text-indigo-500"></i> Analysis Mode</h3>
                 <div class="space-y-4 text-sm text-zinc-300 mb-6 bg-zinc-950/50 p-4 rounded-xl border border-zinc-800/50">
                     <p><strong class="text-zinc-100"><i class="ph ph-chat-circle-dots"></i> General Mode:</strong> Standard AI assistant. Retains conversation history. Best for asking follow-up questions.</p>
                     <div class="border-t border-zinc-800 my-2"></div>
@@ -176,10 +171,8 @@
                     <button id="close-settings-btn" class="text-zinc-500 hover:text-white focus:outline-none p-1"><i class="ph ph-x text-lg"></i></button>
                 </div>
                 <div class="space-y-6">
-                    
                     <div class="space-y-4">
                         <label class="block text-[10px] font-mono uppercase tracking-widest text-indigo-400 border-b border-zinc-800 pb-1">Omni-Model Engine</label>
-                        
                         <div>
                             <label class="block text-[10px] text-zinc-500 mb-1">Select AI Provider & Model</label>
                             <div class="relative">
@@ -221,7 +214,6 @@
 
                     <div class="space-y-4">
                         <label class="block text-[10px] font-mono uppercase tracking-widest text-emerald-400 border-b border-zinc-800 pb-1">GitHub Vault Configuration</label>
-                        
                         <div>
                             <label class="block text-[10px] text-zinc-500 mb-1">Personal Access Token (PAT)</label>
                             <input type="password" id="git-token-input" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm text-zinc-100 font-mono focus:border-emerald-500 focus:outline-none shadow-inner text-base sm:text-sm" placeholder="ghp_...">
@@ -237,7 +229,6 @@
                             </div>
                         </div>
                     </div>
-                    
                     <button id="save-settings-btn" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3.5 rounded-xl text-sm transition-colors shadow-lg focus:outline-none active:scale-95">Save System Config</button>
                 </div>
             </div>
@@ -247,9 +238,14 @@
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 w-full max-w-sm shadow-2xl">
                 <div class="flex justify-between items-center mb-5">
                     <h3 class="text-sm font-mono uppercase tracking-widest text-zinc-300">Add Target to List</h3>
-                    <button id="close-add-stock-btn" class="text-zinc-500 hover:text-white focus:outline-none p-1"><i class="ph ph-x text-lg"></i></button>
+                    <button id="close-add-stock-btn" onclick="document.getElementById('add-stock-modal').classList.add('hidden')" class="text-zinc-500 hover:text-white focus:outline-none p-1"><i class="ph ph-x text-lg"></i></button>
                 </div>
-                <input type="text" id="new-stock-input" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3.5 text-base sm:text-sm text-zinc-100 font-mono focus:border-indigo-500 focus:outline-none mb-5 shadow-inner" placeholder="TICKER (e.g. AAPL)">
+                
+                <div class="relative w-full mb-5">
+                    <input type="text" id="new-stock-input" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3.5 text-base sm:text-sm text-zinc-100 font-mono focus:border-indigo-500 focus:outline-none shadow-inner" placeholder="Search Ticker or Company..." autocomplete="off">
+                    <div id="autocomplete-dropdown" class="absolute z-10 w-full bg-zinc-900 border border-zinc-700 rounded-xl mt-1 max-h-48 overflow-y-auto hidden shadow-2xl overflow-x-hidden"></div>
+                </div>
+                
                 <button id="save-stock-btn" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3.5 rounded-xl text-sm transition-colors shadow-lg focus:outline-none active:scale-95">Append to Watchlist</button>
             </div>
         </div>
@@ -266,14 +262,12 @@
         let currentSessionId = Date.now().toString();
         let savedSessions = {};
         let localStocks = ["RELIANCE", "TCS", "INFY"];
+        let nseMasterList = []; 
         let operatorId = localStorage.getItem('fs_operator') || "";
         let hasUnsyncedChanges = false;
         let alphaLedger = JSON.parse(localStorage.getItem('fs_alpha_ledger') || '[]');
-        
-        // ADDED: List to track rendered chart instances so we can resize them
         let activeChartInstances = [];
 
-        // CORE ROUTING SCHEMA
         const JSON_SCHEMA_ROUTER = `
         [SYSTEM ROUTING RULES]:
         Evaluate the user's input. IF the input is a valid company name or stock ticker, OUTPUT STRICTLY VALID JSON matching Schema A:
@@ -282,7 +276,6 @@
         IF the input is a general question, concept, or non-stock text, OUTPUT STRICTLY VALID JSON matching Schema B:
         { "type": "general_query", "response": "Your detailed answer formatted in Markdown" }`;
 
-        // FALLBACK PROMPTS
         let SMART_MASTER_PROMPT = `You are an elite Institutional Forensic Analyst. ` + JSON_SCHEMA_ROUTER;
         const RADAR_PROMPT = `Analyze the provided watchlist data based on the latest news (last 24-48 hrs). OUTPUT STRICTLY VALID JSON. Schema: { "type": "radar", "radar_date": "Today's Date", "market_sentiment_summary": "1-2 sentence overview", "stock_updates": [ { "ticker": "STOCK_NAME", "news_summary": "2-3 crisp bullet points", "sentiment": "Positive / Negative / Neutral", "severity": "High / Medium / Low" } ] }`;
 
@@ -312,6 +305,32 @@
         // ==========================================
         // 3. INITIALIZATION & FILE FETCHING
         // ==========================================
+        async function loadNseMasterList() {
+            try {
+                const cached = await localforage.getItem('nse_master_list');
+                if (cached && cached.length > 0) {
+                    nseMasterList = cached;
+                    return; 
+                }
+                const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent('https://nsearchives.nseindia.com/content/equities/EQUITY_L.csv')}`;
+                const response = await fetch(proxyUrl);
+                const csvText = await response.text();
+                
+                const lines = csvText.split('\n');
+                const stocks = [];
+                for (let i = 1; i < lines.length; i++) {
+                    const cols = lines[i].split(',');
+                    if (cols[0] && cols[1]) {
+                        stocks.push({ symbol: cols[0].trim().toUpperCase(), name: cols[1].trim() });
+                    }
+                }
+                nseMasterList = stocks;
+                await localforage.setItem('nse_master_list', stocks);
+            } catch (e) {
+                console.error("Failed to load NSE master list", e);
+            }
+        }
+
         async function initApp() {
             try {
                 const storedSessions = await localforage.getItem('sessions');
@@ -321,11 +340,12 @@
                 const storedLedger = await localforage.getItem('alpha_ledger');
                 if (storedLedger) alphaLedger = storedLedger;
 
-                // Load Prompts
                 try {
                     const promptRes = await fetch('Prompts/master_prompt.txt');
                     if (promptRes.ok) { SMART_MASTER_PROMPT = await promptRes.text() + "\n\n" + JSON_SCHEMA_ROUTER; }
                 } catch(e) {}
+
+                loadNseMasterList(); 
 
                 updateModeUI();
                 updateHeaderModelIndicator();
@@ -350,10 +370,9 @@
                 document.getElementById('sidebar-username').innerText = operatorId;
                 document.getElementById('sidebar-avatar').innerText = operatorId.charAt(0).toUpperCase();
                 
-                // Initialize the UI elements
                 renderSidebar();
-                renderWatchlistDropdownSkeleton(); // Draw UI fast
-                fetchWatchlistPrices();            // Then overlay real prices
+                renderWatchlistDropdownSkeleton(); 
+                fetchWatchlistPrices();            
                 
                 if (Object.keys(savedSessions).length > 0) {
                     loadSession(Object.keys(savedSessions).sort((a,b) => savedSessions[b].updatedAt - savedSessions[a].updatedAt)[0]);
@@ -364,8 +383,52 @@
         document.getElementById('logout-btn').onclick = () => { localStorage.removeItem('fs_operator'); location.reload(); };
 
         // ==========================================
-        // 4. GIT VAULT & ANTI-AMNESIA
+        // 4. DOWNLOAD & GIT VAULT 
         // ==========================================
+        
+        document.getElementById('download-db-btn').onclick = async () => {
+            const originalIcon = document.getElementById('download-db-btn').innerHTML;
+            document.getElementById('download-db-btn').innerHTML = '<i class="ph ph-circle-notch animate-spin text-xl text-emerald-400"></i>';
+            showToast("Extracting live database from NSE Servers...", "info");
+
+            try {
+                const nseUrl = 'https://nsearchives.nseindia.com/content/equities/EQUITY_L.csv';
+                const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(nseUrl)}`;
+                
+                const response = await fetch(proxyUrl);
+                if (!response.ok) throw new Error("NSE Archive Unreachable");
+                const rawCsvText = await response.text();
+
+                const lines = rawCsvText.split('\n');
+                const stocks = [];
+                for (let i = 1; i < lines.length; i++) {
+                    const cols = lines[i].split(',');
+                    if (cols[0] && cols[1]) {
+                        stocks.push({ symbol: cols[0].trim().toUpperCase(), name: cols[1].trim() });
+                    }
+                }
+                
+                nseMasterList = stocks;
+                await localforage.setItem('nse_master_list', stocks);
+                
+                const blob = new Blob([rawCsvText], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement("a");
+                const url = URL.createObjectURL(blob);
+                link.setAttribute("href", url);
+                link.setAttribute("download", `EQUITY_L_${new Date().toISOString().split('T')[0]}.csv`);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                showToast("NSE Live Database Extracted and Synced.");
+            } catch (err) {
+                console.error("Extraction failed:", err);
+                showToast("System Error: Failed to extract NSE Database.", "error");
+            } finally {
+                document.getElementById('download-db-btn').innerHTML = originalIcon;
+            }
+        };
+
         function triggerDirtyState() {
             hasUnsyncedChanges = true;
             document.getElementById('menu-warning-dot').classList.remove('hidden');
@@ -476,43 +539,20 @@
                     if (provider === 'google') {
                         url = `https://generativelanguage.googleapis.com/v1beta/models/${modelId}:generateContent?key=${apiKey}`;
                         headers = { 'Content-Type': 'application/json' };
-                        
-                        const googleContents = contentsArray.map(msg => ({
-                            role: msg.role === 'ai' ? 'model' : 'user',
-                            parts: [{ text: msg.text }]
-                        }));
-
-                        bodyObj = {
-                            contents: googleContents,
-                            systemInstruction: { parts: [{ text: sysInstruction }] },
-                            generationConfig: { temperature: 0.1 }
-                        };
+                        const googleContents = contentsArray.map(msg => ({ role: msg.role === 'ai' ? 'model' : 'user', parts: [{ text: msg.text }] }));
+                        bodyObj = { contents: googleContents, systemInstruction: { parts: [{ text: sysInstruction }] }, generationConfig: { temperature: 0.1 } };
                     } 
                     else if (provider === 'openai') {
                         url = `https://api.openai.com/v1/chat/completions`;
                         headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` };
-                        
                         const messages = [{ role: 'system', content: sysInstruction }];
-                        contentsArray.forEach(msg => {
-                            messages.push({ role: msg.role === 'ai' ? 'assistant' : 'user', content: msg.text });
-                        });
-
+                        contentsArray.forEach(msg => { messages.push({ role: msg.role === 'ai' ? 'assistant' : 'user', content: msg.text }); });
                         bodyObj = { model: modelId, messages: messages, temperature: 0.1 };
                     }
                     else if (provider === 'anthropic') {
                         url = `https://api.anthropic.com/v1/messages`;
-                        headers = { 
-                            'Content-Type': 'application/json', 
-                            'x-api-key': apiKey,
-                            'anthropic-version': '2023-06-01',
-                            'anthropic-dangerous-direct-browser-access': 'true' 
-                        };
-                        
-                        const messages = contentsArray.map(msg => ({
-                            role: msg.role === 'ai' ? 'assistant' : 'user',
-                            content: msg.text
-                        }));
-
+                        headers = { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' };
+                        const messages = contentsArray.map(msg => ({ role: msg.role === 'ai' ? 'assistant' : 'user', content: msg.text }));
                         bodyObj = { model: modelId, system: sysInstruction, messages: messages, max_tokens: 4000, temperature: 0.1 };
                     }
 
@@ -654,7 +694,7 @@
         }
 
         function clearChatBubbles() {
-            activeChartInstances = []; // Reset charts
+            activeChartInstances = []; 
             const container = document.getElementById('chat-container');
             Array.from(container.children).forEach(child => { if (child.id !== 'welcome-screen') child.remove(); });
         }
@@ -718,7 +758,6 @@
             document.getElementById('header-model-indicator').innerText = selectedText.toUpperCase();
         }
 
-        // Settings / Omni-Engine Select UI
         const modelSelect = document.getElementById('api-model-select');
         modelSelect.addEventListener('change', () => {
             const provider = modelSelect.value.split('|')[0];
@@ -779,9 +818,42 @@
         }
 
         // ==========================================
-        // 8. WATCHLIST YAHOO DATA PIPELINE
+        // 8. WATCHLIST YAHOO DATA & AUTOCOMPLETE
         // ==========================================
         
+        document.getElementById('new-stock-input').addEventListener('input', function() {
+            const val = this.value.toUpperCase().trim();
+            const dropdown = document.getElementById('autocomplete-dropdown');
+            dropdown.innerHTML = '';
+            
+            if (!val) {
+                dropdown.classList.add('hidden');
+                return;
+            }
+            
+            const matches = nseMasterList.filter(stock => 
+                stock.symbol.includes(val) || stock.name.toUpperCase().includes(val)
+            ).slice(0, 30); 
+            
+            if (matches.length === 0) {
+                dropdown.classList.add('hidden');
+                return;
+            }
+
+            matches.forEach(stock => {
+                const div = document.createElement('div');
+                div.className = "px-4 py-2.5 hover:bg-zinc-800 cursor-pointer flex justify-between items-center border-b border-zinc-800/50 last:border-0 transition-colors";
+                div.innerHTML = `<span class="font-bold text-indigo-400 font-mono text-sm">${stock.symbol}</span> <span class="text-zinc-400 text-xs truncate ml-3 flex-1 text-right">${stock.name}</span>`;
+                
+                div.onclick = () => {
+                    document.getElementById('new-stock-input').value = stock.symbol;
+                    dropdown.classList.add('hidden');
+                };
+                dropdown.appendChild(div);
+            });
+            dropdown.classList.remove('hidden');
+        });
+
         function renderWatchlistDropdownSkeleton() {
             const select = document.getElementById('watchlist-dropdown');
             select.innerHTML = '<option value="">-- Select --</option>';
@@ -794,8 +866,6 @@
 
         async function fetchWatchlistPrices() {
             if (localStocks.length === 0) return;
-            
-            // Format for Yahoo Finance (assume Indian NSE for this tool)
             const symbolsParam = localStocks.map(s => `${s}.NS`).join(',');
             const quoteUrl = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${symbolsParam}`;
             const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(quoteUrl)}`;
@@ -808,14 +878,11 @@
                 const quotes = data.quoteResponse.result;
                 const select = document.getElementById('watchlist-dropdown');
                 
-                // Clear the skeleton and rebuild with pricing
                 select.innerHTML = '<option value="">-- Select --</option>';
                 
                 localStocks.forEach(stock => {
                     const opt = document.createElement('option');
                     opt.value = stock;
-                    
-                    // Find matching quote from Yahoo response
                     const q = quotes.find(item => item.symbol === `${stock}.NS`);
                     if (q) {
                         const price = q.regularMarketPrice.toFixed(2);
@@ -851,8 +918,6 @@
             showToast(`${stock} Removed.`);
         };
 
-        document.getElementById('open-add-stock-btn').onclick = () => document.getElementById('add-stock-modal').classList.remove('hidden');
-        document.getElementById('close-add-stock-btn').onclick = () => document.getElementById('add-stock-modal').classList.add('hidden');
         document.getElementById('save-stock-btn').onclick = async () => {
             const val = document.getElementById('new-stock-input').value.trim().toUpperCase();
             if (val && !localStocks.includes(val)) { 
@@ -864,6 +929,7 @@
                 showToast("Added to List");
             }
             document.getElementById('new-stock-input').value = '';
+            document.getElementById('autocomplete-dropdown').classList.add('hidden');
             document.getElementById('add-stock-modal').classList.add('hidden');
         };
 
@@ -892,12 +958,10 @@
                 container.appendChild(div); 
                 scrollToBottom();
             } else { 
-                // AI messages might contain charts that need mounting
                 const payload = formatAIText(text);
                 div.innerHTML = payload.html;
                 container.appendChild(div); 
                 
-                // If the builder returned a chart mount instruction, execute it
                 if (payload.mountChartFor) {
                     mountTradingViewChart(payload.chartContainerId, payload.mountChartFor);
                 }
@@ -906,7 +970,6 @@
             }
         }
 
-        // Handle browser resize events to keep charts responsive
         window.addEventListener('resize', () => {
             activeChartInstances.forEach(instance => {
                 if(document.getElementById(instance.id)) {
@@ -945,7 +1008,7 @@
         function buildForensicHTML(obj) {
             let html = '<div class="flex flex-col gap-4 font-sans">';
             let targetTicker = null;
-            let chartId = `chart-${Date.now()}`; // Unique ID for this specific analysis block
+            let chartId = `chart-${Date.now()}`; 
 
             if (obj.metadata) {
                 targetTicker = obj.metadata.ticker;
@@ -962,7 +1025,6 @@
                             <div class="px-4 py-2 border rounded-lg text-xs font-bold uppercase tracking-widest w-full sm:w-auto text-center ${verdictStyle}">${escapeHTML(obj.kpis?.final_verdict || 'N/A')}</div>
                         </div>`;
                 
-                // INJECT THE CHART CONTAINER INTO THE FORENSIC BLOCK
                 html += `<div id="${chartId}" class="tv-chart-container flex items-center justify-center bg-zinc-900/50">
                             <span class="text-xs font-mono text-zinc-600 animate-pulse">Extracting Price Action...</span>
                          </div>`;
@@ -984,8 +1046,8 @@
             
             return {
                 html: html + '</div>',
-                mountChartFor: targetTicker, // Tells the system what stock data to fetch
-                chartContainerId: chartId    // Tells the system where to draw the chart
+                mountChartFor: targetTicker, 
+                chartContainerId: chartId    
             };
         }
 
@@ -1000,13 +1062,11 @@
             } return html + '</div></div>';
         }
 
-        // Function that executes immediately after a chat bubble with a chart is added to DOM
         async function mountTradingViewChart(containerId, tickerSymbol) {
             const container = document.getElementById(containerId);
             if (!container) return;
 
             try {
-                // Determine the correct Yahoo symbol
                 const isCrypto = tickerSymbol.includes('USD') || tickerSymbol.includes('BTC') || tickerSymbol.includes('ETH');
                 const yahooTicker = isCrypto ? tickerSymbol : `${tickerSymbol}.NS`; 
 
@@ -1036,10 +1096,8 @@
                     };
                 }).filter(candle => candle !== null);
 
-                // Clear the "Loading" text
                 container.innerHTML = '';
                 
-                // Initialize TradingView Chart
                 const chart = LightweightCharts.createChart(container, {
                     layout: { textColor: '#a1a1aa', background: { type: 'solid', color: 'transparent' } },
                     grid: { vertLines: { color: '#27272a' }, horzLines: { color: '#27272a' } },
@@ -1056,10 +1114,8 @@
                 candlestickSeries.setData(formattedData);
                 chart.timeScale().fitContent();
 
-                // Track the instance so it resizes smoothly
                 activeChartInstances.push({ id: containerId, chart: chart });
                 
-                // Final tweak to ensure everything is settled
                 setTimeout(() => scrollToBottom(), 100);
 
             } catch (err) {
