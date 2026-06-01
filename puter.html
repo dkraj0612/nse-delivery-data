@@ -257,8 +257,12 @@
     <script type="module">
       import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js';
       import { getFirestore } from 'https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js';
-      import { getAuth } from 'https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js';
-
+      import { 
+        getAuth, 
+        signInWithEmailAndPassword, 
+        signOut, 
+        onAuthStateChanged 
+      } from 'https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js';
       const firebaseConfig = {
         apiKey: "AIzaSyA7IAI_vJDPnaATO1ksU9M2NR1mIOdI7Es",
         authDomain: "forensic-studio-3f90e.firebaseapp.com",
@@ -277,6 +281,11 @@
       window.firebaseApp = app;
       window.db = db;
       window.auth = auth;
+
+      // Bind specific Auth methods so our standard script can use them
+      window.firebaseSignIn = signInWithEmailAndPassword;
+      window.firebaseSignOut = signOut;
+      window.firebaseOnAuthChange = onAuthStateChanged;  
       
       console.log("Firebase Backend Initialized Successfully!");
     </script>
@@ -396,60 +405,125 @@
         }
         // ⬆️ ⬆️ ⬆️ --------------------------------------------- ⬆️ ⬆️ ⬆️
 
-        async function initApp() {
+      // ==========================================
+    // SYSTEM INITIALIZATION & FIREBASE AUTH FLOW
+    // ==========================================
+    async function initApp() {
+        try {
+            const storedSessions = await localforage.getItem('sessions');
+            if (storedSessions) savedSessions = storedSessions;
+            
+            const storedStocks = await localforage.getItem('watchlist');
+            if (storedStocks) localStocks = storedStocks;
+            
+            const storedLedger = await localforage.getItem('alpha_ledger');
+            if (storedLedger) alphaLedger = storedLedger;
+            
+            const storedArchives = await localforage.getItem('forensic_archives');
+            if (storedArchives) forensicArchives = storedArchives;
+
             try {
-                const storedSessions = await localforage.getItem('sessions');
-                if (storedSessions) savedSessions = storedSessions;
-                
-                const storedStocks = await localforage.getItem('watchlist');
-                if (storedStocks) localStocks = storedStocks;
-                
-                const storedLedger = await localforage.getItem('alpha_ledger');
-                if (storedLedger) alphaLedger = storedLedger;
-                
-                const storedArchives = await localforage.getItem('forensic_archives');
-                if (storedArchives) forensicArchives = storedArchives;
+                const promptRes = await fetch('Prompts/master_prompt.txt');
+                if (promptRes.ok) SMART_MASTER_PROMPT = await promptRes.text() + "\n\n" + JSON_SCHEMA_ROUTER; 
+            } catch(e) {}
 
-                try {
-                    const promptRes = await fetch('Prompts/master_prompt.txt');
-                    if (promptRes.ok) SMART_MASTER_PROMPT = await promptRes.text() + "\n\n" + JSON_SCHEMA_ROUTER; 
-                } catch(e) {}
-
-                loadNseMasterList(); 
-                updateModeUI();
-                updateHeaderModelIndicator();
-            } catch (e) { console.error("DB Load Error", e); }
-
-            if (operatorId) finalizeLogin();
-            else document.getElementById('auth-screen').classList.remove('hidden');
+            loadNseMasterList(); 
+            updateModeUI();
+            updateHeaderModelIndicator();
+        } catch (e) { 
+            console.error("DB Load Error", e); 
         }
 
-        document.getElementById('auth-form').onsubmit = (e) => {
-            e.preventDefault();
-            operatorId = document.getElementById('auth-username').value.trim() || "OPERATOR";
-            localStorage.setItem('fs_operator', operatorId);
-            finalizeLogin();
-        };
+        // Initialize the persistent Firebase listener instead of checking localStorage
+        setupAuthObserver();
+    }
 
-        function finalizeLogin() {
-            document.getElementById('auth-screen').classList.add('opacity-0', 'pointer-events-none');
-            setTimeout(() => {
-                document.getElementById('auth-screen').classList.add('hidden');
-                document.getElementById('main-app').classList.remove('hidden');
-                document.getElementById('sidebar-username').innerText = operatorId;
-                document.getElementById('sidebar-avatar').innerText = operatorId.charAt(0).toUpperCase();
-                
-                renderSidebar();
-                renderWatchlistDropdownSkeleton(); 
-                fetchWatchlistPrices();            
-                
-                if (Object.keys(savedSessions).length > 0) {
-                    loadSession(Object.keys(savedSessions).sort((a,b) => savedSessions[b].updatedAt - savedSessions[a].updatedAt)[0]);
-                }
-            }, 300);
+    // Modern Persistent Auth State Listener
+    function setupAuthObserver() {
+        if (typeof window.firebaseOnAuthChange !== 'function') {
+            // Keep retrying if the asynchronous Firebase module CDN is still loading
+            setTimeout(setupAuthObserver, 100);
+            return;
         }
 
-        document.getElementById('logout-btn').onclick = () => { localStorage.removeItem('fs_operator'); location.reload(); };
+        window.firebaseOnAuthChange(window.auth, (user) => {
+            if (user) {
+                // Extracts the part before the @ in the email to use as your visible Operator ID
+                operatorId = user.email.split('@')[0].toUpperCase();
+                finalizeLogin();
+            } else {
+                // If logged out, force user back to the lock screen immediately
+                document.getElementById('main-app').classList.add('hidden');
+                document.getElementById('auth-screen').classList.remove('hidden');
+                document.getElementById('auth-screen').classList.remove('opacity-0', 'pointer-events-none');
+            }
+        });
+    }
+
+    // Secure Login Form Controller
+    document.getElementById('auth-form').onsubmit = async (e) => {
+        e.preventDefault();
+        
+        const emailInput = document.getElementById('auth-username').value.trim();
+        const submitBtn = document.getElementById('auth-submit-btn');
+        
+        // If you haven't added a structural password field to your HTML modal yet,
+        // this secure runtime prompt prevents you from needing to redesign the UI grid right now.
+        const passwordInput = prompt(`Enter security credentials for ${emailInput}:`);
+        
+        if (!emailInput || !passwordInput) {
+            showToast("Operator parameters incomplete.", "error");
+            return;
+        }
+
+        const originalText = submitBtn.innerText;
+        submitBtn.innerText = "AUTHENTICATING...";
+        submitBtn.disabled = true;
+
+        try {
+            await window.firebaseSignIn(window.auth, emailInput, passwordInput);
+            showToast("Access Granted. Cryptographic keys synchronized.", "success");
+        } catch (error) {
+            console.error("Authentication Error Code:", error.code);
+            let userMessage = "Authentication Refused.";
+            
+            if (error.code === 'auth/invalid-credential') userMessage = "Invalid Operator Credentials.";
+            if (error.code === 'auth/user-not-found') userMessage = "Operator ID unknown to cloud console.";
+            
+            showToast(userMessage, "error");
+            submitBtn.innerText = originalText;
+            submitBtn.disabled = false;
+        }
+    };
+
+    // Terminal Login Presentation Layer
+    function finalizeLogin() {
+        document.getElementById('auth-screen').classList.add('opacity-0', 'pointer-events-none');
+        setTimeout(() => {
+            document.getElementById('auth-screen').classList.add('hidden');
+            document.getElementById('main-app').classList.remove('hidden');
+            document.getElementById('sidebar-username').innerText = operatorId;
+            document.getElementById('sidebar-avatar').innerText = operatorId.charAt(0).toUpperCase();
+            
+            renderSidebar();
+            renderWatchlistDropdownSkeleton(); 
+            fetchWatchlistPrices();            
+            
+            if (Object.keys(savedSessions).length > 0) {
+                loadSession(Object.keys(savedSessions).sort((a,b) => savedSessions[b].updatedAt - savedSessions[a].updatedAt)[0]);
+            }
+        }, 300);
+    }
+
+    // Terminal Session Lock Controller
+    document.getElementById('logout-btn').onclick = async () => {
+        try {
+            await window.firebaseSignOut(window.auth);
+            showToast("Terminal Locked. Session context wiped.");
+        } catch (err) {
+            showToast("System error terminating session.", "error");
+        }
+    };
 
         // ==========================================
         // 4. CONTEXT-AWARE DOWNLOAD & GIT VAULT 
