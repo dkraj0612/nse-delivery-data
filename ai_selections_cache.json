@@ -774,5 +774,200 @@
             "THANGAMAYL": "Adds exposure to the Consumer Durables sector.",
             "TARC": "Final selection to complete the portfolio, providing exposure to the Realty sector with a good Master Score."
         }
+    },
+    "bt_2021-03-31_10": {
+        "symbols": [
+            "CGPOWER",
+            "APLAPOLLO",
+            "VENUSREM",
+            "MAGMA",
+            "ANANTRAJ",
+            "LAURUSLABS",
+            "AFFLE",
+            "VAIBHAVGBL",
+            "NEULANDLAB",
+            "TIINDIA"
+        ],
+        "reasons": {
+            "CGPOWER": "Selected for its top Master Score (93.7331) and as the initial high-quality entry from the Capital Goods sector.",
+            "APLAPOLLO": "Selected as the second-highest Master Score in the portfolio (90.8239), complementing CGPOWER within the acceptable limit of two Capital Goods symbols.",
+            "VENUSREM": "Chosen for its high Master Score (88.8876) and to introduce the \"Unknown\" category into the diversified portfolio.",
+            "MAGMA": "Included for its strong Master Score (88.8323), making it the second \"Unknown\" symbol, consistent with diversification limits and prioritized over lower-scoring alternatives.",
+            "ANANTRAJ": "Selected for its high Master Score (88.1892) and to represent the Realty sector, enhancing portfolio diversity.",
+            "LAURUSLABS": "Chosen for its high Master Score (87.6597) and as the initial entry for the Healthcare sector.",
+            "AFFLE": "Included for its robust Master Score (87.2582) and to add exposure to the Information Technology sector.",
+            "VAIBHAVGBL": "Selected for its high Master Score (87.2122) and to provide representation from the Consumer Durables sector.",
+            "NEULANDLAB": "Chosen for its strong Master Score (87.1318), making it the second Healthcare symbol, adhering to the sector concentration limits.",
+            "TIINDIA": "Selected for its high Master Score (86.0389) and to introduce a new sector, Automobile and Auto Components, further diversifying the portfolio."
+        }
+    },
+    "bt_2021-04-30_20": {
+        "symbols": [
+            "CGPOWER",
+            "GREENPANEL",
+            "APLAPOLLO",
+            "TANLA",
+            "AGCNET",
+            "MAGMA",
+            "DALBHARAT",
+            "TEJASNET",
+            "MCLEODRUSS",
+            "TIINDIA",
+            "SOMANYCERA",
+            "EKC",
+            "VENUSREM",
+            "VAIBHAVGBL",
+            "INTELLECT",
+            "SHIL",
+            "ANANTRAJ",
+            "GPIL",
+            "SUVENPHAR",
+            "NEULANDLAB"
+        ],
+        "reasons": {}
+    },
+    "bt_2021-07-30_20": {
+        "symbols": [
+            "APLAPOLLO",
+            "LAURUSLABS",
+            "KPITTECH",
+            "INTELLECT",
+            "TATASTLBSL",
+            "REPL",
+            "PRECOT",
+            "REDINGTON",
+            "SHAKTIPUMP",
+            "HIL",
+            "PRINCEPIPE",
+            "HIKAL",
+            "DCMNVL",
+            "BALAMINES",
+            "THEJO",
+            "AGARIND",
+            "VISHNU",
+            "EHFLNCD",
+            "VENUSREM",
+            "TATASTEEL"
+        ],
+        "reasons": {
+            "APLAPOLLO": "Highest Master Score (92.9353), an automatic top pick, establishing initial exposure to Capital Goods.",
+            "LAURUSLABS": "Second highest Master Score (89.9276), securing a strong candidate and initiating exposure to Healthcare.",
+            "KPITTECH": "High Master Score (89.5021), a strong performer and an initial pick for Information Technology.",
+            "INTELLECT": "Excellent Master Score (89.3793), adding a second Information Technology stock. Further IT stocks will be deferred for diversification.",
+            "TATASTLBSL": "Top-tier Master Score (87.7901) among the remaining candidates. Selected as a high-scoring 'Unknown' sector symbol.",
+            "REPL": "Strong Master Score (87.5324). Selected as another high-scoring 'Unknown' sector symbol to maintain portfolio quality.",
+            "PRECOT": "Very good Master Score (87.5315). Continues the trend of selecting high-performing 'Unknown' sector symbols.",
+            "REDINGTON": "High Master Score (87.2338). Introduces a new known sector, Services, contributing to diversification.",
+            "SHAKTIPUMP": "Solid Master Score (87.0877). Adds a second Capital Goods stock, bringing this sector to a balanced representation.",
+            "HIL": "Good Master Score (87.0689). Included as a high-scoring 'Unknown' sector symbol, prioritizing overall portfolio score smoothness.",
+            "PRINCEPIPE": "Master Score (87.0101). Another high-scoring 'Unknown' symbol, helping maintain the portfolio's quality.",
+            "HIKAL": "Master Score (86.9727). Chosen for its high score within the 'Unknown' sector category.",
+            "DCMNVL": "Strong Master Score (86.8036). Continues to leverage high-scoring 'Unknown' symbols to optimize for price smoothness.",
+            "BALAMINES": "Master Score (86.1701). Introduces exposure to the Chemicals sector, enhancing known-sector diversification.",
+            "THEJO": "Master Score (86.1057). Selected for its high score among the remaining 'Unknown' sector candidates.",
+            "AGARIND": "Master Score (86.0610). Further strengthens the portfolio with another high-scoring 'Unknown' symbol.",
+            "VISHNU": "Master Score (85.9520). A high-scoring 'Unknown' symbol, contributing to the overall quality of the portfolio.",
+            "EHFLNCD": "Master Score (85.6585). Continues to select top-scoring 'Unknown' entities.",
+            "VENUSREM": "Master Score (85.5533). Included as the second-to-last pick, maintaining a high average Master Score.",
+            "TATASTEEL": "Master Score (84.9977). Selected as the final pick to introduce a new known sector, Metals & Mining, at a competitive score, optimizing overall portfolio diversification over adding a third Information Technology stock with a marginally higher score."
+        }
+    },
+    "bt_2021-08-31_10": {
+        "symbols": [
+            "APLAPOLLO",
+            "XPROINDIA",
+            "REDINGTON",
+            "GOODLUCK",
+            "FLUOROCHEM",
+            "MASTEK",
+            "KPRMILL",
+            "TATASTEEL",
+            "RELIGARE",
+            "LAURUSLABS"
+        ],
+        "reasons": {
+            "APLAPOLLO": "Selected as the top-ranked symbol overall (89.6719 Master Score), representing the Capital Goods sector. This is a non-negotiable inclusion for optimizing for score.",
+            "XPROINDIA": "As the second highest-ranked symbol (88.7848 Master Score), it is a priority pick. Its sector is 'Unknown', which helps start the diversification of this broad category.",
+            "REDINGTON": "The third highest-ranked symbol (88.7458 Master Score), providing excellent performance from the Services sector, a crucial distinct category for diversification.",
+            "GOODLUCK": "With a high Master Score of 88.6002, it is the next best available symbol. Its 'Unknown' sector status, while not as specific as a known sector, contributes to diversification by representing a potentially distinct industry from other chosen symbols. This brings the count for 'Unknown' to two, which is acceptable for a 10-symbol portfolio seeking broad diversification.",
+            "FLUOROCHEM": "A high-performing symbol (88.0952 Master Score) representing the Chemicals sector, which adds a new and important industry to the portfolio.",
+            "MASTEK": "Offers a strong Master Score (87.5167) and introduces the Information Technology sector, a key growth area.",
+            "KPRMILL": "With a Master Score of 87.3534, this symbol diversifies the portfolio into the Textiles sector.",
+            "TATASTEEL": "A high-ranking symbol for the Metals & Mining sector (85.0639 Master Score), ensuring coverage of another distinct industrial segment.",
+            "RELIGARE": "Chosen for its strong Master Score (84.6343) and its representation of the Financial Services sector, further enhancing portfolio diversification.",
+            "LAURUSLABS": "Selected as the final symbol due to its robust Master Score (83.5266) and its critical role in diversifying the portfolio into the Healthcare sector. This ensures representation across a wide array of high-scoring, distinct industries."
+        }
+    },
+    "bt_2021-09-30_20": {
+        "symbols": [
+            "FLUOROCHEM"
+        ],
+        "reasons": {}
+    },
+    "bt_2021-10-29_10": {
+        "symbols": [
+            "GREENPANEL",
+            "DCMNVL",
+            "FLUOROCHEM",
+            "CONSOFINVT",
+            "BORORENEW",
+            "DSML",
+            "LYKALABS",
+            "GANESHHOUC",
+            "ECLERX",
+            "JINDALPHOT"
+        ],
+        "reasons": {
+            "GREENPANEL": "Selected due to its highest Master Score of 91.8647, indicating strong structural price smoothness. Its \"Unknown\" sector status does not contribute to known sector over-concentration.",
+            "DCMNVL": "A high-ranking candidate with a Master Score of 89.2990. Its \"Unknown\" sector further aids in maintaining diversification across known industries.",
+            "FLUOROCHEM": "Ranked highly with a Master Score of 89.2854, making it a strong pick for price smoothness. As the first \"Chemicals\" sector pick, it introduces diversification.",
+            "CONSOFINVT": "Possesses a high Master Score of 89.2129, aligning with the optimization for structural price smoothness. Its \"Unknown\" sector designation is favorable for diversification.",
+            "BORORENEW": "Selected for its strong Master Score of 89.2088. This is the first pick from the \"Capital Goods\" sector, adding a new known industry to the portfolio.",
+            "DSML": "Included for its excellent Master Score of 88.6674, indicating strong price smoothness. Its \"Unknown\" sector helps avoid over-concentration in specific known sectors.",
+            "LYKALABS": "A high-scoring symbol with a Master Score of 88.6289, aligning with the price smoothness objective. Its \"Unknown\" sector status is neutral for diversification.",
+            "GANESHHOUC": "Chosen for its high Master Score of 88.1095, reflecting desirable structural price smoothness. Its \"Unknown\" sector classification avoids known sector concentration.",
+            "ECLERX": "Selected with a Master Score of 88.0298. As the first symbol from the \"Services\" sector, it significantly enhances the portfolio's sector diversification.",
+            "JINDALPHOT": "The tenth selection, boasting a Master Score of 87.7805. Its \"Unknown\" sector status ensures that the portfolio maintains excellent diversification among the known sectors, with no single known sector having more than one representation."
+        }
+    },
+    "bt_2022-10-31_10": {
+        "symbols": [
+            "GLOBAL",
+            "CGPOWER",
+            "PGEL",
+            "TOTAL",
+            "ATGL",
+            "VBL",
+            "POWERMECH",
+            "IREDA",
+            "FLUOROCHEM"
+        ],
+        "reasons": {}
+    },
+    "bt_2023-02-28_10": {
+        "symbols": [
+            "CGPOWER",
+            "FOCUS",
+            "INNOVANA",
+            "VBL",
+            "PHOENIXLTD",
+            "JSL",
+            "SAFARI",
+            "NTPC",
+            "SCHAEFFLER",
+            "KTKBANK"
+        ],
+        "reasons": {
+            "CGPOWER": "Selected as the top-ranked symbol with the highest Master Score (91.3227) and belonging to the Capital Goods sector, establishing a strong foundation for the portfolio.",
+            "FOCUS": "With the second-highest Master Score (89.7273), it's a critical pick for optimizing overall portfolio score. Although its sector is \"Unknown,\" its high ranking justifies inclusion, balancing score optimization with eventual sector diversification from other picks.",
+            "INNOVANA": "The third-highest Master Score (89.1376) makes it a strong candidate. Similar to FOCUS, its \"Unknown\" sector is acceptable at this high rank, reinforcing the portfolio's overall quality based on the Master Score.",
+            "VBL": "A high-scoring entry (85.8976) from the Fast Moving Consumer Goods sector. This provides essential diversification into a stable, distinct known sector, moving beyond the \"Unknown\" category.",
+            "PHOENIXLTD": "With a robust Master Score of 85.5513, this symbol brings diversification into the Realty sector, further broadening the portfolio's exposure to different economic segments.",
+            "JSL": "An excellent pick (84.7187) from the Metals & Mining sector, introducing another unique industry exposure and contributing to sector balance.",
+            "SAFARI": "Securing a Master Score of 84.0274, SAFARI diversifies the portfolio into the Consumer Durables sector, ensuring representation from another distinct known industry.",
+            "NTPC": "A strong performer (83.4546) from the Power sector. This adds critical infrastructure exposure and further enhances the portfolio's sector breadth.",
+            "SCHAEFFLER": "With a Master Score of 82.4832, this symbol provides diversification into the Automobile and Auto Components sector, a significant industry segment.",
+            "KTKBANK": "The final selection, boasting a Master Score of 82.4231, brings in exposure to the Financial Services sector. This completes a highly diversified portfolio with representation across 9 distinct sectors (including 'Unknown' as a category) while maintaining a high average Master Score."
+        }
     }
 }
