@@ -567,14 +567,25 @@
                     return;
                 }
                 
-                // Convert the cached data object to a JSON string blob
-                const dataStr = "data:text/json;charset=utf-8 Close," + encodeURIComponent(JSON.stringify(payload, null, 2));
+                // 1. Convert payload to string
+                const jsonString = JSON.stringify(payload, null, 2);
+                
+                // 2. Create a secure Blob (Bypasses all browser size limits)
+                const blob = new Blob([jsonString], { type: "application/json" });
+                const blobUrl = URL.createObjectURL(blob);
+                
+                // 3. Trigger Download
                 const dlAnchor = document.createElement('a');
-                dlAnchor.setAttribute("href", dataStr);
-                dlAnchor.setAttribute("download", `${currentForensicTarget}_1Year_Forensic_Data.json`);
+                dlAnchor.href = blobUrl;
+                dlAnchor.download = `${currentForensicTarget}_1Year_Forensic_Data.json`;
                 document.body.appendChild(dlAnchor); 
                 dlAnchor.click(); 
-                dlAnchor.remove();
+                
+                // 4. Clean up memory to prevent browser lag
+                setTimeout(() => {
+                    document.body.removeChild(dlAnchor);
+                    URL.revokeObjectURL(blobUrl);
+                }, 100);
                 
                 showToast(`Exported Forensic JSON for ${currentForensicTarget}`);
             } else {
