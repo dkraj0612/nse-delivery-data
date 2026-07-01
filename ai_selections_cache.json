@@ -969,5 +969,194 @@
             "SCHAEFFLER": "With a Master Score of 82.4832, this symbol provides diversification into the Automobile and Auto Components sector, a significant industry segment.",
             "KTKBANK": "The final selection, boasting a Master Score of 82.4231, brings in exposure to the Financial Services sector. This completes a highly diversified portfolio with representation across 9 distinct sectors (including 'Unknown' as a category) while maintaining a high average Master Score."
         }
+    },
+    "bt_2021-02-26_20": {
+        "symbols": [
+            "CGPOWER",
+            "APLAPOLLO",
+            "ADANIGREEN",
+            "TANLA",
+            "VAIBHAVGBL",
+            "GREENPANEL",
+            "AFFLE",
+            "INTELLECT",
+            "ASHAPURMIN",
+            "EVEREADY",
+            "IGPL",
+            "ANANTRAJ",
+            "DIXON",
+            "SOLARA",
+            "SUVEN",
+            "CROMPTON",
+            "PERSISTENT",
+            "SURYAROSNI",
+            "TATASTEEL"
+        ],
+        "reasons": {}
+    },
+    "bt_2021-11-30_10": {
+        "symbols": [
+            "XPROINDIA",
+            "LYKALABS",
+            "TTML",
+            "DSML",
+            "JINDALPHOT",
+            "SASTASUNDR",
+            "GREENPANEL",
+            "TEJASNET",
+            "FLUOROCHEM",
+            "MAXHEALTH"
+        ],
+        "reasons": {
+            "XPROINDIA": "Selected for its highest Master Score (92.127), indicating superior structural price smoothness. Its 'Unknown' sector status helps maintain overall portfolio diversification without contributing to concentration in any specific known industry.",
+            "LYKALABS": "Chosen for its second-highest Master Score (91.0407), continuing the optimization for price smoothness. As an 'Unknown' sector, it further supports portfolio diversification.",
+            "TTML": "Included for its high Master Score (90.7381) and representing the 'Telecommunication' sector. This is the first selection for this sector, contributing to both score optimization and initial sector coverage.",
+            "DSML": "Selected due to its high Master Score (89.818) and 'Unknown' sector. It continues to prioritize the top-ranked symbols while not adding to specific sector concentration.",
+            "JINDALPHOT": "Chosen for its strong Master Score (89.7212) and 'Unknown' sector. This pick reinforces the strategy of maximizing price smoothness from the top of the list without violating diversification rules.",
+            "SASTASUNDR": "Included for its excellent Master Score (88.9975) and 'Unknown' sector, aligning with the dual objectives of high score and balanced sector exposure.",
+            "GREENPANEL": "Selected for its high Master Score (88.9037) and 'Unknown' sector, further optimizing for price smoothness without adding to known sector over-concentration.",
+            "TEJASNET": "This symbol has a high Master Score (88.0542) and is the second pick from the 'Telecommunication' sector. For a 10-symbol portfolio, having two entries (20%) from a single known sector is considered acceptable to balance high-score selection with diversification.",
+            "FLUOROCHEM": "Chosen for its strong Master Score (87.8818) and introducing the 'Chemicals' sector, which aids in broadening the portfolio's industry exposure beyond 'Unknown' and 'Telecommunication'.",
+            "MAXHEALTH": "Selected for its high Master Score (87.0263) and introducing the 'Healthcare' sector, further enhancing diversification while maintaining a focus on top-performing symbols."
+        }
+    },
+    "bt_2022-01-31_20": {
+        "symbols": [
+            "GENESYS",
+            "EKC",
+            "FLUOROCHEM",
+            "PITTIENG",
+            "GREENPANEL",
+            "MINDAIND",
+            "SHAREINDIA",
+            "LAGNAM",
+            "ADSL",
+            "NHBTF2023",
+            "PRAJIND",
+            "KPRMILL",
+            "PERSISTENT",
+            "KPITTECH",
+            "ANANTRAJ",
+            "TANLA",
+            "GRAVITA",
+            "PRIVISCL",
+            "IIFL",
+            "TDPOWERSYS"
+        ],
+        "reasons": {
+            "GENESYS": "With the highest Master Score of 89.9229, GENESYS is an immediate selection, demonstrating superior structural price smoothness. It contributes to the initial allocation of 'Unknown' sector holdings.",
+            "EKC": "Ranking second with an 88.668 Master Score, EKC is a high-quality pick that reinforces the portfolio's overall score-driven performance, fitting within the 'Unknown' sector allocation.",
+            "FLUOROCHEM": "As the top-ranked Chemicals sector stock (87.1422 Master Score), FLUOROCHEM is critical for early sector diversification and strong performance.",
+            "PITTIENG": "A high Master Score (86.4982) makes PITTIENG a strong candidate for portfolio quality, included as an 'Unknown' sector holding.",
+            "GREENPANEL": "Continuing the selection of top-scoring candidates (86.4031 Master Score), GREENPANEL is another 'Unknown' sector inclusion that maintains overall portfolio quality.",
+            "MINDAIND": "With a Master Score of 86.3932, MINDAIND maintains the high-quality standard, selected as an 'Unknown' sector stock.",
+            "SHAREINDIA": "The highest-scoring Financial Services stock (86.3051 Master Score), SHAREINDIA is crucial for diversifying into a core economic sector.",
+            "LAGNAM": "A high Master Score (86.1735) warrants its inclusion, contributing to the 'Unknown' sector allocation.",
+            "ADSL": "Demonstrating a strong Master Score of 85.8179, ADSL is selected, contributing to the 'Unknown' sector count.",
+            "NHBTF2023": "With a Master Score of 85.4347, NHBTF2023 is the final 'Unknown' sector stock selected, reaching our internal limit of 8 for this category. Subsequent 'Unknown' sector stocks will be bypassed in favor of known sectors.",
+            "PRAJIND": "The highest-scoring Capital Goods stock (85.252 Master Score), PRAJIND diversifies the portfolio into the industrial capital goods sector.",
+            "KPRMILL": "As the highest-scoring Textiles stock (85.0322 Master Score), KPRMILL adds valuable diversification to the consumer/manufacturing segment.",
+            "PERSISTENT": "The top-ranked Information Technology stock (85.0278 Master Score), PERSISTENT is essential for high-quality exposure to the tech sector.",
+            "KPITTECH": "The second highest-scoring Information Technology stock (84.8023 Master Score), KPITTECH provides further high-quality tech exposure, adhering to the sector concentration guidelines.",
+            "ANANTRAJ": "As the highest-scoring Realty sector stock (84.5098 Master Score), ANANTRAJ ensures diversification into the real estate market.",
+            "TANLA": "The third highest-scoring Information Technology stock (84.4019 Master Score). Given its strong Master Score and the strategic importance of tech, a third IT pick is justified to optimize overall portfolio quality while managing sector concentration.",
+            "GRAVITA": "The highest-scoring Metals & Mining stock (84.1992 Master Score), GRAVITA provides important exposure to industrial commodities.",
+            "PRIVISCL": "The second highest-scoring Chemicals stock (83.5763 Master Score), PRIVISCL ensures robust representation in the Chemicals sector, capitalizing on its strong score.",
+            "IIFL": "The second highest-scoring Financial Services stock (83.1968 Master Score), IIFL completes the target allocation for this sector, maintaining portfolio quality.",
+            "TDPOWERSYS": "As the second highest-scoring Capital Goods stock (83.0924 Master Score), TDPOWERSYS is the final selection, completing the 20-symbol portfolio with excellent sector diversification and strong Master Score performance."
+        }
+    },
+    "bt_2022-02-28_10": {
+        "symbols": [
+            "GENESYS",
+            "SHAHALLOYS",
+            "NHBTF2023",
+            "DEEPAKFERT",
+            "CGPOWER",
+            "GANESHHOUC",
+            "INFOBEAN",
+            "GRAVITA",
+            "SHAREINDIA",
+            "KPRMILL"
+        ],
+        "reasons": {
+            "GENESYS": "Analytical reasoning: As the top-ranked symbol with the highest Master Score of 91.0835, GENESYS is an essential pick to optimize for structural price smoothness. Its 'Unknown' sector status does not detract from its leading quantitative signal.",
+            "SHAHALLOYS": "Analytical reasoning: Ranking second overall with a Master Score of 87.4489, SHAHALLOYS reinforces the portfolio's focus on top-tier quantitative signals for price smoothness, despite its 'Unknown' sector.",
+            "NHBTF2023": "Analytical reasoning: With the third-highest Master Score of 86.7589, NHBTF2023 continues to leverage the strongest available signals from the dataset, adding another high-quality candidate from the 'Unknown' sector.",
+            "DEEPAKFERT": "Analytical reasoning: This is the first specific sector entry (Chemicals) with a very strong Master Score of 85.6399. Its inclusion significantly contributes to sector diversification while maintaining a high overall portfolio quality.",
+            "CGPOWER": "Analytical reasoning: Introducing the Capital Goods sector, CGPOWER's Master Score of 85.5498 is excellent, providing further diversification into a new industry segment with strong smoothness characteristics.",
+            "GANESHHOUC": "Analytical reasoning: Maintaining the focus on high quantitative scores, GANESHHOUC (85.5154) is selected as another top-performing 'Unknown' sector candidate, given its proximity to the top of the Master Score ranking.",
+            "INFOBEAN": "Analytical reasoning: With a Master Score of 84.336, INFOBEAN is a high-scoring 'Unknown' sector symbol that continues to optimize for the smoothness factor, crucial for the portfolio's performance.",
+            "GRAVITA": "Analytical reasoning: GRAVITA (84.1111) introduces the Metals & Mining sector, providing valuable diversification into a new distinct industry while maintaining a very high Master Score.",
+            "SHAREINDIA": "Analytical reasoning: To further enhance sector diversification and avoid over-concentration in 'Unknown' sectors, SHAREINDIA (81.5126) is chosen. It brings the Financial Services sector into the portfolio with a robust Master Score, even if slightly lower than some remaining 'Unknown' symbols. This is a deliberate choice for balanced diversification.",
+            "KPRMILL": "Analytical reasoning: For the final slot, KPRMILL (80.2153) is selected to add the Textiles sector, achieving a broader diversification across known industries. This choice ensures no single known sector is over-represented, balancing the highest Master Scores with the imperative of sector breadth."
+        }
+    },
+    "bt_2022-03-31_10": {
+        "symbols": [
+            "SHAREINDIA",
+            "CREATIVE",
+            "CGPOWER",
+            "ATGL",
+            "BUTTERFLY",
+            "KSOLVES",
+            "SHYAMCENT",
+            "ADANITRANS",
+            "KPITTECH",
+            "DEEPAKFERT"
+        ],
+        "reasons": {
+            "SHAREINDIA": "Selected as the top-ranked symbol with the highest Master Score (90.1212), indicating excellent structural price smoothness. It represents the \"Financial Services\" sector, establishing a diverse start to the portfolio.",
+            "CREATIVE": "With the second-highest Master Score (89.7965), CREATIVE is a strong candidate. Its \"Unknown\" sector classification inherently contributes to portfolio diversification, as it does not add to any identified sector's concentration.",
+            "CGPOWER": "Ranking third (Master Score: 89.734), CGPOWER is chosen for its high score and its representation of the \"Capital Goods\" sector, further broadening the portfolio's sectoral exposure without over-concentration.",
+            "ATGL": "This symbol holds the fourth-highest Master Score (88.7395) and introduces the \"Oil Gas & Consumable Fuels\" sector to the portfolio, enhancing diversification with a high-quality pick.",
+            "BUTTERFLY": "Fifth in rank by Master Score (86.7773), BUTTERFLY provides another high-scoring asset. Its \"Unknown\" sector status is beneficial for maintaining overall portfolio diversification.",
+            "KSOLVES": "With a Master Score of 86.7102, KSOLVES is a strong contender. Its classification as \"Unknown\" is advantageous for diversification, ensuring it doesn't contribute to over-concentration in any specific known sector.",
+            "SHYAMCENT": "Earning a Master Score of 86.6596, SHYAMCENT is another excellent choice. As an \"Unknown\" sector, it provides inherent diversification, aligning with the objective to avoid over-concentration.",
+            "ADANITRANS": "Selected for its high Master Score of 86.3804. Its \"Unknown\" sector designation reinforces portfolio diversification by not adding to the count of any specific known industry.",
+            "KPITTECH": "With a Master Score of 86.1624, KPITTECH is a high-quality pick that introduces the \"Information Technology\" sector to the portfolio, adding a new dimension of diversification without increasing concentration in previously selected known sectors.",
+            "DEEPAKFERT": "The final selection, boasting a Master Score of 86.0044, DEEPAKFERT brings the \"Chemicals\" sector into the portfolio. This pick rounds out the 10 selections, ensuring high scores and maximum known-sector diversification (no more than one per known sector)."
+        }
+    },
+    "bt_2022-04-29_10": {
+        "symbols": [
+            "SHAREINDIA",
+            "KHAICHEM",
+            "SHYAMCENT",
+            "GANESHHOUC",
+            "USHAMART",
+            "BETA",
+            "IREDA",
+            "ATGL",
+            "CGPOWER",
+            "RENUKA"
+        ],
+        "reasons": {
+            "SHAREINDIA": "Analytical reasoning: With the highest Master Score (91.7484), this is a priority pick for optimizing structural price smoothness. Sector: Financial Services (1/2 allowed).",
+            "KHAICHEM": "Analytical reasoning: Second highest Master Score (90.6928). As an \"Unknown\" sector, it diversifies from the first known sector. Sector: Unknown (1/4 allowed).",
+            "SHYAMCENT": "Analytical reasoning: Third highest Master Score (90.5965). Another high-scoring \"Unknown\" symbol, continuing to prioritize structural price smoothness. Sector: Unknown (2/4 allowed).",
+            "GANESHHOUC": "Analytical reasoning: Fourth highest Master Score (88.3886). Keeps the portfolio's overall Master Score high with a third \"Unknown\" category. Sector: Unknown (3/4 allowed).",
+            "USHAMART": "Analytical reasoning: High Master Score (87.4322) and importantly, introduces the 'Capital Goods' sector. This is a crucial pick for diversifying away from a potential over-concentration in \"Financial Services\" or \"Unknown\" categories. Sector: Capital Goods (1/2 allowed).",
+            "BETA": "Analytical reasoning: Strong Master Score (86.6472). Adds a fourth \"Unknown\" category, which is an acceptable limit to maintain high average scores while balancing known sector diversification. Sector: Unknown (4/4 allowed).",
+            "IREDA": "Analytical reasoning: Good Master Score (85.4242). This selection brings the 'Financial Services' sector count to two, which is an appropriate allocation for a 10-stock portfolio (20% concentration). It's preferred over additional 'Unknown' entries to ensure representation of a second known sector. Sector: Financial Services (2/2 allowed).",
+            "ATGL": "Analytical reasoning: Solid Master Score (85.1489) and, critically, introduces a brand new sector: 'Oil Gas & Consumable Fuels'. This significantly enhances the portfolio's overall diversification. Sector: Oil Gas & Consumable Fuels (1/1 allowed).",
+            "CGPOWER": "Analytical reasoning: Good Master Score (84.6348). This is the second 'Capital Goods' selection, bringing that sector to a 20% allocation. This is preferred over introducing a third Capital Goods stock or adding another 'Unknown' stock with similar or slightly higher scores to maintain a balanced known-sector distribution. Sector: Capital Goods (2/2 allowed).",
+            "RENUKA": "Analytical reasoning: While there were some 'Unknown' symbols with marginally higher Master Scores (e.g., INFOBEAN at 84.551), RENUKA (82.918) introduces an entirely new, distinct known sector: 'Fast Moving Consumer Goods'. This strategic choice significantly improves the portfolio's overall diversification and avoids over-concentration in existing known sectors (like a third Capital Goods stock) or an excessive number of 'Unknown' categories, fulfilling the key portfolio management objective. Sector: Fast Moving Consumer Goods (1/1 allowed)."
+        }
+    },
+    "bt_2022-06-30_10": {
+        "symbols": [
+            "FLUOROCHEM",
+            "SCHAEFFLER",
+            "CGPOWER",
+            "BLS",
+            "CHENNPETRO",
+            "TEJASNET",
+            "TATAELXSI",
+            "VBL",
+            "CGCL",
+            "PHOENIXLTD"
+        ],
+        "reasons": {}
     }
 }
