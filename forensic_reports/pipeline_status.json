@@ -1,20 +1,20 @@
 {
-    "last_updated": "2026-07-06 07:16:06 UTC",
+    "last_updated": "2026-07-13 06:25:05 UTC",
     "total_stocks": 12,
-    "completed": 9,
-    "failed": 3,
+    "completed": 7,
+    "failed": 5,
     "stocks": {
         "Lumax Auto Technologies": "Failed (All Models Exhausted): 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}",
-        "BEL": "Completed via gemini-2.5-flash (Audit: FAIL)",
+        "BEL": "Completed via gemini-2.5-flash (Audit: PASS)",
         "dixon": "Completed via gemini-2.5-flash (Audit: FAIL)",
-        "Acutaas Chemicals": "Completed via gemini-2.5-flash (Audit: FAIL)",
-        "Bliss GVS Pharma": "Completed via gemini-2.5-flash (Audit: FAIL)",
-        "Maithan Alloys": "Completed via gemini-2.5-flash (Audit: FAIL)",
+        "Acutaas Chemicals": "Completed via gemini-2.5-flash-lite (Audit: PASS)",
+        "Bliss GVS Pharma": "Failed (All Models Exhausted): 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}",
+        "Maithan Alloys": "Failed (All Models Exhausted): 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}",
         "CCL": "Failed (All Models Exhausted): 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}",
         "Bajajcon": "Completed via gemini-2.5-flash (Audit: FAIL)",
         "cgpower": "Completed via gemini-2.5-flash (Audit: FAIL)",
         "cupid": "Failed (All Models Exhausted): 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}",
-        "geship": "Completed via gemini-2.5-flash (Audit: FAIL)",
+        "geship": "Completed via gemini-2.5-flash-lite (Audit: PASS)",
         "hdfcamc": "Completed via gemini-2.5-flash (Audit: FAIL)"
     }
 }
