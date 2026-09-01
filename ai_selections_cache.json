@@ -1444,5 +1444,55 @@
             "SHAILY": "With a Master Score of 86.685, SHAILY is also in the Consumer Durables sector. This is the second symbol from this sector, reaching our acceptable concentration limit for known sectors (maximum 2). It provides a strong score while still fitting within the diversification strategy.",
             "WABAG": "While having a slightly lower Master Score (85.8395) than some immediate alternatives (e.g., NEULANDLAB at 86.4639), WABAG is strategically chosen because it introduces a completely new known sector: Utilities. This decision significantly enhances the portfolio's overall sector diversification, directly addressing the \"avoid sector over-concentration\" criterion. The benefit of adding a fresh sector outweighs the marginal difference in Master Score."
         }
+    },
+    "bt_2022-07-29_20": {
+        "symbols": [
+            "IMAGICAA",
+            "VISHNU",
+            "CINELINE",
+            "GSS",
+            "SDBL",
+            "SHAREINDIA",
+            "BCONCEPTS",
+            "E2E",
+            "FLUOROCHEM",
+            "PARTYCRUS",
+            "ADANIPOWER",
+            "CGPOWER",
+            "TDPOWERSYS",
+            "BETA",
+            "HUBTOWN",
+            "GANESHHOUC",
+            "SILVERTUC",
+            "IIFCL",
+            "RAJRATAN",
+            "GHCL"
+        ],
+        "reasons": {}
+    },
+    "bt_2023-06-30_20": {
+        "symbols": [
+            "SAFARI",
+            "VBL",
+            "ANANTRAJ",
+            "CGPOWER",
+            "APOLLO",
+            "IMAGICAA",
+            "NPST",
+            "BECTORFOOD",
+            "SHRIPISTON",
+            "EQUITASBNK",
+            "JSL",
+            "AURDIS",
+            "VENUSPIPES",
+            "JSLL",
+            "SKMEGGPROD",
+            "MAXHEALTH",
+            "INDHOTEL",
+            "REFEX",
+            "RAINBOW",
+            "KARURVYSYA"
+        ],
+        "reasons": {}
     }
 }
