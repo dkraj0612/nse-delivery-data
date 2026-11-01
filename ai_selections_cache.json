@@ -1818,5 +1818,281 @@
             "PGIL": "(Textiles, 82.9315) - PGIL provides a competitive `MASTER_SCORE` and adds the 'Textiles' sector, aligning with our objective to include diverse known sectors to avoid over-concentration.",
             "BSE": "(Financial Services, 82.8772) - As the final selection, BSE represents the 'Financial Services' sector with a robust `MASTER_SCORE`. This choice completes the portfolio by adding another distinct known sector, balancing score optimization with crucial diversification."
         }
+    },
+    "bt_2023-08-31_20": {
+        "symbols": [
+            "JWL",
+            "SKMEGGPROD",
+            "JSLL",
+            "POWERMECH",
+            "NPST",
+            "JSL",
+            "MKPL",
+            "SAKSOFT",
+            "AURDIS",
+            "INOXWIND",
+            "IWEL",
+            "KRISHNADEF",
+            "ANANTRAJ",
+            "SDBL",
+            "IONEXCHANG",
+            "CADSYS",
+            "JINDALSAW",
+            "FOCE",
+            "KARURVYSYA",
+            "BECTORFOOD"
+        ],
+        "reasons": {}
+    },
+    "bt_2023-12-29_20": {
+        "symbols": [
+            "NPST",
+            "RKFORGE",
+            "NEULANDLAB",
+            "KALYANKJIL",
+            "ELECTCAST",
+            "KAYNES",
+            "GREENPOWER",
+            "PENINLAND",
+            "TEXRAIL",
+            "JSL",
+            "ANANDRATHI",
+            "PARACABLES",
+            "HSCL",
+            "SHRIPISTON",
+            "SEPC",
+            "EMIL",
+            "GRAVITA",
+            "BSE",
+            "MARKSANS"
+        ],
+        "reasons": {
+            "NPST": "Highest Master Score in the dataset, a top-priority pick for structural price smoothness.",
+            "RKFORGE": "Excellent Master Score, securing a strong position for the Automobile and Auto Components sector.",
+            "NEULANDLAB": "High Master Score, an optimal selection for the Healthcare sector.",
+            "KALYANKJIL": "Strong Master Score, a valuable addition from the Consumer Durables sector.",
+            "ELECTCAST": "Master Score-driven selection, initiating exposure to the Capital Goods sector.",
+            "KAYNES": "High Master Score, further strengthening our Capital Goods allocation within diversification limits.",
+            "GREENPOWER": "Very high Master Score, enhancing overall portfolio quality.",
+            "PENINLAND": "High Master Score, selected to maintain overall portfolio strength.",
+            "TEXRAIL": "Strong Master Score, completing our desired allocation for the Capital Goods sector (3/3).",
+            "JSL": "High Master Score, providing initial exposure to the Metals & Mining sector.",
+            "ANANDRATHI": "Excellent Master Score, marking our first selection in Financial Services.",
+            "PARACABLES": "High Master Score, contributing to the portfolio's top-tier quality.",
+            "HSCL": "Strong Master Score, initiating a position in the Chemicals sector.",
+            "GMRP&UI": "High Master Score, securing an allocation for the Power sector.",
+            "SHRIPISTON": "Strong Master Score, completing our desired allocation for the Automobile and Auto Components sector (2/2).",
+            "SEPC": "Good Master Score, selected for overall portfolio strength given diversification constraints (reaching 5/5 for Unknown sector).",
+            "EMIL": "Strong Master Score, providing representation from the Consumer Services sector.",
+            "GRAVITA": "High Master Score, completing our desired allocation for the Metals & Mining sector (2/2).",
+            "BSE": "Strong Master Score, completing our desired allocation for the Financial Services sector (2/2).",
+            "MARKSANS": "Highest available Master Score from an under-represented sector (Healthcare), completing the portfolio (2/2)."
+        }
+    },
+    "bt_2024-02-29_20": {
+        "symbols": [
+            "INOXWIND",
+            "KPIGREEN",
+            "NEULANDLAB",
+            "ELECTCAST",
+            "WEBELSOLAR",
+            "JSLL",
+            "BSE",
+            "KAYNES",
+            "NPST",
+            "ANANDRATHI",
+            "RBMINFRA",
+            "ARVIND",
+            "SPECTRUM",
+            "SURANI",
+            "JKTYRE",
+            "KALYANKJIL",
+            "THOMASCOOK",
+            "DBREALTY",
+            "NBCC"
+        ],
+        "reasons": {}
+    },
+    "bt_2024-03-28_10": {
+        "symbols": [
+            "IBULHSGFIN",
+            "INOXWIND",
+            "ANANDRATHI",
+            "KAYNES",
+            "NEULANDLAB",
+            "ZOMATO",
+            "NEWGEN",
+            "MEDANTA",
+            "PRESTIGE",
+            "BSE"
+        ],
+        "reasons": {}
+    },
+    "bt_2024-05-31_10": {
+        "symbols": [
+            "JSLL",
+            "ANANDRATHI",
+            "VIVIANA",
+            "ZENTEC",
+            "TORNTPOWER",
+            "TARC",
+            "NEWGEN",
+            "FORCEMOT",
+            "ARVIND",
+            "TECHNOE"
+        ],
+        "reasons": {
+            "JSLL": "Selected as the top-ranked symbol with the highest Master Score (91.6737), providing an excellent foundation from the Consumer Services sector for optimal structural price smoothness.",
+            "ANANDRATHI": "The second highest-ranked selection (90.8634), strategically chosen to introduce the Financial Services sector early, ensuring immediate diversification.",
+            "VIVIANA": "With a high Master Score (89.9923), this symbol is included to capture top performance. Although its sector is \"Unknown,\" it represents a distinct category for diversification within the portfolio's initial selections.",
+            "ZENTEC": "A strong performer by Master Score (88.96), chosen to diversify into the Capital Goods sector, further broadening the portfolio's industrial exposure.",
+            "TORNTPOWER": "Selected for its high Master Score (88.291) and to incorporate the Power sector, maintaining our commitment to sector diversification.",
+            "TARC": "Valued for its strong Master Score (88.2154), this pick introduces the Realty sector, crucial for a diversified real estate exposure.",
+            "NEWGEN": "A high-scoring selection (87.6045) that brings the Information Technology sector into the portfolio, ensuring representation from a key growth area.",
+            "FORCEMOT": "Chosen for its solid Master Score (87.0336) and to add the Automobile and Auto Components sector, enhancing industrial diversification.",
+            "ARVIND": "With a respectable Master Score (85.9069), this symbol diversifies the portfolio further by introducing the Textiles sector.",
+            "TECHNOE": "While its Master Score (84.3155) is lower than some unselected candidates from already represented sectors, its inclusion is paramount for fulfilling the \"avoid sector over-concentration\" criterion. It introduces a new, unique sector\u2014Construction\u2014ensuring that all 10 portfolio symbols belong to distinct sectors. This maximizes diversification for the 10-symbol capacity."
+        }
+    },
+    "bt_2024-06-28_20": {
+        "symbols": [
+            "NHIT",
+            "JSLL",
+            "KALYANKJIL",
+            "TORNTPOWER",
+            "KPIGREEN",
+            "SPECTRUM",
+            "NPST",
+            "SCHNEIDER",
+            "KIRLOSENG",
+            "SWARAJ",
+            "SWSOLAR",
+            "VIVIANA",
+            "MOTILALOFS",
+            "THERMAX",
+            "FORCEMOT",
+            "THOMASCOOK",
+            "LODHA",
+            "HSCL",
+            "AURIONPRO"
+        ],
+        "reasons": {
+            "NHIT": "Selected for its exceptionally high Master Score of 94.1666, leading the overall ranking, contributing to portfolio quality.",
+            "JSLL": "With a strong Master Score of 92.8135, it represents the Consumer Services sector, providing valuable diversification.",
+            "KALYANKJIL": "A top-tier Master Score of 90.0118, this selection introduces the Consumer Durables sector, enhancing structural diversity.",
+            "TORNTPOWER": "Its Master Score of 89.1488 secures its position, initiating exposure to the crucial Power sector.",
+            "KPIGREEN": "Boasting a Master Score of 89.0463, this is the second selection from the Power sector, maintaining high score optimization within sector limits.",
+            "SPECTRUM": "Master Score of 88.9735, this is a strong 'Unknown' sector pick, contributing to overall score while staying within the 'Unknown' sector limit.",
+            "NPST": "With a Master Score of 88.9141, this 'Unknown' sector symbol adds further high-scoring quality to the portfolio.",
+            "SCHNEIDER": "Master Score of 88.6033, this is a key Capital Goods selection, diversifying into industrial segments.",
+            "KIRLOSENG": "A strong Master Score of 88.5029, this adds a second high-quality name from the Capital Goods sector.",
+            "SWARAJ": "Master Score of 88.3812, another high-ranking 'Unknown' sector pick, balancing score optimization and diversification.",
+            "SWSOLAR": "With a Master Score of 88.3182, this introduces the Construction sector, broadening the portfolio's economic exposure.",
+            "VIVIANA": "Master Score of 88.1038, continuing the trend of selecting high-scoring symbols from the 'Unknown' sector while respecting its concentration limit.",
+            "MOTILALOFS": "Master Score of 88.0893, this selection brings in the Financial Services sector, a vital component of a diversified portfolio.",
+            "THERMAX": "Demonstrating a Master Score of 87.8237, this is the third and final pick for the Capital Goods sector, reaching its concentration cap with a top-ranked symbol.",
+            "FORCEMOT": "With a Master Score of 87.7196, this entry diversifies into the Automobile and Auto Components sector.",
+            "THOMASCOOK": "Master Score of 87.6724, this is the second strong performer from the Consumer Services sector, optimizing score within sector limits.",
+            "GMRP&UI": "A Master Score of 87.5568, this is the third and final selection for the Power sector, ensuring high score and capping sector exposure.",
+            "LODHA": "Master Score of 87.4395, providing exposure to the Realty sector with a high-quality name.",
+            "HSCL": "With a Master Score of 87.4355, this selection introduces the Chemicals sector, further diversifying industrial exposure.",
+            "AURIONPRO": "Master Score of 87.3268, this final pick brings in the Information Technology sector, completing the 20-symbol portfolio with a high-scoring and diverse asset."
+        }
+    },
+    "bt_2024-11-29_10": {
+        "symbols": [
+            "ESFL",
+            "PASHUPATI",
+            "STAR",
+            "WEBELSOLAR",
+            "WOCKPHARMA",
+            "JSLL",
+            "SHAILY",
+            "PGEL",
+            "POLICYBZR",
+            "KITEX"
+        ],
+        "reasons": {}
+    },
+    "bt_2024-12-31_10": {
+        "symbols": [
+            "ESFL",
+            "RMDRIP",
+            "LEMERITE",
+            "JSLL",
+            "OFSS",
+            "POLICYBZR",
+            "PTCIL",
+            "MANORAMA",
+            "WOCKPHARMA"
+        ],
+        "reasons": {}
+    },
+    "bt_2025-08-29_10": {
+        "symbols": [
+            "NHIT",
+            "MVKAGRO",
+            "JSLL",
+            "FORTIS",
+            "HDFCAMC",
+            "LUMAXTECH",
+            "JKCEMENT",
+            "KIMS",
+            "MFSL",
+            "RADICO"
+        ],
+        "reasons": {
+            "NHIT": "Highest overall Master Score (95.5708). Despite being \"Unknown\", its exceptional score suggests strong structural price smoothness, making it a cornerstone pick for overall portfolio quality.",
+            "MVKAGRO": "Second highest Master Score (93.8715). Similar to NHIT, its very high score is a compelling factor, justifying its inclusion as a top-tier asset, balanced by the portfolio's known sector diversity.",
+            "JSLL": "Top-scoring entry from a known sector (Consumer Services, 91.4934). It offers excellent diversification into consumer-oriented services.",
+            "FORTIS": "High-scoring Healthcare sector entry (89.5642). Provides crucial exposure to the healthcare industry.",
+            "HDFCAMC": "High-scoring Financial Services entry (88.7437). Diversifies the portfolio into the financial sector.",
+            "LUMAXTECH": "Represents the Automobile and Auto Components sector (86.5601). Adds important industrial exposure.",
+            "JKCEMENT": "Represents the Construction Materials sector (86.2308). Provides further industrial diversification.",
+            "KIMS": "A second strong entry from the Healthcare sector (85.9583). While FORTIS already covers Healthcare, KIMS's high score and the importance of the sector justify a second, high-quality allocation to bolster this area without over-concentrating, given the limited number of highly-scoring unique known sectors.",
+            "MFSL": "A second strong entry from the Financial Services sector (85.4779). Similar to KIMS, MFSL provides additional, high-quality exposure to Financial Services, a critical sector, balancing diversification with optimizing for Master Score.",
+            "RADICO": "Represents the Fast Moving Consumer Goods sector (85.4175). Offers diversification into a defensive, consumer-oriented sector with a solid score."
+        }
+    },
+    "bt_2025-11-28_10": {
+        "symbols": [
+            "NHIT",
+            "MVKAGRO",
+            "POLYSIL",
+            "MAFANG",
+            "DPEL",
+            "TAC",
+            "ESILVER",
+            "BAJFINANCE",
+            "LAURUSLABS",
+            "CARTRADE"
+        ],
+        "reasons": {}
+    },
+    "bt_2025-12-31_10": {
+        "symbols": [
+            "NHIT",
+            "MVKAGRO",
+            "GOLDIETF",
+            "POLYSIL",
+            "EGOLD",
+            "MARUTI",
+            "ANANDRATHI",
+            "LAURUSLABS",
+            "BLACKBUCK",
+            "BHARTIARTL"
+        ],
+        "reasons": {
+            "NHIT": "Selected for its market-leading Master Score (97.7098), reflecting optimal structural price smoothness. As the top-ranked symbol, it is a non-negotiable inclusion for performance optimization.",
+            "MVKAGRO": "Chosen for its exceptional Master Score (93.3811), ranking as the second-highest overall. This selection directly optimizes the portfolio for structural price smoothness.",
+            "GOLDIETF": "Included due to its very high Master Score (93.2065), securing the third position overall. This contributes significantly to the portfolio's overall price smoothness profile.",
+            "POLYSIL": "Selected for its strong Master Score (92.7023), placing it fourth highest. This choice further enhances the portfolio's foundational quality for structural price smoothness.",
+            "EGOLD": "A top-tier selection with a Master Score of 91.9131 (fifth highest), directly aligning with the objective to optimize for structural price smoothness based on the Master Score.",
+            "MARUTI": "Chosen as the highest-scoring symbol (88.6031) within the 'Automobile and Auto Components' sector. This selection ensures diversification across known industry segments while maintaining a strong Master Score for its category.",
+            "ANANDRATHI": "Included as the top performer (88.3905) within the 'Financial Services' sector. This addresses the need for sector diversification and integrates a high-quality financial services asset into the portfolio.",
+            "LAURUSLABS": "Selected for its leading Master Score (87.9086) within the 'Healthcare' sector. This provides essential exposure to the healthcare industry and contributes to overall portfolio diversification.",
+            "BLACKBUCK": "Identified as the highest-scoring candidate (86.6175) from the 'Services' sector. This pick strategically diversifies the portfolio into the services economy, mitigating over-concentration risks.",
+            "BHARTIARTL": "The top-ranked symbol (86.4047) in the 'Telecommunication' sector. This ensures comprehensive sector diversification, providing exposure to a critical infrastructure industry while maintaining a robust Master Score."
+        }
     }
 }
